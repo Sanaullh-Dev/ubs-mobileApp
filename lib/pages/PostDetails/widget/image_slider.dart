@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:ubs/utils/custom_fun.dart';
 
 // final List<String> imgList = [
 //   'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -32,9 +33,10 @@ class ImageSlider extends StatelessWidget {
           dotSize: 8,
           dotSpacing: 25,
           images: imgList
-              .map((e) => Image.asset(e,
-              fit: BoxFit.fitHeight,
-              ))
+              .map((e) => Image.network(
+                    getLink(e),
+                    fit: BoxFit.fitHeight,
+                  ))
               .toList(),
         ));
   }

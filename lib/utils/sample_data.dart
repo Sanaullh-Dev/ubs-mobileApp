@@ -1,4 +1,3 @@
-import 'package:ubs/pages/categories/sub_categories.dart';
 
 const RE_DATA = [
   {
@@ -17,150 +16,147 @@ const RE_DATA = [
   }
 ];
 
-// "icon" : FontAwesomeIcons.treeCity,
-// "color" : Colors.yellow,
-
-const List categoriesList = [
-  {
-    "title": "Properties",
-    "img": "lib/assets/images/icon/city-building.png",
-    "SubCategories": [
-      {"subCatId": "1", "subCatName": "Properties Sub Categories Name of 1"},
-      {"subCatId": "2", "subCatName": "Properties Sub Categories Name of 2"},
-      {"subCatId": "3", "subCatName": "Properties Sub Categories Name of 3"},
-      {"subCatId": "4", "subCatName": "Properties Sub Categories Name of 4"},
-      {"subCatId": "5", "subCatName": "Properties Sub Categories Name of 5"},
-    ]
-  },
-  {
-    "title": "Mobile",
-    "img": "lib/assets/images/icon/smartphone.png",
-    "SubCategories": [
-      {"subCatId": "1", "subCatName": "Mobile Sub Categories Name of 1"},
-      {"subCatId": "2", "subCatName": "Mobile Sub Categories Name of 2"},
-      {"subCatId": "3", "subCatName": "Mobile Sub Categories Name of 3"},
-      {"subCatId": "4", "subCatName": "Mobile Sub Categories Name of 4"},
-      {"subCatId": "5", "subCatName": "Mobile Sub Categories Name of 5"},
-    ]
-  },
-  {
-    "title": "Jobs",
-    "img": "lib/assets/images/icon/businessman.png",
-    "SubCategories": [
-      {"subCatId": "1", "subCatName": "Jobs Sub Categories Name of 1"},
-      {"subCatId": "2", "subCatName": "Jobs Sub Categories Name of 2"},
-      {"subCatId": "3", "subCatName": "Jobs Sub Categories Name of 3"},
-      {"subCatId": "4", "subCatName": "Jobs Sub Categories Name of 4"},
-      {"subCatId": "5", "subCatName": "Jobs Sub Categories Name of 5"},
-    ]
-  },
-  {
-    "title": "Bike",
-    "img": "lib/assets/images/icon/scooter.png",
-    "SubCategories": [
-      {"subCatId": "1", "subCatName": "Bike Sub Categories Name of 1"},
-      {"subCatId": "2", "subCatName": "Bike Sub Categories Name of 2"},
-      {"subCatId": "3", "subCatName": "Bike Sub Categories Name of 3"},
-      {"subCatId": "4", "subCatName": "Bike Sub Categories Name of 4"},
-      {"subCatId": "5", "subCatName": "Bike Sub Categories Name of 5"},
-    ]
-  },
-  {
-    "title": "Electronics & Appliance",
-    "img": "lib/assets/images/icon/washing-machine.png",
-    "SubCategories": [
-      {"subCatId": "1", "subCatName": "Electronics Sub Categories Name of 1"},
-      {"subCatId": "2", "subCatName": "Appliance Sub Categories Name of 2"},
-      {"subCatId": "3", "subCatName": "Appliance Sub Categories Name of 3"},
-      {
-        "subCatId": "4",
-        "subCatName": "Electronics & Appliance Sub Categories Name of 4"
-      },
-      {"subCatId": "5", "subCatName": "Electronics Sub Categories Name of 5"},
-    ]
-  },
-  {
-    "title": "Commercial Vehicles",
-    "img": "lib/assets/images/icon/vehicle.png",
-    "SubCategories": [
-      {
-        "subCatId": "1",
-        "subCatName": "Commercial Vehicles Sub Categories Name of 1"
-      },
-      {
-        "subCatId": "2",
-        "subCatName": "Commercial Vehicles Sub Categories Name of 2"
-      },
-      {
-        "subCatId": "3",
-        "subCatName": "Commercial Vehicles Sub Categories Name of 3"
-      },
-      {
-        "subCatId": "4",
-        "subCatName": "Commercial Vehicles Sub Categories Name of 4"
-      },
-      {
-        "subCatId": "5",
-        "subCatName": "Commercial Vehicles Sub Categories Name of 5"
-      },
-    ]
-  },
-  {
-    "title": "Furniture",
-    "img": "lib/assets/images/icon/cupboard.png",
-    "SubCategories": [
-      {"subCatId": "1", "subCatName": "Furniture Sub Categories Name of 1"},
-      {"subCatId": "2", "subCatName": "Furniture Sub Categories Name of 2"},
-      {"subCatId": "3", "subCatName": "Furniture Sub Categories Name of 3"},
-      {"subCatId": "4", "subCatName": "Furniture Sub Categories Name of 4"},
-      {"subCatId": "5", "subCatName": "Furniture Sub Categories Name of 5"},
-    ]
-  },
-  {
-    "title": "Fashion",
-    "img": "lib/assets/images/icon/clothing.png",
-    "SubCategories": [
-      {"subCatId": "1", "subCatName": "Fashion Sub Categories Name of 1"},
-      {"subCatId": "2", "subCatName": "Fashion Sub Categories Name of 2"},
-      {"subCatId": "3", "subCatName": "Fashion Sub Categories Name of 3"},
-      {"subCatId": "4", "subCatName": "Fashion Sub Categories Name of 4"},
-      {"subCatId": "5", "subCatName": "Fashion Sub Categories Name of 5"},
-    ]
-  },
-  {
-    "title": "Books, Sports & Hobbies",
-    "img": "lib/assets/images/icon/guitar.png",
-    "SubCategories": [
-      {"subCatId": "1", "subCatName": "Books Sub Categories Name of 1"},
-      {"subCatId": "2", "subCatName": "Sports Sub Categories Name of 2"},
-      {"subCatId": "3", "subCatName": "Hobbies Sub Categories Name of 3"},
-      {"subCatId": "4", "subCatName": "Books Sub Categories Name of 4"},
-      {"subCatId": "5", "subCatName": "Hobbies Sub Categories Name of 5"},
-    ]
-  },
-  {
-    "title": "Pets",
-    "img": "lib/assets/images/icon/pets.png",
-    "SubCategories": [
-      {"subCatId": "1", "subCatName": "Pets Sub Categories Name of 1"},
-      {"subCatId": "2", "subCatName": "Pets Sub Categories Name of 2"},
-      {"subCatId": "3", "subCatName": "Pets Sub Categories Name of 3"},
-      {"subCatId": "4", "subCatName": "Pets Sub Categories Name of 4"},
-      {"subCatId": "5", "subCatName": "Pets Sub Categories Name of 5"},
-    ]
-  },
-  {
-    "title": "Services",
-    "img": "lib/assets/images/icon/customer-support.png",
-    "SubCategories": [
-      {"subCatId": "1", "subCatName": "Services Sub Categories Name of 1"},
-      {"subCatId": "2", "subCatName": "Services Sub Categories Name of 2"},
-      {"subCatId": "3", "subCatName": "Services Sub Categories Name of 3"},
-      {"subCatId": "4", "subCatName": "Services Sub Categories Name of 4"},
-      {"subCatId": "5", "subCatName": "Services Sub Categories Name of 5"},
-    ]
-  }
-];
+// const List categoriesList = [
+//   {
+//     "title": "Properties",
+//     "img": "lib/assets/images/icon/property.png",
+//     "SubCategories": [
+//       {"subCatId": "1", "subCatName": "Properties Sub Categories Name of 1"},
+//       {"subCatId": "2", "subCatName": "Properties Sub Categories Name of 2"},
+//       {"subCatId": "3", "subCatName": "Properties Sub Categories Name of 3"},
+//       {"subCatId": "4", "subCatName": "Properties Sub Categories Name of 4"},
+//       {"subCatId": "5", "subCatName": "Properties Sub Categories Name of 5"},
+//     ]
+//   },
+//   {
+//     "title": "Mobile",
+//     "img": "lib/assets/images/icon/mobiles.png",
+//     "SubCategories": [
+//       {"subCatId": "1", "subCatName": "Mobile Sub Categories Name of 1"},
+//       {"subCatId": "2", "subCatName": "Mobile Sub Categories Name of 2"},
+//       {"subCatId": "3", "subCatName": "Mobile Sub Categories Name of 3"},
+//       {"subCatId": "4", "subCatName": "Mobile Sub Categories Name of 4"},
+//       {"subCatId": "5", "subCatName": "Mobile Sub Categories Name of 5"},
+//     ]
+//   },
+//   {
+//     "title": "Jobs",
+//     "img": "lib/assets/images/icon/jobs.png",
+//     "SubCategories": [
+//       {"subCatId": "1", "subCatName": "Jobs Sub Categories Name of 1"},
+//       {"subCatId": "2", "subCatName": "Jobs Sub Categories Name of 2"},
+//       {"subCatId": "3", "subCatName": "Jobs Sub Categories Name of 3"},
+//       {"subCatId": "4", "subCatName": "Jobs Sub Categories Name of 4"},
+//       {"subCatId": "5", "subCatName": "Jobs Sub Categories Name of 5"},
+//     ]
+//   },
+//   {
+//     "title": "Bike",
+//     "img": "lib/assets/images/icon/bikes.png",
+//     "SubCategories": [
+//       {"subCatId": "1", "subCatName": "Bike Sub Categories Name of 1"},
+//       {"subCatId": "2", "subCatName": "Bike Sub Categories Name of 2"},
+//       {"subCatId": "3", "subCatName": "Bike Sub Categories Name of 3"},
+//       {"subCatId": "4", "subCatName": "Bike Sub Categories Name of 4"},
+//       {"subCatId": "5", "subCatName": "Bike Sub Categories Name of 5"},
+//     ]
+//   },
+//   {
+//     "title": "Electronics & Appliance",
+//     "img": "lib/assets/images/icon/elections_appliances.png",
+//     "SubCategories": [
+//       {"subCatId": "1", "subCatName": "Electronics Sub Categories Name of 1"},
+//       {"subCatId": "2", "subCatName": "Appliance Sub Categories Name of 2"},
+//       {"subCatId": "3", "subCatName": "Appliance Sub Categories Name of 3"},
+//       {
+//         "subCatId": "4",
+//         "subCatName": "Electronics & Appliance Sub Categories Name of 4"
+//       },
+//       {"subCatId": "5", "subCatName": "Electronics Sub Categories Name of 5"},
+//     ]
+//   },
+//   {
+//     "title": "Commercial Vehicles",
+//     "img": "lib/assets/images/icon/bikes.png",
+//     "SubCategories": [
+//       {
+//         "subCatId": "1",
+//         "subCatName": "Commercial Vehicles Sub Categories Name of 1"
+//       },
+//       {
+//         "subCatId": "2",
+//         "subCatName": "Commercial Vehicles Sub Categories Name of 2"
+//       },
+//       {
+//         "subCatId": "3",
+//         "subCatName": "Commercial Vehicles Sub Categories Name of 3"
+//       },
+//       {
+//         "subCatId": "4",
+//         "subCatName": "Commercial Vehicles Sub Categories Name of 4"
+//       },
+//       {
+//         "subCatId": "5",
+//         "subCatName": "Commercial Vehicles Sub Categories Name of 5"
+//       },
+//     ]
+//   },
+//   {
+//     "title": "Furniture",
+//     "img": "lib/assets/images/icon/furniture.png",
+//     "SubCategories": [
+//       {"subCatId": "1", "subCatName": "Furniture Sub Categories Name of 1"},
+//       {"subCatId": "2", "subCatName": "Furniture Sub Categories Name of 2"},
+//       {"subCatId": "3", "subCatName": "Furniture Sub Categories Name of 3"},
+//       {"subCatId": "4", "subCatName": "Furniture Sub Categories Name of 4"},
+//       {"subCatId": "5", "subCatName": "Furniture Sub Categories Name of 5"},
+//     ]
+//   },
+//   {
+//     "title": "Fashion",
+//     "img": "lib/assets/images/icon/fashion.png",
+//     "SubCategories": [
+//       {"subCatId": "1", "subCatName": "Fashion Sub Categories Name of 1"},
+//       {"subCatId": "2", "subCatName": "Fashion Sub Categories Name of 2"},
+//       {"subCatId": "3", "subCatName": "Fashion Sub Categories Name of 3"},
+//       {"subCatId": "4", "subCatName": "Fashion Sub Categories Name of 4"},
+//       {"subCatId": "5", "subCatName": "Fashion Sub Categories Name of 5"},
+//     ]
+//   },
+//   {
+//     "title": "Books, Sports & Hobbies",
+//     "img": "lib/assets/images/icon/hobbies.png",
+//     "SubCategories": [
+//       {"subCatId": "1", "subCatName": "Books Sub Categories Name of 1"},
+//       {"subCatId": "2", "subCatName": "Sports Sub Categories Name of 2"},
+//       {"subCatId": "3", "subCatName": "Hobbies Sub Categories Name of 3"},
+//       {"subCatId": "4", "subCatName": "Books Sub Categories Name of 4"},
+//       {"subCatId": "5", "subCatName": "Hobbies Sub Categories Name of 5"},
+//     ]
+//   },
+//   {
+//     "title": "Pets",
+//     "img": "lib/assets/images/icon/pets.png",
+//     "SubCategories": [
+//       {"subCatId": "1", "subCatName": "Pets Sub Categories Name of 1"},
+//       {"subCatId": "2", "subCatName": "Pets Sub Categories Name of 2"},
+//       {"subCatId": "3", "subCatName": "Pets Sub Categories Name of 3"},
+//       {"subCatId": "4", "subCatName": "Pets Sub Categories Name of 4"},
+//       {"subCatId": "5", "subCatName": "Pets Sub Categories Name of 5"},
+//     ]
+//   },
+//   {
+//     "title": "Services",
+//     "img": "lib/assets/images/icon/services.png",
+//     "SubCategories": [
+//       {"subCatId": "1", "subCatName": "Services Sub Categories Name of 1"},
+//       {"subCatId": "2", "subCatName": "Services Sub Categories Name of 2"},
+//       {"subCatId": "3", "subCatName": "Services Sub Categories Name of 3"},
+//       {"subCatId": "4", "subCatName": "Services Sub Categories Name of 4"},
+//       {"subCatId": "5", "subCatName": "Services Sub Categories Name of 5"},
+//     ]
+//   }
+// ];
 
 const List addLists = [
   {

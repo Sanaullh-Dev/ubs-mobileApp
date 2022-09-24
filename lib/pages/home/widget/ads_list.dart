@@ -1,33 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:ubs/model/post_model.dart';
-import 'package:ubs/pages/Post/post_details.dart';
+import 'package:ubs/model/ads_post.dart';
+import 'package:ubs/pages/PostDetails/post_details.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
+import 'package:ubs/utils/custom_fun.dart';
 
 class AdsList extends StatelessWidget {
-  final List<PostModel> postList;
-  const AdsList({Key? key, required this.postList}) : super(key: key);
+  final List<AdsPost> adsPost;
+  const AdsList({Key? key, required this.adsPost}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final ThemeData themData = Theme.of(context);
+    // var uri = API_URL + "/" + adsPost.catImg.replaceAll("\\", "/");
 
     return AlignedGridView.count(
       primary: false,
       shrinkWrap: true,
       crossAxisCount: 2,
       // scrollDirection: Axis.vertical,
-      itemCount: postList.length,
+      itemCount: adsPost.length,
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
           onTap: () {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => PostDetails(
-                          postData: postList[index],
-                        )));
+              context,
+              MaterialPageRoute(
+                builder: (context) => PostDetails(
+                  // postData: postList[index],
+                  adsPostData: adsPost[index],
+                ),
+              ),
+            );
           },
           child: Container(
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
@@ -44,35 +49,26 @@ class AdsList extends StatelessWidget {
                     // --- For Cover Image
                     Container(
                       alignment: Alignment.center,
-                      height: 160,
+                      height: 140,
                       child: Hero(
-                        tag: "post${postList[index].id}",
+                        tag: "post${adsPost[index].pId}",
                         transitionOnUserGestures: true,
-                        child: Image.asset(
-                          // AddLists[index]["image1"],
-                          postList[index].image1,
-                          fit: BoxFit.contain,
+                        child: Image.network(
+                          getLink(adsPost[index].pImg1),
+                          // color: Colors.white,
+                          // colorBlendMode: BlendMode.color,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
                     // ----- for features batch
                     Positioned(
-                        top: 10,
-                        left: 0,
-                        child: postList[index].features == "no"
-                            ? const SizedBox()
-                            : Container(
-                                color: Colors.amber.shade400,
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 3, horizontal: 6),
-                                child: const Text(
-                                  "Features",
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      letterSpacing: 0.8,
-                                      color: Colors.black),
-                                ),
-                              )),
+                      top: 10,
+                      left: 0,
+                      child: adsPost[index].pImg3 == null
+                          ? const SizedBox()
+                          : featuredTag(),
+                    ),
                     // ------ for favorite icon
                     Positioned(
                         right: 5,
@@ -82,11 +78,11 @@ class AdsList extends StatelessWidget {
                           decoration: favoriteBorder,
                           child: Icon(
                             // AddLists[index]. ["Favorite"] == "yes"
-                            postList[index].favorite == "yes"
+                            adsPost[index].pImg3 != null
                                 ? Icons.favorite
                                 : Icons.favorite_border,
                             size: 25,
-                            color: postList[index].favorite == "yes"
+                            color: adsPost[index].pImg3 != null
                                 ? Colors.red
                                 : Colors.black54,
                           ),
@@ -98,8 +94,7 @@ class AdsList extends StatelessWidget {
                   height: 25,
                   // -----for Name product
                   child: Text(
-                    //  AddLists[index]["Amount"],
-                    "\$ ${postList[index].amount}",
+                    "₹ ${adsPost[index].pPrice.toString()}",
                     style: themData.textTheme.headline5,
                   ),
                 ),
@@ -107,8 +102,7 @@ class AdsList extends StatelessWidget {
                   height: 30,
                   // -----for Name product
                   child: Text(
-                    // AddLists[index]["Name"],
-                    postList[index].name,
+                    adsPost[index].pTitle,
                     style: themData.textTheme.titleSmall,
                     overflow: TextOverflow.ellipsis,
                     softWrap: false,
@@ -125,7 +119,7 @@ class AdsList extends StatelessWidget {
                     addHorizontalSpace(5),
                     Text(
                       // AddLists[index]["Location"],
-                      postList[index].location,
+                      adsPost[index].pLocation,
                       style: themData.textTheme.subtitle1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,

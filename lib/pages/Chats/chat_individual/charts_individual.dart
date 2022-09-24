@@ -19,6 +19,7 @@ class _ChatIndividualState extends State<ChatIndividual>
   PanelController _penelController = PanelController();
   double maxHeight = 120;
   bool isTyping = false;
+  TextEditingController messageBox = TextEditingController();
 
   @override
   void initState() {
@@ -39,7 +40,6 @@ class _ChatIndividualState extends State<ChatIndividual>
     return SafeArea(
       child: Stack(
         children: [
-          // Image.asset("lib/assets/images/chatscreen1.png",
           ColorFiltered(
             colorFilter:
                 const ColorFilter.mode(Colors.white, BlendMode.saturation),
@@ -50,7 +50,6 @@ class _ChatIndividualState extends State<ChatIndividual>
               fit: BoxFit.cover,
             ),
           ),
-
           Scaffold(
             // key: _key,
             backgroundColor: Colors.blueGrey.shade100.withAlpha(210),
@@ -94,15 +93,12 @@ class _ChatIndividualState extends State<ChatIndividual>
                   ),
                 ),
                 SlidingUpPanel(
-                  // maxHeight:
-                  //     MediaQuery.of(context).viewInsets.bottom > 0 ? 110 : 290,
                   maxHeight: isTyping == true ? maxHeight : 290,
                   minHeight: 60,
                   defaultPanelState: PanelState.OPEN,
-                  // color: Colors.red,
                   controller: _penelController,
                   header: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     width: size.width,
                     height: 60,
                     color: Colors.white70,
@@ -123,17 +119,17 @@ class _ChatIndividualState extends State<ChatIndividual>
                             controller: _tabController,
                             indicatorWeight: 3,
                             indicatorColor: COLOR_INDICATOR,
-                            labelPadding: EdgeInsets.only(bottom: 15),
+                            labelPadding: const EdgeInsets.only(bottom: 15),
                             tabs: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     FontAwesomeIcons.message,
                                     size: 25,
                                   ),
                                   addHorizontalSpace(12),
-                                  Text(
+                                  const Text(
                                     "Chart",
                                     style: TextStyle(fontSize: 16),
                                   ),
@@ -142,12 +138,12 @@ class _ChatIndividualState extends State<ChatIndividual>
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     FontAwesomeIcons.handPointer,
                                     size: 25,
                                   ),
                                   addHorizontalSpace(12),
-                                  Text(
+                                  const Text(
                                     "Make Offer",
                                     style: TextStyle(fontSize: 16),
                                   ),
@@ -160,7 +156,7 @@ class _ChatIndividualState extends State<ChatIndividual>
                     ),
                   ),
                   panel: Container(
-                    margin: EdgeInsets.only(top: 60),
+                    margin: const EdgeInsets.only(top: 60),
                     child: TabBarView(
                       controller: _tabController,
                       children: [
@@ -181,6 +177,7 @@ class _ChatIndividualState extends State<ChatIndividual>
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(0)),
                                 child: TextField(
+                                  controller: messageBox,
                                   onTap: () {
                                     isTyping = true;
                                     setState(() {});
@@ -201,10 +198,10 @@ class _ChatIndividualState extends State<ChatIndividual>
                                   style: const TextStyle(
                                     fontSize: 20,
                                   ),
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     hintText: "Type a message",
                                     border: InputBorder.none,
-                                    prefixIcon: Padding(
+                                    prefixIcon: const Padding(
                                       padding: EdgeInsets.only(right: 8),
                                       child: Icon(
                                         FontAwesomeIcons.paperclip,
@@ -212,9 +209,23 @@ class _ChatIndividualState extends State<ChatIndividual>
                                         size: 25,
                                       ),
                                     ),
-                                    suffixIcon:
-                                        Icon(FontAwesomeIcons.microphone),
-                                    hintStyle: TextStyle(
+                                    suffixIcon: TextButton(
+                                      onPressed: () {},
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: COLOR_PRIMARY,
+                                        shape: const CircleBorder(),
+                                      ),
+                                      child: messageBox.text != ""
+                                          ? const Icon(
+                                              Icons.send,
+                                              color: Colors.white,
+                                            )
+                                          : const Icon(
+                                              FontAwesomeIcons.microphone,
+                                              color: Colors.white,
+                                            ),
+                                    ),
+                                    hintStyle: const TextStyle(
                                       fontSize: 20,
                                     ),
                                   ),
@@ -226,9 +237,8 @@ class _ChatIndividualState extends State<ChatIndividual>
                               visible: !isTyping,
                               child: Wrap(
                                 children: [
-                                  
-                                  Text("Is it available?",
-                                  
+                                  Text(
+                                    "Is it available?",
                                   )
                                 ],
                               ),

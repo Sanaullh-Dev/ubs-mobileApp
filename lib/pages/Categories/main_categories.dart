@@ -1,7 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:ubs/model/categories.dart';
 import 'package:ubs/pages/Categories/sub_categories.dart';
 import 'package:ubs/utils/constants.dart';
+import 'package:ubs/utils/custom_fun.dart';
 
 class MainCategories extends StatelessWidget {
   final List<Categories> catData;
@@ -55,19 +57,20 @@ class MainCategories extends StatelessWidget {
                           builder: (context) => SubCategoriesPage(
                             gotoPage: "Buy",
                               catData: catData[index],
-                              subCategoryData: catData[index].subCategories),
+                              // subCategoryData: catData[index].subCategories
+                              ),
                         ),
                       );
                     },
                     leading: SizedBox(
                       height: 60,
-                      child: Image.asset(
-                        catData[index].img,
+                      child: Image.network(
+                        getLink(catData[index].catImg),
                         fit: BoxFit.cover,
                       ),
                     ),
                     title: Text(
-                      catData[index].title,
+                      catData[index].catName,
                       style: const TextStyle(
                           color: COLOR_BLACK,
                           fontWeight: FontWeight.w500,

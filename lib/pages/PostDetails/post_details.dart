@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ubs/model/post_model.dart';
-import 'package:ubs/pages/Post/widget/details_points.dart';
-import 'package:ubs/pages/Post/widget/image_slider.dart';
-import 'package:ubs/pages/Post/widget/title_bar.dart';
+import 'package:ubs/model/ads_post.dart';
+import 'package:ubs/pages/PostDetails/widget/RelatedAds.dart';
+import 'package:ubs/pages/PostDetails/widget/image_slider.dart';
+import 'package:ubs/pages/PostDetails/widget/title_bar.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
-import 'package:ubs/pages/Post/widget/RelatedAds.dart';
 import 'package:ubs/utils/constants.dart';
 
 class PostDetails extends StatelessWidget {
-  final PostModel postData;
-  const PostDetails({super.key, required this.postData});
+  // final PostModel postData;
+  final AdsPost adsPostData;
+  const PostDetails({super.key, required this.adsPostData});
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final TextTheme textTheme = Theme.of(context).textTheme;
-    
+    List<String> imgeLi = getImage(adsPostData);
     return SafeArea(
       child: Scaffold(
         body: SizedBox(
@@ -29,39 +29,34 @@ class PostDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Hero(
-                      tag: "post${postData.id}",
+                      tag: "post${adsPostData.pId}",
                       child: ImageSlider(
-                        imgList: [
-                          // ads["image1"],
-                          postData.image1,
-                          postData.image2,
-                          postData.image3,
-                        ],
+                        imgList: imgeLi,
                       ),
                     ),
                     // Ads heading Section
-                    TitleBar(postData: postData),
+                    TitleBar(adsPostData: adsPostData),
                     addVerticalSpace(15),
                     // Details Point section
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Details",
-                            style: textTheme.headline3,
-                          ),
-                          addVerticalSpace(8),
-                          const DetailsPoints(title: "Type", info: "Apartment"),
-                          const DetailsPoints(title: "Type", info: "Apartment"),
-                          const DetailsPoints(title: "Type", info: "Apartment"),
-                          const DetailsPoints(title: "Type", info: "Apartment"),
-                        ],
-                      ),
-                    ),
-                    addDivider(),
+                    // Padding(
+                    //   padding: const EdgeInsets.symmetric(
+                    //       vertical: 8, horizontal: 15),
+                    //   child: Column(
+                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                    //     children: [
+                    //       Text(
+                    //         "Details",
+                    //         style: textTheme.headline3,
+                    //       ),
+                    //       addVerticalSpace(8),
+                    //       const DetailsPoints(title: "Type", info: "Apartment"),
+                    //       const DetailsPoints(title: "Type", info: "Apartment"),
+                    //       const DetailsPoints(title: "Type", info: "Apartment"),
+                    //       const DetailsPoints(title: "Type", info: "Apartment"),
+                    //     ],
+                    //   ),
+                    // ),
+                    // addDivider(),
                     // Description section
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -74,8 +69,8 @@ class PostDetails extends StatelessWidget {
                             style: textTheme.headline3,
                           ),
                           addVerticalSpace(8),
-                          const Text(
-                            '''Lorem ipsum dolor sit amet consectetur adipisicing elit.Maxime mollitia molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum''',
+                          Text(
+                            adsPostData.pDescribe,
                             textAlign: TextAlign.start,
                           )
                         ],
@@ -92,7 +87,7 @@ class PostDetails extends StatelessWidget {
                         style: textTheme.headline3,
                       ),
                     ),
-                    const RelatedAds()
+                    RelatedAds(mCateId: adsPostData.pMcat)
                   ],
                 ),
               ),
@@ -144,13 +139,17 @@ class PostDetails extends StatelessWidget {
           color: Colors.white,
           elevation: 50,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8 , horizontal: 18),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 18),
             child: Row(
               children: [
                 Expanded(
                   child: TextButton.icon(
                     onPressed: () {},
-                    icon: Icon(FontAwesomeIcons.comment,size: 25, color: Colors.white,),
+                    icon: Icon(
+                      FontAwesomeIcons.comment,
+                      size: 25,
+                      color: Colors.white,
+                    ),
                     label: Text(
                       "Chart",
                       style: buttonTextStyle,
@@ -175,4 +174,27 @@ class PostDetails extends StatelessWidget {
       ),
     );
   }
+}
+
+List<String> getImage(AdsPost adsData) {
+  List<String> li = [];
+  if (adsData.pImg1 != null) {
+    li.add(adsData.pImg1);
+  }
+  if (adsData.pImg2 != null) {
+    li.add(adsData.pImg2);
+  }
+
+  if (adsData.pImg3 != null) {
+    li.add(adsData.pImg3);
+  }
+
+  if (adsData.pImg4 != null) {
+    li.add(adsData.pImg4);
+  }
+
+  if (adsData.pImg5 != null) {
+    li.add(adsData.pImg5);
+  }
+  return li;
 }

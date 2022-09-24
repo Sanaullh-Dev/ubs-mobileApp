@@ -12,6 +12,10 @@ const Color COLOR_BORDER = Color(0xFFB0BEC5);
 const Color COLOR_INDICATOR = Color(0xFF78909C);
 const Color COLOR_INDICATOR_LIGHT = Color(0xFF7C888E);
 
+// const String API_URL = "localhost:8080";
+const String API_URL = "http://10.0.2.2:8080";
+
+
 Map<int, Color> primarySwatchColor = const {
   50: Color.fromRGBO(255, 187, 0, .1),
   100: Color.fromRGBO(255, 187, 0, .2),

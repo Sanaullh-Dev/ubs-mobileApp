@@ -72,7 +72,7 @@ class SearchBar extends StatelessWidget {
                 width: width * 0.1,
                 child: const Icon(
                   Icons.notifications_none,
-                  size: iconsSize * 0.8,
+                  size: 40 * 0.8,
                   color: Colors.black87,
                 )),
           )

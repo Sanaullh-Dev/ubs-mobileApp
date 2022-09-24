@@ -3,9 +3,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:get/get.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:photo_gallery/photo_gallery.dart';
-import 'package:ubs/pages/selling/P3_price/sale_final_page.dart';
+import 'package:ubs/pages/selling/P2_image_Picker/widget/imge_load.dart';
+import 'package:ubs/pages/selling/P3_price_location/sale_final_page.dart';
+import 'package:ubs/pages/selling/controller/selling_controller.dart';
 import 'package:ubs/pages/selling/widgets/next_btn.dart';
 import 'package:ubs/pages/selling/P2_image_Picker/widget/photo_tile.dart';
 import 'package:ubs/pages/selling/P2_image_Picker/widget/select_image_silder.dart';
@@ -19,45 +22,73 @@ class ImagePickerPage extends StatefulWidget {
 }
 
 class _ImagePickerPageState extends State<ImagePickerPage> {
-  List<Medium>? _mediaImg;
-  bool _loading = true;
+  SellingController sellingController = Get.find<SellingController>();
   ImageProvider? selImg;
-  List<String> pathList = [];
+  List<String> selectedPath = [];
+  List<String> loadPaths = [];
   List<Medium> mediumList = [];
+  ScrollController scrollController = ScrollController();
+  int count = 0;
 
   @override
   void initState() {
     initAsync();
     super.initState();
+    scrollController = ScrollController()..addListener(handleScrolling);
+  }
+
+  @override
+  void dispose() {
+    scrollController.removeListener(handleScrolling);
+    super.dispose();
+  }
+
+  void handleScrolling() async {
+    if (scrollController.offset >= scrollController.position.maxScrollExtent) {
+      getPathList();
+    }
+  }
+
+  void getPathList() async {
+    File imgFile;
+    int _beforcount = count;
+
+    if (count < mediumList.length) {
+      count = mediumList.length < count + 15 ? mediumList.length : count + 15;
+
+      for (var i = _beforcount; i < count; i++) {
+        imgFile = await PhotoGallery.getFile(mediumId: mediumList[i].id);
+        if (imgFile.existsSync()) {
+          loadPaths.add(imgFile.path.toString());
+        }
+      }
+      setState(() {});
+    }
   }
 
   Future<void> initAsync() async {
-    if (await _promptPermissionSetting()) {
-      List<Album> albums =
-          await PhotoGallery.listAlbums(mediumType: MediumType.image);
-
-      Album _allAlbum =
-          albums.where((element) => element.name == "Camera").first;
-      MediaPage mediaPage = await _allAlbum.listMedia();
-      List<Medium> mediaList = mediaPage.items;
-
-      setState(() {
-        _mediaImg = mediaList;
-        //     .where((medium) => medium.mediumType == MediumType.image)
-        //     .toList();
-        _loading = false;
-      });
+    if (await promptPermissionSetting()) {
+      mediumList = await getMedium();
+      getPathList();
     }
   }
 
-  Future<bool> _promptPermissionSetting() async {
-    if (Platform.isIOS &&
-            await Permission.storage.request().isGranted &&
-            await Permission.photos.request().isGranted ||
-        Platform.isAndroid && await Permission.storage.request().isGranted) {
-      return true;
+  addImages() {
+    if (selectedPath.isNotEmpty) {
+      sellingController.sellingPost.value.pImg1 = selectedPath[0];
     }
-    return false;
+    if (selectedPath.length > 1) {
+      sellingController.sellingPost.value.pImg2 = selectedPath[1];
+    }
+    if (selectedPath.length > 2) {
+      sellingController.sellingPost.value.pImg3 = selectedPath[2];
+    }
+    if (selectedPath.length > 3) {
+      sellingController.sellingPost.value.pImg4 = selectedPath[3];
+    }
+    if (selectedPath.length > 4) {
+      sellingController.sellingPost.value.pImg5 = selectedPath[4];
+    }
   }
 
   @override
@@ -76,9 +107,8 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   height: 250,
-                  child: pathList.isNotEmpty
-                      ? SelectImageSlider(
-                          imgList: pathList, mediumList: mediumList)
+                  child: selectedPath.isNotEmpty
+                      ? SelectImageSlider(imgList: selectedPath)
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -87,11 +117,11 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                               height: 150,
                               width: 150,
                             ),
-                            Text("Upload your images")
+                            const Text("Upload your images")
                           ],
                         ),
                 ),
-                _loading
+                loadPaths.isEmpty
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
@@ -100,36 +130,19 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                           color: Colors.white,
                           padding: const EdgeInsets.all(5),
                           child: AlignedGridView.count(
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
+                              controller: scrollController,
+                              crossAxisSpacing: 2,
+                              mainAxisSpacing: 2,
                               crossAxisCount: 3,
-                              itemCount: _mediaImg!.length,
+                              itemCount: count,
                               itemBuilder: (context, int index) {
                                 return PhotoTile(
-                                  mediaImg: _mediaImg![index],
+                                  imgPath: loadPaths[index],
                                   selectIndex:
-                                      mediumList.indexOf(_mediaImg![index]),
+                                      selectedPath.indexOf(loadPaths[index]),
                                   size: size,
-                                  onpress: () async {
-                                    if (pathList.length < 5) {
-                                      File list = await PhotoGallery.getFile(
-                                          mediumId: _mediaImg![index].id);
-                                      if (list != null) {
-                                        setState(() {
-                                          mediumList.add(_mediaImg![index]);
-                                          pathList.add(list.path.toString());
-                                        });
-                                      }
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                        content: Text(
-                                          "You reached the image limit",
-                                          style: snackbarTextStyle,
-                                        ),
-                                        duration: const Duration(seconds: 2),
-                                      ));
-                                    }
+                                  onPress: () async {
+                                    addImage(index);
                                   },
                                 );
                               }),
@@ -139,8 +152,9 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
               ],
             ),
             NextButton(
+              labelText: "Next",
               onPress: () {
-                if (pathList.isEmpty) {
+                if (selectedPath.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(
                       "Minium 1 Image required",
@@ -149,9 +163,14 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                     duration: const Duration(seconds: 2),
                   ));
                 } else {
+                  addImages();
                   Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => SaleFinalPage(),
+                    PageTransition(
+                      type: PageTransitionType.rightToLeftJoined,
+                      duration: const Duration(milliseconds: 300),
+                      reverseDuration: const Duration(milliseconds: 300),
+                      childCurrent: widget,
+                      child: SaleFinalPage(),
                     ),
                   );
                 }
@@ -162,34 +181,55 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
       ),
     );
   }
+
+  addImage(int index) {
+    var ck = selectedPath.indexOf(loadPaths[index]);
+    if (ck >= 0) {
+      setState(() {
+        selectedPath.removeAt(ck);
+      });
+    } else {
+      if (selectedPath.length < 5) {
+        setState(() {
+          selectedPath.add(loadPaths[index]);
+        });
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+            "You reached the image limit",
+            style: snackbarTextStyle,
+          ),
+          duration: const Duration(seconds: 2),
+        ));
+      }
+    }
+  }
 }
 
-
-  // return PhotoTile(
-  //   mediaImg: _mediaImg![index],
-  //   selectIndex:
-  //       mediumList.indexOf(_mediaImg![index]),
-  //   size: size,
-  //   onpress: () async {
-  //     if (pathList.length < 5) {
-  //       File list = await PhotoGallery.getFile(
-  //           mediumId: _mediaImg![index].id);
-  //       if (list != null) {
-  //         setState(() {
-  //           mediumList.add(_mediaImg![index]);
-  //           pathList.add(list.path.toString());
-  //         });
-  //       }
-  //     } else {
-  //       ScaffoldMessenger.of(context)
-  //           .showSnackBar(SnackBar(
-  //         content: Text(
-  //           "You reached the image limit",
-  //           style: snackbarTextStyle,
-  //         ),
-  //         duration: const Duration(seconds: 2),
-  //       ));
-  //     }
-  //   },
-  // );
-                              
+// return PhotoTile(
+//   mediaImg: _mediaImg![index],
+//   selectIndex:
+//       mediumList.indexOf(_mediaImg![index]),
+//   size: size,
+//   onpress: () async {
+//     if (pathList.length < 5) {
+//       File list = await PhotoGallery.getFile(
+//           mediumId: _mediaImg![index].id);
+//       if (list != null) {
+//         setState(() {
+//           mediumList.add(_mediaImg![index]);
+//           pathList.add(list.path.toString());
+//         });
+//       }
+//     } else {
+//       ScaffoldMessenger.of(context)
+//           .showSnackBar(SnackBar(
+//         content: Text(
+//           "You reached the image limit",
+//           style: snackbarTextStyle,
+//         ),
+//         duration: const Duration(seconds: 2),
+//       ));
+//     }
+//   },
+// );

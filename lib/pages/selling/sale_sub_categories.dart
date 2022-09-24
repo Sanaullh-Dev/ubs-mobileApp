@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:ubs/model/categories.dart';
-import 'package:ubs/pages/selling/P1_info/mobile_sale1.dart';
-import 'package:ubs/pages/selling/P2_image_Picker/photo_gallery.dart';
+import 'package:get/get.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:ubs/pages/selling/P1_info/sale_info-1.dart';
+import 'package:ubs/pages/selling/controller/selling_controller.dart';
 import 'package:ubs/utils/constants.dart';
 
 class SaleSubCategories extends StatelessWidget {
-  final List<SubCategory> subCategoryData;
-  final Categories catData;
+  final int mainCatId;
+  final String mainCatName;
   const SaleSubCategories({
     super.key,
-    required this.subCategoryData,
-    required this.catData,
+    required this.mainCatId,
+    required this.mainCatName,
   });
 
   @override
   Widget build(BuildContext context) {
-    // this line of code for View all
-    subCategoryData
-        .add(SubCategory.fromJson({"subCatId": "0", "subCatName": "View All"}));
+    SellingController sellingController = Get.find<SellingController>();
+
+    // this line of code for View all List
+    // subCategoryData
+    //     .add(SubCategory.fromJson({"subCatId": "0", "subCatName": "View All"}));
 
     return SafeArea(
         child: Scaffold(
@@ -34,7 +37,7 @@ class SaleSubCategories extends StatelessWidget {
           },
         ),
         title: Text(
-          catData.title,
+          mainCatName,
           style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w500,
@@ -45,40 +48,51 @@ class SaleSubCategories extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: subCategoryData.length,
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => MobileSale()));
+            child: Obx(() => sellingController.subCatList == null
+                ? const Center(child: CircularProgressIndicator())
+                : ListView.builder(
+                    itemCount: sellingController.subCatList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return GestureDetector(
+                        onTap: () {
+                          var subCat =
+                              sellingController.subCatList[index].catId;
+                          sellingController.sellingPost.value.pScat = subCat;
+
+                          Navigator.of(context).push(PageTransition(
+                              type: PageTransitionType.rightToLeftJoined,
+                              duration: const Duration(milliseconds: 300),
+                              reverseDuration:
+                                  const Duration(milliseconds: 300),
+                              childCurrent: this,
+                              child: SaleInfo1()));
                           // builder: (context) => GalleryPage()));
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          width: 0.8,
-                          color: COLOR_LIGHT_BLACK.withAlpha(50),
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 0.8,
+                                color: COLOR_LIGHT_BLACK.withAlpha(50),
+                              ),
+                            ),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 6, horizontal: 8),
+                          child: ListTile(
+                            title: Text(
+                              sellingController.subCatList[index].catName,
+                              style: const TextStyle(
+                                  color: COLOR_BLACK,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 18,
+                                  fontFamily: "Roboto"),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 6, horizontal: 8),
-                    child: ListTile(
-                      title: Text(
-                        subCategoryData[index].subCatName,
-                        style: const TextStyle(
-                            color: COLOR_BLACK,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                            fontFamily: "Roboto"),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
+                      );
+                    },
+                  )),
           ),
         ],
       ),

@@ -3,7 +3,8 @@ import 'package:ubs/utils/constants.dart';
 
 class NextButton extends StatefulWidget {
   final VoidCallback onPress;
-  const NextButton({super.key, required this.onPress});
+  final String labelText;
+  const NextButton({super.key, required this.onPress, required this.labelText});
 
   @override
   State<NextButton> createState() => _NextButtonState();
@@ -23,7 +24,7 @@ class _NextButtonState extends State<NextButton> {
             child: TextButton(
               onPressed: widget.onPress,
               child: Text(
-                "Next",
+                widget.labelText,
                 style: buttonTextStyle,
               ),
             ),

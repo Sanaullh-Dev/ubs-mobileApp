@@ -2,52 +2,39 @@
 //
 //     final categories = categoriesFromJson(jsonString);
 
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
-List<Categories> categoriesFromJson(String str) => List<Categories>.from(json.decode(str).map((x) => Categories.fromJson(x)));
+List<Categories> categoriesFromJson(String str) =>
+    List<Categories>.from(json.decode(str).map((x) => Categories.fromJson(x)));
 
-String categoriesToJson(List<Categories> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String categoriesToJson(List<Categories> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Categories {
-    Categories({
-      required this.title,
-      required this.img,
-      required this.subCategories,
-    });
+  Categories({
+    required this.catId,
+    required this.catName,
+    required this.catSubid,
+    required this.catImg,
+  });
 
-    String title;
-    String img;
-    List<SubCategory> subCategories;
+  final int catId;
+  final String catName;
+  final int catSubid;
+  final String catImg;
 
-    factory Categories.fromJson(Map<String, dynamic> json) => Categories(
-        title: json["title"],
-        img: json["img"],
-        subCategories: List<SubCategory>.from(json["SubCategories"].map((x) => SubCategory.fromJson(x))),
-    );
+  factory Categories.fromJson(Map<String, dynamic> json) => Categories(
+        catId: json["cat_id"],
+        catName: json["cat_name"],
+        catSubid: json["cat_subid"],
+        catImg: json["cat_img"],
+      );
 
-    Map<String, dynamic> toJson() => {
-        "title": title,
-        "img": img,
-        "SubCategories": List<dynamic>.from(subCategories.map((x) => x.toJson())),
-    };
-}
-
-class SubCategory {
-    SubCategory({
-      required this.subCatId,
-      required this.subCatName,
-    });
-
-    String subCatId;
-    String subCatName;
-
-    factory SubCategory.fromJson(Map<String, dynamic> json) => SubCategory(
-        subCatId: json["subCatId"],
-        subCatName: json["subCatName"],
-    );
-
-    Map<String, dynamic> toJson() => {
-        "subCatId": subCatId,
-        "subCatName": subCatName,
-    };
+  Map<String, dynamic> toJson() => {
+        "cat_id": catId,
+        "cat_name": catName,
+        "cat_subid": catSubid,
+        "cat_img": catImg,
+      };
 }

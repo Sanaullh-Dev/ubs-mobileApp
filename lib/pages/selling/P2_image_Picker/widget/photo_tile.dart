@@ -1,19 +1,17 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:photo_gallery/photo_gallery.dart';
-import 'package:transparent_image/transparent_image.dart';
 import 'package:ubs/utils/constants.dart';
 
 class PhotoTile extends StatefulWidget {
-  final Medium mediaImg;
-  final VoidCallback onpress;
+  final String imgPath;
+  final VoidCallback onPress;
   final Size size;
   final int selectIndex;
   const PhotoTile(
       {super.key,
-      required this.mediaImg,
-      required this.onpress,
+      required this.imgPath,
+      required this.onPress,
       required this.size,
       required this.selectIndex});
 
@@ -22,25 +20,15 @@ class PhotoTile extends StatefulWidget {
 }
 
 class _PhotoTileState extends State<PhotoTile> {
-  String _path = "";
-
   @override
   void initState() {
     super.initState();
-    getPath();
-  }
-
-  getPath() async {
-    File list = await PhotoGallery.getFile(mediumId: widget.mediaImg.id);
-    if (list != null) {
-      _path = list.path.toString();
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onpress,
+      onTap: widget.onPress,
       child: Container(
         height: widget.size.width / 3,
         padding: const EdgeInsets.all(1),
@@ -49,19 +37,8 @@ class _PhotoTileState extends State<PhotoTile> {
             border: Border.all(color: COLOR_GREY.withAlpha(150), width: 1)),
         child: Stack(
           children: [
-            Center(
-              child:
-                  //  _path == ""
-                  //     ? const SizedBox()
-                  //     : Image.file(File(_path), fit: BoxFit.cover)
-                  FadeInImage(
-                fit: BoxFit.cover,
-                placeholder: MemoryImage(kTransparentImage),
-                image: PhotoProvider(
-                  mediumId: widget.mediaImg.id,
-                ),
-              ),
-            ),
+            Positioned.fill(
+                child: Image.file(File(widget.imgPath), fit: BoxFit.cover)),
             Positioned(
               right: 0,
               top: 0,
@@ -90,7 +67,7 @@ class _PhotoTileState extends State<PhotoTile> {
             ),
             Positioned(
               top: 0,
-              left: 0,
+              right: 30,
               child: widget.selectIndex == 0
                   ? Container(
                       color: COLOR_PRIMARY,
@@ -101,7 +78,7 @@ class _PhotoTileState extends State<PhotoTile> {
                         "MAIN PHOTO",
                         style: TextStyle(
                             color: COLOR_BLACK,
-                            fontSize: 10,
+                            fontSize: 8,
                             fontWeight: FontWeight.w500),
                       ),
                     )
