@@ -26,10 +26,11 @@ class _SaleMainCategoriesState extends State<SaleMainCategories> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(Icons.close)),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.close),
+          ),
           title: const Text("What are you offering?",
               style: TextStyle(
                   color: Colors.black,

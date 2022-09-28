@@ -42,13 +42,25 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class LatestPost extends StatelessWidget {
+class LatestPost extends StatefulWidget {
   final Size size;
   final TextTheme textTheme;
   LatestPost({super.key, required this.size, required this.textTheme});
 
+  @override
+  State<LatestPost> createState() => _LatestPostState();
+}
+
+class _LatestPostState extends State<LatestPost> {
   final HomeController homeController = Get.put(HomeController());
 
+  @override
+  void initState() {
+    super.initState();
+    // loadAds();
+  }
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +69,7 @@ class LatestPost extends StatelessWidget {
         headerSliverBuilder: (context, _) {
           return <Widget>[
             SliverAppBar(
-              title: LocationBar(textTheme: textTheme),
+              title: LocationBar(textTheme: widget.textTheme),
               // titleSpacing: 5,
               toolbarHeight: 45,
               pinned: false,
@@ -78,28 +90,35 @@ class LatestPost extends StatelessWidget {
               title: Container(
                 // color: Colors.red,
                 // width: MediaQuery.of(context).size.width,
-                child: SearchBar(width: size.width, textTheme: textTheme),
+                child: SearchBar(
+                    width: widget.size.width, textTheme: widget.textTheme),
               ),
             )
           ];
         },
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              GestureDetector(onTap: () {}, child: addVerticalSpace(10)),
-              const CategoriesBar(),
-              addVerticalSpace(10),
-              Padding(
-                padding: const EdgeInsets.only(left: 14),
-                child: Text("Fresh recommendation", style: textTheme.headline4),
-              ),
-              const SizedBox(height: 15),
-              Obx(() => homeController.adsPostList.value == null
-                  ? const CircularProgressIndicator()
-                  : AdsList(
-                      adsPost: homeController.adsPostList,
-                    )),
-            ],
+        body: RefreshIndicator(
+          onRefresh: () async {
+            await homeController.fetchAds();  
+          },
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                GestureDetector(onTap: () {}, child: addVerticalSpace(10)),
+                const CategoriesBar(),
+                addVerticalSpace(10),
+                Padding(
+                  padding: const EdgeInsets.only(left: 14),
+                  child: Text("Fresh recommendation",
+                      style: widget.textTheme.headline4),
+                ),
+                const SizedBox(height: 15),
+                Obx(() => homeController.adsPostList.value == null
+                    ? const CircularProgressIndicator()
+                    : AdsList(
+                        adsPost: homeController.adsPostList,
+                      )),
+              ],
+            ),
           ),
         ),
       ),

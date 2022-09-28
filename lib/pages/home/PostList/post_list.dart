@@ -16,6 +16,7 @@ class PostList extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final TextTheme textTheme = Theme.of(context).textTheme;
     homeController.fetchCatWiseAds(homeController.mainCat.value);
+
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
@@ -80,62 +81,65 @@ class PostList extends StatelessWidget {
           ),
         ),
         body: Obx(
-          () => homeController.catWiseAdsList.length <= 0
-              ? SizedBox(
-                  width: size.width,
-                  height: size.height - 120,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: size.width * 0.4,
-                        height: size.width * 0.4,
-                        child: Image.asset("lib/assets/images/404.png"),
+          () => homeController.listStatus.value == true
+              ? const Center(child: CircularProgressIndicator())
+              : homeController.catWiseAdsList.isEmpty
+                  ? SizedBox(
+                      width: size.width,
+                      height: size.height - 120,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: size.width * 0.4,
+                            height: size.width * 0.4,
+                            child: Image.asset("lib/assets/images/404.png"),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          const Text("Ads Not Found")
+                        ],
                       ),
-                      const SizedBox(
-                        height: 15,
+                    )
+                  : SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    homeController.catWiseAdsList.length
+                                        .toString(),
+                                    style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  Text(
+                                    " Ads founds",
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 20),
+                                  )
+                                ]),
+                          ),
+                          ListView.builder(
+                            primary: false,
+                            shrinkWrap: true,
+                            itemCount: homeController.catWiseAdsList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return AdsTitle(
+                                textTheme: textTheme,
+                                wSize: size.width,
+                                adsData: homeController.catWiseAdsList[index],
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                      const Text("Ads Not Found")
-                    ],
-                  ),
-                )
-              : SingleChildScrollView(
-                child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                homeController.catWiseAdsList.length.toString(),
-                                style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              Text(
-                                " Ads founds",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 20),
-                              )
-                            ]),
-                      ),
-                      ListView.builder(
-                        primary: false,
-                        shrinkWrap: true,
-                        itemCount: homeController.catWiseAdsList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return AdsTitle(
-                            textTheme: textTheme,
-                            wSize: size.width,
-                            adsData: homeController.catWiseAdsList[index],
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-              ),
+                    ),
         ),
       ),
     );

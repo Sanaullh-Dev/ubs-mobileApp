@@ -13,8 +13,11 @@ const Color COLOR_INDICATOR = Color(0xFF78909C);
 const Color COLOR_INDICATOR_LIGHT = Color(0xFF7C888E);
 
 // const String API_URL = "localhost:8080";
-const String API_URL = "http://10.0.2.2:8080";
+// const String API_URL = "http://10.0.2.2:8080"; 
 
+
+// Online API_URL;
+const String API_URL = "https://ubs-india.herokuapp.com";
 
 Map<int, Color> primarySwatchColor = const {
   50: Color.fromRGBO(255, 187, 0, .1),

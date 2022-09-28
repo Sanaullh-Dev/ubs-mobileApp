@@ -17,6 +17,7 @@ class PostDetails extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final TextTheme textTheme = Theme.of(context).textTheme;
     List<String> imgeLi = getImage(adsPostData);
+
     return SafeArea(
       child: Scaffold(
         body: SizedBox(
@@ -37,26 +38,6 @@ class PostDetails extends StatelessWidget {
                     // Ads heading Section
                     TitleBar(adsPostData: adsPostData),
                     addVerticalSpace(15),
-                    // Details Point section
-                    // Padding(
-                    //   padding: const EdgeInsets.symmetric(
-                    //       vertical: 8, horizontal: 15),
-                    //   child: Column(
-                    //     crossAxisAlignment: CrossAxisAlignment.start,
-                    //     children: [
-                    //       Text(
-                    //         "Details",
-                    //         style: textTheme.headline3,
-                    //       ),
-                    //       addVerticalSpace(8),
-                    //       const DetailsPoints(title: "Type", info: "Apartment"),
-                    //       const DetailsPoints(title: "Type", info: "Apartment"),
-                    //       const DetailsPoints(title: "Type", info: "Apartment"),
-                    //       const DetailsPoints(title: "Type", info: "Apartment"),
-                    //     ],
-                    //   ),
-                    // ),
-                    // addDivider(),
                     // Description section
                     Padding(
                       padding: const EdgeInsets.symmetric(
@@ -87,7 +68,9 @@ class PostDetails extends StatelessWidget {
                         style: textTheme.headline3,
                       ),
                     ),
-                    RelatedAds(mCateId: adsPostData.pMcat)
+                    RelatedAds(
+                        mCateId: adsPostData.pMcat,
+                        showingPostId: adsPostData.pId!)
                   ],
                 ),
               ),

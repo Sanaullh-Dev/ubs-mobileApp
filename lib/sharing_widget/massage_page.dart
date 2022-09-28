@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
-import 'package:ubs/pages/home/home_page.dart';
 import 'package:ubs/pages/selling/controller/selling_controller.dart';
 import 'package:ubs/sharing_widget/primery_button.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
@@ -33,7 +32,7 @@ class MessagePage extends StatelessWidget {
             width: size.width - size.width * 0.1,
             height: 250,
             color: Colors.white,
-            padding: EdgeInsets.symmetric(vertical: 15),
+            padding: const EdgeInsets.symmetric(vertical: 15),
             child: message == "Loading"
                 ? loadingBox()
                 : messageBox(message, context)),
@@ -76,7 +75,7 @@ class MessagePage extends StatelessWidget {
           style: const TextStyle(
             color: COLOR_BLACK,
             fontWeight: FontWeight.w700,
-            fontSize: 22,
+            fontSize: 15,
           ),
         ),
         addVerticalSpace(25),

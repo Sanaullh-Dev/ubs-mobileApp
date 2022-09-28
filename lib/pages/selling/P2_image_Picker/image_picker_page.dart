@@ -54,9 +54,9 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
     int _beforcount = count;
 
     if (count < mediumList.length) {
-      count = mediumList.length < count + 15 ? mediumList.length : count + 15;
+      count = mediumList.length < count + 15 ? mediumList.length - 1 : count + 15;
 
-      for (var i = _beforcount; i < count; i++) {
+      for (var i = _beforcount; i <= count; i++) {
         imgFile = await PhotoGallery.getFile(mediumId: mediumList[i].id);
         if (imgFile.existsSync()) {
           loadPaths.add(imgFile.path.toString());
@@ -65,6 +65,9 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
       setState(() {});
     }
   }
+
+
+
 
   Future<void> initAsync() async {
     if (await promptPermissionSetting()) {
@@ -134,7 +137,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                               crossAxisSpacing: 2,
                               mainAxisSpacing: 2,
                               crossAxisCount: 3,
-                              itemCount: count,
+                              itemCount: loadPaths.length,
                               itemBuilder: (context, int index) {
                                 return PhotoTile(
                                   imgPath: loadPaths[index],

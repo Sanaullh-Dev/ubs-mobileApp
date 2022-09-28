@@ -49,6 +49,16 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  flutter_native_splash: ^2.2.10
+
+# Run command for generate splash screen
+# 1) flutter run
+# 2) flutter pub get
+# 3) flutter pub run flutter_native_splash:create
+
+flutter_native_splash:
+  color: "#fdffff"
+  image: assets/images/BiS.png
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -10,7 +10,7 @@ import 'package:ubs/utils/custom_fun.dart';
 const double iconsSize = 40;
 
 class CategoriesBar extends StatelessWidget {
-  const CategoriesBar({super.key});  
+  const CategoriesBar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,17 +19,13 @@ class CategoriesBar extends StatelessWidget {
     HomeController homeCont = Get.find<HomeController>();
     List<Categories> catData = homeCont.mainCatList;
 
-    // for (var i = 0; i < categoriesList.length; i++) {
-    //   catData.add(Categories.fromJson(categoriesList[i]));
-    // }
-
     return Container(
         color: COLOR_WHITE,
         padding: const EdgeInsets.symmetric(vertical: 8),
         height: 190,
         child: Obx(
           () => homeCont.mainCatList.value.length == 0
-              ? const CircularProgressIndicator()
+              ? const Center(child: CircularProgressIndicator())
               : Column(
                   children: [
                     Container(
@@ -67,12 +63,13 @@ class CategoriesBar extends StatelessWidget {
                     const SizedBox(height: 5),
                     Expanded(
                       child: ListView.builder(
-                        padding: EdgeInsets.symmetric(horizontal: 7),
+                        padding: const EdgeInsets.symmetric(horizontal: 7),
                         scrollDirection: Axis.horizontal,
                         itemCount: catData.length,
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                             onTap: () {
+                              homeCont.subCatList.value = [];
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

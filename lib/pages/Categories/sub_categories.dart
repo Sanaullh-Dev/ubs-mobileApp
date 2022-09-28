@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/categories.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
-import 'package:ubs/pages/home/home_page.dart';
 import 'package:ubs/pages/main_controller.dart';
-import 'package:ubs/pages/main_page.dart';
 import 'package:ubs/pages/selling/sale_main_categories.dart';
 import 'package:ubs/utils/constants.dart';
 
@@ -24,7 +22,7 @@ class SubCategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     homeCont.fetchSubCat(catData.catId);
-
+    homeCont.catWiseAdsList.value = [];
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -67,11 +65,12 @@ class SubCategoriesPage extends StatelessWidget {
                               ),
                             );
                           } else if (gotoPage == "Buy") {
-                            if( homeCont.subCatList[index].catName != "View All"){
+                            if(homeCont.subCatList[index].catName != "View All"){
                               homeCont.subCat.value = homeCont.subCatList[index].catId;
                             }
                             homeCont.mainCat.value = catData.catId;
                             homeCont.allAds.value = false;
+                            
                             Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
                           }
                         },

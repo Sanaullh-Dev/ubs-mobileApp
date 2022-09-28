@@ -24,6 +24,7 @@ class AdsList extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
           onTap: () {
+            
             Navigator.push(
               context,
               MaterialPageRoute(

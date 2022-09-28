@@ -11,6 +11,7 @@ class RemoteServices {
   static Future<List<Categories>?> fetchMainCat() async {
     var uri = Uri.parse("$API_URL/category/main");
     var response = await client.get(uri);
+    print(response.statusCode);
 
     if (response.statusCode == 200) {
       var jsonString = response.body;
@@ -67,7 +68,6 @@ class RemoteServices {
     http.MultipartRequest request = http.MultipartRequest("POST", uri);
 
     request = await imgFileAdd(adsPost, request);
-
     request.fields["pTitle"] = adsPost.pTitle;
     request.fields["pBrand"] = adsPost.pBrand;
     request.fields["pDescribe"] = adsPost.pDescribe;

@@ -44,7 +44,7 @@ class AdsPost {
   String pLocation;
   int pMcat;
   int pScat;
-  int pUid;
+  String pUid;
 
   factory AdsPost.fromJson(Map<String, dynamic> json) => AdsPost(
         pId: json["p_id"],
