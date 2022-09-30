@@ -1,10 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:flutter/material.dart';
-import 'package:ubs/pages/home/widget/categories_bar.dart';
-
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SearchBar extends StatelessWidget {
   final double width;
@@ -21,26 +18,29 @@ class SearchBar extends StatelessWidget {
 
     return Container(
       // width: width,
-      decoration: const BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(1, 1),
-              blurStyle: BlurStyle.normal,
-              blurRadius: 5,
-              color: Color(0x6E000000),
-            )
-          ],
-          border: Border(bottom: BorderSide(color: Colors.black54))),
-      padding: const EdgeInsets.only(left: 12, top: 10, bottom: 10, right: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            offset: const Offset(1, 1),
+            blurStyle: BlurStyle.normal,
+            blurRadius: 100.r,
+            color: const Color(0x6E000000),
+          )
+        ],
+        border: const Border(
+          bottom: BorderSide(color: Colors.black54),
+        ),
+      ),
+      padding: EdgeInsets.only(left: 20.w, top: 15.h, bottom: 15.h, right: 12.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            width: width * 0.8,
-            padding: const EdgeInsets.all(5),
+            width: 750.w,
+            padding: EdgeInsets.all(12.h),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(50.r),
                 border: Border.all(color: COLOR_GREY, width: 2)),
             child: Row(
               children: [
@@ -48,15 +48,15 @@ class SearchBar extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(),
                   onPressed: () {},
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.search_rounded,
-                    size: 25,
+                    size: 38.sp,
                     color: Colors.grey,
                   ),
                 ),
                 addHorizontalSpace(8),
                 Expanded(
-                  child: Text("Find Car, Mobile Phone, and more sadasd adsasd ",
+                  child: Text("Find Car, Mobile Phone, and more ",
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
                       maxLines: 1,

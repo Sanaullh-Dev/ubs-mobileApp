@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/pages/Chats/chats_dashboard.dart';
 import 'package:ubs/pages/home/home_page.dart';
 import 'package:ubs/pages/location/state_page.dart';
@@ -9,13 +10,11 @@ import 'package:get/get.dart';
 
 class MainPage extends StatelessWidget {
   MainPage({super.key});
-  
+
   final MainController mainCont = Get.put(MainController());
 
   @override
   Widget build(BuildContext context) {
-    
-
     final pageOptions = [
       const HomePage(),
       const ChatsDashboard(),
@@ -30,26 +29,26 @@ class MainPage extends StatelessWidget {
           bottomNavigationBar: Obx(
             () => BottomNavigationBar(
               selectedLabelStyle:
-                  const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                  TextStyle(fontSize: 19.sp, fontWeight: FontWeight.w400),
               unselectedLabelStyle:
-                  const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                  TextStyle(fontSize: 19.sp, fontWeight: FontWeight.w400),
               backgroundColor: COLOR_WHITE,
               fixedColor: COLOR_PRIMARY,
               type: BottomNavigationBarType.fixed,
               currentIndex: mainCont.selectPage.value,
               onTap: (index) => mainCont.selectPage.value = index,
-              items: const [
+              items: [
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.home_filled, size: 35), label: "Home"),
+                    icon: Icon(Icons.home_filled, size: 60.w), label: "Home"),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.chat_rounded, size: 35), label: "Chats"),
+                    icon: Icon(Icons.chat_rounded, size: 60.w), label: "Chats"),
                 BottomNavigationBarItem(
-                    icon: Icon(null, size: 35), label: "Sell"),
+                    icon: Icon(null, size: 60.w), label: "Sell"),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.favorite_border, size: 35),
+                    icon: Icon(Icons.favorite_border, size: 60.w),
                     label: "My Ads"),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.manage_accounts, size: 35),
+                    icon: Icon(Icons.manage_accounts, size: 60.w),
                     label: "Account")
               ],
             ),
@@ -57,26 +56,28 @@ class MainPage extends StatelessWidget {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: SizedBox(
-            height: 60.0,
-            width: 60.0,
+            height: 110.w,
+            width: 110.w,
             child: FittedBox(
               child: FloatingActionButton(
                 elevation: 0,
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SaleMainCategories()));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SaleMainCategories(),
+                    ),
+                  );
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: COLOR_PRIMARY, width: 6),
+                    border: Border.all(color: COLOR_PRIMARY, width: 8.w),
                     color: Colors.white,
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
                     color: Colors.black87,
-                    iconSize: 27,
+                    iconSize: 45.w,
                     icon: const Icon(Icons.add_outlined),
                     onPressed: () {
                       Navigator.push(

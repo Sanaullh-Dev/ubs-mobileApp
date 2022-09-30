@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:flutter_sticky_header/flutter_sticky_header.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/post_model.dart';
 import 'package:ubs/pages/home/PostList/post_list.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
@@ -60,7 +60,6 @@ class _LatestPostState extends State<LatestPost> {
     // loadAds();
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +70,7 @@ class _LatestPostState extends State<LatestPost> {
             SliverAppBar(
               title: LocationBar(textTheme: widget.textTheme),
               // titleSpacing: 5,
-              toolbarHeight: 45,
+              toolbarHeight: 80.h,
               pinned: false,
               floating: true,
               // primary: false,
@@ -84,21 +83,17 @@ class _LatestPostState extends State<LatestPost> {
               primary: false,
               centerTitle: false,
               titleSpacing: 0,
-              toolbarHeight: 60,
+              toolbarHeight: 100.h,
               automaticallyImplyLeading: false,
               forceElevated: true,
-              title: Container(
-                // color: Colors.red,
-                // width: MediaQuery.of(context).size.width,
-                child: SearchBar(
-                    width: widget.size.width, textTheme: widget.textTheme),
-              ),
+              title: SearchBar(
+                  width: widget.size.width, textTheme: widget.textTheme),
             )
           ];
         },
         body: RefreshIndicator(
           onRefresh: () async {
-            await homeController.fetchAds();  
+            await homeController.fetchAds();
           },
           child: SingleChildScrollView(
             child: Column(
@@ -111,12 +106,14 @@ class _LatestPostState extends State<LatestPost> {
                   child: Text("Fresh recommendation",
                       style: widget.textTheme.headline4),
                 ),
-                const SizedBox(height: 15),
-                Obx(() => homeController.adsPostList.value == null
-                    ? const CircularProgressIndicator()
-                    : AdsList(
-                        adsPost: homeController.adsPostList,
-                      )),
+                SizedBox(height: 25.h),
+                Obx(
+                  () => homeController.adsPostList.value == null
+                      ? const CircularProgressIndicator()
+                      : AdsList(
+                          adsPost: homeController.adsPostList,
+                        ),
+                ),
               ],
             ),
           ),

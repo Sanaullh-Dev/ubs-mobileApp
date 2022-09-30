@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:ubs/pages/Chats/chat_individual/charts_individual.dart';
 import 'package:ubs/pages/Chats/chats_dashboard.dart';
@@ -19,17 +20,25 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = window.physicalSize.width;
 
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'b|s',
-      theme: getThemeData(screenWidth),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => MainPage(),
-        '/chat': (context) => const ChatsDashboard(),
-        '/chatdetails': (context) => const ChatIndividual(),
-        '/SaleMainCategores': (context) => const SaleMainCategories(),
+    return ScreenUtilInit(
+      designSize: const Size(900, 1600),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'b|s',
+          theme: getThemeData(screenWidth),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => MainPage(),
+            '/chat': (context) => const ChatsDashboard(),
+            '/chatdetails': (context) => const ChatIndividual(),
+            '/SaleMainCategores': (context) => const SaleMainCategories(),
+          },
+        );
       },
+      child: MainPage(),
     );
   }
 }

@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 const Color COLOR_PRIMARY = Color(0xFFFFBB00);
 const Color COLOR_SECONDARY = Color(0xFFFCD772);
@@ -58,13 +59,13 @@ ThemeData getThemeData(double screenWidth) {
   );
 }
 
-const TextTheme TEXT_THEME_DEFAULT = TextTheme(
-  headline1: TextStyle(
+TextTheme TEXT_THEME_DEFAULT = TextTheme(
+  headline1: const TextStyle(
       color: COLOR_BLACK,
       fontWeight: FontWeight.w500,
       fontSize: 26,
       fontFamily: "Roboto"),
-  headline2: TextStyle(
+  headline2: const TextStyle(
     color: COLOR_BLACK,
     fontWeight: FontWeight.w500,
     fontSize: 22,
@@ -82,12 +83,12 @@ const TextTheme TEXT_THEME_DEFAULT = TextTheme(
   headline5: TextStyle(
       color: COLOR_BLACK,
       fontWeight: FontWeight.w600,
-      fontSize: 18,
+      fontSize: 35.sp,
       fontFamily: "Roboto"),
   headline6: TextStyle(
     color: COLOR_BLACK,
     fontWeight: FontWeight.w500,
-    fontSize: 14,
+    fontSize: 32.sp,
     letterSpacing: 0.8,
   ),
   bodyText1: TextStyle(
@@ -106,7 +107,7 @@ const TextTheme TEXT_THEME_DEFAULT = TextTheme(
   subtitle2: TextStyle(
       color: COLOR_LIGHT_BLACK, fontWeight: FontWeight.w400, fontSize: 16),
   caption:
-      TextStyle(color: COLOR_GREY, fontWeight: FontWeight.w400, fontSize: 14),
+      TextStyle(color: COLOR_GREY, fontWeight: FontWeight.w400, fontSize: 25.sp),
   button: TextStyle(
     color: COLOR_BLACK,
     fontWeight: FontWeight.w500,
@@ -148,8 +149,8 @@ TextTheme TEXT_THEME_Small = TextTheme(
   ),
   titleMedium: const TextStyle(
       color: Colors.red, fontWeight: FontWeight.w500, fontSize: 18),
-  titleSmall: const TextStyle(
-      color: Colors.red, fontWeight: FontWeight.w400, fontSize: 5),
+  titleSmall: TextStyle(
+      color: Colors.red, fontWeight: FontWeight.w400, fontSize: 15.sp),
   bodyText1: const TextStyle(
       color: COLOR_BLACK,
       fontWeight: FontWeight.w500,
@@ -160,8 +161,8 @@ TextTheme TEXT_THEME_Small = TextTheme(
       fontWeight: FontWeight.w500,
       fontSize: 22,
       height: 1.5),
-  subtitle1: const TextStyle(
-      color: COLOR_BLACK, fontWeight: FontWeight.w400, fontSize: 10),
+  subtitle1: TextStyle(
+      color: COLOR_BLACK, fontWeight: FontWeight.w400, fontSize: 18.sp),
   subtitle2: const TextStyle(
       color: COLOR_GREY, fontWeight: FontWeight.w400, fontSize: 10),
 );

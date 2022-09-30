@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ubs/pages/home/widget/categories_bar.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LocationBar extends StatelessWidget {
   final TextTheme textTheme;
@@ -9,23 +10,19 @@ class LocationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // padding: const EdgeInsets.only(left: 0, top: 2, bottom: 0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Icon(
-            Icons.location_on,
-            size: iconsSize * 0.7,
-            color: Colors.black87,
-          ),
-          addHorizontalSpace(5),
-          Text("Location, State Name", style: textTheme.headline6),
-          const Icon(Icons.keyboard_arrow_down,
-              size: iconsSize * 0.7, color: Colors.black87),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.location_on,
+          size: 50.h,
+          color: Colors.black87,
+        ),
+        addHorizontalSpace(5),
+        Text("Location, State Name", style: textTheme.headline6),
+        Icon(Icons.keyboard_arrow_down, size: 60.h, color: Colors.black87),
+      ],
     );
   }
 }

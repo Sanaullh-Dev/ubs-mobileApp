@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/pages/PostDetails/post_details.dart';
@@ -24,7 +25,6 @@ class AdsList extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
           onTap: () {
-            
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -36,12 +36,12 @@ class AdsList extends StatelessWidget {
             );
           },
           child: Container(
-            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            margin: EdgeInsets.symmetric(vertical: 15.h, horizontal: 13.w),
+            padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 18.w),
             decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(width: 2, color: Colors.grey.shade400),
-                borderRadius: BorderRadius.circular(10)),
+                borderRadius: BorderRadius.circular(20.r)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -50,7 +50,7 @@ class AdsList extends StatelessWidget {
                     // --- For Cover Image
                     Container(
                       alignment: Alignment.center,
-                      height: 140,
+                      height: 230.h,
                       child: Hero(
                         tag: "post${adsPost[index].pId}",
                         transitionOnUserGestures: true,
@@ -64,7 +64,7 @@ class AdsList extends StatelessWidget {
                     ),
                     // ----- for features batch
                     Positioned(
-                      top: 10,
+                      top: 15.h,
                       left: 0,
                       child: adsPost[index].pImg3 == null
                           ? const SizedBox()
@@ -72,27 +72,28 @@ class AdsList extends StatelessWidget {
                     ),
                     // ------ for favorite icon
                     Positioned(
-                        right: 5,
-                        top: 5,
-                        child: Container(
-                          padding: const EdgeInsets.all(5),
-                          decoration: favoriteBorder,
-                          child: Icon(
-                            // AddLists[index]. ["Favorite"] == "yes"
-                            adsPost[index].pImg3 != null
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            size: 25,
-                            color: adsPost[index].pImg3 != null
-                                ? Colors.red
-                                : Colors.black54,
-                          ),
-                        ))
+                      right: 5.w,
+                      top: 5.h,
+                      child: Container(
+                        padding: EdgeInsets.all(10.w),
+                        decoration: favoriteBorder,
+                        child: Icon(
+                          // AddLists[index]. ["Favorite"] == "yes"
+                          adsPost[index].pImg3 != null
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          size: 40.w,
+                          color: adsPost[index].pImg3 != null
+                              ? Colors.red
+                              : Colors.black54,
+                        ),
+                      ),
+                    )
                   ],
                 ),
-                addVerticalSpace(8),
+                addVerticalSpace(15.h),
                 SizedBox(
-                  height: 25,
+                  height: 45.h,
                   // -----for Name product
                   child: Text(
                     "₹ ${adsPost[index].pPrice.toString()}",
@@ -100,7 +101,7 @@ class AdsList extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 45.h,
                   // -----for Name product
                   child: Text(
                     adsPost[index].pTitle,
@@ -113,11 +114,11 @@ class AdsList extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.location_on_outlined,
-                      size: 15,
+                      size: 35.w,
                     ),
-                    addHorizontalSpace(5),
+                    addHorizontalSpace(10.w),
                     Text(
                       // AddLists[index]["Location"],
                       adsPost[index].pLocation,
