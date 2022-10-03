@@ -7,6 +7,7 @@ import 'package:ubs/pages/Categories/sub_categories.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/custom_fun.dart';
+import 'package:ubs/utils/text_style.dart';
 
 const double iconsSize = 40;
 
@@ -22,8 +23,8 @@ class CategoriesBar extends StatelessWidget {
 
     return Container(
       color: COLOR_WHITE,
-      padding: EdgeInsets.symmetric(vertical: 15.h),
-      height: 300.h,
+      padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.h),
+      height: 350.sp,
       child: Obx(
         () => homeCont.mainCatList.value.isEmpty
             ? const Center(child: CircularProgressIndicator())
@@ -34,7 +35,7 @@ class CategoriesBar extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Browser categories", style: textTheme.headline4),
+                        Text("Browser categories", style: titleLabel),
                         InkWell(
                           onTap: () {
                             Navigator.push(
@@ -51,10 +52,7 @@ class CategoriesBar extends StatelessWidget {
                             decoration: BoxDecoration(
                                 color: COLOR_PRIMARY,
                                 borderRadius: BorderRadius.circular(8)),
-                            child: Text(
-                              "See all",
-                              style: textTheme.button,
-                            ),
+                            child: Text("See all", style: btnText),
                           ),
                         )
                       ],
@@ -63,7 +61,7 @@ class CategoriesBar extends StatelessWidget {
                   SizedBox(height: 15.h),
                   Expanded(
                     child: ListView.builder(
-                      padding: EdgeInsets.symmetric(horizontal: 25.w),
+                      padding: EdgeInsets.symmetric(horizontal: 30.sp),
                       scrollDirection: Axis.horizontal,
                       itemCount: catData.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -87,7 +85,7 @@ class CategoriesBar extends StatelessWidget {
                                 border:
                                     Border.all(width: 2, color: Colors.white),
                                 borderRadius: BorderRadius.circular(20.r)),
-                            padding: EdgeInsets.all(15.w),
+                            padding: EdgeInsets.symmetric(horizontal: 20.sp),
                             margin: EdgeInsets.only(right: 15.w),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -95,7 +93,7 @@ class CategoriesBar extends StatelessWidget {
                               children: [
                                 Container(
                                   padding: const EdgeInsets.all(10),
-                                  height: 100.h,
+                                  height: 110.sp,
                                   child: Image.network(
                                     getLink(catData[index].catImg),
                                     fit: BoxFit.cover,
@@ -108,10 +106,7 @@ class CategoriesBar extends StatelessWidget {
                                       softWrap: true,
                                       overflow: TextOverflow.fade,
                                       maxLines: 2,
-                                      style: TextStyle(
-                                          fontSize: 19.sp,
-                                          color: Colors.black,
-                                          letterSpacing: 1)),
+                                      style: heading5),
                                 )
                               ],
                             ),

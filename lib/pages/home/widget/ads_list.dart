@@ -6,6 +6,7 @@ import 'package:ubs/pages/PostDetails/post_details.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/custom_fun.dart';
+import 'package:ubs/utils/text_style.dart';
 
 class AdsList extends StatelessWidget {
   final List<AdsPost> adsPost;
@@ -50,7 +51,7 @@ class AdsList extends StatelessWidget {
                     // --- For Cover Image
                     Container(
                       alignment: Alignment.center,
-                      height: 230.h,
+                      height: 230.sp,
                       child: Hero(
                         tag: "post${adsPost[index].pId}",
                         transitionOnUserGestures: true,
@@ -82,7 +83,7 @@ class AdsList extends StatelessWidget {
                           adsPost[index].pImg3 != null
                               ? Icons.favorite
                               : Icons.favorite_border,
-                          size: 40.w,
+                          size: 40.sp,
                           color: adsPost[index].pImg3 != null
                               ? Colors.red
                               : Colors.black54,
@@ -91,24 +92,25 @@ class AdsList extends StatelessWidget {
                     )
                   ],
                 ),
-                addVerticalSpace(15.h),
+                // addVerticalSpace(15.h),
                 SizedBox(
-                  height: 45.h,
+                  height: 50.h,
                   // -----for Name product
                   child: Text(
                     "₹ ${adsPost[index].pPrice.toString()}",
-                    style: themData.textTheme.headline5,
+                    style: heading3,
                   ),
                 ),
                 SizedBox(
-                  height: 45.h,
+                  height: 50.h,
                   // -----for Name product
                   child: Text(
                     adsPost[index].pTitle,
-                    style: themData.textTheme.titleSmall,
                     overflow: TextOverflow.ellipsis,
                     softWrap: false,
                     maxLines: 1,
+                    style:
+                        TextStyle(fontWeight: FontWeight.w400, fontSize: 30.sp),
                   ),
                 ),
                 Row(
@@ -116,16 +118,19 @@ class AdsList extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.location_on_outlined,
-                      size: 35.w,
+                      size: 35.sp,
                     ),
                     addHorizontalSpace(10.w),
                     Text(
                       // AddLists[index]["Location"],
                       adsPost[index].pLocation,
-                      style: themData.textTheme.subtitle1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
                       maxLines: 1,
+                      style: TextStyle(
+                          color: COLOR_BLACK,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 32.sp),
                     )
                   ],
                 ),

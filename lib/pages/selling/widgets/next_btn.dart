@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ubs/utils/constants.dart';
+import 'package:ubs/utils/text_style.dart';
 
 class NextButton extends StatefulWidget {
   final VoidCallback onPress;

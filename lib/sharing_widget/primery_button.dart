@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ubs/utils/constants.dart';
+import 'package:ubs/utils/text_style.dart';
 
 class PrimaryButton extends StatelessWidget {
   final VoidCallback onPress;

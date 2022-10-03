@@ -167,13 +167,6 @@ TextTheme TEXT_THEME_Small = TextTheme(
       color: COLOR_GREY, fontWeight: FontWeight.w400, fontSize: 10),
 );
 
-TextStyle buttonTextStyle = const TextStyle(
-    color: Colors.white,
-    fontSize: 14,
-    fontWeight: FontWeight.w500,
-    letterSpacing: 1,
-    fontFamily: "Poppins");
-
 BoxDecoration favoriteBorder = BoxDecoration(
     color: Colors.white,
     border: Border.all(width: 2, color: Colors.grey.shade300),

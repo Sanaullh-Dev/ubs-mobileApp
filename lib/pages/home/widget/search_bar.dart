@@ -18,6 +18,7 @@ class SearchBar extends StatelessWidget {
 
     return Container(
       // width: width,
+      height: 110.h,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -32,12 +33,16 @@ class SearchBar extends StatelessWidget {
           bottom: BorderSide(color: Colors.black54),
         ),
       ),
-      padding: EdgeInsets.only(left: 20.w, top: 15.h, bottom: 15.h, right: 12.w),
+      alignment: Alignment.centerRight,
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+      // padding:
+      //     EdgeInsets.only(left: 20.w, top: 10.h, bottom: 10.h, right: 12.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             width: 750.w,
+            height: 80.h,
             padding: EdgeInsets.all(12.h),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50.r),
@@ -50,7 +55,7 @@ class SearchBar extends StatelessWidget {
                   onPressed: () {},
                   icon: Icon(
                     Icons.search_rounded,
-                    size: 38.sp,
+                    size: 45.sp,
                     color: Colors.grey,
                   ),
                 ),
@@ -60,7 +65,10 @@ class SearchBar extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
                       maxLines: 1,
-                      style: textTheme.caption),
+                      style: TextStyle(
+                          color: COLOR_GREY,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 35.sp)),
                 ),
               ],
             ),
@@ -70,9 +78,9 @@ class SearchBar extends StatelessWidget {
             onTap: () {},
             child: SizedBox(
                 width: width * 0.1,
-                child: const Icon(
+                child: Icon(
                   Icons.notifications_none,
-                  size: 40 * 0.8,
+                  size: 60.sp,
                   color: Colors.black87,
                 )),
           )

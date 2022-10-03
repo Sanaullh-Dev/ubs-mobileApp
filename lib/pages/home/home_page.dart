@@ -9,6 +9,7 @@ import 'package:ubs/pages/home/widget/categories_bar.dart';
 import 'package:ubs/pages/home/widget/location_bar.dart';
 import 'package:ubs/pages/home/widget/search_bar.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
+import 'package:ubs/utils/text_style.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -83,7 +84,7 @@ class _LatestPostState extends State<LatestPost> {
               primary: false,
               centerTitle: false,
               titleSpacing: 0,
-              toolbarHeight: 100.h,
+              toolbarHeight: 110.h,
               automaticallyImplyLeading: false,
               forceElevated: true,
               title: SearchBar(
@@ -103,12 +104,11 @@ class _LatestPostState extends State<LatestPost> {
                 addVerticalSpace(10),
                 Padding(
                   padding: const EdgeInsets.only(left: 14),
-                  child: Text("Fresh recommendation",
-                      style: widget.textTheme.headline4),
+                  child: Text("Fresh recommendation", style: heading4),
                 ),
-                SizedBox(height: 25.h),
+                SizedBox(height: 25.h),                
                 Obx(
-                  () => homeController.adsPostList.value == null
+                  () => homeController.adsPostList.value.isEmpty
                       ? const CircularProgressIndicator()
                       : AdsList(
                           adsPost: homeController.adsPostList,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
+import 'package:ubs/utils/text_style.dart';
 
 class TitleBar extends StatelessWidget {
   final AdsPost adsPostData;
@@ -13,7 +15,7 @@ class TitleBar extends StatelessWidget {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
+      padding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 25.h),
       decoration: BoxDecoration(
           color: Colors.yellow.withAlpha(200),
           border: Border(
@@ -25,20 +27,18 @@ class TitleBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                // "& 5,000",
                 adsPostData.pPrice.toString(),
-                style: textTheme.headline1,
+                style: heading1,
               ),
               Padding(
-                  padding: const EdgeInsets.only(right: 15),
+                  padding: EdgeInsets.only(right: 15.w),
                   child: Container(
                     padding: const EdgeInsets.all(5),
                     decoration: favoriteBorder,
-                    child: const Icon(
+                    child: Icon(
                       // postData.favorite == "no"?
                       Icons.favorite_border,
-                      // : Icons.favorite,
-                      size: 30,
+                      size: 60.sp,
                       color:
                           // postData.favorite == "no" ?
                           Colors.black,
@@ -48,31 +48,31 @@ class TitleBar extends StatelessWidget {
                   )
             ],
           ),
-          addVerticalSpace(8),
+          addVerticalSpace(8.h),
           Text(
             // "Sub Title About post and more details",
             adsPostData.pTitle,
-            style: textTheme.headline4,
+            style: heading4,
           ),
-          addVerticalSpace(8),
+          addVerticalSpace(8.h),
           // Text(
           //   // "Sub Title About post and more details",
           //   adsPostData.,
           //   style: textTheme.headline6,
           // ),
-          addVerticalSpace(8),
+          addVerticalSpace(8.h),
           Row(
             children: [
-              const Icon(Icons.location_on),
+              Icon(Icons.location_on, size: 55.sp,),
               Text(
                 // "Location name about post",
                 adsPostData.pLocation,
-                style: textTheme.headline6,
+                style: heading6,
               ),
               const Expanded(child: SizedBox()),
               Text(
                 DateFormat("dd-MMM-yy").format(adsPostData.pDate!).toString(),
-                style: textTheme.headline4,
+                style: heading4,
               )
             ],
           ),
