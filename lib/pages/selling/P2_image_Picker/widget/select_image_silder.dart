@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:photo_gallery/photo_gallery.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 

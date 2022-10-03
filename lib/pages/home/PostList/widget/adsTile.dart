@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/pages/PostDetails/post_details.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/custom_fun.dart';
+import 'package:ubs/utils/text_style.dart';
 
 class AdsTitle extends StatelessWidget {
   final TextTheme textTheme;
@@ -31,8 +33,8 @@ class AdsTitle extends StatelessWidget {
         );
       },
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 5),
-        padding: EdgeInsets.symmetric(vertical: 12),
+        margin: EdgeInsets.symmetric(vertical: 6.h),
+        padding: EdgeInsets.symmetric(vertical: 20.h),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
@@ -54,7 +56,7 @@ class AdsTitle extends StatelessWidget {
               fit: BoxFit.fitWidth,
             ),
           ),
-          addHorizontalSpace(12),
+          addHorizontalSpace(25.w),
           Expanded(
             child: Column(
               // mainAxisAlignment: MainAxisAlignment.start,
@@ -68,18 +70,18 @@ class AdsTitle extends StatelessWidget {
                         featuredTag(),
                         Text(
                           adsData.pPrice.toString(),
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w700),
+                          style: TextStyle(
+                              fontSize: 22.sp, fontWeight: FontWeight.w700),
                         ),
                       ],
                     ),
                     Container(
-                      padding: const EdgeInsets.all(5),
-                      child: const Icon(
+                      padding: EdgeInsets.all(5.sp),
+                      child: Icon(
                         // postData.favorite == "no"?
                         Icons.favorite_border,
                         // : Icons.favorite,
-                        size: 30,
+                        size: 50.sp,
                         color:
                             // postData.favorite == "no" ?
                             Colors.black,
@@ -89,20 +91,20 @@ class AdsTitle extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  margin: EdgeInsets.only(right: 20),
+                  margin: EdgeInsets.only(right: 20.sp),
                   child: Text(adsData.pTitle),
                 ),
                 Row(
                   children: [
-                    const Icon(Icons.location_on),
+                     Icon(Icons.location_on,size: 38.sp),
                     Text(
                       adsData.pLocation,
-                      style: textTheme.headline6,
+                      style: heading6,
                     ),
                     const Expanded(child: SizedBox()),
                     Text(
                       DateFormat("dd-MMM-yy").format(adsData.pDate!).toString(),
-                      style: textTheme.headline4,
+                      style: heading4,
                     )
                   ],
                 )

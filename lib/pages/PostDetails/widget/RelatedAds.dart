@@ -19,10 +19,7 @@ class RelatedAds extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
-    final Size size = MediaQuery.of(context).size;
-    List<PostModel> postList = [];
-
+    
     HomeController homeController = Get.find<HomeController>();
     homeController.fetchRelatedCatWiseAds(mCateId);
     final PostDetailsController postDetController =

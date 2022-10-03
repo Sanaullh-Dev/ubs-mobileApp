@@ -175,22 +175,22 @@ class PostDetails extends StatelessWidget {
 
 List<String> getImage(AdsPost adsData) {
   List<String> li = [];
-  if (adsData.pImg1 != null) {
+  if (adsData.pImg1 != null && adsData.pImg1 != "") {
     li.add(adsData.pImg1);
   }
-  if (adsData.pImg2 != null) {
+  if (adsData.pImg2 != null && adsData.pImg2 != "") {
     li.add(adsData.pImg2);
   }
 
-  if (adsData.pImg3 != null) {
+  if (adsData.pImg3 != null && adsData.pImg3 != "") {
     li.add(adsData.pImg3);
   }
 
-  if (adsData.pImg4 != null) {
+  if (adsData.pImg4 != null && adsData.pImg4 != "") {
     li.add(adsData.pImg4);
   }
 
-  if (adsData.pImg5 != null) {
+  if (adsData.pImg5 != null && adsData.pImg5 != "") {
     li.add(adsData.pImg5);
   }
   return li;

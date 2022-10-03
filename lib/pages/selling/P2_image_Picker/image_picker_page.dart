@@ -173,7 +173,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                       duration: const Duration(milliseconds: 300),
                       reverseDuration: const Duration(milliseconds: 300),
                       childCurrent: widget,
-                      child: SaleFinalPage(),
+                      child: const SaleFinalPage(),
                     ),
                   );
                 }

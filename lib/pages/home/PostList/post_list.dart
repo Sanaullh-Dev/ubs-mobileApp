@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ubs/pages/home/PostList/widget/adsTile.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
+import 'package:ubs/utils/text_style.dart';
 
 class PostList extends StatelessWidget {
   PostList({super.key});
@@ -39,9 +41,9 @@ class PostList extends StatelessWidget {
                         onPressed: () {
                           homeController.allAds.value = true;
                         },
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.arrow_back,
-                          size: 28,
+                          size: 40.sp,
                           color: Colors.black,
                         ),
                       ),
@@ -60,9 +62,9 @@ class PostList extends StatelessWidget {
                   onTap: () {},
                   child: SizedBox(
                       width: size.width * 0.1,
-                      child: const Icon(
+                      child: Icon(
                         FontAwesomeIcons.locationDot,
-                        size: 30,
+                        size: 45.sp,
                         color: Colors.black87,
                       )),
                 ),
@@ -70,9 +72,9 @@ class PostList extends StatelessWidget {
                   onTap: () {},
                   child: SizedBox(
                       width: size.width * 0.1,
-                      child: const Icon(
+                      child: Icon(
                         FontAwesomeIcons.arrowDownWideShort,
-                        size: 30,
+                        size: 45.sp,
                         // color: Colors.black87,
                       )),
                 )
@@ -95,10 +97,10 @@ class PostList extends StatelessWidget {
                             height: size.width * 0.4,
                             child: Image.asset("lib/assets/images/404.png"),
                           ),
-                          const SizedBox(
-                            height: 15,
+                          SizedBox(
+                            height: 15.h,
                           ),
-                          const Text("Ads Not Found")
+                          Text("Ads Not Found", style: heading3)
                         ],
                       ),
                     )
@@ -113,15 +115,15 @@ class PostList extends StatelessWidget {
                                   Text(
                                     homeController.catWiseAdsList.length
                                         .toString(),
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 20,
+                                        fontSize: 35.sp,
                                         fontWeight: FontWeight.w600),
                                   ),
                                   Text(
                                     " Ads founds",
                                     style: TextStyle(
-                                        color: Colors.black, fontSize: 20),
+                                        color: Colors.black, fontSize: 35.sp),
                                   )
                                 ]),
                           ),

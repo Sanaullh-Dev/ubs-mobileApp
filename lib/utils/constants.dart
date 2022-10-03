@@ -70,16 +70,6 @@ TextTheme TEXT_THEME_DEFAULT = TextTheme(
     fontWeight: FontWeight.w500,
     fontSize: 22,
   ),
-  headline3: TextStyle(
-    color: COLOR_BLACK,
-    fontWeight: FontWeight.w700,
-    fontSize: 20,
-  ),
-  headline4: TextStyle(
-    color: COLOR_BLACK,
-    fontWeight: FontWeight.w500,
-    fontSize: 18,
-  ),
   headline5: TextStyle(
       color: COLOR_BLACK,
       fontWeight: FontWeight.w600,

@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
-import 'package:ubs/services/remote_services.dart';
 
 class PostDetailsController extends GetxController {
   Rx<AdsPost> adsPost = AdsPost(
