@@ -99,7 +99,7 @@ class AdsTitle extends StatelessWidget {
                      Icon(Icons.location_on,size: 38.sp),
                     Text(
                       adsData.pLocation,
-                      style: heading6,
+                      style: heading5,
                     ),
                     const Expanded(child: SizedBox()),
                     Text(

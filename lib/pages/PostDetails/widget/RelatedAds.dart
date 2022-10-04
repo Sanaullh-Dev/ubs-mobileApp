@@ -106,7 +106,7 @@ class RelatedAds extends StatelessWidget {
                                 Text(
                                   homeController
                                       .relatedCatAdsList.value[index].pTitle,
-                                  style: heading6,
+                                  style: heading5,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),
@@ -121,7 +121,7 @@ class RelatedAds extends StatelessWidget {
                                     Text(
                                       homeController.relatedCatAdsList
                                           .value[index].pLocation,
-                                      style: heading6,
+                                      style: heading5,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 1,
                                     ),

@@ -106,7 +106,7 @@ class CategoriesBar extends StatelessWidget {
                                       softWrap: true,
                                       overflow: TextOverflow.fade,
                                       maxLines: 2,
-                                      style: heading5),
+                                      style: cardTitle),
                                 )
                               ],
                             ),

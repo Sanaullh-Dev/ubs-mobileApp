@@ -67,7 +67,7 @@ class TitleBar extends StatelessWidget {
               Text(
                 // "Location name about post",
                 adsPostData.pLocation,
-                style: heading6,
+                style: heading5,
               ),
               const Expanded(child: SizedBox()),
               Text(

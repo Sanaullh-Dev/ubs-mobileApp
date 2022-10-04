@@ -24,12 +24,12 @@ TextStyle heading4 = TextStyle(
 );
 
 TextStyle heading5 =
-    TextStyle(fontSize: 19.sp, color: Colors.black, letterSpacing: 1);
+    TextStyle(fontSize: 32.sp, color: Colors.black, letterSpacing: 1);
 
 TextStyle heading6 = TextStyle(
   color: COLOR_BLACK,
-  fontWeight: FontWeight.w500,
-  fontSize: 32.sp,
+  fontWeight: FontWeight.w600,
+  fontSize: 28.sp,
   letterSpacing: 0.8,
 );
 
@@ -37,6 +37,12 @@ TextStyle titleLabel = TextStyle(
   color: COLOR_BLACK,
   fontWeight: FontWeight.w500,
   fontSize: 30.sp,
+);
+
+TextStyle cardTitle = TextStyle(
+  color: COLOR_BLACK,
+  fontWeight: FontWeight.w500,
+  fontSize: 19.sp,
 );
 
 TextStyle btnText = TextStyle(
@@ -55,7 +61,7 @@ TextStyle buttonTextStyle = TextStyle(
 
     TextStyle textfield = TextStyle(
     color: Colors.black,
-    fontSize: 28.sp,
+    fontSize: 30.sp,
     fontWeight: FontWeight.w500,
     letterSpacing: 1,
     fontFamily: "Poppins");

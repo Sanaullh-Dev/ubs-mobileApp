@@ -61,7 +61,7 @@ class PostDetails extends StatelessWidget {
                             Text(
                               postDetController.adsPost.value.pDescribe,
                               textAlign: TextAlign.start,
-                              style: heading6,
+                              style: heading5,
                             )
                           ],
                         ),
