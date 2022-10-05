@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/categories.dart';
@@ -10,9 +9,11 @@ class HomeController extends GetxController {
   RxList<AdsPost> relatedCatAdsList = List<AdsPost>.empty().obs;
   RxList<Categories> mainCatList = List<Categories>.empty().obs;
   RxList<Categories> subCatList = List<Categories>.empty().obs;
+  
   RxBool listStatus = false.obs;
 
-  RxBool allAds = true.obs;
+  RxString typeList = "".obs;
+  RxString hintText = "".obs;
   RxInt mainCat = 0.obs;
   RxInt subCat = 0.obs;
 

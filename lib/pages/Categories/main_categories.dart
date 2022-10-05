@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/categories.dart';
 import 'package:ubs/pages/Categories/sub_categories.dart';
 import 'package:ubs/utils/constants.dart';
@@ -42,13 +42,16 @@ class MainCategories extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                              width: 1,
-                              color: COLOR_LIGHT_BLACK.withAlpha(50)))),
+                    border: Border(
+                      bottom: BorderSide(
+                        width: 1,
+                        color: COLOR_LIGHT_BLACK.withAlpha(50),
+                      ),
+                    ),
+                  ),
                   padding:
                       const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
-                      // margin: EdgeInsets.symmetric(vertical: 8),
+                  // margin: EdgeInsets.symmetric(vertical: 8),
                   child: ListTile(
                     onTap: () {
                       Navigator.push(
@@ -56,9 +59,9 @@ class MainCategories extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => SubCategoriesPage(
                             gotoPage: "Buy",
-                              catData: catData[index],
-                              // subCategoryData: catData[index].subCategories
-                              ),
+                            catData: catData[index],
+                            // subCategoryData: catData[index].subCategories
+                          ),
                         ),
                       );
                     },
@@ -71,10 +74,10 @@ class MainCategories extends StatelessWidget {
                     ),
                     title: Text(
                       catData[index].catName,
-                      style: const TextStyle(
+                      style: TextStyle(
                           color: COLOR_BLACK,
                           fontWeight: FontWeight.w500,
-                          fontSize: 18,
+                          fontSize: 28.sp,
                           fontFamily: "Roboto"),
                     ),
                     trailing: const Icon(Icons.chevron_right_outlined),

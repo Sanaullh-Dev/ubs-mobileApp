@@ -63,7 +63,7 @@ class TitleBar extends StatelessWidget {
           addVerticalSpace(8.h),
           Row(
             children: [
-              Icon(Icons.location_on, size: 55.sp,),
+              Icon(Icons.location_on, size: 50.sp,),
               Text(
                 // "Location name about post",
                 adsPostData.pLocation,

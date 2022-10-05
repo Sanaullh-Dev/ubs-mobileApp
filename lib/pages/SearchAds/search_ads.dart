@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:ubs/pages/SearchAds/controller/search_controller.dart';
+import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
 
@@ -10,7 +12,11 @@ class SearchAds extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Rx<bool> isTyping = false.obs;
+    List<String> keywordList = [];
     TextEditingController searchTextCont = TextEditingController();
+
+    final SearchController searchController = Get.put(SearchController());
+    final HomeController homeCont = Get.find<HomeController>();
 
     return SafeArea(
         child: Scaffold(
@@ -43,6 +49,7 @@ class SearchAds extends StatelessWidget {
                           textAlignVertical: TextAlignVertical.center,
                           onChanged: (val) {
                             isTyping.value = val == "" ? false : true;
+                            searchController.fetchAdsWiseKeyword(val);
                           },
                           style: TextStyle(
                               color: Colors.black,
@@ -51,7 +58,7 @@ class SearchAds extends StatelessWidget {
                           decoration: InputDecoration(
                               contentPadding:
                                   EdgeInsets.symmetric(vertical: 18.sp),
-                              hintText: "Search city, area or neighborhood",
+                              hintText: "Search product or Category",
                               focusColor: COLOR_PRIMARY,
                               prefixIcon: IconButton(
                                 onPressed: () => Get.back(),
@@ -74,41 +81,65 @@ class SearchAds extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                        height: 90.sp,
-                        padding: EdgeInsets.symmetric(horizontal: 20.sp),
-                        decoration: BoxDecoration(
-                            color: Colors.blueGrey[800],
-                            borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(5),
-                              bottomRight: Radius.circular(5),
-                            )),
-                        child: Icon(
-                          Icons.search,
-                          size: 48.sp,
-                          color: Colors.white,
-                        )),
+                    GestureDetector(
+                      onTap: () {
+                        searchController
+                            .fetchKeywordWiseAds(searchTextCont.text);
+                        homeCont.typeList.value = "keywordList";
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/', (Route<dynamic> route) => false);
+                      },
+                      child: Container(
+                          height: 90.sp,
+                          padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                          decoration: BoxDecoration(
+                              color: Colors.blueGrey[800],
+                              borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(5),
+                                bottomRight: Radius.circular(5),
+                              )),
+                          child: Icon(
+                            Icons.search,
+                            size: 48.sp,
+                            color: Colors.white,
+                          )),
+                    ),
                   ],
                 ),
               ),
               const Divider(),
               Expanded(
                 child: ListView.builder(
-                  itemCount: 5,
+                  itemCount: searchController.keywordList.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
-                      minLeadingWidth: 15.sp,
-                      leading: const Icon(
-                        Icons.search,
-                        color: Colors.black,
-                      ),
-                      title: Text("Main Title", style: heading5),
-                      subtitle: Text("Sub Title", style: heading6),
-                      trailing: IconButton(
-                        icon: Icon(Icons.close),
-                        onPressed: () {},
-                        color: Colors.black,
-                      ),
+                    return Column(
+                      children: [
+                        ListTile(
+                          minLeadingWidth: 15.sp,
+                          leading: const Icon(
+                            Icons.search,
+                            color: Colors.black,
+                          ),
+                          title: Text(searchController.keywordList.value[index],
+                              style: heading5),
+                          subtitle: Text("from All Category", style: heading6),
+                          trailing: IconButton(
+                            icon: Icon(Icons.close),
+                            onPressed: () {
+                              searchController.keywordList.removeAt(index);
+                            },
+                            color: Colors.black,
+                          ),
+                          onTap: () {
+                            searchController.fetchKeywordWiseAds(
+                                searchController.keywordList.value[index]);
+                            homeCont.typeList.value = "keywordList";
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                '/', (Route<dynamic> route) => false);
+                          },
+                        ),
+                        const Divider()
+                      ],
                     );
                   },
                 ),

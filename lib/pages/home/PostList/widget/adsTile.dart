@@ -9,14 +9,8 @@ import 'package:ubs/utils/custom_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class AdsTitle extends StatelessWidget {
-  final TextTheme textTheme;
-  final double wSize;
   final AdsPost adsData;
-  const AdsTitle(
-      {super.key,
-      required this.textTheme,
-      required this.wSize,
-      required this.adsData});
+  const AdsTitle({super.key, required this.adsData});
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +43,8 @@ class AdsTitle extends StatelessWidget {
         ),
         child: Row(children: [
           SizedBox(
-            width: wSize * 0.25,
-            height: wSize * 0.20,
+            width: 180.sp,
+            height: 180.sp,
             child: Image.network(
               getLink(adsData.pImg1),
               fit: BoxFit.fitWidth,
@@ -69,9 +63,8 @@ class AdsTitle extends StatelessWidget {
                       children: [
                         featuredTag(),
                         Text(
-                          adsData.pPrice.toString(),
-                          style: TextStyle(
-                              fontSize: 22.sp, fontWeight: FontWeight.w700),
+                          "₹ ${adsData.pPrice.toString()}",
+                          style: heading4,
                         ),
                       ],
                     ),
@@ -92,14 +85,14 @@ class AdsTitle extends StatelessWidget {
                 ),
                 Container(
                   margin: EdgeInsets.only(right: 20.sp),
-                  child: Text(adsData.pTitle),
+                  child: Text(adsData.pTitle, style: heading5),
                 ),
                 Row(
                   children: [
-                     Icon(Icons.location_on,size: 38.sp),
+                    Icon(Icons.location_on, size: 38.sp),
                     Text(
                       adsData.pLocation,
-                      style: heading5,
+                      style: titleLabel,
                     ),
                     const Expanded(child: SizedBox()),
                     Text(

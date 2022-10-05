@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:ubs/pages/selling/controller/selling_controller.dart';
 import 'package:ubs/pages/selling/sale_sub_categories.dart';
@@ -31,11 +32,11 @@ class _SaleMainCategoriesState extends State<SaleMainCategories> {
             },
             icon: const Icon(Icons.close),
           ),
-          title: const Text("What are you offering?",
+          title: Text("What are you offering?",
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
-                  fontSize: 20,
+                  fontSize: 28.sp,
                   letterSpacing: 1)),
         ),
         body: Container(
@@ -59,7 +60,6 @@ class _SaleMainCategoriesState extends State<SaleMainCategories> {
                           var mainId =
                               sellingController.mainCatList[index].catId;
                           sellingController.getSubCat(mainId);
-
                           sellingController.sellingPost.value.pMcat = mainId;
 
                           Navigator.of(context).push(

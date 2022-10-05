@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/categories.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/pages/main_controller.dart';
@@ -28,9 +29,9 @@ class SubCategoriesPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios_new_rounded,
-            size: 25,
+            size: 35.sp,
             color: Colors.black,
           ),
           onPressed: () {
@@ -39,8 +40,8 @@ class SubCategoriesPage extends StatelessWidget {
         ),
         title: Text(
           catData.catName,
-          style: const TextStyle(
-              fontSize: 18,
+          style: TextStyle(
+              fontSize: 28.sp,
               fontWeight: FontWeight.w500,
               color: Colors.black,
               letterSpacing: 0.9),
@@ -65,13 +66,20 @@ class SubCategoriesPage extends StatelessWidget {
                               ),
                             );
                           } else if (gotoPage == "Buy") {
-                            if(homeCont.subCatList[index].catName != "View All"){
-                              homeCont.subCat.value = homeCont.subCatList[index].catId;
+                            if (homeCont.subCatList[index].catName !=
+                                "View All") {
+                              homeCont.subCat.value =
+                                  homeCont.subCatList[index].catId;
                             }
+
                             homeCont.mainCat.value = catData.catId;
-                            homeCont.allAds.value = false;
-                            
-                            Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+                            homeCont.typeList.value = "catList";
+                            homeCont.hintText.value =
+                                homeCont.subCatList[index].catName == "View All"
+                                    ? catData.catName
+                                    : homeCont.subCatList[index].catName;
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                '/', (Route<dynamic> route) => false);
                           }
                         },
                         child: Container(
@@ -88,10 +96,10 @@ class SubCategoriesPage extends StatelessWidget {
                           child: ListTile(
                             title: Text(
                               homeCont.subCatList.value[index].catName,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   color: COLOR_BLACK,
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 18,
+                                  fontSize: 28.sp,
                                   fontFamily: "Roboto"),
                             ),
                           ),

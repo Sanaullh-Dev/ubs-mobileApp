@@ -3,6 +3,7 @@ import 'package:ubs/model/cats_bord.dart';
 import 'package:ubs/pages/Chats/widgets/chart_list.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/sample_data.dart';
+import 'package:ubs/utils/text_style.dart';
 
 class ChatsDashboard extends StatefulWidget {
   const ChatsDashboard({super.key});
@@ -53,7 +54,7 @@ class _ChatsDashboardState extends State<ChatsDashboard> {
                         indicatorWeight: 6,
                         indicatorColor: COLOR_BLACK,
                         labelColor: COLOR_BLACK,
-                        labelStyle: textTheme.headline4,
+                        labelStyle: heading4,
                         labelPadding: EdgeInsets.only(bottom: 8, top: 8),
                         tabs: const [
                           Tab(text: 'All'),

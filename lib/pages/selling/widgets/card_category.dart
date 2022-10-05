@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ubs/model/categories.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/custom_fun.dart';
@@ -16,8 +17,8 @@ class CardCategory extends StatelessWidget {
     // var uri = API_URL + "/" + categories.catImg.replaceAll("\\", "/");
 
     return Container(
-      width: 20,
-      height: 550,
+      width: 20.sp,
+      height: 550.sp,
       decoration: const BoxDecoration(
         border: Border(
             right: BorderSide(color: COLOR_BORDER, width: 1),
@@ -28,8 +29,8 @@ class CardCategory extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            width: 50,
-            height: 50,
+            width: 90.sp,
+            height: 90.sp,
             child: Image.network(
               getLink(categories.catImg),
               color: Colors.white,
@@ -41,7 +42,7 @@ class CardCategory extends StatelessWidget {
           Text(
             categories.catName,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.black, fontSize: 12),
+            style: TextStyle(color: Colors.black, fontSize: 23.sp),
           )
         ],
       ),

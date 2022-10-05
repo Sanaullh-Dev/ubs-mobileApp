@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
 
     return SafeArea(
       child: Obx(
-        () => homeController.allAds.value
+        () => homeController.typeList.value == "all"
             ? LatestPost(size: size, textTheme: textTheme)
             : PostList(),
       ),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/categories.dart';
@@ -6,7 +8,6 @@ import 'package:ubs/utils/constants.dart';
 class RemoteServices {
   static var client = http.Client();
 
-  
   // ---------- Get All Main Categories from API ------------------
   static Future<List<Categories>?> fetchMainCat() async {
     var uri = Uri.parse("$API_URL/category/main");
@@ -47,6 +48,7 @@ class RemoteServices {
     }
   }
 
+  static Future<List<String>?> fetchKeywordList() async {}
   // ---------- Get All Ads post from API ------------------
   static Future<List<AdsPost>?> fetchCatWisedAds(int mCatId) async {
     var uri = Uri.parse("$API_URL/adspost/relatedAds/mainId-$mCatId");
@@ -92,6 +94,38 @@ class RemoteServices {
       return response.body;
     }
   }
+
+  // ---------- Get keyword list from API ------------------
+  static Future<List<String>?> fetchAdsWiseKeyword(String keyword) async {
+    List<String> li = [];
+    var uri = Uri.parse("$API_URL/adspost/search-$keyword");
+    var response =
+        await client.get(uri, headers: {'Content-Type': 'application/json'});
+
+    if (response.statusCode == 200) {
+      var jsonString = response.body;
+      (json.decode(jsonString) as List).forEach((val) => li.add(val["keyword"]));
+      return li;
+    } else {
+      return null;
+    }
+  }
+
+  // ---------- Get All Ads post from API ------------------
+  static Future<List<AdsPost>?> fetchKeywordWisedAds(String keyword) async {
+    var uri = Uri.parse("$API_URL/adspost/keywordSearch-$keyword");
+    var response =
+        await client.get(uri, headers: {'Content-Type': 'application/json'});
+
+    if (response.statusCode == 200) {
+      var jsonString = response.body;
+      return adsPostFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
+
 }
 
 imgFileAdd(AdsPost adsPost, http.MultipartRequest request) async {
@@ -126,31 +160,3 @@ imgFileAdd(AdsPost adsPost, http.MultipartRequest request) async {
   }
   return request;
 }
-
- // final headers = {'Content-Type': 'application/json'};
-    // final encoding = Encoding.getByName('utf-8');
-   
-    // var body = {
-    //   "pTitle": adsPost.pTitle,
-    //   "pBrand": adsPost.pBrand,
-    //   "pDescribe": adsPost.pDescribe,
-    //   "pImg1": adsPost.pImg1,
-    //   "pImg2": adsPost.pImg2,
-    //   "pImg3": adsPost.pImg3,
-    //   "pImg4": adsPost.pImg4,
-    //   "pImg5": adsPost.pImg5,
-    //   "pPrice": adsPost.pPrice,
-    //   "pLocation": adsPost.pLocation,
-    //   "mcat_id": adsPost.pMcat,
-    //   "scat_id": adsPost.pScat,
-    //   "pUid": adsPost.pUid
-    // };
-
-    // var res = await client.post(uri,
-    //     headers: headers, body: json.encode(body), encoding: encoding);
-    // if (res.statusCode == 200) {
-    //   return res.body;
-    // }
-    // else {
-    //   return "Data is not save. Showing Error: ${res.body}";
-    // }
