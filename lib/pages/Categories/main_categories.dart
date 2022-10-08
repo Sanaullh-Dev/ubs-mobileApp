@@ -19,16 +19,16 @@ class MainCategories extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios_new_rounded,
-            size: 25,
+            size: 45.sp,
             color: Colors.black,
           ),
         ),
-        title: const Text(
+        title: Text(
           "Categories",
           style: TextStyle(
-              fontSize: 18,
+              fontSize: 34.sp,
               fontWeight: FontWeight.w500,
               color: Colors.black,
               letterSpacing: 0.9),
@@ -49,8 +49,7 @@ class MainCategories extends StatelessWidget {
                       ),
                     ),
                   ),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                  padding: EdgeInsets.symmetric(vertical: 25.sp, horizontal: 15.sp),
                   // margin: EdgeInsets.symmetric(vertical: 8),
                   child: ListTile(
                     onTap: () {
@@ -66,7 +65,7 @@ class MainCategories extends StatelessWidget {
                       );
                     },
                     leading: SizedBox(
-                      height: 60,
+                      height: 90.sp,
                       child: Image.network(
                         getLink(catData[index].catImg),
                         fit: BoxFit.cover,
@@ -80,7 +79,7 @@ class MainCategories extends StatelessWidget {
                           fontSize: 28.sp,
                           fontFamily: "Roboto"),
                     ),
-                    trailing: const Icon(Icons.chevron_right_outlined),
+                    trailing: Icon(Icons.chevron_right_outlined, size: 55.sp),
                   ),
                 );
               },

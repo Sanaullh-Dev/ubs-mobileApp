@@ -26,12 +26,23 @@
       "request": "launch",
       "type": "dart",
       "deviceId": "8a7bc41e"
+    },
+    {
+      "name": "Windows",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "windows"
     }
   ],
   "compounds": [
     {
       "name": "All Devices",
       "configurations": ["OnePluse - 5555", "Pixel 2 XL - 5565"]
+    },
+    {
+      "name": "Mobile and emulator",
+      "configurations": ["OnePluse - 5555", "Redmi Note 7 Pro (mobile)"]
     }
+
   ]
 }

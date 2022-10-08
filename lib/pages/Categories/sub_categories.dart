@@ -41,7 +41,7 @@ class SubCategoriesPage extends StatelessWidget {
         title: Text(
           catData.catName,
           style: TextStyle(
-              fontSize: 28.sp,
+              fontSize: 32.sp,
               fontWeight: FontWeight.w500,
               color: Colors.black,
               letterSpacing: 0.9),

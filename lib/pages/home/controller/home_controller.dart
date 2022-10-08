@@ -12,7 +12,7 @@ class HomeController extends GetxController {
   
   RxBool listStatus = false.obs;
 
-  RxString typeList = "".obs;
+  RxString typeList = "all".obs;
   RxString hintText = "".obs;
   RxInt mainCat = 0.obs;
   RxInt subCat = 0.obs;

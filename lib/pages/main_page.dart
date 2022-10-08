@@ -71,13 +71,13 @@ class MainPage extends StatelessWidget {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: COLOR_PRIMARY, width: 8.w),
+                    border: Border.all(color: COLOR_PRIMARY, width: 12.sp),
                     color: Colors.white,
                     shape: BoxShape.circle,
                   ),
                   child: IconButton(
                     color: Colors.black87,
-                    iconSize: 45.w,
+                    iconSize: 50.sp,
                     icon: const Icon(Icons.add_outlined),
                     onPressed: () {
                       Navigator.push(
