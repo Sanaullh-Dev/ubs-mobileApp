@@ -8,7 +8,6 @@ import 'package:ubs/pages/PostDetails/widget/RelatedAds.dart';
 import 'package:ubs/pages/PostDetails/widget/image_slider.dart';
 import 'package:ubs/pages/PostDetails/widget/title_bar.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
-import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class PostDetails extends StatelessWidget {

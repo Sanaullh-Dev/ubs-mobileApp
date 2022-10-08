@@ -20,6 +20,12 @@
       "request": "launch",
       "type": "dart",
       "deviceId": "localhost:5565"
+    },
+    {
+      "name": "Redmi Note 7 Pro (mobile)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "8a7bc41e"
     }
   ],
   "compounds": [

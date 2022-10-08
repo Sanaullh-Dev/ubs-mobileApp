@@ -70,7 +70,7 @@ class SearchAds extends StatelessWidget {
                               ),
                               suffixIcon: isTyping.value == true
                                   ? IconButton(
-                                      icon: Icon(Icons.close),
+                                      icon: const Icon(Icons.close),
                                       onPressed: () {
                                         searchTextCont.text = "";
                                         isTyping.value = false;
@@ -106,6 +106,39 @@ class SearchAds extends StatelessWidget {
                     ),
                   ],
                 ),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                      child: Padding(
+                    padding: EdgeInsets.only(left: 50.sp),
+                    child: TextFormField(
+                      decoration: InputDecoration(),
+                    ),
+                  )),
+                  GestureDetector(
+                    onTap: () {
+                      searchController.fetchKeywordWiseAds(searchTextCont.text);
+                      homeCont.typeList.value = "keywordList";
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/', (Route<dynamic> route) => false);
+                    },
+                    child: Container(
+                        height: 90.sp,
+                        padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                        decoration: BoxDecoration(
+                            color: Colors.blueGrey[800],
+                            borderRadius: const BorderRadius.only(
+                              topRight: Radius.circular(5),
+                              bottomRight: Radius.circular(5),
+                            )),
+                        child: Icon(
+                          Icons.search,
+                          size: 48.sp,
+                          color: Colors.white,
+                        )),
+                  ),
+                ],
               ),
               const Divider(),
               Expanded(

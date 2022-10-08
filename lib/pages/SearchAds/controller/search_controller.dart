@@ -1,15 +1,11 @@
 import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
-import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/services/remote_services.dart';
 
 class SearchController extends GetxController {
   RxList<String> keywordList = List<String>.empty().obs;
   RxList<AdsPost> keywordWiseAdsList = List<AdsPost>.empty().obs;
   RxString searchWord = "".obs;
-  // RxBool listStatus = false.obs;
-
-  // RxBool allAds = true.obs;
     
 
   @override
