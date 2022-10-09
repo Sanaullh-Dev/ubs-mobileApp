@@ -6,6 +6,7 @@ import 'package:ubs/pages/selling/widgets/next_btn.dart';
 import 'package:ubs/pages/selling/P2_image_Picker/image_picker_page.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
+import 'package:ubs/utils/text_style.dart';
 
 class SaleInfo1 extends StatefulWidget {
   const SaleInfo1({Key? key}) : super(key: key);
@@ -24,14 +25,13 @@ class _SaleInfo1State extends State<SaleInfo1> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final TextTheme textTheme = Theme.of(context).textTheme;
-
+    
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: Text(
             "Filled some details",
-            style: textTheme.headline5,
+            style: heading3,
           ),
           leading: IconButton(
               onPressed: () {

@@ -42,7 +42,7 @@ class CardCategory extends StatelessWidget {
           Text(
             categories.catName,
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.black, fontSize: 23.sp),
+            style: TextStyle(color: Colors.black, fontSize: 24.sp),
           )
         ],
       ),
