@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   PostModel? selectedPost;
   // List<AdsPost> adsPosts = [];
-  final HomeController homeController = Get.put(HomeController());
+  final homeController = Get.find<HomeController>();
 
   @override
   void initState() {
@@ -53,7 +53,7 @@ class LatestPost extends StatefulWidget {
 }
 
 class _LatestPostState extends State<LatestPost> {
-  final HomeController homeController = Get.put(HomeController());
+  final homeController = Get.find<HomeController>();
 
   @override
   void initState() {
@@ -64,61 +64,75 @@ class _LatestPostState extends State<LatestPost> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NestedScrollView(
-        floatHeaderSlivers: true,
-        headerSliverBuilder: (context, _) {
-          return <Widget>[
-            SliverAppBar(
-              title: LocationBar(textTheme: widget.textTheme),
-              // titleSpacing: 5,
-              toolbarHeight: 80.h,
-              pinned: false,
-              floating: true,
-              // primary: false,
-              centerTitle: false,
-              // titleSpacing: NavigationToolbar.kMiddleSpacing,
-              // automaticallyImplyLeading: false,
-            ),
-            SliverAppBar(
-              pinned: true,
-              primary: false,
-              centerTitle: false,
-              titleSpacing: 0,
-              toolbarHeight: 110.h,
-              automaticallyImplyLeading: false,
-              forceElevated: true,
-              title: SearchBar(
-                  width: widget.size.width, textTheme: widget.textTheme),
-            )
-          ];
-        },
-        body: RefreshIndicator(
-          onRefresh: () async {
-            await homeController.fetchAds();
-          },
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                GestureDetector(onTap: () {}, child: addVerticalSpace(10)),
-                const CategoriesBar(),
-                addVerticalSpace(10),
-                Padding(
-                  padding: const EdgeInsets.only(left: 14),
-                  child: Text("Fresh recommendation", style: heading4),
+        body: NestedScrollView(
+            floatHeaderSlivers: true,
+            headerSliverBuilder: (context, _) {
+              return <Widget>[
+                SliverAppBar(
+                  title: LocationBar(textTheme: widget.textTheme),
+                  // titleSpacing: 5,
+                  toolbarHeight: 80.h,
+                  pinned: false,
+                  floating: true,
+                  // primary: false,
+                  centerTitle: false,
+                  // titleSpacing: NavigationToolbar.kMiddleSpacing,
+                  // automaticallyImplyLeading: false,
                 ),
-                SizedBox(height: 25.h),                
-                Obx(
-                  () => homeController.adsPostList.value.isEmpty
-                      ? const CircularProgressIndicator()
-                      : AdsList(
-                          adsPost: homeController.adsPostList,
-                        ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+                SliverAppBar(
+                  pinned: true,
+                  primary: false,
+                  centerTitle: false,
+                  titleSpacing: 0,
+                  toolbarHeight: 110.h,
+                  automaticallyImplyLeading: false,
+                  forceElevated: true,
+                  title: SearchBar(
+                      width: widget.size.width, textTheme: widget.textTheme),
+                )
+              ];
+            },
+            body: RefreshIndicator(
+                onRefresh: () async {
+                  await homeController.fetchAds();
+                },
+                child: Obx(
+                  (() => homeController.adsPostList.value.isEmpty ||
+                          homeController.mainCatList.value.isEmpty
+                      ? Center(
+                          child: SizedBox(
+                            height: 500.sp,
+                            width: 200.sp,
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  "lib/assets/images/loading.png",
+                                ),
+                                addVerticalSpace(50.sp),
+                                Text("Loading...", style: heading4)
+                              ],
+                            ),
+                          ),
+                        )
+                      : SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              GestureDetector(
+                                  onTap: () {}, child: addVerticalSpace(10)),
+                              const CategoriesBar(),
+                              addVerticalSpace(10),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 14),
+                                child: Text("Fresh recommendation",
+                                    style: heading4),
+                              ),
+                              SizedBox(height: 25.h),
+                              AdsList(
+                                adsPost: homeController.adsPostList,
+                              ),
+                            ],
+                          ),
+                        )),
+                ))));
   }
 }

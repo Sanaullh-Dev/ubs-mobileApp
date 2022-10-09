@@ -17,7 +17,7 @@ class _SearchAdsState extends State<SearchAds> {
   Rx<bool> isTyping = false.obs;
   List<String> keywordList = [];
   TextEditingController searchTextCont = TextEditingController();
-  final SearchController searchController = Get.put(SearchController());
+  final searchController = Get.find<SearchController>();
   final HomeController homeCont = Get.find<HomeController>();
 
   @override
@@ -30,6 +30,7 @@ class _SearchAdsState extends State<SearchAds> {
                 padding: EdgeInsets.all(40.sp),
                 child: Row(
                   children: [
+                    // Search Box
                     Expanded(
                       child: SizedBox(
                         height: 100.sp,
@@ -38,6 +39,7 @@ class _SearchAdsState extends State<SearchAds> {
                     ),
                     GestureDetector(
                       onTap: () {
+                        searchController.searchWord.value = searchTextCont.text;
                         searchController
                             .fetchKeywordWiseAds(searchTextCont.text);
                         homeCont.typeList.value = "keywordList";
@@ -86,6 +88,7 @@ class _SearchAdsState extends State<SearchAds> {
                             color: Colors.black,
                           ),
                           onTap: () {
+                            searchController.searchWord.value = searchController.keywordList.value[index];
                             searchController.fetchKeywordWiseAds(
                                 searchController.keywordList.value[index]);
                             homeCont.typeList.value = "keywordList";

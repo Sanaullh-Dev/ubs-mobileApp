@@ -28,7 +28,7 @@ class MainCategories extends StatelessWidget {
         title: Text(
           "Categories",
           style: TextStyle(
-              fontSize: 34.sp,
+              fontSize: 38.sp,
               fontWeight: FontWeight.w500,
               color: Colors.black,
               letterSpacing: 0.9),
@@ -65,7 +65,7 @@ class MainCategories extends StatelessWidget {
                       );
                     },
                     leading: SizedBox(
-                      height: 90.sp,
+                      height: 100.sp,
                       child: Image.network(
                         getLink(catData[index].catImg),
                         fit: BoxFit.cover,
@@ -76,7 +76,7 @@ class MainCategories extends StatelessWidget {
                       style: TextStyle(
                           color: COLOR_BLACK,
                           fontWeight: FontWeight.w500,
-                          fontSize: 28.sp,
+                          fontSize: 34.sp,
                           fontFamily: "Roboto"),
                     ),
                     trailing: Icon(Icons.chevron_right_outlined, size: 55.sp),

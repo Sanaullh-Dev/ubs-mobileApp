@@ -12,6 +12,7 @@ class MainPage extends StatelessWidget {
   MainPage({super.key});
 
   final MainController mainCont = Get.put(MainController());
+  //  final mainCont = Get.find<MainController>();
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +30,9 @@ class MainPage extends StatelessWidget {
           bottomNavigationBar: Obx(
             () => BottomNavigationBar(
               selectedLabelStyle:
-                  TextStyle(fontSize: 19.sp, fontWeight: FontWeight.w400),
+                  TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w400),
               unselectedLabelStyle:
-                  TextStyle(fontSize: 19.sp, fontWeight: FontWeight.w400),
+                  TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w400),
               backgroundColor: COLOR_WHITE,
               fixedColor: COLOR_PRIMARY,
               type: BottomNavigationBarType.fixed,
@@ -39,16 +40,16 @@ class MainPage extends StatelessWidget {
               onTap: (index) => mainCont.selectPage.value = index,
               items: [
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.home_filled, size: 60.w), label: "Home"),
+                    icon: Icon(Icons.home_filled, size: 80.sp), label: "Home"),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.chat_rounded, size: 60.w), label: "Chats"),
+                    icon: Icon(Icons.chat_rounded, size: 80.sp), label: "Chats"),
                 BottomNavigationBarItem(
                     icon: Icon(null, size: 60.w), label: "Sell"),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.favorite_border, size: 60.w),
+                    icon: Icon(Icons.favorite_border, size: 80.sp),
                     label: "My Ads"),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.manage_accounts, size: 60.w),
+                    icon: Icon(Icons.manage_accounts, size: 80.sp),
                     label: "Account")
               ],
             ),

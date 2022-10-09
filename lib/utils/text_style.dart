@@ -42,7 +42,7 @@ TextStyle titleLabel = TextStyle(
 TextStyle cardTitle = TextStyle(
   color: COLOR_BLACK,
   fontWeight: FontWeight.w500,
-  fontSize: 19.sp,
+  fontSize: 23.sp,
 );
 
 TextStyle btnText = TextStyle(

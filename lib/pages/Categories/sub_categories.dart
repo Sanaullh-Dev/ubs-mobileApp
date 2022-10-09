@@ -41,7 +41,7 @@ class SubCategoriesPage extends StatelessWidget {
         title: Text(
           catData.catName,
           style: TextStyle(
-              fontSize: 32.sp,
+              fontSize: 36.sp,
               fontWeight: FontWeight.w500,
               color: Colors.black,
               letterSpacing: 0.9),
@@ -99,7 +99,7 @@ class SubCategoriesPage extends StatelessWidget {
                               style: TextStyle(
                                   color: COLOR_BLACK,
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 28.sp,
+                                  fontSize: 35.sp,
                                   fontFamily: "Roboto"),
                             ),
                           ),

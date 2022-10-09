@@ -1,17 +1,15 @@
+import 'dart:ffi';
+
 import 'package:get/get.dart';
-import 'package:ubs/model/ads_post.dart';
+import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/services/remote_services.dart';
 
 class SearchController extends GetxController {
   RxList<String> keywordList = List<String>.empty().obs;
-  RxList<AdsPost> keywordWiseAdsList = List<AdsPost>.empty().obs;
+  // RxList<AdsPost> keywordWiseAdsList = List<AdsPost>.empty().obs;
   RxString searchWord = "".obs;
-    
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  final HomeController homeCont = Get.find<HomeController>();
+  
 
   void fetchAdsWiseKeyword(String keyword) async {
     var subCat = await RemoteServices.fetchAdsWiseKeyword(keyword);
@@ -20,12 +18,12 @@ class SearchController extends GetxController {
     }
   }
 
-  void fetchKeywordWiseAds(String keyword) async {
-    searchWord.value = keyword;
+void fetchKeywordWiseAds(String keyword) async {
     var adsPosts = await RemoteServices.fetchKeywordWisedAds(keyword);
     if (adsPosts != null) {
-      keywordWiseAdsList.value = [];
-      keywordWiseAdsList.value = adsPosts;
-    }
+      // keywordWiseAdsList.value = [];
+      // keywordWiseAdsList.value = adsPosts;
+      homeCont.catWiseAdsList.value = adsPosts;
+    } 
   }
 }

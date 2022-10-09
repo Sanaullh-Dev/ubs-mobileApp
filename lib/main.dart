@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:ubs/main_binding.dart';
 import 'package:ubs/pages/Chats/chat_individual/charts_individual.dart';
 import 'package:ubs/pages/Chats/chats_dashboard.dart';
 import 'package:ubs/pages/selling/sale_main_categories.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
           title: 'b|s',
           theme: getThemeData(screenWidth),
           initialRoute: '/',
+          initialBinding: MainBinding(),
           routes: {
             '/': (context) => MainPage(),
             '/chat': (context) => const ChatsDashboard(),

@@ -14,7 +14,7 @@ class SaleMainCategories extends StatefulWidget {
 }
 
 class _SaleMainCategoriesState extends State<SaleMainCategories> {
-  final SellingController sellingController = Get.put(SellingController());
+  final sellingController = Get.find<SellingController>();
 
   @override
   Widget build(BuildContext context) {

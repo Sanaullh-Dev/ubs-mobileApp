@@ -14,8 +14,8 @@ import 'package:ubs/utils/text_style.dart';
 class PostList extends StatelessWidget {
   PostList({super.key});
 
-  final HomeController homeController = Get.put(HomeController());
-  final SearchController searchController = Get.put(SearchController());
+  final homeController = Get.find<HomeController>();
+  final searchController = Get.find<SearchController>();
 
   @override
   Widget build(BuildContext context) {
@@ -24,118 +24,125 @@ class PostList extends StatelessWidget {
 
     if (homeController.typeList.value == "catList") {
       homeController.fetchCatWiseAds(homeController.mainCat.value);
-    } else if (homeController.typeList.value == "keywordList") {
-      homeController.catWiseAdsList.value =
-          searchController.keywordWiseAdsList.value;
     }
+    // else if (homeController.typeList.value == "keywordList") {
+    //   homeController.catWiseAdsList.value =
+    //       searchController.keywordWiseAdsList.value;
+    // }
 
     return SafeArea(
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(120),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-            child: Row(
-              children: [
-                Container(
-                  width: size.width * 0.75,
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: COLOR_GREY, width: 3)),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        padding: EdgeInsets.zero,
-                        constraints: const BoxConstraints(),
-                        onPressed: () {
-                          homeController.typeList.value = "all";
-                        },
-                        icon: Icon(
-                          Icons.arrow_back,
-                          size: 40.sp,
-                          color: Colors.black,
-                        ),
-                      ),
-                      addHorizontalSpace(8),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            Get.to(SearchAds());
+      child: WillPopScope(
+        onWillPop: () async {
+          homeController.typeList.value = "all";
+          return false;
+        },
+        child: Scaffold(
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(120),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+              child: Row(
+                children: [
+                  Container(
+                    width: size.width * 0.75,
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: COLOR_GREY, width: 3)),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(),
+                          onPressed: () {
+                            homeController.typeList.value = "all";
                           },
-                          child: Text(
-                              "${homeController.hintText} in your current location",
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: false,
-                              maxLines: 1,
-                              style: textfield),
+                          icon: Icon(
+                            Icons.arrow_back,
+                            size: 40.sp,
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
-                    ],
+                        addHorizontalSpace(8),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.to(SearchAds());
+                            },
+                            child: Text(
+                                "${homeController.hintText} Ads in your current location",
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: false,
+                                maxLines: 1,
+                                style: textfield),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: SizedBox(
-                      width: size.width * 0.1,
-                      child: Icon(
-                        FontAwesomeIcons.locationDot,
-                        size: 45.sp,
-                        color: Colors.black87,
-                      )),
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: SizedBox(
-                      width: size.width * 0.1,
-                      child: Icon(
-                        FontAwesomeIcons.arrowDownWideShort,
-                        size: 45.sp,
-                        // color: Colors.black87,
-                      )),
-                )
-              ],
+                  GestureDetector(
+                    onTap: () {},
+                    child: SizedBox(
+                        width: size.width * 0.1,
+                        child: Icon(
+                          FontAwesomeIcons.locationDot,
+                          size: 45.sp,
+                          color: Colors.black87,
+                        )),
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: SizedBox(
+                        width: size.width * 0.1,
+                        child: Icon(
+                          FontAwesomeIcons.arrowDownWideShort,
+                          size: 45.sp,
+                          // color: Colors.black87,
+                        )),
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-        body: Obx(
-          () {
-            if (homeController.typeList.value == "catList") {
-              return homeController.listStatus.value == true
-                  ? const Center(child: CircularProgressIndicator())
-                  : homeController.catWiseAdsList.isEmpty
-                      ? notFoundImage(size)
-                      : SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 15.sp, horizontal: 30.sp),
-                                child: totalAdsBar(),
-                              ),
-                              getList(homeController.catWiseAdsList),
-                            ],
-                          ),
-                        );
-            } else if (homeController.typeList.value == "keywordList") {
-              return searchController.keywordWiseAdsList.isEmpty
-                  ? notFoundImage(size)
-                  : SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 15.sp, horizontal: 30.sp),
-                            child: totalAdsWithSearch(),
-                          ),
-                          getList(searchController.keywordWiseAdsList),
-                        ],
-                      ),
-                    );
-            } else {
-              return notFoundImage(size);
-            }
-          },
+          body: Obx(
+            () {
+              if (homeController.typeList.value == "catList") {
+                return homeController.listStatus.value == true
+                    ? const Center(child: CircularProgressIndicator())
+                    : homeController.catWiseAdsList.isEmpty
+                        ? notFoundImage(size)
+                        : SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 15.sp, horizontal: 30.sp),
+                                  child: totalAdsBar(),
+                                ),
+                                getList(homeController.catWiseAdsList),
+                              ],
+                            ),
+                          );
+              } else if (homeController.typeList.value == "keywordList") {
+                return homeController.catWiseAdsList.isEmpty
+                    ? notFoundImage(size)
+                    : SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 15.sp, horizontal: 30.sp),
+                              child: totalAdsWithSearch(),
+                            ),
+                            getList(homeController.catWiseAdsList),
+                          ],
+                        ),
+                      );
+              } else {
+                return notFoundImage(size);
+              }
+            },
+          ),
         ),
       ),
     );
@@ -181,22 +188,21 @@ class PostList extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-          width: 600.w,
-          child: Text(
-            'Showing result for "${searchController.searchWord.value}"',
-            style: titleLabel,
-            overflow: TextOverflow.ellipsis,
-            softWrap: false,
-            maxLines: 1,
-          ),
-        ),
+            width: 600.w,
+            child: Text(
+              'Showing result for "${searchController.searchWord.value}"',
+              style: titleLabel,
+              overflow: TextOverflow.ellipsis,
+              softWrap: false,
+              maxLines: 1,
+            )),
         Container(
           padding: EdgeInsets.symmetric(vertical: 10.sp, horizontal: 30.sp),
           decoration: BoxDecoration(
               color: Colors.cyan[200],
               // border: Border.all(width: 3, color: COLOR_WHITE),
               borderRadius: BorderRadius.circular(20.r)),
-          child: Text("${searchController.keywordWiseAdsList.length} ads",
+          child: Text("${homeController.catWiseAdsList.length} ads",
               style: TextStyle(
                 color: COLOR_BLACK,
                 fontWeight: FontWeight.w400,
