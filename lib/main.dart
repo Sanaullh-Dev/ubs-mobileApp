@@ -4,6 +4,8 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:ubs/main_binding.dart';
 import 'package:ubs/pages/Chats/chat_individual/charts_individual.dart';
 import 'package:ubs/pages/Chats/chats_dashboard.dart';
+import 'package:ubs/pages/login/login_page1.dart';
+import 'package:ubs/pages/login/login_home.dart';
 import 'package:ubs/pages/selling/sale_main_categories.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +51,8 @@ class MyApp extends StatelessWidget {
           initialRoute: '/',
           // initialBinding: MainBinding(),
           routes: {
-            '/': (context) => MainPage(),
+            // '/': (context) => MainPage(),
+            '/': (context) => LoginPage(),
             '/chat': (context) => const ChatsDashboard(),
             '/chatdetails': (context) => const ChatIndividual(),
             '/SaleMainCategores': (context) => const SaleMainCategories(),
