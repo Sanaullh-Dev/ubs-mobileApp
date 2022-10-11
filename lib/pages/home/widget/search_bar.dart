@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ubs/pages/searchAds/search_ads.dart';
-import 'package:ubs/utils/constants.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -19,7 +18,9 @@ class SearchBar extends StatelessWidget {
     // final ThemeData themData = Theme.of(context);
 
     return Container(
-      height: 110.h,
+      height: 120.h,
+      padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 30.sp),
+      alignment: Alignment.centerRight,
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
@@ -31,8 +32,6 @@ class SearchBar extends StatelessWidget {
           )
         ],
       ),
-      alignment: Alignment.centerRight,
-      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -56,7 +55,7 @@ class SearchBar extends StatelessWidget {
                     onPressed: () {},
                     icon: Icon(
                       Icons.search,
-                      size: 55.sp,
+                      size: 50.sp,
                       color: Colors.black,
                     ),
                   ),

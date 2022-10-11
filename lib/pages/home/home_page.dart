@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   PostModel? selectedPost;
   // List<AdsPost> adsPosts = [];
-  final homeController = Get.find<HomeController>();
+  final HomeController homeController = Get.find<HomeController>();
 
   @override
   void initState() {
@@ -69,7 +69,7 @@ class _LatestPostState extends State<LatestPost> {
             headerSliverBuilder: (context, _) {
               return <Widget>[
                 SliverAppBar(
-                  title: LocationBar(textTheme: widget.textTheme),
+                  title: const LocationBar(),
                   // titleSpacing: 5,
                   toolbarHeight: 80.h,
                   pinned: false,

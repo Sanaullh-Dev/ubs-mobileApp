@@ -20,7 +20,7 @@ class PostDetails extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     final TextTheme textTheme = Theme.of(context).textTheme;
 
-    final postDetController = Get.find<PostDetailsController>();
+    final PostDetailsController postDetController = Get.find<PostDetailsController>();
     postDetController.addAdsPostData(adsPostData);
 
     return SafeArea(

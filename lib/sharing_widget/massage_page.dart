@@ -59,7 +59,7 @@ class MessagePage extends StatelessWidget {
   }
 
   Widget messageBox(String message, BuildContext context) {
-    final homeCont = Get.find<HomeController>();
+    final HomeController homeCont = Get.find<HomeController>();
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

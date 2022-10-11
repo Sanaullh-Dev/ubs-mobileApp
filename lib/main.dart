@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:ubs/pages/main_page.dart';
 
 void main() {
+  MainBinding().dependencies();
   runApp(const MyApp());
 }
 
@@ -19,8 +20,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    double screenWidth = window.physicalSize.width;
-
+    
     return ScreenUtilInit(
       designSize: const Size(900, 1600),
       minTextAdapt: true,
@@ -28,10 +28,26 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'b|s',
-          theme: getThemeData(screenWidth),
+          title: 'B|S',
+          theme: ThemeData(
+            primarySwatch: MaterialColor(0xFFFFBB00, primarySwatchColor),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600),
+                backgroundColor: const Color(0xFF263238),
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            ),
+          ),
+          // theme: getThemeData(screenWidth),
           initialRoute: '/',
-          initialBinding: MainBinding(),
+          // initialBinding: MainBinding(),
           routes: {
             '/': (context) => MainPage(),
             '/chat': (context) => const ChatsDashboard(),

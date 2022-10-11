@@ -7,15 +7,13 @@ import 'package:ubs/pages/selling/controller/selling_controller.dart';
 
 class MainBinding implements Bindings {
 // default dependency
- @override
- void dependencies() {
-   Get.lazyPut(() => HomeController());
-   Get.lazyPut(() => SearchController());
-   Get.lazyPut(() => MainController());
-   Get.lazyPut(() => PostDetailsController());
-   Get.lazyPut(() => SellingController());
- }
-
-
+  @override
+  void dependencies() {
+    Get.lazyPut<HomeController>(() => HomeController(), fenix: true);
+    Get.lazyPut<SearchController>(() => SearchController(), fenix: true);
+    Get.lazyPut<MainController>(() => MainController(), fenix: true);
+    Get.lazyPut<PostDetailsController>(() => PostDetailsController(),
+        fenix: true);
+    Get.lazyPut<SellingController>(() => SellingController(), fenix: true);
+  }
 }
- 

@@ -17,7 +17,7 @@ class _SearchAdsState extends State<SearchAds> {
   Rx<bool> isTyping = false.obs;
   List<String> keywordList = [];
   TextEditingController searchTextCont = TextEditingController();
-  final searchController = Get.find<SearchController>();
+  final SearchController searchController = Get.find<SearchController>();
   final HomeController homeCont = Get.find<HomeController>();
 
   @override
@@ -28,40 +28,43 @@ class _SearchAdsState extends State<SearchAds> {
             children: [
               Padding(
                 padding: EdgeInsets.all(40.sp),
-                child: Row(
-                  children: [
-                    // Search Box
-                    Expanded(
-                      child: SizedBox(
-                        height: 100.sp,
-                        child: searchTextBox(),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        searchController.searchWord.value = searchTextCont.text;
-                        searchController
-                            .fetchKeywordWiseAds(searchTextCont.text);
-                        homeCont.typeList.value = "keywordList";
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            '/', (Route<dynamic> route) => false);
-                      },
-                      child: Container(
+                child: SizedBox(
+                  height: 100.sp,
+                  child: Row(
+                    children: [
+                      // Search Box
+                      Expanded(
+                        child: SizedBox(
                           height: 100.sp,
-                          padding: EdgeInsets.symmetric(horizontal: 20.sp),
-                          decoration: BoxDecoration(
-                              color: Colors.blueGrey[800],
-                              borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(5),
-                                bottomRight: Radius.circular(5),
-                              )),
-                          child: Icon(
-                            Icons.search,
-                            size: 48.sp,
-                            color: Colors.white,
-                          )),
-                    )
-                  ],
+                          child: searchTextBox(),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          searchController.searchWord.value = searchTextCont.text;
+                          searchController
+                              .fetchKeywordWiseAds(searchTextCont.text);
+                          homeCont.typeList.value = "keywordList";
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              '/', (Route<dynamic> route) => false);
+                        },
+                        child: Container(
+                            height: 100.sp,
+                            padding: EdgeInsets.symmetric(horizontal: 20.sp),
+                            decoration: BoxDecoration(
+                                color: Colors.blueGrey[800],
+                                borderRadius: const BorderRadius.only(
+                                  topRight: Radius.circular(5),
+                                  bottomRight: Radius.circular(5),
+                                )),
+                            child: Icon(
+                              Icons.search,
+                              size: 48.sp,
+                              color: Colors.white,
+                            )),
+                      )
+                    ],
+                  ),
                 ),
               ),
               const Divider(),
@@ -125,7 +128,7 @@ class _SearchAdsState extends State<SearchAds> {
           color: Colors.black, fontSize: 35.sp, fontFamily: "Poppins"),
       decoration: InputDecoration(
         counterText: "",
-        contentPadding: const EdgeInsets.all(0.0),
+        contentPadding: EdgeInsets.symmetric(vertical: 25.sp, horizontal: 20.sp),
         isDense: true,
         border: textBoxBorder(),
         prefixIcon: IconButton(
@@ -136,38 +139,16 @@ class _SearchAdsState extends State<SearchAds> {
             color: Colors.black,
           ),
         ),
-        suffixIcon: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            isTyping.value == true
-                ? IconButton(
-                    color: Colors.black,
-                    icon: Icon(Icons.close, size: 60.sp),
-                    onPressed: () {
-                      searchTextCont.text = "";
-                      isTyping.value = false;
-                    },
-                  )
-                : const SizedBox(),
-            // GestureDetector(
-            //   onTap: () {
-            //     searchController.fetchKeywordWiseAds(searchTextCont.text);
-            //     homeCont.typeList.value = "keywordList";
-            //     Navigator.of(context).pushNamedAndRemoveUntil(
-            //         '/', (Route<dynamic> route) => false);
-            //   },
-            //   child: Container(
-            //       height: 90.sp,
-            //       padding: EdgeInsets.symmetric(horizontal: 20.sp),
-            //       color: Colors.blueGrey[800],
-            //       child: Icon(
-            //         Icons.search,
-            //         size: 52.sp,
-            //         color: Colors.white,
-            //       )),
-            // )
-          ],
-        ),
+        suffixIcon: isTyping.value == true
+            ? IconButton(
+                color: Colors.black,
+                icon: Icon(Icons.close, size: 60.sp),
+                onPressed: () {
+                  searchTextCont.text = "";
+                  isTyping.value = false;
+                },
+              )
+            : const SizedBox(),
         focusedBorder: textBoxBorder(),
       ),
     );

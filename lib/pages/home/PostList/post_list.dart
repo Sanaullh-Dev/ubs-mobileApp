@@ -14,8 +14,8 @@ import 'package:ubs/utils/text_style.dart';
 class PostList extends StatelessWidget {
   PostList({super.key});
 
-  final homeController = Get.find<HomeController>();
-  final searchController = Get.find<SearchController>();
+  final HomeController homeController = Get.find<HomeController>();
+  final SearchController searchController = Get.find<SearchController>();
 
   @override
   Widget build(BuildContext context) {

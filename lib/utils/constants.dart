@@ -45,7 +45,8 @@ ThemeData getThemeData(double screenWidth) {
             fontWeight: FontWeight.w500,
             color: Colors.black,
             letterSpacing: 0.9)),
-    textButtonTheme: TextButtonThemeData(
+    textButtonTheme: 
+    TextButtonThemeData(
       style: TextButton.styleFrom(
         textStyle: const TextStyle(
             color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
