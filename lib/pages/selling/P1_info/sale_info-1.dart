@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:ubs/pages/selling/controller/selling_controller.dart';
-import 'package:ubs/pages/selling/widgets/next_btn.dart';
+import 'package:ubs/sharing_widget/next_btn.dart';
 import 'package:ubs/pages/selling/P2_image_Picker/image_picker_page.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
@@ -151,6 +151,7 @@ class _SaleInfo1State extends State<SaleInfo1> {
                 ),
               ),
               NextButton(
+                enable: true,
                   labelText: "Next",
                   onPress: () {
                     if (_formKey.currentState!.validate()) {

@@ -5,6 +5,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:ubs/pages/selling/controller/selling_controller.dart';
 import 'package:ubs/pages/selling/sale_sub_categories.dart';
 import 'package:ubs/pages/selling/widgets/card_category.dart';
+import 'package:ubs/utils/text_style.dart';
 
 class SaleMainCategories extends StatefulWidget {
   const SaleMainCategories({super.key});
@@ -33,11 +34,7 @@ class _SaleMainCategoriesState extends State<SaleMainCategories> {
             icon: const Icon(Icons.close),
           ),
           title: Text("What are you offering?",
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 38.sp,
-                  letterSpacing: 1)),
+              style:appBarTital),
         ),
         body: Container(
           width: size.width,

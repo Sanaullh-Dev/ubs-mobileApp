@@ -9,7 +9,7 @@ import 'package:photo_gallery/photo_gallery.dart';
 import 'package:ubs/pages/selling/P2_image_Picker/widget/imge_load.dart';
 import 'package:ubs/pages/selling/P3_price_location/sale_final_page.dart';
 import 'package:ubs/pages/selling/controller/selling_controller.dart';
-import 'package:ubs/pages/selling/widgets/next_btn.dart';
+import 'package:ubs/sharing_widget/next_btn.dart';
 import 'package:ubs/pages/selling/P2_image_Picker/widget/photo_tile.dart';
 import 'package:ubs/pages/selling/P2_image_Picker/widget/select_image_silder.dart';
 import 'package:ubs/utils/constants.dart';
@@ -156,6 +156,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
               ],
             ),
             NextButton(
+              enable: true,
               labelText: "Next",
               onPress: () {
                 if (selectedPath.isEmpty) {

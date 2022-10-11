@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ubs/pages/selling/controller/selling_controller.dart';
-import 'package:ubs/pages/selling/widgets/next_btn.dart';
+import 'package:ubs/sharing_widget/next_btn.dart';
 import 'package:ubs/sharing_widget/massage_page.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
@@ -110,6 +110,7 @@ class _SaleFinalPageState extends State<SaleFinalPage> {
                       ),
                     ),
                     NextButton(
+                      enable: true,
                         labelText: "Post Now",
                         onPress: () async {
                           if (_formKey.currentState!.validate()) {

@@ -15,7 +15,7 @@ class ChatsListTitle extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, "/chatdetails");
+        Navigator.pushNamed(context, "/chatDetails");
         // Navigator.pushNamed(context, "/demo");
       },
       child: Container(
