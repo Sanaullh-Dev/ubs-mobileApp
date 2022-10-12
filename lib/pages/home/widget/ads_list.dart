@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/pages/PostDetails/post_details.dart';
+import 'package:ubs/sharing_widget/show_image.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/custom_fun.dart';
@@ -53,15 +54,16 @@ class AdsList extends StatelessWidget {
                       alignment: Alignment.center,
                       height: 230.sp,
                       child: Hero(
-                        tag: "post${adsPost[index].pId}",
-                        transitionOnUserGestures: true,
-                        child: Image.network(
-                          getLink(adsPost[index].pImg1),
-                          // color: Colors.white,
-                          // colorBlendMode: BlendMode.color,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                          tag: "post${adsPost[index].pId}",
+                          transitionOnUserGestures: true,
+                          child: ShowImage(imageUrl: getLink(adsPost[index].pImg1))
+                          // Image.network(
+                          //   ,
+                          //   // color: Colors.white,
+                          //   // colorBlendMode: BlendMode.color,
+                          //   fit: BoxFit.cover,
+                          // ),
+                          ),
                     ),
                     // ----- for features batch
                     Positioned(

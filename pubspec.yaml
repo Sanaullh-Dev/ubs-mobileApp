@@ -27,37 +27,41 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  badges: ^2.0.3
   bubble: ^1.2.1
   carousel_pro: ^1.0.0
+  cloud_firestore: ^3.5.1
   cupertino_icons: ^1.0.2
+  firebase_auth: ^1.1.1
+  firebase_core: ^1.0.4
   flutter:
     sdk: flutter
+  flutter_screenutil: ^5.5.4
   flutter_staggered_grid_view: ^0.6.2
   font_awesome_flutter: ^10.1.0
   get: ^4.6.5
+  google_sign_in: ^5.4.2
   http: ^0.13.5
   intl: ^0.17.0
+  page_transition: ^2.0.9
   path: ^1.6.4
   path_provider: ^2.0.11
   permission_handler: ^9.2.0
   photo_gallery: ^1.1.1
   sliding_up_panel: ^2.0.0+1
   transparent_image: ^2.0.0
-  page_transition: ^2.0.9
-  flutter_screenutil: ^5.5.4
-  badges: ^2.0.3
+  # cached_network_image: ^3.2.2
 
 dev_dependencies:
   flutter_lints: ^2.0.0
+  flutter_native_splash: ^2.2.10
   flutter_test:
     sdk: flutter
-  flutter_native_splash: ^2.2.10
 
 # Run command for generate splash screen
 # 1) flutter run
 # 2) flutter pub get
 # 3) flutter pub run flutter_native_splash:create
-
 flutter_native_splash:
   color: "#fdffff"
   image: assets/images/BiS.png

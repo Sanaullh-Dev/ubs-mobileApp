@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "865555816316",
+    "project_id": "bls-mobileapp",
+    "storage_bucket": "bls-mobileapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865555816316:android:91e1ce7619a9cd85350ef9",
+        "android_client_info": {
+          "package_name": "com.example.ubs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "865555816316-u29b47pa5j2u26f6009q1qv88e54ucqa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdhhVuXyDB5biFj_vX6ERQE3GkNvf7pqQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "865555816316-u29b47pa5j2u26f6009q1qv88e54ucqa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
