@@ -1,15 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ubs/pages/Chats/chats_dashboard.dart';
 import 'package:ubs/pages/dashboard/dashboard.dart';
-import 'package:ubs/pages/home/home_page.dart';
-import 'package:ubs/pages/location/state_page.dart';
 import 'package:ubs/pages/login/controller/login_controller.dart';
-import 'package:ubs/pages/login/signup_page.dart';
-import 'package:ubs/pages/main_controller.dart';
-import 'package:ubs/pages/selling/sale_main_categories.dart';
-import 'package:ubs/utils/constants.dart';
+import 'package:ubs/pages/login/login_home.dart';
 import 'package:get/get.dart';
 
 class MainPage extends StatelessWidget {
@@ -28,7 +20,7 @@ class MainPage extends StatelessWidget {
           } else if (loginController.loginStatus.value == "login") {
             return DashboardPage();
           } else {
-            return const SingUp();
+            return const LoginHome();
           }
         },
       ),

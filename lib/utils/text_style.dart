@@ -37,7 +37,7 @@ TextStyle heading6 = TextStyle(
   letterSpacing: 0.8,
 );
 
-TextStyle appBarTital = TextStyle(
+TextStyle appBarTitle = TextStyle(
     color: Colors.black,
     fontWeight: FontWeight.w600,
     fontSize: 38.sp,
@@ -77,7 +77,14 @@ TextStyle buttonTextStyle = TextStyle(
 
 TextStyle textfield = TextStyle(
     color: Colors.black,
-    fontSize: 30.sp,
+    fontSize: 35.sp,
     fontWeight: FontWeight.w500,
+    letterSpacing: 1,
+    fontFamily: "Poppins");
+
+TextStyle labelText = TextStyle(
+    color: Colors.black,
+    fontSize: 40.sp,
+    fontWeight: FontWeight.w600,
     letterSpacing: 1,
     fontFamily: "Poppins");

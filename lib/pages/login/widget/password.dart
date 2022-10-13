@@ -5,14 +5,15 @@ import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class PasswordScreen extends StatelessWidget {
-  final double screenWidght;
-  const PasswordScreen({super.key, required this.screenWidght});
+  final double screenWidget;
+  final String loginType;
+  const PasswordScreen({super.key, required this.screenWidget, required this.loginType});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      width: screenWidght,
+      width: screenWidget,
       padding: EdgeInsets.symmetric(horizontal: 50.h),
       child: Column(
         // mainAxisSize: MainAxisSize.min,

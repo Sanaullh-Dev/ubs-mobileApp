@@ -34,7 +34,7 @@ class _SaleMainCategoriesState extends State<SaleMainCategories> {
             icon: const Icon(Icons.close),
           ),
           title: Text("What are you offering?",
-              style:appBarTital),
+              style:appBarTitle),
         ),
         body: Container(
           width: size.width,
