@@ -3,13 +3,13 @@ import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class LoginController extends GetxController {
+class design extends GetxController {
   final googleSignIn = GoogleSignIn();
   GoogleSignInAccount? _user;
   GoogleSignInAccount get user => _user!;
   RxString loginStatus = "no".obs;
   RxString loginId = "".obs;
-  Rx<bool> passwordScreen = false.obs;
+  // Rx<String> passwordScreen = "userId".obs;
 
   Future googleLogin() async {
     loginStatus.value = "waiting";
@@ -28,17 +28,21 @@ class LoginController extends GetxController {
     await FirebaseAuth.instance.signInWithCredential(credential);
     loginStatus.value = "login";
   }
+  // design
 
-  Future phoneAuth({String? countryCode}) async {
+  Future phoneAuth({String? countryCode, VoidCallback? codeSent}) async {
     if (countryCode != null && loginId.value.length == 10) {
+      var pno = countryCode+ loginId.value;
+      print(pno);
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: countryCode+ loginId.value,
+        phoneNumber: pno,
         verificationCompleted: (PhoneAuthCredential credential) {},
         verificationFailed: (FirebaseAuthException e) {},
-        codeSent: (String verificationId, int? resendToken) {
-          print("verificationId :->$verificationId");
-          passwordScreen.value = ! passwordScreen.value;
-        },
+        codeSent: (String verificationId, int? resendToken) => codeSent,        
+        // {
+          
+        //   // passwordScreen.value = ! passwordScreen.value;
+        // },
         codeAutoRetrievalTimeout: (String verificationId) {},
       );
     }

@@ -51,6 +51,7 @@ dependencies:
   sliding_up_panel: ^2.0.0+1
   transparent_image: ^2.0.0
   pinput: ^2.2.16
+  google_fonts: ^3.0.1
   # cached_network_image: ^3.2.2
 
 dev_dependencies:

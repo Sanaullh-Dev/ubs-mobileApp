@@ -16,7 +16,9 @@ class LoginHome extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
 
-    final LoginController loginControl = Get.find<LoginController>();
+    final design loginControl = Get.find<design>();
+    // this code for keyboard hide
+    FocusManager.instance.primaryFocus?.unfocus();
 
     return Scaffold(
       body: Container(

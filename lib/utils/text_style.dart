@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -8,6 +8,9 @@ TextStyle heading1 = TextStyle(
     fontWeight: FontWeight.w500,
     fontSize: 52.sp,
     fontFamily: "Roboto");
+
+TextStyle heading1InBold = GoogleFonts.poppins(
+    color: Colors.black, fontWeight: FontWeight.w700, fontSize: 60.sp);
 
 TextStyle heading2 = TextStyle(
     color: Colors.black,
@@ -21,14 +24,21 @@ TextStyle heading3 = TextStyle(
     fontSize: 40.sp,
     fontFamily: "Roboto");
 
-TextStyle heading4 = TextStyle(
+TextStyle heading4 = GoogleFonts.poppins(
   color: COLOR_BLACK,
   fontWeight: FontWeight.w500,
   fontSize: 35.sp,
 );
 
-TextStyle heading5 =
-    TextStyle(fontSize: 32.sp, color: Colors.black, letterSpacing: 1);
+// TextStyle(
+//   fontFamily: ,
+//   color: COLOR_BLACK,
+//   fontWeight: FontWeight.w500,
+//   fontSize: 35.sp,
+// );
+
+TextStyle heading5 = GoogleFonts.poppins(
+    fontSize: 32.sp, color: Colors.black, letterSpacing: 0.5);
 
 TextStyle heading6 = TextStyle(
   color: COLOR_BLACK,
@@ -37,11 +47,17 @@ TextStyle heading6 = TextStyle(
   letterSpacing: 0.8,
 );
 
-TextStyle appBarTitle = TextStyle(
+TextStyle appBarTitle = GoogleFonts.poppins(
     color: Colors.black,
     fontWeight: FontWeight.w600,
     fontSize: 38.sp,
     letterSpacing: 1);
+
+// TextStyle(
+//     color: Colors.black,
+//     fontWeight: FontWeight.w600,
+//     fontSize: 38.sp,
+//     letterSpacing: 1);
 
 TextStyle titleLabel = TextStyle(
   color: COLOR_BLACK,
