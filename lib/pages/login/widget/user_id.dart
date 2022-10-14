@@ -15,7 +15,7 @@ class UserId extends StatefulWidget {
 
 class _UserIdState extends State<UserId> {
   TextEditingController countryCode = TextEditingController(text: "+91");
-  final LoginController loginControl = Get.find<LoginController>();
+  final design loginControl = Get.find<design>();
 
   @override
   Widget build(BuildContext context) {

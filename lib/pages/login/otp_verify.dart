@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/sharing_widget/next_btn.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
+import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
 
 /// This is the basic usage of Pinput
@@ -34,9 +35,7 @@ class _OtpVerifyState extends State<OtpVerify> {
 
   @override
   Widget build(BuildContext context) {
-    const borderColor = Color.fromRGBO(114, 178, 238, 1);
-    const errorColor = Color.fromRGBO(255, 234, 238, 1);
-    const fillColor = Color.fromRGBO(222, 231, 240, .57);
+    
     var size = MediaQuery.of(context).size;
 
     final defaultPinTheme = PinTheme(
@@ -44,7 +43,7 @@ class _OtpVerifyState extends State<OtpVerify> {
       height: 130.sp,
       textStyle: GoogleFonts.poppins(
         fontSize: 22,
-        color: const Color.fromRGBO(30, 60, 87, 1),
+        color: const Color.fromARGB(255, 30, 51, 73),
       ),
       decoration: BoxDecoration(
         color: fillColor,
@@ -57,73 +56,75 @@ class _OtpVerifyState extends State<OtpVerify> {
     return SafeArea(
       child: Scaffold(
         appBar: appBar("OTP verification"),
-        body: Column(
-          children: [
-            Form(
-              key: formKey,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    addVerticalSpace(100.h),
-                    Text("Verification", style: heading1InBold),
-                    addVerticalSpace(50.h),
-                    Text("Enter the code sent to the number", style: heading4),
-                    addVerticalSpace(25.h),
-                    Text("+91 7499604663", style: heading5),
-                    addVerticalSpace(70.h),
-                    Directionality(
-                      // Specify direction if desired
-                      textDirection: TextDirection.ltr,
-                      child: SizedBox(
-                        height: 68,
-                        width: size.width,
-                        child: Pinput(
-                          length: 6,
-                          controller: controller,
-                          focusNode: focusNode,
-                          defaultPinTheme: defaultPinTheme,
-                          onCompleted: (pin) {
-                            setState(() => showError = pin != '5555');
-                          },
-                          focusedPinTheme: defaultPinTheme.copyWith(
-                            height: 68,
-                            width: 64,
-                            decoration: defaultPinTheme.decoration!.copyWith(
-                              border: Border.all(color: borderColor),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Form(
+                key: formKey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      addVerticalSpace(100.h),
+                      Text("Verification", style: heading1InBold),
+                      addVerticalSpace(50.h),
+                      Text("Enter the code sent to the number", style: heading4),
+                      addVerticalSpace(25.h),
+                      Text("+91 7499604663", style: heading5),
+                      addVerticalSpace(70.h),
+                      Directionality(
+                        // Specify direction if desired
+                        textDirection: TextDirection.ltr,
+                        child: SizedBox(
+                          height: 68,
+                          width: size.width,
+                          child: Pinput(
+                            length: 6,
+                            controller: controller,
+                            focusNode: focusNode,
+                            defaultPinTheme: defaultPinTheme,
+                            onCompleted: (pin) {
+                              setState(() => showError = pin != '5555');
+                            },
+                            focusedPinTheme: defaultPinTheme.copyWith(
+                              height: 68,
+                              width: 64,
+                              decoration: defaultPinTheme.decoration!.copyWith(
+                                border: Border.all(color: borderColor),
+                              ),
                             ),
-                          ),
-                          errorPinTheme: defaultPinTheme.copyWith(
-                            decoration: BoxDecoration(
-                              color: errorColor,
-                              borderRadius: BorderRadius.circular(8),
+                            errorPinTheme: defaultPinTheme.copyWith(
+                              decoration: BoxDecoration(
+                                color: errorColor,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    addVerticalSpace(60.h),
-                    Text("Didn't received code?", style: heading4),
-                    addVerticalSpace(5.h),
-                    Text("Resend", style: heading4),
-                    addVerticalSpace(60.h),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF263238),
-                          padding: EdgeInsets.symmetric(vertical: 30.w, horizontal: 100.w)
-                          ),
-                      onPressed: () {},
-                      child: Text(
-                        "Validate",
-                        style: buttonTextStyle,
+                      addVerticalSpace(60.h),
+                      Text("Didn't received code?", style: heading4),
+                      addVerticalSpace(10.h),
+                      Text("Resend", style: heading4WithUnderLine),
+                      addVerticalSpace(60.h),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF263238),
+                            padding: EdgeInsets.symmetric(vertical: 30.w, horizontal: 100.w)
+                            ),
+                        onPressed: () {},
+                        child: Text(
+                          "Validate",
+                          style: buttonTextStyle,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            // const Expanded(child: SizedBox()),
-          ],
+              // const Expanded(child: SizedBox()),
+            ],
+          ),
         ),
       ),
     );

@@ -12,10 +12,12 @@ const Color COLOR_LIGHT_BLACK = Color(0xFF5F5F5F);
 const Color COLOR_BORDER = Color(0xFFB0BEC5);
 const Color COLOR_INDICATOR = Color(0xFF78909C);
 const Color COLOR_INDICATOR_LIGHT = Color(0xFF7C888E);
+const borderColor = Color.fromRGBO(114, 178, 238, 1);
+const errorColor = Color.fromRGBO(255, 234, 238, 1);
+const fillColor = Color.fromRGBO(222, 231, 240, .57);
 
 // const String API_URL = "localhost:8080";
-// const String API_URL = "http://10.0.2.2:8080"; 
-
+// const String API_URL = "http://10.0.2.2:8080";
 
 // Online API_URL;
 const String API_URL = "https://ubs-india.herokuapp.com";
@@ -45,8 +47,7 @@ ThemeData getThemeData(double screenWidth) {
             fontWeight: FontWeight.w500,
             color: Colors.black,
             letterSpacing: 0.9)),
-    textButtonTheme: 
-    TextButtonThemeData(
+    textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         textStyle: const TextStyle(
             color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
@@ -97,8 +98,8 @@ TextTheme TEXT_THEME_DEFAULT = TextTheme(
       TextStyle(color: COLOR_BLACK, fontWeight: FontWeight.w400, fontSize: 12),
   subtitle2: TextStyle(
       color: COLOR_LIGHT_BLACK, fontWeight: FontWeight.w400, fontSize: 16),
-  caption:
-      TextStyle(color: COLOR_GREY, fontWeight: FontWeight.w400, fontSize: 25.sp),
+  caption: TextStyle(
+      color: COLOR_GREY, fontWeight: FontWeight.w400, fontSize: 25.sp),
   button: TextStyle(
     color: COLOR_BLACK,
     fontWeight: FontWeight.w500,

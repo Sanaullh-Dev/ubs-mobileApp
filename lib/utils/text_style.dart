@@ -30,6 +30,13 @@ TextStyle heading4 = GoogleFonts.poppins(
   fontSize: 35.sp,
 );
 
+TextStyle heading4WithUnderLine = GoogleFonts.poppins(
+  color: COLOR_BLACK,
+  fontWeight: FontWeight.w500,
+  fontSize: 35.sp,
+  decoration: TextDecoration.underline
+);
+
 // TextStyle(
 //   fontFamily: ,
 //   color: COLOR_BLACK,
