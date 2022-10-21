@@ -18,6 +18,11 @@ TextStyle heading2 = TextStyle(
     fontSize: 45.sp,
     fontFamily: "Roboto");
 
+TextStyle heading2InBold = GoogleFonts.poppins(
+    color: Colors.black,
+    fontWeight: FontWeight.w600,
+    fontSize: 40.sp);
+
 TextStyle heading3 = TextStyle(
     color: COLOR_BLACK,
     fontWeight: FontWeight.w600,
@@ -31,11 +36,10 @@ TextStyle heading4 = GoogleFonts.poppins(
 );
 
 TextStyle heading4WithUnderLine = GoogleFonts.poppins(
-  color: COLOR_BLACK,
-  fontWeight: FontWeight.w500,
-  fontSize: 35.sp,
-  decoration: TextDecoration.underline
-);
+    color: COLOR_BLACK,
+    fontWeight: FontWeight.w500,
+    fontSize: 35.sp,
+    decoration: TextDecoration.underline);
 
 // TextStyle(
 //   fontFamily: ,
@@ -72,10 +76,10 @@ TextStyle titleLabel = TextStyle(
   fontSize: 30.sp,
 );
 
-TextStyle messageLabel = TextStyle(
+TextStyle messageLabel = GoogleFonts.poppins(
   color: COLOR_BLACK,
   fontWeight: FontWeight.w500,
-  fontSize: 28.sp,
+  fontSize: 25.sp,
 );
 
 TextStyle cardTitle = TextStyle(

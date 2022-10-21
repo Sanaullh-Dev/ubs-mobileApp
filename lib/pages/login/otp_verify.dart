@@ -3,7 +3,6 @@ import 'package:pinput/pinput.dart';
 import 'package:ubs/pages/login/widget/common_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ubs/sharing_widget/next_btn.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
@@ -79,7 +78,7 @@ class _OtpVerifyState extends State<OtpVerify> {
                           height: 68,
                           width: size.width,
                           child: Pinput(
-                            length: 6,
+                            length: 4,
                             controller: controller,
                             focusNode: focusNode,
                             defaultPinTheme: defaultPinTheme,

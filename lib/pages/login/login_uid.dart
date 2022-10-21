@@ -7,9 +7,9 @@ import 'package:ubs/pages/login/widget/user_id.dart';
 import 'package:ubs/sharing_widget/next_btn.dart';
 
 
-class LoginPage extends StatelessWidget {
+class LoginUid extends StatelessWidget {
   final String signType;
-  const LoginPage({super.key, required this.signType});
+  const LoginUid({super.key, required this.signType});
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +39,12 @@ class LoginPage extends StatelessWidget {
               labelText: signType == "phone" ? "Get OTP" : "Next",
               onPress: () async {
                 if (signType == "phone") {
-                  await loginControl.phoneAuth(
-                    countryCode: countryCode.text,
-                    codeSent: () {
-                      Get.to(const OtpVerify());
-                    },
-                  );
+                  // await loginControl.phoneAuth(
+                  //   countryCode: countryCode.text,
+                  //   codeSent: () {
+                  //     Get.to(const OtpVerify());
+                  //   },
+                  // );
                 } else if (signType == "email") {
                   // loginControl.passwordScreen.value = ! loginControl.passwordScreen.value;
                 }

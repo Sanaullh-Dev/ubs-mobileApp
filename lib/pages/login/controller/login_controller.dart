@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class design extends GetxController {
   final googleSignIn = GoogleSignIn();
@@ -30,21 +31,14 @@ class design extends GetxController {
   }
   // design
 
-  Future phoneAuth({String? countryCode, VoidCallback? codeSent}) async {
-    if (countryCode != null && loginId.value.length == 10) {
-      var pno = countryCode+ loginId.value;
-      print(pno);
-      await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: pno,
-        verificationCompleted: (PhoneAuthCredential credential) {},
-        verificationFailed: (FirebaseAuthException e) {},
-        codeSent: (String verificationId, int? resendToken) => codeSent,        
-        // {
-          
-        //   // passwordScreen.value = ! passwordScreen.value;
-        // },
-        codeAutoRetrievalTimeout: (String verificationId) {},
-      );
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  void getLoginDetails() async {
+    final SharedPreferences prefs = await _prefs;
+    if (prefs.getString("uid") != null) {
+      loginStatus.value = "login";
+    }else {
+      loginStatus.value = "no";
     }
   }
 }

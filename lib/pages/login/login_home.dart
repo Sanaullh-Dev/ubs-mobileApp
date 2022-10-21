@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ubs/pages/accounts/account_page.dart';
 import 'package:ubs/pages/login/controller/login_controller.dart';
-import 'package:ubs/pages/login/login_page.dart';
+import 'package:ubs/pages/login/login_uid.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -55,7 +55,7 @@ class LoginHome extends StatelessWidget {
                         btnIcon: Icons.phone_iphone,
                         width: width * 0.7,
                         onPressed: () {
-                          Get.to(const LoginPage(signType: "phone"));
+                          Get.to(const LoginUid(signType: "phone"));
                         }),
                     addVerticalSpace(30.h),
                     loginBtn(
