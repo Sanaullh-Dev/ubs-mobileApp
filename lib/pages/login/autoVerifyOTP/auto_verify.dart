@@ -1,7 +1,4 @@
 import 'dart:async';
-import 'dart:ffi';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
@@ -24,13 +21,6 @@ class _AutoVerifyState extends State<AutoVerify> {
         Timer.periodic(Duration(seconds: 1), (_) => setCountDown());
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    countdownTimer!.cancel();
-  }
-
   void setCountDown() {
     setState(() {
       final seconds = myDuration.inSeconds - 1;
@@ -44,19 +34,22 @@ class _AutoVerifyState extends State<AutoVerify> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     timeOut = myDuration.inSeconds.toInt();
     startTimer();
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    countdownTimer!.cancel();
+  }
+
+  @override
   Widget build(BuildContext context) {
     String strDigits(int n) => n.toString().padLeft(2, '0');
     final seconds = strDigits(myDuration.inSeconds);
-    final ss = myDuration.inSeconds.toInt();
-    print(ss);
-
+    
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(

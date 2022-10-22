@@ -8,7 +8,7 @@ import 'package:ubs/utils/constants.dart';
 class RemoteServices {
   static var client = http.Client();
 
-  // ---------- Get All Main Categories from API ------------------
+    // ---------- Get All Main Categories from API ------------------
   static Future<List<Categories>?> fetchMainCat() async {
     var uri = Uri.parse("$API_URL/category/main");
     var response = await client.get(uri);
@@ -48,7 +48,8 @@ class RemoteServices {
     }
   }
 
-  static Future<List<String>?> fetchKeywordList() async {}
+  // static Future<List<String>?> fetchKeywordList() async {}
+
   // ---------- Get All Ads post from API ------------------
   static Future<List<AdsPost>?> fetchCatWisedAds(int mCatId) async {
     var uri = Uri.parse("$API_URL/adspost/relatedAds/mainId-$mCatId");
@@ -104,7 +105,8 @@ class RemoteServices {
 
     if (response.statusCode == 200) {
       var jsonString = response.body;
-      (json.decode(jsonString) as List).forEach((val) => li.add(val["keyword"]));
+      (json.decode(jsonString) as List)
+          .forEach((val) => li.add(val["keyword"]));
       return li;
     } else {
       return null;
@@ -125,7 +127,31 @@ class RemoteServices {
     }
   }
 
+  // ---------- Post for Get OTP Login to API ------------------
+  static Future<dynamic> getOTP(
+      String phone, String app_signature) async {
+        const String _API_URL = "http://10.0.2.2:8080";
 
+    // var uri = Uri.parse("$API_URL/userLogin/otpLogin");
+    var uri = Uri.parse("$_API_URL/category/main");
+      var response =
+        await client.get(uri, headers: {'Content-Type': 'application/json'});
+
+    // http.MultipartRequest request = http.MultipartRequest("POST", uri);
+
+    // request.fields["phone"] = phone;
+    // request.fields["app_signature"] = app_signature;
+    // request.headers.addAll({'Content-Type': 'application/json'});
+
+    // // var response = await request.send();
+    // http.Response response =
+    //     await http.Response.fromStream(await request.send());
+    // print("Result: ${response.body}");
+
+    if (response.statusCode == 200) {
+      return response.body;
+    }
+  }
 }
 
 imgFileAdd(AdsPost adsPost, http.MultipartRequest request) async {

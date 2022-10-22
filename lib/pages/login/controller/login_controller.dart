@@ -1,15 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class design extends GetxController {
+class logging extends GetxController {
   final googleSignIn = GoogleSignIn();
   GoogleSignInAccount? _user;
   GoogleSignInAccount get user => _user!;
   RxString loginStatus = "no".obs;
   RxString loginId = "".obs;
+  
   // Rx<String> passwordScreen = "userId".obs;
 
   Future googleLogin() async {
@@ -33,6 +33,7 @@ class design extends GetxController {
 
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
+  // checking logging details 
   void getLoginDetails() async {
     final SharedPreferences prefs = await _prefs;
     if (prefs.getString("uid") != null) {

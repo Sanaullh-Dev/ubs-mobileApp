@@ -15,7 +15,7 @@ class UserId extends StatefulWidget {
 
 class _UserIdState extends State<UserId> {
   TextEditingController countryCode = TextEditingController(text: "+91");
-  final design loginControl = Get.find<design>();
+  final logging loginControl = Get.find<logging>();
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,7 @@ class _UserIdState extends State<UserId> {
                 contentPadding: EdgeInsets.symmetric(vertical: 10.sp),
                 hintText: "+ 91 ",
                 hintStyle: textfield,
-                label: Text("Country", style: labelText)),
+                label: Text("Country", style: labelText)),            
           ),
         ),
         addHorizontalSpace(30.w),
@@ -87,6 +87,8 @@ class _UserIdState extends State<UserId> {
               hintText: "Ex. 9788878444",
               hintStyle: textfield,
             ),
+          
+            
           ),
         )
       ],

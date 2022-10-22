@@ -16,11 +16,11 @@ const borderColor = Color.fromRGBO(114, 178, 238, 1);
 const errorColor = Color.fromRGBO(255, 234, 238, 1);
 const fillColor = Color.fromRGBO(222, 231, 240, .57);
 
-// const String API_URL = "localhost:8080";
-// const String API_URL = "http://10.0.2.2:8080";
+// const String API_URL = "http://localhost:8080";
+const String API_URL = "http://10.0.2.2:8080";
 
-// Online API_URL;
-const String API_URL = "https://ubs-india.herokuapp.com";
+// AWS Host - Online API_URL;
+// const String API_URL = "http://44.197.196.6:8080";
 
 Map<int, Color> primarySwatchColor = const {
   50: Color.fromRGBO(255, 187, 0, .1),

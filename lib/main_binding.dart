@@ -10,7 +10,7 @@ class MainBinding implements Bindings {
 // default dependency
   @override
   void dependencies() {
-    Get.lazyPut<design>(() => design(), fenix: true);
+    Get.lazyPut<logging>(() => logging(), fenix: true);
     Get.lazyPut<HomeController>(() => HomeController(), fenix: true);
     Get.lazyPut<SearchController>(() => SearchController(), fenix: true);
     Get.lazyPut<MainController>(() => MainController(), fenix: true);

@@ -20,7 +20,6 @@ class _OtpVerifyState extends State<OtpVerify> {
   final pinController = TextEditingController();
   final focusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
-
   final controller = TextEditingController();
 
   bool showError = false;
