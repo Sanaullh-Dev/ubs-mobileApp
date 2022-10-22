@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:ubs/pages/login/autoVerifyOTP/auto_verify.dart';
 import 'package:ubs/pages/login/controller/login_controller.dart';
-import 'package:ubs/pages/login/otp_verify.dart';
 import 'package:ubs/pages/login/widget/common_widget.dart';
 import 'package:ubs/pages/login/widget/user_id.dart';
 import 'package:ubs/services/remote_services.dart';
@@ -52,7 +51,7 @@ class LoginUid extends StatelessWidget {
                 if (signType == "phone") {
                   if (loginControl.loginId.value.length <= 10) {
                     var res = await RemoteServices.getOTP(
-                        "+91${loginControl.loginId}", app_signature);
+                        "91${loginControl.loginId}", app_signature);
                     if (res != null) {
                       Get.to(const AutoVerify());
                     }

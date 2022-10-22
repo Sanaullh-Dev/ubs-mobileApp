@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,10 +13,20 @@ class AutoVerify extends StatefulWidget {
   State<AutoVerify> createState() => _AutoVerifyState();
 }
 
-class _AutoVerifyState extends State<AutoVerify> {
+class _AutoVerifyState extends State<AutoVerify> with CodeAutoFill {
   Timer? countdownTimer;
   Duration myDuration = const Duration(minutes: 2);
   var timeOut = 0;
+  var OTP;
+
+    @override
+  void codeUpdated() {
+    setState(() {
+      print(code);
+    });
+
+  }
+
   void startTimer() {
     countdownTimer =
         Timer.periodic(Duration(seconds: 1), (_) => setCountDown());
@@ -37,11 +48,17 @@ class _AutoVerifyState extends State<AutoVerify> {
     super.initState();
     timeOut = myDuration.inSeconds.toInt();
     startTimer();
+    listenForCode();
+  }
+
+  listenOTP() async{
+    listenForCode();    
   }
 
   @override
   void dispose() {
     super.dispose();
+    cancel();
     countdownTimer!.cancel();
   }
 
@@ -113,4 +130,6 @@ class _AutoVerifyState extends State<AutoVerify> {
       ),
     ));
   }
+  
+
 }

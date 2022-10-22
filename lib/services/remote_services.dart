@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/categories.dart';
@@ -8,7 +7,7 @@ import 'package:ubs/utils/constants.dart';
 class RemoteServices {
   static var client = http.Client();
 
-    // ---------- Get All Main Categories from API ------------------
+  // ---------- Get All Main Categories from API ------------------
   static Future<List<Categories>?> fetchMainCat() async {
     var uri = Uri.parse("$API_URL/category/main");
     var response = await client.get(uri);
@@ -128,28 +127,19 @@ class RemoteServices {
   }
 
   // ---------- Post for Get OTP Login to API ------------------
-  static Future<dynamic> getOTP(
-      String phone, String app_signature) async {
-        const String _API_URL = "http://10.0.2.2:8080";
+  static Future<dynamic> getOTP(String phone, String app_signature) async {
+    final uri = Uri.parse("$API_URL/userLogin/otpLogin");
+    Map<String, dynamic> bodyData = {
+      'phone': phone,
+      'app_signature': app_signature
+    };
 
-    // var uri = Uri.parse("$API_URL/userLogin/otpLogin");
-    var uri = Uri.parse("$_API_URL/category/main");
-      var response =
-        await client.get(uri, headers: {'Content-Type': 'application/json'});
+    http.Response res = await http.post(uri, body: bodyData);
+    
+    print("Result: ${res.body}");
 
-    // http.MultipartRequest request = http.MultipartRequest("POST", uri);
-
-    // request.fields["phone"] = phone;
-    // request.fields["app_signature"] = app_signature;
-    // request.headers.addAll({'Content-Type': 'application/json'});
-
-    // // var response = await request.send();
-    // http.Response response =
-    //     await http.Response.fromStream(await request.send());
-    // print("Result: ${response.body}");
-
-    if (response.statusCode == 200) {
-      return response.body;
+    if (res.statusCode == 200) {
+      return res.body;
     }
   }
 }
