@@ -20,7 +20,8 @@ class _NextButtonState extends State<NextButton> {
         bottom: 0,
         left: 0,
         right: 0,
-        child: Container(
+        child: 
+        Container(
           decoration: onlyTopBorder,
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 30.sp, horizontal: 50.sp),

@@ -53,6 +53,7 @@ dependencies:
   pinput: ^2.2.16
   google_fonts: ^3.0.1
   sms_autofill: ^2.2.0
+  alt_sms_autofill: ^1.0.0
   shared_preferences: ^2.0.15
   # cached_network_image: ^3.2.2
 

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:ubs/pages/accounts/account_page.dart';
 import 'package:ubs/pages/login/controller/login_controller.dart';
-import 'package:ubs/pages/login/login_uid.dart';
+import 'package:ubs/pages/login/user_id/login_uid.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';

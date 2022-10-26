@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/categories.dart';
+import 'package:ubs/model/user_info.dart';
 import 'package:ubs/utils/constants.dart';
 
 class RemoteServices {
@@ -126,6 +127,46 @@ class RemoteServices {
     }
   }
 
+// **************************** user login ************************************
+
+  // ---------------- user registration ( user data save in database) --------------------
+  static Future<dynamic> addUser(UserInfo userData, String loginType) async {
+    var uri = Uri.parse("$API_URL/userLogin/singUp");
+    Map<String, dynamic> bodyData;
+      bodyData = {
+        'log_pass': userData.logPass,
+        'u_name': userData.uName,
+        'login_with': userData.loginWith,
+        'u_phone': userData.uPhone,
+        'u_email' : userData.uEmail
+      };
+   
+    http.Response res = await http.post(uri, body: bodyData);
+    print(res.statusCode);
+    if (res.statusCode == 200) {
+      var jsonString = res.body;
+      return categoriesFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
+  // ---------- check user register or not ------------------
+  static Future<dynamic> checkUser(String userId) async {
+    var uri = Uri.parse("$API_URL/userLogin/checkUser");
+
+    Map<String, dynamic> bodyData = {'uid': userId};
+
+    http.Response res = await http.post(uri, body: bodyData);
+
+    if (res.statusCode == 200) {
+      var jsonString = res.body;
+      return categoriesFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
   // ---------- Post for Get OTP Login to API ------------------
   static Future<dynamic> getOTP(String phone, String app_signature) async {
     final uri = Uri.parse("$API_URL/userLogin/otpLogin");
@@ -135,11 +176,43 @@ class RemoteServices {
     };
 
     http.Response res = await http.post(uri, body: bodyData);
-    
-    print("Result: ${res.body}");
-
+    // print("Result: ${res.body}");
     if (res.statusCode == 200) {
       return res.body;
+    }
+  }
+
+  // ---------- Post OTP Verify OTP and Hash code to API ------------------
+  static Future<dynamic> verifyOTP(String hash, int otp, String phoneNo) async {
+    final uri = Uri.parse("$API_URL/userLogin/verifyOtp");
+    Map<String, dynamic> bodyData = {
+      'hash': hash,
+      'otp': otp.toString(),
+      'phone': phoneNo
+    };
+
+    http.Response res = await http.post(uri, body: bodyData);
+    print("Result: ${res.body}");
+    if (res.statusCode == 200) {
+      return res.body;
+    } else {
+      return null;
+    }
+  }
+
+  // ---------- user Login ------------------
+  static Future<dynamic> userLogin(String loginId, String password) async {
+    var uri = Uri.parse("$API_URL/userLogin/logIn");
+    Map<String, dynamic> bodyData = {'loginId': loginId, 'password': password};
+    http.Response res = await http.post(uri, body: bodyData);
+
+    if (res.statusCode == 200) {
+      return "logged";
+    }
+    if (res.statusCode == 422) {
+      return "invalid password";
+    } else {
+      return null;
     }
   }
 }

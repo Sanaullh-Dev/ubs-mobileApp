@@ -61,12 +61,13 @@ class _UserIdState extends State<UserId> {
           child: TextField(
             controller: countryCode,
             enabled: false,
-            style: textfield,            
+            style: textfield,
             decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(vertical: 10.sp),
-                hintText: "+ 91 ",
-                hintStyle: textfield,
-                label: Text("Country", style: labelText)),            
+              contentPadding: EdgeInsets.symmetric(vertical: 10.sp),
+              hintText: "+ 91 ",
+              hintStyle: textfield,
+              label: Text("Country", style: labelText),
+            ),
           ),
         ),
         addHorizontalSpace(30.w),
@@ -87,8 +88,6 @@ class _UserIdState extends State<UserId> {
               hintText: "Ex. 9788878444",
               hintStyle: textfield,
             ),
-          
-            
           ),
         )
       ],

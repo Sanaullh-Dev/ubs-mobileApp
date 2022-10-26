@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ubs/pages/dashboard/dashboard.dart';
-import 'package:ubs/pages/login/autoVerifyOTP/auto_verify.dart';
+import 'package:ubs/pages/login/Verify_otp/auto_verify.dart';
 import 'package:ubs/pages/login/controller/login_controller.dart';
 import 'package:get/get.dart';
 import 'package:ubs/pages/login/login_home.dart';
+import 'package:ubs/pages/login/password/password_screen.dart';
 import 'package:ubs/pages/main_controller.dart';
 
 class MainPage extends StatefulWidget {
@@ -30,21 +31,20 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
-
     return SafeArea(
       child: Obx(
         () {
           if (loginController.loginStatus.value == "no") {
-            return const LoginHome();
+            return const LoginHome();            
           }
           if (loginController.loginStatus.value == "waiting") {
             return const Center(child: CircularProgressIndicator());
           } else if (loginController.loginStatus.value == "login") {
             return DashboardPage();
           } else {
-            // return const LoginHome();
-            // return const OtpVerify();
-            return const AutoVerify();
+            // return PasswordScreen(newUser: true, userId: "84848484");
+            return const LoginHome();
+            // return const AutoVerify();
           }
         },
       ),

@@ -79,7 +79,7 @@ TextStyle titleLabel = TextStyle(
 TextStyle messageLabel = GoogleFonts.poppins(
   color: COLOR_BLACK,
   fontWeight: FontWeight.w500,
-  fontSize: 25.sp,
+  fontSize: 30.sp,
 );
 
 TextStyle cardTitle = TextStyle(
