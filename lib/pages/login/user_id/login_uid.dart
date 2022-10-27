@@ -41,7 +41,7 @@ class LoginUid extends StatelessWidget {
               onPress: () async {
                 String userId = "91${loginControl.loginId.value}";
                 var ck = await RemoteServices.checkUser(userId);
-                if (ck == null) {
+                if (ck != null) {
                   if (signType == "phone") {
                     if (loginControl.loginId.value.length <= 10) {
                       // var res =

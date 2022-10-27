@@ -144,8 +144,7 @@ class RemoteServices {
     http.Response res = await http.post(uri, body: bodyData);
     print(res.statusCode);
     if (res.statusCode == 200) {
-      var jsonString = res.body;
-      return categoriesFromJson(jsonString);
+      return res.body;
     } else {
       return null;
     }
@@ -161,7 +160,7 @@ class RemoteServices {
 
     if (res.statusCode == 200) {
       var jsonString = res.body;
-      return categoriesFromJson(jsonString);
+      return jsonString;
     } else {
       return null;
     }

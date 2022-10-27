@@ -5,7 +5,6 @@ import 'package:ubs/pages/login/Verify_otp/auto_verify.dart';
 import 'package:ubs/pages/login/controller/login_controller.dart';
 import 'package:get/get.dart';
 import 'package:ubs/pages/login/login_home.dart';
-import 'package:ubs/pages/login/password/password_screen.dart';
 import 'package:ubs/pages/main_controller.dart';
 
 class MainPage extends StatefulWidget {
@@ -22,10 +21,8 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
-    
-  }
+    super.initState();    
+  } 
 
   //  final mainCont = Get.find<MainController>();
   @override
@@ -34,17 +31,14 @@ class _MainPageState extends State<MainPage> {
     return SafeArea(
       child: Obx(
         () {
-          if (loginController.loginStatus.value == "no") {
-            return const LoginHome();            
+          if (loginController.loginStatus.value == "logged") {
+            return DashboardPage();
           }
           if (loginController.loginStatus.value == "waiting") {
             return const Center(child: CircularProgressIndicator());
-          } else if (loginController.loginStatus.value == "login") {
-            return DashboardPage();
           } else {
             // return PasswordScreen(newUser: true, userId: "84848484");
             return const LoginHome();
-            // return const AutoVerify();
           }
         },
       ),

@@ -3,25 +3,35 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/pages/Chats/chats_dashboard.dart';
 import 'package:ubs/pages/accounts/account_page.dart';
 import 'package:ubs/pages/home/home_page.dart';
-import 'package:ubs/pages/location/state_page.dart';
 import 'package:ubs/pages/main_controller.dart';
+import 'package:ubs/pages/my_ads/my_ads.dart';
 import 'package:ubs/pages/selling/sale_main_categories.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:get/get.dart';
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
   DashboardPage({super.key});
 
-  final MainController mainCont = Get.put(MainController());
-  //  final mainCont = Get.find<MainController>();
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
 
+class _DashboardPageState extends State<DashboardPage> {
+  final MainController mainCont = Get.put(MainController());
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  //  final mainCont = Get.find<MainController>();
   @override
   Widget build(BuildContext context) {
     final pageOptions = [
       const HomePage(),
       const ChatsDashboard(),
       const HomePage(),
-      const AccountPage(),
+      const MyAds(),
       const AccountPage(),
       // const SaleMainCategories()
     ];
