@@ -2,51 +2,52 @@
 //
 //     final adsPost = adsPostFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
+
 
 List<AdsPost> adsPostFromJson(String str) =>
     List<AdsPost>.from(json.decode(str).map((x) => AdsPost.fromJson(x)));
 
-String adsPostToJson(List<AdsPost> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String adsPostToJson(AdsPost data) => json.encode(data.toJson());
 
 class AdsPost {
-  AdsPost({
-    this.pId,
-    this.pDate,
-    required this.pTitle,
-    required this.pBrand,
-    required this.pDescribe,
-    required this.pImg1,
-    required this.pImg2,
-    required this.pImg3,
-    required this.pImg4,
-    required this.pImg5,
-    required this.pPrice,
-    required this.pLocation,
-    required this.pMcat,
-    required this.pScat,
-    required this.pUid,
-  });
+    AdsPost({
+      this.pId,
+        this.pDate,
+      required this.pTitle,
+      required this.pBrand,
+      required this.pDescribe,
+      required this.pImg1,
+      required this.pImg2,
+      required this.pImg3,
+      required this.pImg4,
+      required this.pImg5,
+      required this.pPrice,
+      required this.pLocation,
+      required this.pMcat,
+      required this.pScat,
+      required this.pUid,
+      required this.userId,
+    });
 
-  int? pId;
-  DateTime? pDate;
-  String pTitle;
-  String pBrand;
-  String pDescribe;
-  String pImg1;
-  String pImg2;
-  String pImg3;
-  String pImg4;
-  String pImg5;
-  int pPrice;
-  String pLocation;
-  int pMcat;
-  int pScat;
-  String pUid;
+    int? pId;
+    DateTime? pDate;
+    String pTitle;
+    String pBrand;
+    String pDescribe;
+    String pImg1;
+    String pImg2;
+    String pImg3;
+    String pImg4;
+    String pImg5;
+    int pPrice;
+    String pLocation;
+    int pMcat;
+    int pScat;
+    String pUid;
+    String userId;
 
-  factory AdsPost.fromJson(Map<String, dynamic> json) => AdsPost(
+    factory AdsPost.fromJson(Map<String, dynamic> json) => AdsPost(
         pId: json["p_id"],
         pDate: DateTime.parse(json["p_date"]),
         pTitle: json["p_title"],
@@ -62,9 +63,10 @@ class AdsPost {
         pMcat: json["p_mcat"],
         pScat: json["p_scat"],
         pUid: json["p_uid"],
-      );
+        userId: json["userId"],
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "p_id": pId,
         "p_date": pDate!.toIso8601String(),
         "p_title": pTitle,
@@ -80,5 +82,6 @@ class AdsPost {
         "p_mcat": pMcat,
         "p_scat": pScat,
         "p_uid": pUid,
-      };
+        "userId": userId,
+    };
 }

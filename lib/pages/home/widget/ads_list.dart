@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:ubs/model/ads_post.dart';
+import 'package:ubs/model/post_reaction.dart';
 import 'package:ubs/model/user_data.dart';
 import 'package:ubs/pages/PostDetails/post_details.dart';
+import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/show_image.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
@@ -18,6 +20,7 @@ class AdsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return AlignedGridView.count(
       primary: false,
       shrinkWrap: true,
@@ -72,7 +75,12 @@ class AdsList extends StatelessWidget {
                       right: 5.w,
                       top: 5.h,
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          PostReaction postReaction = PostReaction(
+                            uid: userData.uname, pid:  adsPost[index].pId!, 
+                            pFavorite: 1, pView: 1);
+                          RemoteServices.addPostReaction(postReaction);
+                        },
                         child: Container(
                           padding: EdgeInsets.all(10.w),
                           decoration: favoriteBorder,

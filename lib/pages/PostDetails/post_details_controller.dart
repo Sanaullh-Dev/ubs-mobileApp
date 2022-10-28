@@ -15,7 +15,8 @@ class PostDetailsController extends GetxController {
           pLocation: "",
           pMcat: 0,
           pScat: 0,
-          pUid: "")
+          pUid: "",
+          userId: "")
       .obs;
 
   @override

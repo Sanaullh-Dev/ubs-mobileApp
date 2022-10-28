@@ -129,14 +129,14 @@ class RemoteServices {
   }
 
   // ---------- Insert Ads post view or favorites into API ------------------
-  static Future<dynamic> addPostReaction(PostReaction postData, String loginType) async {
+  static Future<dynamic> addPostReaction(PostReaction postReaction) async {
     var uri = Uri.parse("$API_URL/adspost/userAction");
     Map<String, dynamic> bodyData;
     bodyData = {
-      'uid': postData.uid,
-      'pid': postData.pid,
-      'p_favorite': postData.pFavorite,
-      'p_view': postData.pView
+      'uid': postReaction.uid,
+      'pid': postReaction.pid,
+      'p_favorite': postReaction.pFavorite,
+      'p_view': postReaction.pView
     };
 
     http.Response res = await http.post(uri, body: bodyData);

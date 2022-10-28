@@ -19,8 +19,8 @@ class PostReaction {
 
   String uid;
   int pid;
-  String pFavorite;
-  String pView;
+  int pFavorite;
+  int pView;
 
   factory PostReaction.fromJson(Map<String, dynamic> json) => PostReaction(
         uid: json["uid"],
