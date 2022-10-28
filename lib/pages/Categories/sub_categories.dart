@@ -2,22 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/categories.dart';
+import 'package:ubs/model/user_data.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
-import 'package:ubs/pages/main_controller.dart';
 import 'package:ubs/pages/selling/sale_main_categories.dart';
 import 'package:ubs/utils/constants.dart';
 
 class SubCategoriesPage extends StatelessWidget {
-  // final List<SubCategory> subCategoryData;
+  final UserData userData;
   final Categories catData;
   final String gotoPage;
   SubCategoriesPage(
       {super.key,
-      // required this.subCategoryData,
+      required this.userData,
       required this.catData,
       required this.gotoPage});
 
-  MainController mainCont = Get.find<MainController>();
   HomeController homeCont = Get.find<HomeController>();
 
   @override
@@ -62,7 +61,7 @@ class SubCategoriesPage extends StatelessWidget {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    const SaleMainCategories(),
+                                    SaleMainCategories(userData: userData),
                               ),
                             );
                           } else if (gotoPage == "Buy") {

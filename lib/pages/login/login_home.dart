@@ -15,19 +15,18 @@ class LoginHome extends StatefulWidget {
 }
 
 class _LoginHomeState extends State<LoginHome> {
-  final logging loginControl = Get.find<logging>();  
+  final LoginController loginControl = Get.find<LoginController>();  
 
   @override
   void initState() {
     super.initState();
-    loginControl.getLoginDetails();
+    // loginControl.getLoginDetails();
   }
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
-    
+    var height = MediaQuery.of(context).size.height;    
 
     return Scaffold(
       body: Container(

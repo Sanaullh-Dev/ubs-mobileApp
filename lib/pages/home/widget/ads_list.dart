@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:ubs/model/ads_post.dart';
+import 'package:ubs/model/user_data.dart';
 import 'package:ubs/pages/PostDetails/post_details.dart';
 import 'package:ubs/sharing_widget/show_image.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
@@ -10,14 +11,13 @@ import 'package:ubs/utils/custom_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class AdsList extends StatelessWidget {
+  final UserData userData;
   final List<AdsPost> adsPost;
-  const AdsList({Key? key, required this.adsPost}) : super(key: key);
+  const AdsList({Key? key, required this.adsPost, required this.userData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData themData = Theme.of(context);
-    // var uri = API_URL + "/" + adsPost.catImg.replaceAll("\\", "/");
-
     return AlignedGridView.count(
       primary: false,
       shrinkWrap: true,
@@ -31,7 +31,7 @@ class AdsList extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => PostDetails(
-                  // postData: postList[index],
+                  userData: userData,
                   adsPostData: adsPost[index],
                 ),
               ),
@@ -56,14 +56,8 @@ class AdsList extends StatelessWidget {
                       child: Hero(
                           tag: "post${adsPost[index].pId}",
                           transitionOnUserGestures: true,
-                          child: ShowImage(imageUrl: getLink(adsPost[index].pImg1))
-                          // Image.network(
-                          //   ,
-                          //   // color: Colors.white,
-                          //   // colorBlendMode: BlendMode.color,
-                          //   fit: BoxFit.cover,
-                          // ),
-                          ),
+                          child: ShowImage(
+                              imageUrl: getLink(adsPost[index].pImg1))),
                     ),
                     // ----- for features batch
                     Positioned(
@@ -77,18 +71,21 @@ class AdsList extends StatelessWidget {
                     Positioned(
                       right: 5.w,
                       top: 5.h,
-                      child: Container(
-                        padding: EdgeInsets.all(10.w),
-                        decoration: favoriteBorder,
-                        child: Icon(
-                          // AddLists[index]. ["Favorite"] == "yes"
-                          adsPost[index].pImg3 != null
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          size: 40.sp,
-                          color: adsPost[index].pImg3 != null
-                              ? Colors.red
-                              : Colors.black54,
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          padding: EdgeInsets.all(10.w),
+                          decoration: favoriteBorder,
+                          child: Icon(
+                            // AddLists[index]. ["Favorite"] == "yes"
+                            adsPost[index].pImg3 != null
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            size: 40.sp,
+                            color: adsPost[index].pImg3 != null
+                                ? Colors.red
+                                : Colors.black54,
+                          ),
                         ),
                       ),
                     )

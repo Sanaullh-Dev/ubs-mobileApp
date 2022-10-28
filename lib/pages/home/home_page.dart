@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/post_model.dart';
+import 'package:ubs/model/user_data.dart';
 import 'package:ubs/pages/home/PostList/post_list.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/pages/home/widget/ads_list.dart';
@@ -12,7 +13,8 @@ import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final UserData userData;
+  const HomePage({super.key, required this.userData});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -36,17 +38,23 @@ class _HomePageState extends State<HomePage> {
     return SafeArea(
       child: Obx(
         () => homeController.typeList.value == "all"
-            ? LatestPost(size: size, textTheme: textTheme)
-            : PostList(),
+            ? LatestPost(
+                size: size, textTheme: textTheme, userData: widget.userData)
+            : PostList(userData: widget.userData),
       ),
     );
   }
 }
 
 class LatestPost extends StatefulWidget {
+  final UserData userData;
   final Size size;
   final TextTheme textTheme;
-  LatestPost({super.key, required this.size, required this.textTheme});
+  LatestPost(
+      {super.key,
+      required this.size,
+      required this.textTheme,
+      required this.userData});
 
   @override
   State<LatestPost> createState() => _LatestPostState();
@@ -119,7 +127,7 @@ class _LatestPostState extends State<LatestPost> {
                             children: [
                               GestureDetector(
                                   onTap: () {}, child: addVerticalSpace(10)),
-                              const CategoriesBar(),
+                              CategoriesBar(userData: widget.userData),
                               addVerticalSpace(10),
                               Padding(
                                 padding: const EdgeInsets.only(left: 14),
@@ -128,6 +136,7 @@ class _LatestPostState extends State<LatestPost> {
                               ),
                               SizedBox(height: 25.h),
                               AdsList(
+                                userData: widget.userData,
                                 adsPost: homeController.adsPostList,
                               ),
                             ],

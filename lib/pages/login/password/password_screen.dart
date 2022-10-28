@@ -4,9 +4,8 @@ import 'package:get/get.dart';
 import 'package:ubs/model/user_info.dart';
 import 'package:ubs/pages/dashboard/dashboard.dart';
 import 'package:ubs/pages/login/controller/login_controller.dart';
-import 'package:ubs/pages/main_controller.dart';
+import 'package:ubs/pages/main_page.dart';
 import 'package:ubs/services/remote_services.dart';
-import 'package:ubs/services/secure_storage.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/utils/constants.dart';
@@ -27,8 +26,7 @@ class PasswordScreen extends StatefulWidget {
 }
 
 class _PasswordScreenState extends State<PasswordScreen> {
-  final MainController mainCont = Get.put(MainController());
-  final logging loginControl = Get.find<logging>();
+  final LoginController loginCont = Get.put(LoginController());
   TextEditingController name = TextEditingController();
   TextEditingController password = TextEditingController();
   Rx<bool> passShow = true.obs;
@@ -46,9 +44,9 @@ class _PasswordScreenState extends State<PasswordScreen> {
       });
       var res = await RemoteServices.addUser(userData!, widget.loginType);
       if (res != null) {
-        bool res = await mainCont.writeSecure(widget.userId, password.text);
+        bool res = await loginCont.writeSecure(widget.userId, password.text);
         if (res) {
-          Get.to(DashboardPage());
+          Get.to(MainPage());
         }
       }
     }

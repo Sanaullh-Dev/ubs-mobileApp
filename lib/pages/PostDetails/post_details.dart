@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
+import 'package:ubs/model/user_data.dart';
 import 'package:ubs/pages/PostDetails/post_details_controller.dart';
 import 'package:ubs/pages/PostDetails/widget/RelatedAds.dart';
 import 'package:ubs/pages/PostDetails/widget/image_slider.dart';
@@ -11,9 +12,9 @@ import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class PostDetails extends StatelessWidget {
-  // final PostModel postData;
+  final UserData userData;
   final AdsPost adsPostData;
-  const PostDetails({super.key, required this.adsPostData});
+  const PostDetails({super.key, required this.adsPostData, required this.userData});
 
   @override
   Widget build(BuildContext context) {

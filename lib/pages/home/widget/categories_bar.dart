@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/categories.dart';
+import 'package:ubs/model/user_data.dart';
 import 'package:ubs/pages/Categories/main_categories.dart';
 import 'package:ubs/pages/Categories/sub_categories.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
@@ -12,7 +13,8 @@ import 'package:ubs/utils/text_style.dart';
 const double iconsSize = 40;
 
 class CategoriesBar extends StatelessWidget {
-  const CategoriesBar({super.key});
+  final UserData userData;
+  const CategoriesBar({super.key, required this.userData});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,8 @@ class CategoriesBar extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => MainCategories(catData: catData),
+                        builder: (context) => MainCategories(
+                            userData: userData, catData: catData),
                       ),
                     );
                   },
@@ -68,6 +71,7 @@ class CategoriesBar extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => SubCategoriesPage(
+                          userData: userData,
                           gotoPage: "Buy",
                           catData: catData[index],
                           // subCategoryData: catData[index].subCategories

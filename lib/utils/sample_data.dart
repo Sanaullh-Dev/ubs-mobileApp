@@ -158,126 +158,126 @@ const RE_DATA = [
 //   }
 // ];
 
-const List addLists = [
-  {
-    "id": "1",
-    "image1": "lib/assets/images/add/1bhk1.jpeg",
-    "image2": "lib/assets/images/add/1bhk2.jpeg",
-    "image3": "lib/assets/images/add/1bhk2.jpeg",
-    "amount": "5000",
-    "name":
-        "1BKH apartment for sales at tanish Shursti, Alandi-Markal Road, Alandi",
-    "subtitle": "1BHK - 650Ft2",
-    "location": "Alandi-Markal Road,",
-    "district ": "Pune",
-    "features": "yes",
-    "favorite": "yes"
-  },
-  {
-    "id": "2",
-    "image1": "lib/assets/images/add/m301.jpg",
-    "image2": "lib/assets/images/add/m302.jpg",
-    "image3": "lib/assets/images/add/m302.jpg",
-    "amount": "12000",
-    "name": "Sale Samsung Galaxy M30",
-    "subtitle": "Galaxy M30 2 year old 4gb 65gb",
-    "location": "Swargate,",
-    "district ": "Pune",
-    "features": "yes",
-    "favorite": "no"
-  },
-  {
-    "id": "3",
-    "image1": "lib/assets/images/add/iphone8-1.jpg",
-    "image2": "lib/assets/images/add/iphone8-2.jpg",
-    "image3": "lib/assets/images/add/iphone8-2.jpg",
-    "amount": "15000",
-    "name": "Iphone 8 in good condition",
-    "subtitle": "Iphone 8 in good condition",
-    "location": "Shivaji Nagar,",
-    "district ": "Solapur",
-    "features": "yes",
-    "favorite": "no"
-  },
-  {
-    "id": "4",
-    "image1": "lib/assets/images/add/BMW1.jpg",
-    "image2": "lib/assets/images/add/BMW2.jpg",
-    "image3": "lib/assets/images/add/BMW2.jpg",
-    "amount": "599999",
-    "name": "BMW 3 Series(2010)",
-    "subtitle": "2015 - 1500Km",
-    "location": "Jaysingpur",
-    "district ": "Kolhapur",
-    "features": "yes",
-    "favorite": "no"
-  },
-  {
-    "id": "5",
-    "image1": "lib/assets/images/add/2bhk1.jpeg",
-    "image2": "lib/assets/images/add/2bhk2.jpeg",
-    "image3": "lib/assets/images/add/2bhk2.jpeg",
-    "amount": "3815000",
-    "name": "# Big 1 BHK Flat at new town Home, Kharadi At 38.15 Lacs only",
-    "subtitle": "1BHK - 750Ft2",
-    "location": "Damani Nagar",
-    "district ": "Solpaur",
-    "features": "no",
-    "favorite": "no"
-  },
-  {
-    "id": "6",
-    "image1": "lib/assets/images/add/headphone1.jpg",
-    "image2": "lib/assets/images/add/headphone12.jpg",
-    "image3": "lib/assets/images/add/headphone13.jpg",
-    "amount": "1200",
-    "name": "Boat Speaker",
-    "subtitle": "Boat Speaker",
-    "location": "Shivaji Nagar",
-    "district ": "Mumbai",
-    "features": "no",
-    "favorite": "no"
-  },
-  {
-    "id": "7",
-    "image1": "lib/assets/images/add/watch1.jpg",
-    "image2": "lib/assets/images/add/watch12.jpg",
-    "image3": "lib/assets/images/add/watch13.jpg",
-    "amount": "3500",
-    "name": "Rare Antique Automatic watches",
-    "subtitle": "",
-    "location": "Rasta Path",
-    "district ": "Pune",
-    "features": "no",
-    "favorite": "yes"
-  },
-  {
-    "id": "8",
-    "image1": "lib/assets/images/add/redmi11_1.jpg",
-    "image2": "lib/assets/images/add/redmi11_12.jpg",
-    "image3": "lib/assets/images/add/redmi12.jpg",
-    "amount": "22000",
-    "name": "Redmi 11x 5g",
-    "subtitle": "",
-    "location": "Saraswati chowk",
-    "district ": "Solapur",
-    "features": "no",
-    "favorite": "no"
-  },
-  {
-    "id": "9",
-    "image1": "lib/assets/images/add/3bhk1.jpeg",
-    "image2": "lib/assets/images/add/3bhk2.jpeg",
-    "image3": "lib/assets/images/add/3bhk2.jpeg",
-    "amount": "7000",
-    "name": "2BKH Fla available on Rent 7000/- Rs",
-    "subtitle": "2BHK - 550Ft2",
-    "location": "Assra Chowk",
-    "district ": "Solapur",
-    "features": "no",
-    "favorite": "no"
-  },
-];
+// const List addLists = [
+//   {
+//     "id": "1",
+//     "image1": "lib/assets/images/add/1bhk1.jpeg",
+//     "image2": "lib/assets/images/add/1bhk2.jpeg",
+//     "image3": "lib/assets/images/add/1bhk2.jpeg",
+//     "amount": "5000",
+//     "name":
+//         "1BKH apartment for sales at tanish Shursti, Alandi-Markal Road, Alandi",
+//     "subtitle": "1BHK - 650Ft2",
+//     "location": "Alandi-Markal Road,",
+//     "district ": "Pune",
+//     "features": "yes",
+//     "favorite": "yes"
+//   },
+//   {
+//     "id": "2",
+//     "image1": "lib/assets/images/add/m301.jpg",
+//     "image2": "lib/assets/images/add/m302.jpg",
+//     "image3": "lib/assets/images/add/m302.jpg",
+//     "amount": "12000",
+//     "name": "Sale Samsung Galaxy M30",
+//     "subtitle": "Galaxy M30 2 year old 4gb 65gb",
+//     "location": "Swargate,",
+//     "district ": "Pune",
+//     "features": "yes",
+//     "favorite": "no"
+//   },
+//   {
+//     "id": "3",
+//     "image1": "lib/assets/images/add/iphone8-1.jpg",
+//     "image2": "lib/assets/images/add/iphone8-2.jpg",
+//     "image3": "lib/assets/images/add/iphone8-2.jpg",
+//     "amount": "15000",
+//     "name": "Iphone 8 in good condition",
+//     "subtitle": "Iphone 8 in good condition",
+//     "location": "Shivaji Nagar,",
+//     "district ": "Solapur",
+//     "features": "yes",
+//     "favorite": "no"
+//   },
+//   {
+//     "id": "4",
+//     "image1": "lib/assets/images/add/BMW1.jpg",
+//     "image2": "lib/assets/images/add/BMW2.jpg",
+//     "image3": "lib/assets/images/add/BMW2.jpg",
+//     "amount": "599999",
+//     "name": "BMW 3 Series(2010)",
+//     "subtitle": "2015 - 1500Km",
+//     "location": "Jaysingpur",
+//     "district ": "Kolhapur",
+//     "features": "yes",
+//     "favorite": "no"
+//   },
+//   {
+//     "id": "5",
+//     "image1": "lib/assets/images/add/2bhk1.jpeg",
+//     "image2": "lib/assets/images/add/2bhk2.jpeg",
+//     "image3": "lib/assets/images/add/2bhk2.jpeg",
+//     "amount": "3815000",
+//     "name": "# Big 1 BHK Flat at new town Home, Kharadi At 38.15 Lacs only",
+//     "subtitle": "1BHK - 750Ft2",
+//     "location": "Damani Nagar",
+//     "district ": "Solpaur",
+//     "features": "no",
+//     "favorite": "no"
+//   },
+//   {
+//     "id": "6",
+//     "image1": "lib/assets/images/add/headphone1.jpg",
+//     "image2": "lib/assets/images/add/headphone12.jpg",
+//     "image3": "lib/assets/images/add/headphone13.jpg",
+//     "amount": "1200",
+//     "name": "Boat Speaker",
+//     "subtitle": "Boat Speaker",
+//     "location": "Shivaji Nagar",
+//     "district ": "Mumbai",
+//     "features": "no",
+//     "favorite": "no"
+//   },
+//   {
+//     "id": "7",
+//     "image1": "lib/assets/images/add/watch1.jpg",
+//     "image2": "lib/assets/images/add/watch12.jpg",
+//     "image3": "lib/assets/images/add/watch13.jpg",
+//     "amount": "3500",
+//     "name": "Rare Antique Automatic watches",
+//     "subtitle": "",
+//     "location": "Rasta Path",
+//     "district ": "Pune",
+//     "features": "no",
+//     "favorite": "yes"
+//   },
+//   {
+//     "id": "8",
+//     "image1": "lib/assets/images/add/redmi11_1.jpg",
+//     "image2": "lib/assets/images/add/redmi11_12.jpg",
+//     "image3": "lib/assets/images/add/redmi12.jpg",
+//     "amount": "22000",
+//     "name": "Redmi 11x 5g",
+//     "subtitle": "",
+//     "location": "Saraswati chowk",
+//     "district ": "Solapur",
+//     "features": "no",
+//     "favorite": "no"
+//   },
+//   {
+//     "id": "9",
+//     "image1": "lib/assets/images/add/3bhk1.jpeg",
+//     "image2": "lib/assets/images/add/3bhk2.jpeg",
+//     "image3": "lib/assets/images/add/3bhk2.jpeg",
+//     "amount": "7000",
+//     "name": "2BKH Fla available on Rent 7000/- Rs",
+//     "subtitle": "2BHK - 550Ft2",
+//     "location": "Assra Chowk",
+//     "district ": "Solapur",
+//     "features": "no",
+//     "favorite": "no"
+//   },
+// ];
 
 const List chartBoardList = [
   {
@@ -287,7 +287,7 @@ const List chartBoardList = [
     "lastMessage": "Hi, I am sanaulla",
     "messageStatus": "read",
     "postTitle": "Iphone 8 Pro 2 year old",
-    "postImg": "lib/assets/images/add/iphone8-1.jpg",
+    "postImg": "lib/assets/images/add/iphone8.jpg",
     "price" : 50000,
     "postType": "Buy"
   },
@@ -298,7 +298,7 @@ const List chartBoardList = [
     "lastMessage": "Hi, I am sameer",
     "messageStatus": "read",
     "postTitle": "Laptop i7 8gen 8gb 5 year old",
-    "postImg": "lib/assets/images/add/1bhk2.jpeg",
+    "postImg": "lib/assets/images/add/iphone8.jpg",
     "price" : 80000,
     "postType": "Sale"
   },
@@ -309,7 +309,7 @@ const List chartBoardList = [
     "lastMessage": "Hi, I am Kadir",
     "messageStatus": "received",
     "postTitle": "Laptop i7 8gen 8gb 5 year old",
-    "postImg": "lib/assets/images/add/headphone12.jpg",
+    "postImg": "lib/assets/images/add/iphone8.jpg",
     "price" : 120000,
     "postType": "Sale"
   },
@@ -320,7 +320,7 @@ const List chartBoardList = [
     "lastMessage": "Hi, I am Gazala",
     "messageStatus": "received",
     "postTitle": "Mobile 8gb 64GB 1 year old",
-    "postImg": "lib/assets/images/add/iphone8-2.jpg",
+    "postImg": "lib/assets/images/add/iphone8.jpg",
     "price" : 15000,
     "postType": "Buy"
   }

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
+import 'package:ubs/model/user_data.dart';
 import 'package:ubs/pages/searchAds/controller/search_controller.dart';
 import 'package:ubs/pages/searchAds/search_ads.dart';
 import 'package:ubs/pages/home/PostList/widget/adsTile.dart';
@@ -12,7 +13,8 @@ import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class PostList extends StatelessWidget {
-  PostList({super.key});
+  final UserData userData;
+  PostList({super.key, required this.userData});
 
   final HomeController homeController = Get.find<HomeController>();
   final SearchController searchController = Get.find<SearchController>();
@@ -221,6 +223,7 @@ class PostList extends StatelessWidget {
       itemCount: adsList.length,
       itemBuilder: (BuildContext context, int index) {
         return AdsTitle(
+          userData: userData,
           adsData: adsList[index],
         );
       },

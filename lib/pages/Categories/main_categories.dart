@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/categories.dart';
+import 'package:ubs/model/user_data.dart';
 import 'package:ubs/pages/Categories/sub_categories.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/custom_fun.dart';
 
 class MainCategories extends StatelessWidget {
+  final UserData userData;
   final List<Categories> catData;
-  const MainCategories({super.key, required this.catData});
+  const MainCategories(
+      {super.key, required this.catData, required this.userData});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +52,8 @@ class MainCategories extends StatelessWidget {
                       ),
                     ),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 25.sp, horizontal: 15.sp),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 25.sp, horizontal: 15.sp),
                   // margin: EdgeInsets.symmetric(vertical: 8),
                   child: ListTile(
                     onTap: () {
@@ -57,6 +61,7 @@ class MainCategories extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => SubCategoriesPage(
+                            userData: userData,
                             gotoPage: "Buy",
                             catData: catData[index],
                             // subCategoryData: catData[index].subCategories

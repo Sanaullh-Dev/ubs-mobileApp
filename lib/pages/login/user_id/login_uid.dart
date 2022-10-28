@@ -25,7 +25,7 @@ class LoginUid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final logging loginControl = Get.find<logging>();
+    final LoginController loginControl = Get.find<LoginController>();
     TextEditingController countryCode = TextEditingController(text: "+91");
     getAppSing();
 

@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ubs/model/user_data.dart';
 import 'package:ubs/pages/Chats/chats_dashboard.dart';
 import 'package:ubs/pages/accounts/account_page.dart';
 import 'package:ubs/pages/home/home_page.dart';
-import 'package:ubs/pages/main_controller.dart';
 import 'package:ubs/pages/my_ads/my_ads.dart';
 import 'package:ubs/pages/selling/sale_main_categories.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:get/get.dart';
 
 class DashboardPage extends StatefulWidget {
-  DashboardPage({super.key});
+  final UserData userData;
+  const DashboardPage({super.key, required this.userData});
 
   @override
   State<DashboardPage> createState() => _DashboardPageState();
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  final MainController mainCont = Get.put(MainController());
+  // final MainController mainCont = Get.put(MainController());
+  RxInt selectPage = 0.obs;
 
   @override
   void initState() {
@@ -28,16 +30,16 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     final pageOptions = [
-      const HomePage(),
+      HomePage(userData: widget.userData),
       const ChatsDashboard(),
-      const HomePage(),
-      const MyAds(),
+      HomePage(userData: widget.userData),
+      MyAds(userData: widget.userData),
       const AccountPage(),
       // const SaleMainCategories()
     ];
 
     return Scaffold(
-        body: Obx(() => pageOptions[mainCont.selectPage.value]),
+        body: Obx(() => pageOptions[selectPage.value]),
         bottomNavigationBar: Obx(
           () => BottomNavigationBar(
             selectedLabelStyle:
@@ -47,8 +49,8 @@ class _DashboardPageState extends State<DashboardPage> {
             backgroundColor: COLOR_WHITE,
             fixedColor: COLOR_PRIMARY,
             type: BottomNavigationBarType.fixed,
-            currentIndex: mainCont.selectPage.value,
-            onTap: (index) => mainCont.selectPage.value = index,
+            currentIndex: selectPage.value,
+            onTap: (index) => selectPage.value = index,
             items: [
               BottomNavigationBarItem(
                   icon: Icon(Icons.home_filled, size: 80.sp), label: "Home"),
@@ -67,8 +69,8 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: SizedBox(
-          height: 110.w,
-          width: 110.w,
+          height: 110.sp,
+          width: 110.sp,
           child: FittedBox(
             child: FloatingActionButton(
               elevation: 0,
@@ -76,25 +78,28 @@ class _DashboardPageState extends State<DashboardPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const SaleMainCategories(),
+                    builder: (context) =>
+                        SaleMainCategories(userData: widget.userData),
                   ),
                 );
               },
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: COLOR_PRIMARY, width: 12.sp),
+                  border: Border.all(color: COLOR_PRIMARY, width: 8.sp),
                   color: Colors.white,
                   shape: BoxShape.circle,
                 ),
                 child: IconButton(
                   color: Colors.black87,
-                  iconSize: 50.sp,
                   icon: const Icon(Icons.add_outlined),
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SaleMainCategories()));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            SaleMainCategories(userData: widget.userData),
+                      ),
+                    );
                   },
                 ),
               ),

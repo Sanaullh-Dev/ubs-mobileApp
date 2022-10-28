@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/categories.dart';
+import 'package:ubs/model/post_reaction.dart';
 import 'package:ubs/model/user_info.dart';
 import 'package:ubs/utils/constants.dart';
 
@@ -127,20 +128,43 @@ class RemoteServices {
     }
   }
 
-// **************************** user login ************************************
+  // ---------- Insert Ads post view or favorites into API ------------------
+  static Future<dynamic> addPostReaction(PostReaction postData, String loginType) async {
+    var uri = Uri.parse("$API_URL/adspost/userAction");
+    Map<String, dynamic> bodyData;
+    bodyData = {
+      'uid': postData.uid,
+      'pid': postData.pid,
+      'p_favorite': postData.pFavorite,
+      'p_view': postData.pView
+    };
+
+    http.Response res = await http.post(uri, body: bodyData);
+    print(res.statusCode);
+    if (res.statusCode == 200) {
+      return res.body;
+    } else {
+      return null;
+    }
+  }
+
+
+
+
+  // **************************** user login ************************************
 
   // ---------------- user registration ( user data save in database) --------------------
   static Future<dynamic> addUser(UserInfo userData, String loginType) async {
     var uri = Uri.parse("$API_URL/userLogin/singUp");
     Map<String, dynamic> bodyData;
-      bodyData = {
-        'log_pass': userData.logPass,
-        'u_name': userData.uName,
-        'login_with': userData.loginWith,
-        'u_phone': userData.uPhone,
-        'u_email' : userData.uEmail
-      };
-   
+    bodyData = {
+      'log_pass': userData.logPass,
+      'u_name': userData.uName,
+      'login_with': userData.loginWith,
+      'u_phone': userData.uPhone,
+      'u_email': userData.uEmail
+    };
+
     http.Response res = await http.post(uri, body: bodyData);
     print(res.statusCode);
     if (res.statusCode == 200) {

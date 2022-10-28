@@ -17,7 +17,7 @@ class SellingController extends GetxController {
           pLocation: "",
           pMcat: 0,
           pScat: 0,
-          pUid: "1").obs;
+          pUid: "").obs;
 
   var mainCatList = List<Categories>.empty().obs;
   var subCatList = List<Categories>.empty().obs;

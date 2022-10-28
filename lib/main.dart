@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:ubs/main_binding.dart';
+import 'package:ubs/model/user_data.dart';
 import 'package:ubs/pages/Chats/chat_individual/charts_individual.dart';
 import 'package:ubs/pages/Chats/chats_dashboard.dart';
 import 'package:ubs/pages/selling/sale_main_categories.dart';
@@ -54,7 +55,8 @@ class MyApp extends StatelessWidget {
             '/home': (context) => MainPage(),
             '/chat': (context) => const ChatsDashboard(),
             '/chatDetails': (context) => const ChatIndividual(),
-            '/SaleMainCategories': (context) => const SaleMainCategories(),
+            '/SaleMainCategories': (context) => SaleMainCategories(
+                userData: new UserData(uname: "", upass: "")),
           },
         );
       },

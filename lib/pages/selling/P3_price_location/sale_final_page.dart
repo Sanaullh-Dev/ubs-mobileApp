@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:ubs/pages/login/controller/login_controller.dart';
 import 'package:ubs/pages/selling/controller/selling_controller.dart';
 import 'package:ubs/sharing_widget/next_btn.dart';
 import 'package:ubs/sharing_widget/massage_page.dart';
@@ -24,6 +25,7 @@ class _SaleFinalPageState extends State<SaleFinalPage> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final TextTheme textTheme = Theme.of(context).textTheme;
+    final LoginController loginController = Get.put(LoginController());
 
     return SafeArea(
       child: Scaffold(
