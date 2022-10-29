@@ -3,26 +3,46 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
+import 'package:ubs/model/post_reaction.dart';
 import 'package:ubs/model/user_data.dart';
 import 'package:ubs/pages/PostDetails/post_details_controller.dart';
 import 'package:ubs/pages/PostDetails/widget/RelatedAds.dart';
 import 'package:ubs/pages/PostDetails/widget/image_slider.dart';
 import 'package:ubs/pages/PostDetails/widget/title_bar.dart';
+import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 
-class PostDetails extends StatelessWidget {
+class PostDetails extends StatefulWidget {
   final UserData userData;
   final AdsPost adsPostData;
-  const PostDetails({super.key, required this.adsPostData, required this.userData});
+  const PostDetails(
+      {super.key, required this.adsPostData, required this.userData});
+
+  @override
+  State<PostDetails> createState() => _PostDetailsState();
+}
+
+class _PostDetailsState extends State<PostDetails> {
+  final PostDetailsController postDetController =
+      Get.find<PostDetailsController>();
+
+  @override
+  void initState() {
+    super.initState();
+    PostReaction postReaction = PostReaction(
+        uid: widget.userData.uname,
+        pid: widget.adsPostData.pId!,
+        pFavorite: 0,
+        pView: 0);
+    RemoteServices.addPostReaction(postReaction);
+  }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final TextTheme textTheme = Theme.of(context).textTheme;
-
-    final PostDetailsController postDetController = Get.find<PostDetailsController>();
-    postDetController.addAdsPostData(adsPostData);
+    postDetController.addAdsPostData(widget.adsPostData);
 
     return SafeArea(
       child: Scaffold(

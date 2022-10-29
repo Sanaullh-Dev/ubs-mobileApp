@@ -78,7 +78,7 @@ class AdsList extends StatelessWidget {
                         onTap: () {
                           PostReaction postReaction = PostReaction(
                             uid: userData.uname, pid:  adsPost[index].pId!, 
-                            pFavorite: 1, pView: 1);
+                            pFavorite: 1, pView: 0);
                           RemoteServices.addPostReaction(postReaction);
                         },
                         child: Container(

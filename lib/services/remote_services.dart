@@ -39,6 +39,12 @@ class RemoteServices {
   // ---------- Get All Ads post from API ------------------
   static Future<List<AdsPost>?> fetchAdsPost() async {
     var uri = Uri.parse("$API_URL/adspost");
+
+    Map<String, dynamic> bodyData = {'uid': userId};
+
+    http.Response res = await http.post(uri, body: bodyData);
+
+
     var response = await client.get(uri);
 
     if (response.statusCode == 200) {

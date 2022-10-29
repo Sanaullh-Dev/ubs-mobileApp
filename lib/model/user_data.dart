@@ -10,7 +10,7 @@ class UserData {
     required this.upass,
   });
 
-  String uname;
+  String u;
   String upass;
 
   factory UserData.fromJson(Map<String, dynamic> json) => UserData(

@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
             '/chat': (context) => const ChatsDashboard(),
             '/chatDetails': (context) => const ChatIndividual(),
             '/SaleMainCategories': (context) => SaleMainCategories(
-                userData: new UserData(uname: "", upass: "")),
+                userData: UserData(uname: "", upass: "")),
           },
         );
       },

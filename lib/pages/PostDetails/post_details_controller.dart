@@ -16,7 +16,10 @@ class PostDetailsController extends GetxController {
           pMcat: 0,
           pScat: 0,
           pUid: "",
-          userId: "")
+          uName: '',
+          pFavorite: 0,
+          pView: 0,
+          uPhoto: "")
       .obs;
 
   @override
@@ -25,9 +28,6 @@ class PostDetailsController extends GetxController {
   }
 
   addAdsPostData(AdsPost adsPostData) {
-      adsPost.value = adsPostData; 
+    adsPost.value = adsPostData;
   }
-  
- 
-
 }
