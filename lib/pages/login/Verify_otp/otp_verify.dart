@@ -53,7 +53,7 @@ class _OtpVerifyState extends State<OtpVerify> {
     /// Optionally you can use form to validate the Pinput
     return SafeArea(
       child: Scaffold(
-        appBar: appBar("OTP verification"),
+        appBar: appBar(titleName: "OTP verification"),
         body: SingleChildScrollView(
           child: Column(
             children: [

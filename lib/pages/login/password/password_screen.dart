@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:ubs/model/user_info.dart';
-import 'package:ubs/pages/dashboard/dashboard.dart';
+import 'package:ubs/model/user_login.dart';
+import 'package:ubs/model/users_data.dart';
 import 'package:ubs/pages/login/controller/login_controller.dart';
 import 'package:ubs/pages/main_page.dart';
 import 'package:ubs/services/remote_services.dart';
@@ -13,11 +13,13 @@ import 'package:ubs/utils/text_style.dart';
 
 class PasswordScreen extends StatefulWidget {
   final String userId;
+  final String? userName;
   final bool newUser;
   final String loginType;
   const PasswordScreen(
       {super.key,
       required this.userId,
+      this.userName,
       required this.newUser,
       required this.loginType});
 
@@ -30,18 +32,20 @@ class _PasswordScreenState extends State<PasswordScreen> {
   TextEditingController name = TextEditingController();
   TextEditingController password = TextEditingController();
   Rx<bool> passShow = true.obs;
-  UserInfo? userData;
+  UsersData? userData;
   final _formKey = GlobalKey<FormState>();
 
-  login() async {
+  signUp() async {
     if (_formKey.currentState!.validate()) {
-      userData = UserInfo.fromJson({
+      userData = UsersData.fromJson({
+        "log_id": widget.userId,
         "log_pass": password.text,
         "u_name": name.text,
         "login_with": widget.loginType,
         "u_phone": widget.loginType == "phone" ? widget.userId : "",
         "u_email": widget.loginType == "phone" ? "" : widget.userId,
       });
+
       var res = await RemoteServices.addUser(userData!, widget.loginType);
       if (res != null) {
         bool res = await loginCont.writeSecure(widget.userId, password.text);
@@ -52,8 +56,24 @@ class _PasswordScreenState extends State<PasswordScreen> {
     }
   }
 
+  login() async {
+    if (widget.newUser == true) {
+      signUp();
+    } else {
+      var res = await RemoteServices.userLogin(widget.userId, password.text);
+      if (res == "invalid password") {
+      } else if (res == "logged") {
+        bool res = await loginCont.writeSecure(widget.userId, password.text);
+        if (res) {
+          Get.to(MainPage());
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    String uname = widget.userName ?? widget.userId;
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -78,7 +98,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                         child: Image.asset("lib/assets/images/user.png"),
                       ),
                       addVerticalSpace(10.h),
-                      Text("Welcome ${widget.userId}", style: heading5),
+                      Text("Welcome $uname", style: heading5),
                       addVerticalSpace(50.h),
                       widget.newUser == false
                           ? const SizedBox()
@@ -159,7 +179,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                                     const Color(0xFF606060),
                                 backgroundColor: const Color(0xFF263238),
                                 padding: EdgeInsets.symmetric(vertical: 25.w)),
-                            onPressed: login,
+                            onPressed: () => login(),
                             child: Text(
                               "Login",
                               style: buttonTextStyle,

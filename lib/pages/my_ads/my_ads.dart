@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ubs/model/user_data.dart';
+import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/my_ads/favorites_list/favorites_list.dart';
 import 'package:ubs/pages/my_ads/my_ads/my_adsList.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class MyAds extends StatefulWidget {
-  final UserData userData;
+  final UserLogin userData;
   const MyAds({super.key, required this.userData});
 
   @override

@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/categories.dart';
 import 'package:ubs/model/post_reaction.dart';
-import 'package:ubs/model/user_info.dart';
+import 'package:ubs/model/users_data.dart';
 import 'package:ubs/utils/constants.dart';
 
 class RemoteServices {
@@ -37,13 +37,12 @@ class RemoteServices {
   }
 
   // ---------- Get All Ads post from API ------------------
-  static Future<List<AdsPost>?> fetchAdsPost() async {
+  static Future<List<AdsPost>?> fetchAdsPost(String userId) async {
     var uri = Uri.parse("$API_URL/adspost");
 
     Map<String, dynamic> bodyData = {'uid': userId};
 
     http.Response res = await http.post(uri, body: bodyData);
-
 
     var response = await client.get(uri);
 
@@ -154,13 +153,10 @@ class RemoteServices {
     }
   }
 
-
-
-
   // **************************** user login ************************************
 
   // ---------------- user registration ( user data save in database) --------------------
-  static Future<dynamic> addUser(UserInfo userData, String loginType) async {
+  static Future<dynamic> addUser(UsersData userData, String loginType) async {
     var uri = Uri.parse("$API_URL/userLogin/singUp");
     Map<String, dynamic> bodyData;
     bodyData = {
@@ -189,8 +185,9 @@ class RemoteServices {
     http.Response res = await http.post(uri, body: bodyData);
 
     if (res.statusCode == 200) {
-      var jsonString = res.body;
-      return jsonString;
+      // List<UsersData> uData = usersDataFromJson(res.body);
+      UsersData uData = UsersData.fromJson(json.decode(res.body));
+      return uData;
     } else {
       return null;
     }

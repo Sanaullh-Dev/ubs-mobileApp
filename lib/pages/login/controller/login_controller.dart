@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:ubs/model/user_data.dart';
+import 'package:ubs/model/user_login.dart';
 import 'package:ubs/services/secure_storage.dart';
 
 class LoginController extends GetxController {
@@ -11,7 +11,7 @@ class LoginController extends GetxController {
   GoogleSignInAccount get user => _user!;
   RxString loginId = "".obs;
   Rx<String> loginStatus = "".obs;
-  Rx<UserData>? uData;
+  Rx<UserLogin> uData = UserLogin(userId: "", upass: "").obs;
   Rx<List<StorageItem>>? items;
 
   @override
@@ -21,22 +21,22 @@ class LoginController extends GetxController {
   }
 
   void getSecureValue() async {
-    var Uname = await _storageService.readSecureData("LoginName");
+    var userId = await _storageService.readSecureData("LoginId");
     var Upass = await _storageService.readSecureData("LoginPass");
-    uData!.value = UserData(uname: Uname!, upass: Upass!);
-    if (Uname.isEmpty || Upass.isEmpty) {
+    if (userId == null || Upass == null) {
       loginStatus.value = "no";
     } else {
+      uData.value = UserLogin(userId: userId, upass: Upass);
       loginStatus.value = "logged";
     }
   }
 
   Future<bool> writeSecure(String loginId, String loginPass) async {
     try {
-      await _storageService.writeSecureData(StorageItem("LoginName", loginId));
+      await _storageService.writeSecureData(StorageItem("LoginId", loginId));
       await _storageService
           .writeSecureData(StorageItem("LoginPass", loginPass));
-      loginStatus.value = "login";
+      loginStatus.value = "logged";
       return true;
     } catch (e) {
       return false;

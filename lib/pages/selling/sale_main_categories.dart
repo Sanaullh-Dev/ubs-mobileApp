@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:ubs/model/user_data.dart';
+import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/selling/controller/selling_controller.dart';
 import 'package:ubs/pages/selling/sale_sub_categories.dart';
 import 'package:ubs/pages/selling/widgets/card_category.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class SaleMainCategories extends StatefulWidget {
-  final UserData userData;
+  final UserLogin userData;
   const SaleMainCategories({super.key,  required this.userData});
 
   @override
@@ -60,7 +60,7 @@ class _SaleMainCategoriesState extends State<SaleMainCategories> {
                               sellingController.mainCatList[index].catId;
                           sellingController.getSubCat(mainId);
                           sellingController.sellingPost.value.pMcat = mainId;
-                          sellingController.sellingPost.value.pUid = widget.userData.uname;
+                          sellingController.sellingPost.value.pUid = widget.userData.userId;
 
                           Navigator.of(context).push(
                             PageTransition(

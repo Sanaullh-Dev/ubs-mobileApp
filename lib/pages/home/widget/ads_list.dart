@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/post_reaction.dart';
-import 'package:ubs/model/user_data.dart';
+import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/PostDetails/post_details.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/show_image.dart';
@@ -13,7 +13,7 @@ import 'package:ubs/utils/custom_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class AdsList extends StatelessWidget {
-  final UserData userData;
+  final UserLogin userData;
   final List<AdsPost> adsPost;
   const AdsList({Key? key, required this.adsPost, required this.userData})
       : super(key: key);
@@ -77,7 +77,7 @@ class AdsList extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () {
                           PostReaction postReaction = PostReaction(
-                            uid: userData.uname, pid:  adsPost[index].pId!, 
+                            uid: userData.userId, pid:  adsPost[index].pId!, 
                             pFavorite: 1, pView: 0);
                           RemoteServices.addPostReaction(postReaction);
                         },

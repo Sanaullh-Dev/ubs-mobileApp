@@ -19,8 +19,10 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
-    super.initState();   
-  } 
+    super.initState();
+    loginController.getSecureValue();
+  }
+  
 
   //  final mainCont = Get.find<MainController>();
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:ubs/model/user_data.dart';
+import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/Chats/chats_dashboard.dart';
 import 'package:ubs/pages/accounts/account_page.dart';
 import 'package:ubs/pages/home/home_page.dart';
@@ -10,7 +10,7 @@ import 'package:ubs/utils/constants.dart';
 import 'package:get/get.dart';
 
 class DashboardPage extends StatefulWidget {
-  final UserData userData;
+  final UserLogin userData;
   const DashboardPage({super.key, required this.userData});
 
   @override

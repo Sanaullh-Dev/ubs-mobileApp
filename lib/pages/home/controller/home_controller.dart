@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/categories.dart';
+import 'package:ubs/pages/login/controller/login_controller.dart';
 import 'package:ubs/services/remote_services.dart';
 
 class HomeController extends GetxController {
@@ -9,7 +10,8 @@ class HomeController extends GetxController {
   RxList<AdsPost> relatedCatAdsList = List<AdsPost>.empty().obs;
   RxList<Categories> mainCatList = List<Categories>.empty().obs;
   RxList<Categories> subCatList = List<Categories>.empty().obs;
-  
+  final LoginController loginController = Get.put(LoginController());
+
   RxBool listStatus = false.obs;
 
   RxString typeList = "all".obs;
@@ -47,7 +49,8 @@ class HomeController extends GetxController {
   }
 
   fetchAds() async {
-    var adsPosts = await RemoteServices.fetchAdsPost();
+    var adsPosts =
+        await RemoteServices.fetchAdsPost(loginController.uData!.value.userId);
     if (adsPosts != null) {
       adsPostList.value = adsPosts;
     }

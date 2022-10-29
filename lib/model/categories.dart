@@ -2,7 +2,6 @@
 //
 //     final categories = categoriesFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 List<Categories> categoriesFromJson(String str) =>

@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/post_reaction.dart';
-import 'package:ubs/model/user_data.dart';
+import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/PostDetails/post_details_controller.dart';
 import 'package:ubs/pages/PostDetails/widget/RelatedAds.dart';
 import 'package:ubs/pages/PostDetails/widget/image_slider.dart';
@@ -14,7 +14,7 @@ import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class PostDetails extends StatefulWidget {
-  final UserData userData;
+  final UserLogin userData;
   final AdsPost adsPostData;
   const PostDetails(
       {super.key, required this.adsPostData, required this.userData});
@@ -31,7 +31,7 @@ class _PostDetailsState extends State<PostDetails> {
   void initState() {
     super.initState();
     PostReaction postReaction = PostReaction(
-        uid: widget.userData.uname,
+        uid: widget.userData.userId,
         pid: widget.adsPostData.pId!,
         pFavorite: 0,
         pView: 0);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/post_model.dart';
-import 'package:ubs/model/user_data.dart';
+import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/home/PostList/post_list.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/pages/home/widget/ads_list.dart';
@@ -13,7 +13,7 @@ import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class HomePage extends StatefulWidget {
-  final UserData userData;
+  final UserLogin userData;
   const HomePage({super.key, required this.userData});
 
   @override
@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class LatestPost extends StatefulWidget {
-  final UserData userData;
+  final UserLogin userData;
   final Size size;
   final TextTheme textTheme;
   LatestPost(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/categories.dart';
-import 'package:ubs/model/user_data.dart';
+import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/Categories/main_categories.dart';
 import 'package:ubs/pages/Categories/sub_categories.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
@@ -13,7 +13,7 @@ import 'package:ubs/utils/text_style.dart';
 const double iconsSize = 40;
 
 class CategoriesBar extends StatelessWidget {
-  final UserData userData;
+  final UserLogin userData;
   const CategoriesBar({super.key, required this.userData});
 
   @override

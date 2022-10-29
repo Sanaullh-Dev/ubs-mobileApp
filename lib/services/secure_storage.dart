@@ -46,7 +46,3 @@ class StorageItem {
   final String key;
   final String value;
 }
-
-// LoginName
-// LoginPass
-

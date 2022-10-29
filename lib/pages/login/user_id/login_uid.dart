@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sms_autofill/sms_autofill.dart';
+import 'package:ubs/model/users_data.dart';
 import 'package:ubs/pages/login/Verify_otp/auto_verify.dart';
 import 'package:ubs/pages/login/controller/login_controller.dart';
 import 'package:ubs/pages/login/password/password_screen.dart';
@@ -31,7 +32,11 @@ class LoginUid extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: appBar("Login"),
+        appBar: appBar(
+            titleName: "Login",
+            onPress: () {
+              Navigator.pop(context);
+            }),
         body: Stack(
           children: [
             UserId(idType: signType),
@@ -40,23 +45,31 @@ class LoginUid extends StatelessWidget {
               labelText: signType == "phone" ? "Get OTP" : "Next",
               onPress: () async {
                 String userId = "91${loginControl.loginId.value}";
-                var ck = await RemoteServices.checkUser(userId);
-                if (ck != null) {
+                UsersData ck = await RemoteServices.checkUser(userId);
+                if (ck == null) {
                   if (signType == "phone") {
                     if (loginControl.loginId.value.length <= 10) {
                       // var res =
                       //     await RemoteServices.getOTP(userId, appSignature);
                       // if (res != null) {
-                      // Map<String, dynamic> result = jsonDecode(res);                      
+                      // Map<String, dynamic> result = jsonDecode(res);
                       //   Get.to(AutoVerify(hashNo: result["hash"], userId: userId,appSignature: appSignature,));
                       // }
-                      Get.to(PasswordScreen(userId: userId, newUser: true, loginType: signType));
+                      Get.to(PasswordScreen(
+                          userId: userId, newUser: true, loginType: signType));
                     } else {
-                      Get.to(PasswordScreen(userId: userId, newUser: false, loginType: signType));
+                      Get.to(PasswordScreen(
+                          userId: userId, newUser: false, loginType: signType));
                     }
                   } else if (signType == "email") {
                     // loginControl.passwordScreen.value = ! loginControl.passwordScreen.value;
                   }
+                } else {
+                  Get.to(PasswordScreen(
+                      userName: ck.uName,
+                      userId: userId,
+                      newUser: false,
+                      loginType: signType));
                 }
               },
             )
