@@ -63,13 +63,13 @@ class AdsList extends StatelessWidget {
                               imageUrl: getLink(adsPost[index].pImg1))),
                     ),
                     // ----- for features batch
-                    Positioned(
-                      top: 15.h,
-                      left: 0,
-                      child: adsPost[index].pImg3 == null
-                          ? const SizedBox()
-                          : featuredTag(),
-                    ),
+                    // Positioned(
+                    //   top: 15.h,
+                    //   left: 0,
+                    //   child: adsPost[index].pImg3 == null
+                    //       ? const SizedBox()
+                    //       : featuredTag(),
+                    // ),
                     // ------ for favorite icon
                     Positioned(
                       right: 5.w,
@@ -85,12 +85,11 @@ class AdsList extends StatelessWidget {
                           padding: EdgeInsets.all(10.w),
                           decoration: favoriteBorder,
                           child: Icon(
-                            // AddLists[index]. ["Favorite"] == "yes"
-                            adsPost[index].pImg3 != null
+                            adsPost[index].pFavorite == 1
                                 ? Icons.favorite
                                 : Icons.favorite_border,
                             size: 40.sp,
-                            color: adsPost[index].pImg3 != null
+                            color: adsPost[index].pFavorite == 1
                                 ? Colors.red
                                 : Colors.black54,
                           ),

@@ -30,12 +30,16 @@ class _PostDetailsState extends State<PostDetails> {
   @override
   void initState() {
     super.initState();
+    updateReaction();
+  }
+
+  updateReaction() async {
     PostReaction postReaction = PostReaction(
         uid: widget.userData.userId,
         pid: widget.adsPostData.pId!,
-        pFavorite: 0,
-        pView: 0);
-    RemoteServices.addPostReaction(postReaction);
+        pFavorite: widget.adsPostData.pFavorite ?? 0,
+        pView: 1);
+    await RemoteServices.addPostReaction(postReaction);
   }
 
   @override

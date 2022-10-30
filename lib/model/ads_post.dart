@@ -4,54 +4,58 @@
 
 import 'dart:convert';
 
-List<AdsPost> adsPostFromJson(String str) => List<AdsPost>.from(json.decode(str).map((x) => AdsPost.fromJson(x)));
+List<AdsPost> adsPostFromJson(String str) => List<AdsPost>.from(json
+    .decode(str)
+    .map((x) => AdsPost.fromJson(x as Map<String, dynamic>))
+    .toList() as List<dynamic>);
 
-String adsPostToJson(List<AdsPost> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String adsPostToJson(List<AdsPost> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class AdsPost {
-    AdsPost({
-      this.pId,
-      this.pDate,
-      required this.pTitle,
-      required this.pBrand,
-      required this.pDescribe,
-      required this.pImg1,
-      required this.pImg2,
-      required this.pImg3,
-      required this.pImg4,
-      required this.pImg5,
-      required this.pPrice,
-      required this.pLocation,
-      required this.pMcat,
-      required this.pScat,
-      required this.pUid,
-      required this.uName,
-      required this.uPhoto,
-      required this.pFavorite,
-      required this.pView,
-    });
+  AdsPost({
+    this.pId,
+    this.pDate,
+    required this.pTitle,
+    required this.pBrand,
+    required this.pDescribe,
+    required this.pImg1,
+    required this.pImg2,
+    required this.pImg3,
+    required this.pImg4,
+    required this.pImg5,
+    required this.pPrice,
+    required this.pLocation,
+    required this.pMcat,
+    required this.pScat,
+    required this.pUid,
+    required this.uName,
+    this.uPhoto,
+    this.pFavorite,
+    this.pView,
+  });
 
-    int? pId;
-    DateTime? pDate;
-    String pTitle;
-    String pBrand;
-    String pDescribe;
-    String pImg1;
-    String pImg2;
-    String pImg3;
-    String pImg4;
-    String pImg5;
-    int pPrice;
-    String pLocation;
-    int pMcat;
-    int pScat;
-    String pUid;
-    String uName;
-    dynamic uPhoto;
-    int pFavorite;
-    int pView;
+  int? pId;
+  DateTime? pDate;
+  String pTitle;
+  String pBrand;
+  String pDescribe;
+  String pImg1;
+  String pImg2;
+  String pImg3;
+  String pImg4;
+  String pImg5;
+  int pPrice;
+  String pLocation;
+  int pMcat;
+  int pScat;
+  String pUid;
+  String uName;
+  String? uPhoto;
+  int? pFavorite;
+  int? pView;
 
-    factory AdsPost.fromJson(Map<String, dynamic> json) => AdsPost(
+  factory AdsPost.fromJson(Map<String, dynamic> json) => AdsPost(
         pId: json["p_id"],
         pDate: DateTime.parse(json["p_date"]),
         pTitle: json["p_title"],
@@ -71,9 +75,9 @@ class AdsPost {
         uPhoto: json["u_photo"],
         pFavorite: json["p_favorite"],
         pView: json["p_view"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "p_id": pId,
         "p_date": pDate!.toIso8601String(),
         "p_title": pTitle,
@@ -93,7 +97,7 @@ class AdsPost {
         "u_photo": uPhoto,
         "p_favorite": pFavorite,
         "p_view": pView,
-    };
+      };
 }
 
 

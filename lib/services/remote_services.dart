@@ -42,9 +42,7 @@ class RemoteServices {
 
     Map<String, dynamic> bodyData = {'uid': userId};
 
-    http.Response res = await http.post(uri, body: bodyData);
-
-    var response = await client.get(uri);
+    http.Response response = await client.post(uri, body: bodyData);
 
     if (response.statusCode == 200) {
       var jsonString = response.body;
@@ -136,16 +134,16 @@ class RemoteServices {
   // ---------- Insert Ads post view or favorites into API ------------------
   static Future<dynamic> addPostReaction(PostReaction postReaction) async {
     var uri = Uri.parse("$API_URL/adspost/userAction");
-    Map<String, dynamic> bodyData;
-    bodyData = {
+    Map<String, dynamic> bodyData = {
       'uid': postReaction.uid,
       'pid': postReaction.pid,
       'p_favorite': postReaction.pFavorite,
       'p_view': postReaction.pView
     };
 
-    http.Response res = await http.post(uri, body: bodyData);
-    print(res.statusCode);
+    // http.Response res = await http.post(uri, body: bodyData);
+    var res = await http.post(uri, body: bodyData);
+    // print(res.statusCode);
     if (res.statusCode == 200) {
       return res.body;
     } else {
@@ -227,7 +225,7 @@ class RemoteServices {
   }
 
   // ---------- user Login ------------------
-  static Future<dynamic> userLogin(String loginId, String password) async {
+  static Future<String?> userLogin(String loginId, String password) async {
     var uri = Uri.parse("$API_URL/userLogin/logIn");
     Map<String, dynamic> bodyData = {'loginId': loginId, 'password': password};
     http.Response res = await http.post(uri, body: bodyData);

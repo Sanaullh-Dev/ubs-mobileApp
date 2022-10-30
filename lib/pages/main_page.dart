@@ -32,7 +32,7 @@ class _MainPageState extends State<MainPage> {
       child: Obx(
         () {
           if (loginController.loginStatus.value == "logged") {
-            return DashboardPage(userData: loginController.uData!.value);
+            return DashboardPage(userData: loginController.uData.value);
           }
           if (loginController.loginStatus.value == "waiting") {
             return const Center(child: CircularProgressIndicator());

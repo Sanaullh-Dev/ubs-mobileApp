@@ -50,7 +50,7 @@ class HomeController extends GetxController {
 
   fetchAds() async {
     var adsPosts =
-        await RemoteServices.fetchAdsPost(loginController.uData!.value.userId);
+        await RemoteServices.fetchAdsPost(loginController.uData.value.userId);
     if (adsPosts != null) {
       adsPostList.value = adsPosts;
     }

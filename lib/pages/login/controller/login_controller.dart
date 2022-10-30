@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ubs/model/user_login.dart';
+import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/services/secure_storage.dart';
 
 class LoginController extends GetxController {
@@ -26,8 +27,11 @@ class LoginController extends GetxController {
     if (userId == null || Upass == null) {
       loginStatus.value = "no";
     } else {
-      uData.value = UserLogin(userId: userId, upass: Upass);
-      loginStatus.value = "logged";
+      var res = await RemoteServices.userLogin(userId, Upass);
+      if (res == "logged") {
+        uData.value = UserLogin(userId: userId, upass: Upass);
+        loginStatus.value = "logged";
+      }
     }
   }
 
