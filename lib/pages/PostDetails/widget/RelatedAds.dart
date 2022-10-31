@@ -38,16 +38,12 @@ class RelatedAds extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return homeController.relatedCatAdsList.value[index].pId ==
                           showingPostId
-                      ? SizedBox()
+                      ? const SizedBox()
                       : GestureDetector(
                           onTap: () {
-                            postDetController.addAdsPostData(
+                            postDetController.getAdsPostDetails(
                                 homeController.relatedCatAdsList.value[index]);
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) =>
-                            //             PostDetails(adsPostData: postList[index])));
+                            
                           },
                           child: Container(
                             decoration: BoxDecoration(

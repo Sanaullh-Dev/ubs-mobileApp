@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/post_reaction.dart';
 import 'package:ubs/model/user_login.dart';
-import 'package:ubs/pages/home/controller/home_controller.dart';
+import 'package:ubs/pages/PostDetails/post_details_controller.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
@@ -16,20 +16,20 @@ class TitleBar extends StatelessWidget {
   final UserLogin userLogin;
   TitleBar({super.key, required this.adsPostData, required this.userLogin});
 
-  final homeController = Get.find<HomeController>();
+  final PostDetailsController postDetailsCon =
+      Get.find<PostDetailsController>();
 
-   void addPostReaction() async {
+  void updatedFavorite() async {
     PostReaction postReaction = PostReaction(
         uid: userLogin.userId,
         pid: adsPostData.pId!,
         pFavorite: adsPostData.pFavorite == 1 ? 0 : 1,
         pView: adsPostData.pView ?? 0);
-    var res = await RemoteServices.addPostReaction(postReaction);
+    var res = await RemoteServices.updatedFavorite(postReaction);
     if (res) {
-      homeController.fetchAds();
+      postDetailsCon.getAdsPostDetails(adsPostData);
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +52,7 @@ class TitleBar extends StatelessWidget {
                 style: heading1,
               ),
               GestureDetector(
-                onTap: () {
-                  addPostReaction();
-                },
+                onTap: () => updatedFavorite(),
                 child: Padding(
                   padding: EdgeInsets.only(right: 15.w),
                   child: Container(

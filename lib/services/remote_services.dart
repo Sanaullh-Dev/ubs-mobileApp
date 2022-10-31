@@ -38,6 +38,7 @@ class RemoteServices {
     }
   }
 
+// **************************** Ads Post ************************************
   // ---------- Get All Ads post from API ------------------
   static Future<List<AdsPost>?> fetchAdsPost(String userId) async {
     var uri = Uri.parse("$API_URL/adspost");
@@ -54,9 +55,26 @@ class RemoteServices {
     }
   }
 
+  // ---------- Get one Ads post with PostId from API ------------------
+  static Future<AdsPost?> getAdsPostDetails(String userId, int postId) async {
+    var uri = Uri.parse("$API_URL/getPostDetails");
+
+    Map<String, dynamic> bodyData = {'pid': postId, 'uid': userId};
+
+    var res = await client.post(
+      uri,
+      headers: headers,
+      body: json.encode(bodyData),
+      encoding: encoding,
+    );
+    return res.statusCode == 200
+        ? AdsPost.fromJson(json.decode(res.body))
+        : null;
+  }
+
   // static Future<List<String>?> fetchKeywordList() async {}
 
-  // ---------- Get All Ads post from API ------------------
+  // ---------- Get All Ads post main Cat wise from API ------------------
   static Future<List<AdsPost>?> fetchCatWisedAds(int mCatId) async {
     var uri = Uri.parse("$API_URL/adspost/relatedAds/mainId-$mCatId");
     var response = await client.get(uri);
@@ -143,19 +161,31 @@ class RemoteServices {
       'uid': postReaction.uid
     };
 
-    // http.Response res = await http.post(uri, body: bodyData);
     var res = await client.post(
       uri,
       headers: headers,
       body: json.encode(bodyData),
       encoding: encoding,
     );
-    // print(res.statusCode);
-    if (res.statusCode == 200) {
-      return true;
-    } else {
-      return false;
-    }
+    return res.statusCode == 200 ? true : false;
+  }
+
+  // ---------- Insert Ads post view or favorites into API ------------------
+  static Future<bool> updatedFavorite(PostReaction postReaction) async {
+    var uri = Uri.parse("$API_URL/adspost/favoritesUpdate");
+    Map<String, dynamic> bodyData = {
+      'uid': postReaction.uid,
+      'pid': postReaction.pid,
+      'p_favorite': postReaction.pFavorite
+    };
+
+    var res = await client.post(
+      uri,
+      headers: headers,
+      body: json.encode(bodyData),
+      encoding: encoding,
+    );
+    return res.statusCode == 200 ? true : false;
   }
 
   // **************************** user login ************************************

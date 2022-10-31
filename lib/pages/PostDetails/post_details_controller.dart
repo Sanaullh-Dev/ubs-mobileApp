@@ -1,8 +1,11 @@
 import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
+import 'package:ubs/services/remote_services.dart';
 
 class PostDetailsController extends GetxController {
   Rx<AdsPost> adsPost = AdsPost(
+          pId: 0,
+          pDate: DateTime.now(),
           pTitle: "",
           pBrand: "",
           pDescribe: "",
@@ -27,7 +30,11 @@ class PostDetailsController extends GetxController {
     super.onInit();
   }
 
-  addAdsPostData(AdsPost adsPostData) {
-    adsPost.value = adsPostData;
+  getAdsPostDetails(AdsPost adsData) async {
+    var res =
+        await RemoteServices.getAdsPostDetails(adsData.pUid, adsData.pId!);
+    if (res != null) {
+      adsPost.value = res;
+    }
   }
 }

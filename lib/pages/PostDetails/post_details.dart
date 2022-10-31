@@ -30,10 +30,12 @@ class _PostDetailsState extends State<PostDetails> {
   @override
   void initState() {
     super.initState();
-    updateReaction();
+    postDetController.adsPost.value = widget.adsPostData;
+    updateViewReaction();
+    postDetController.getAdsPostDetails(widget.adsPostData);
   }
 
-  updateReaction() async {
+  updateViewReaction() async {
     PostReaction postReaction = PostReaction(
         uid: widget.userData.userId,
         pid: widget.adsPostData.pId!,
@@ -42,11 +44,19 @@ class _PostDetailsState extends State<PostDetails> {
     await RemoteServices.addPostReaction(postReaction);
   }
 
+  updateFavorite() async {
+    PostReaction postReaction = PostReaction(
+        uid: widget.userData.userId,
+        pid: widget.adsPostData.pId!,
+        pFavorite: widget.adsPostData.pFavorite ?? 0,
+        pView: 1);
+    await RemoteServices.updatedFavorite(postReaction);
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final TextTheme textTheme = Theme.of(context).textTheme;
-    postDetController.addAdsPostData(widget.adsPostData);
 
     return SafeArea(
       child: Scaffold(
@@ -67,7 +77,9 @@ class _PostDetailsState extends State<PostDetails> {
                         ),
                       ),
                       // Ads heading Section
-                      TitleBar(adsPostData: postDetController.adsPost.value, userLogin: widget.userData),
+                      TitleBar(
+                          adsPostData: postDetController.adsPost.value,
+                          userLogin: widget.userData),
                       addVerticalSpace(10.h),
                       // Description section
                       Padding(
