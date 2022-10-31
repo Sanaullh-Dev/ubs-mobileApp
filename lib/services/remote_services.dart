@@ -8,6 +8,8 @@ import 'package:ubs/utils/constants.dart';
 
 class RemoteServices {
   static var client = http.Client();
+  static var headers = {'Content-Type': 'application/json'};
+  static var encoding = Encoding.getByName('utf-8');
 
   // ---------- Get All Main Categories from API ------------------
   static Future<List<Categories>?> fetchMainCat() async {
@@ -57,8 +59,8 @@ class RemoteServices {
   // ---------- Get All Ads post from API ------------------
   static Future<List<AdsPost>?> fetchCatWisedAds(int mCatId) async {
     var uri = Uri.parse("$API_URL/adspost/relatedAds/mainId-$mCatId");
-    var response =
-        await client.get(uri, headers: {'Content-Type': 'application/json'});
+    var response = await client.get(uri);
+    // await client.get(uri, headers: {'Content-Type': 'application/json'});
 
     if (response.statusCode == 200) {
       var jsonString = response.body;
@@ -132,22 +134,27 @@ class RemoteServices {
   }
 
   // ---------- Insert Ads post view or favorites into API ------------------
-  static Future<dynamic> addPostReaction(PostReaction postReaction) async {
+  static Future<bool> addPostReaction(PostReaction postReaction) async {
     var uri = Uri.parse("$API_URL/adspost/userAction");
     Map<String, dynamic> bodyData = {
-      'uid': postReaction.uid,
       'pid': postReaction.pid,
       'p_favorite': postReaction.pFavorite,
-      'p_view': postReaction.pView
+      'p_view': postReaction.pView,
+      'uid': postReaction.uid
     };
 
     // http.Response res = await http.post(uri, body: bodyData);
-    var res = await http.post(uri, body: bodyData);
+    var res = await client.post(
+      uri,
+      headers: headers,
+      body: json.encode(bodyData),
+      encoding: encoding,
+    );
     // print(res.statusCode);
     if (res.statusCode == 200) {
-      return res.body;
+      return true;
     } else {
-      return null;
+      return false;
     }
   }
 
@@ -178,7 +185,7 @@ class RemoteServices {
   static Future<dynamic> checkUser(String userId) async {
     var uri = Uri.parse("$API_URL/userLogin/checkUser");
 
-    Map<String, dynamic> bodyData = {'uid': userId};
+    Map<String, dynamic> bodyData = {'uid': userId, 'pid': 5};
 
     http.Response res = await http.post(uri, body: bodyData);
 
@@ -227,7 +234,7 @@ class RemoteServices {
   // ---------- user Login ------------------
   static Future<String?> userLogin(String loginId, String password) async {
     var uri = Uri.parse("$API_URL/userLogin/logIn");
-    Map<String, dynamic> bodyData = {'loginId': loginId, 'password': password};
+    Map<String, String> bodyData = {'loginId': loginId, 'password': password};
     http.Response res = await http.post(uri, body: bodyData);
 
     if (res.statusCode == 200) {

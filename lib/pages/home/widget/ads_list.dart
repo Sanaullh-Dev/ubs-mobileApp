@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/post_reaction.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/PostDetails/post_details.dart';
+import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/show_image.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
@@ -12,21 +14,39 @@ import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/custom_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 
-class AdsList extends StatelessWidget {
+class AdsList extends StatefulWidget {
   final UserLogin userData;
   final List<AdsPost> adsPost;
-  const AdsList({Key? key, required this.adsPost, required this.userData})
+  AdsList({Key? key, required this.adsPost, required this.userData})
       : super(key: key);
 
   @override
+  State<AdsList> createState() => _AdsListState();
+}
+
+class _AdsListState extends State<AdsList> {
+  final homeController = Get.find<HomeController>();
+
+  void addPostReaction(int index) async {
+    PostReaction postReaction = PostReaction(
+        uid: widget.userData.userId,
+        pid: widget.adsPost[index].pId!,
+        pFavorite: widget.adsPost[index].pFavorite == 1 ? 0 : 1,
+        pView: widget.adsPost[index].pView ?? 0);
+    var res = await RemoteServices.addPostReaction(postReaction);
+    if (res) {
+      homeController.fetchAds();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    
     return AlignedGridView.count(
       primary: false,
       shrinkWrap: true,
       crossAxisCount: 2,
       // scrollDirection: Axis.vertical,
-      itemCount: adsPost.length,
+      itemCount: widget.adsPost.length,
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
           onTap: () {
@@ -34,8 +54,8 @@ class AdsList extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => PostDetails(
-                  userData: userData,
-                  adsPostData: adsPost[index],
+                  userData: widget.userData,
+                  adsPostData: widget.adsPost[index],
                 ),
               ),
             );
@@ -57,10 +77,10 @@ class AdsList extends StatelessWidget {
                       alignment: Alignment.center,
                       height: 230.sp,
                       child: Hero(
-                          tag: "post${adsPost[index].pId}",
+                          tag: "post${widget.adsPost[index].pId}",
                           transitionOnUserGestures: true,
                           child: ShowImage(
-                              imageUrl: getLink(adsPost[index].pImg1))),
+                              imageUrl: getLink(widget.adsPost[index].pImg1))),
                     ),
                     // ----- for features batch
                     // Positioned(
@@ -76,20 +96,17 @@ class AdsList extends StatelessWidget {
                       top: 5.h,
                       child: GestureDetector(
                         onTap: () {
-                          PostReaction postReaction = PostReaction(
-                            uid: userData.userId, pid:  adsPost[index].pId!, 
-                            pFavorite: 1, pView: 0);
-                          RemoteServices.addPostReaction(postReaction);
+                          addPostReaction(index);
                         },
                         child: Container(
                           padding: EdgeInsets.all(10.w),
                           decoration: favoriteBorder,
                           child: Icon(
-                            adsPost[index].pFavorite == 1
+                            widget.adsPost[index].pFavorite == 1
                                 ? Icons.favorite
                                 : Icons.favorite_border,
                             size: 40.sp,
-                            color: adsPost[index].pFavorite == 1
+                            color: widget.adsPost[index].pFavorite == 1
                                 ? Colors.red
                                 : Colors.black54,
                           ),
@@ -103,7 +120,7 @@ class AdsList extends StatelessWidget {
                   height: 50.h,
                   // -----for Name product
                   child: Text(
-                    "₹ ${adsPost[index].pPrice.toString()}",
+                    "₹ ${widget.adsPost[index].pPrice.toString()}",
                     style: heading3,
                   ),
                 ),
@@ -111,7 +128,7 @@ class AdsList extends StatelessWidget {
                   height: 50.h,
                   // -----for Name product
                   child: Text(
-                    adsPost[index].pTitle,
+                    widget.adsPost[index].pTitle,
                     overflow: TextOverflow.ellipsis,
                     softWrap: false,
                     maxLines: 1,
@@ -129,7 +146,7 @@ class AdsList extends StatelessWidget {
                     addHorizontalSpace(10.w),
                     Text(
                       // AddLists[index]["Location"],
-                      adsPost[index].pLocation,
+                      widget.adsPost[index].pLocation,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
                       maxLines: 1,
@@ -148,6 +165,7 @@ class AdsList extends StatelessWidget {
     );
   }
 }
+
 
 
 // GridView.builder(

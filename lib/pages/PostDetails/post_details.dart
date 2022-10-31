@@ -67,7 +67,7 @@ class _PostDetailsState extends State<PostDetails> {
                         ),
                       ),
                       // Ads heading Section
-                      TitleBar(adsPostData: postDetController.adsPost.value),
+                      TitleBar(adsPostData: postDetController.adsPost.value, userLogin: widget.userData),
                       addVerticalSpace(10.h),
                       // Description section
                       Padding(

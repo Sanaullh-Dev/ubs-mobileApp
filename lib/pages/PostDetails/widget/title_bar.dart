@@ -1,14 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ubs/model/ads_post.dart';
+import 'package:ubs/model/post_reaction.dart';
+import 'package:ubs/model/user_login.dart';
+import 'package:ubs/pages/home/controller/home_controller.dart';
+import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class TitleBar extends StatelessWidget {
   final AdsPost adsPostData;
-  const TitleBar({super.key, required this.adsPostData});
+  final UserLogin userLogin;
+  TitleBar({super.key, required this.adsPostData, required this.userLogin});
+
+  final homeController = Get.find<HomeController>();
+
+   void addPostReaction() async {
+    PostReaction postReaction = PostReaction(
+        uid: userLogin.userId,
+        pid: adsPostData.pId!,
+        pFavorite: adsPostData.pFavorite == 1 ? 0 : 1,
+        pView: adsPostData.pView ?? 0);
+    var res = await RemoteServices.addPostReaction(postReaction);
+    if (res) {
+      homeController.fetchAds();
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,22 +51,27 @@ class TitleBar extends StatelessWidget {
                 adsPostData.pPrice.toString(),
                 style: heading1,
               ),
-              Padding(
+              GestureDetector(
+                onTap: () {
+                  addPostReaction();
+                },
+                child: Padding(
                   padding: EdgeInsets.only(right: 15.w),
                   child: Container(
                     padding: const EdgeInsets.all(5),
                     decoration: favoriteBorder,
                     child: Icon(
-                      // postData.favorite == "no"?
-                      Icons.favorite_border,
+                      adsPostData.pFavorite == 1
+                          ? Icons.favorite
+                          : Icons.favorite_border,
                       size: 60.sp,
-                      color:
-                          // postData.favorite == "no" ?
-                          Colors.black,
-                      // : Colors.red,
+                      color: adsPostData.pFavorite == 1
+                          ? Colors.red
+                          : Colors.black,
                     ),
                   ),
-                  )
+                ),
+              )
             ],
           ),
           addVerticalSpace(8.h),
@@ -55,15 +81,13 @@ class TitleBar extends StatelessWidget {
             style: heading4,
           ),
           addVerticalSpace(8.h),
-          // Text(
-          //   // "Sub Title About post and more details",
-          //   adsPostData.,
-          //   style: textTheme.headline6,
-          // ),
           addVerticalSpace(8.h),
           Row(
             children: [
-              Icon(Icons.location_on, size: 50.sp,),
+              Icon(
+                Icons.location_on,
+                size: 50.sp,
+              ),
               Text(
                 // "Location name about post",
                 adsPostData.pLocation,
