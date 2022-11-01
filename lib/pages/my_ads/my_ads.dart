@@ -44,7 +44,7 @@ class _MyAdsState extends State<MyAds> {
                         indicatorColor: COLOR_BLACK,
                         labelColor: COLOR_BLACK,
                         labelStyle: heading4,
-                        labelPadding: EdgeInsets.only(bottom: 8, top: 8),
+                        labelPadding: const EdgeInsets.only(bottom: 8, top: 8),
                         tabs: const [
                           Tab(text: 'ADS'),
                           Tab(text: 'FAVORITES'),

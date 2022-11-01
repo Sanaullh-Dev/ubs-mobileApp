@@ -88,24 +88,24 @@ TextTheme TEXT_THEME_DEFAULT = TextTheme(
     fontSize: 32.sp,
     letterSpacing: 0.8,
   ),
-  bodyText1: TextStyle(
+  bodyText1: const TextStyle(
       color: COLOR_BLACK,
       fontWeight: FontWeight.w400,
       fontSize: 15,
       height: 1.5),
-  bodyText2: TextStyle(
+  bodyText2: const TextStyle(
       color: COLOR_GREY,
       fontWeight: FontWeight.w500,
       fontSize: 15,
       letterSpacing: 0.9,
       height: 1.5),
-  subtitle1:
-      TextStyle(color: COLOR_BLACK, fontWeight: FontWeight.w400, fontSize: 12),
-  subtitle2: TextStyle(
+  subtitle1: const TextStyle(
+      color: COLOR_BLACK, fontWeight: FontWeight.w400, fontSize: 12),
+  subtitle2: const TextStyle(
       color: COLOR_LIGHT_BLACK, fontWeight: FontWeight.w400, fontSize: 16),
   caption: TextStyle(
       color: COLOR_GREY, fontWeight: FontWeight.w400, fontSize: 25.sp),
-  button: TextStyle(
+  button: const TextStyle(
     color: COLOR_BLACK,
     fontWeight: FontWeight.w500,
     fontSize: 14,

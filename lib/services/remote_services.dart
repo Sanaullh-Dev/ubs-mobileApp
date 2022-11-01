@@ -15,7 +15,7 @@ class RemoteServices {
   static Future<List<Categories>?> fetchMainCat() async {
     var uri = Uri.parse("$API_URL/category/main");
     var response = await client.get(uri);
-    print(response.statusCode);
+    // print(response.statusCode);
 
     if (response.statusCode == 200) {
       var jsonString = response.body;
@@ -56,9 +56,9 @@ class RemoteServices {
   }
 
   // ---------- Get one Ads post with PostId from API ------------------
-  static Future<AdsPost?> getAdsPostDetails(String userId, int postId) async {
-    var uri = Uri.parse("$API_URL/getPostDetails");
-
+  static Future<AdsPost?> getAdsPostDetails(
+      String userId, String postId) async {
+    var uri = Uri.parse("$API_URL/adspost/getPostDetails");
     Map<String, dynamic> bodyData = {'pid': postId, 'uid': userId};
 
     var res = await client.post(
@@ -89,7 +89,7 @@ class RemoteServices {
   }
 
   // ---------- Create Ads post into API ------------------
-  static Future<dynamic?> postAds(AdsPost adsPost) async {
+  static Future<dynamic> postAds(AdsPost adsPost) async {
     var uri = Uri.parse("$API_URL/adspost");
 
     http.MultipartRequest request = http.MultipartRequest("POST", uri);
@@ -113,11 +113,9 @@ class RemoteServices {
     // var response = await request.send();
     http.Response response =
         await http.Response.fromStream(await request.send());
-    print("Result: ${response.body}");
+    // print("Result: ${response.body}");
 
-    if (response.statusCode == 200) {
-      return response.body;
-    }
+    return response.statusCode == 200 ? response.body : null;
   }
 
   // ---------- Get keyword list from API ------------------
@@ -181,11 +179,15 @@ class RemoteServices {
 
     var res = await client.post(
       uri,
-      headers: headers,
+      // headers: headers,
       body: json.encode(bodyData),
       encoding: encoding,
     );
-    return res.statusCode == 200 ? true : false;
+    if (res.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // **************************** user login ************************************

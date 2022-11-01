@@ -25,16 +25,13 @@ class PostDetailsController extends GetxController {
           uPhoto: "")
       .obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  Rx<bool> postFavorite = false.obs;
 
   getAdsPostDetails(AdsPost adsData) async {
-    var res =
-        await RemoteServices.getAdsPostDetails(adsData.pUid, adsData.pId!);
+    var res = await RemoteServices.getAdsPostDetails(
+        adsData.pUid, adsData.pId!.toString());
     if (res != null) {
-      adsPost.value = res;
+      postFavorite.value = res.pFavorite == 1 ? true : false;
     }
   }
 }

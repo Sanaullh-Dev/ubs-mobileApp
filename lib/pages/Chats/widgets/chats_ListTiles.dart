@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:ubs/model/cats_bord.dart';
+import 'package:ubs/model/cats_board.dart';
 import 'package:ubs/pages/Chats/widgets/style.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ubs/model/cats_bord.dart';
+import 'package:ubs/model/cats_board.dart';
 import 'package:ubs/pages/Chats/widgets/chart_list.dart';
+import 'package:ubs/sharing_widget/sample_data.dart';
 import 'package:ubs/utils/constants.dart';
-import 'package:ubs/utils/sample_data.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class ChatsDashboard extends StatefulWidget {
@@ -17,7 +17,6 @@ class _ChatsDashboardState extends State<ChatsDashboard> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     for (int i = 0; i < chartBoardList.length; i++) {
       chatBoard.add(ChatBoard.fromJson(chartBoardList[i]));
@@ -26,7 +25,7 @@ class _ChatsDashboardState extends State<ChatsDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
+    // final TextTheme textTheme = Theme.of(context).textTheme;
     // final Size screenSize = MediaQuery.of(context).size;
 
     return SafeArea(
@@ -40,8 +39,8 @@ class _ChatsDashboardState extends State<ChatsDashboard> {
                 SliverAppBar(
                   title: Container(
                       width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.symmetric(vertical: 8),
-                      child: Text("Chats")),
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: const Text("Chats")),
                 ),
                 SliverAppBar(
                   pinned: true,
@@ -55,7 +54,7 @@ class _ChatsDashboardState extends State<ChatsDashboard> {
                         indicatorColor: COLOR_BLACK,
                         labelColor: COLOR_BLACK,
                         labelStyle: heading4,
-                        labelPadding: EdgeInsets.only(bottom: 8, top: 8),
+                        labelPadding: const EdgeInsets.only(bottom: 8, top: 8),
                         tabs: const [
                           Tab(text: 'All'),
                           Tab(text: 'Buying'),

@@ -40,10 +40,9 @@ class RelatedAds extends StatelessWidget {
                           showingPostId
                       ? const SizedBox()
                       : GestureDetector(
-                          onTap: () {
-                            postDetController.getAdsPostDetails(
-                                homeController.relatedCatAdsList.value[index]);
-                            
+                          onTap: () async{
+                            await postDetController.getAdsPostDetails(
+                                homeController.relatedCatAdsList.value[index]);                            
                           },
                           child: Container(
                             decoration: BoxDecoration(

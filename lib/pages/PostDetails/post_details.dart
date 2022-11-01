@@ -32,7 +32,6 @@ class _PostDetailsState extends State<PostDetails> {
     super.initState();
     postDetController.adsPost.value = widget.adsPostData;
     updateViewReaction();
-    postDetController.getAdsPostDetails(widget.adsPostData);
   }
 
   updateViewReaction() async {
@@ -42,6 +41,7 @@ class _PostDetailsState extends State<PostDetails> {
         pFavorite: widget.adsPostData.pFavorite ?? 0,
         pView: 1);
     await RemoteServices.addPostReaction(postReaction);
+    await postDetController.getAdsPostDetails(widget.adsPostData);
   }
 
   updateFavorite() async {
@@ -210,7 +210,7 @@ class _PostDetailsState extends State<PostDetails> {
 
 List<String> getImage(AdsPost adsData) {
   List<String> li = [];
-  if (adsData.pImg1 != null && adsData.pImg1 != "") {
+  if (adsData.pImg1 != "") {
     li.add(adsData.pImg1);
   }
   if (adsData.pImg2 != null && adsData.pImg2 != "") {

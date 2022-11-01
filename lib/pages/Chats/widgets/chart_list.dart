@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ubs/model/cats_bord.dart';
+import 'package:ubs/model/cats_board.dart';
 import 'package:ubs/pages/Chats/widgets/chats_ListTiles.dart';
 import 'package:ubs/pages/Chats/widgets/filters_btn.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';

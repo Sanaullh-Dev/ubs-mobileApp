@@ -27,14 +27,13 @@ class TitleBar extends StatelessWidget {
         pView: adsPostData.pView ?? 0);
     var res = await RemoteServices.updatedFavorite(postReaction);
     if (res) {
-      postDetailsCon.getAdsPostDetails(adsPostData);
+      await postDetailsCon.getAdsPostDetails(adsPostData);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
-
     return Container(
       padding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 25.h),
       decoration: BoxDecoration(
@@ -59,11 +58,11 @@ class TitleBar extends StatelessWidget {
                     padding: const EdgeInsets.all(5),
                     decoration: favoriteBorder,
                     child: Icon(
-                      adsPostData.pFavorite == 1
+                      postDetailsCon.postFavorite.value
                           ? Icons.favorite
                           : Icons.favorite_border,
                       size: 60.sp,
-                      color: adsPostData.pFavorite == 1
+                      color: postDetailsCon.postFavorite.value
                           ? Colors.red
                           : Colors.black,
                     ),

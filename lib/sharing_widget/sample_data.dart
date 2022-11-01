@@ -1,4 +1,3 @@
-
 const RE_DATA = [
   {
     "image": "lib/assets/image1.jpg",

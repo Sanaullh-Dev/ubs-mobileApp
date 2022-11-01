@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ubs/utils/custom_fun.dart';
 
 class ShowImage extends StatelessWidget {
   final String imageUrl;
