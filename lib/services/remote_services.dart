@@ -7,14 +7,17 @@ import 'package:ubs/model/users_data.dart';
 import 'package:ubs/utils/constants.dart';
 
 class RemoteServices {
-  static var client = http.Client();
-  static var headers = {'Content-Type': 'application/json'};
-  static var encoding = Encoding.getByName('utf-8');
+  static String HOST_URI = "http://10.0.2.2";
+  static var HOST_PORT = 8080;
+
+  // static var headers = {'Content-Type': 'application/json'};
+  // static var encoding = Encoding.getByName('utf-8');
 
   // ---------- Get All Main Categories from API ------------------
   static Future<List<Categories>?> fetchMainCat() async {
     var uri = Uri.parse("$API_URL/category/main");
-    var response = await client.get(uri);
+    var _client = http.Client();
+    var response = await _client.get(uri);
     // print(response.statusCode);
 
     if (response.statusCode == 200) {
@@ -27,6 +30,7 @@ class RemoteServices {
 
   // ---------- Get All Sub Categories from API ------------------
   static Future<List<Categories>?> fetchSubCat(int subCat) async {
+    var client = http.Client();
     var uri = Uri.parse("$API_URL/category/sub-$subCat");
     var response = await client.get(uri);
 
@@ -44,6 +48,7 @@ class RemoteServices {
     var uri = Uri.parse("$API_URL/adspost");
 
     Map<String, dynamic> bodyData = {'uid': userId};
+    var client = http.Client();
 
     http.Response response = await client.post(uri, body: bodyData);
 
@@ -58,8 +63,13 @@ class RemoteServices {
   // ---------- Get one Ads post with PostId from API ------------------
   static Future<AdsPost?> getAdsPostDetails(
       String userId, String postId) async {
+    var client = http.Client();
+
     var uri = Uri.parse("$API_URL/adspost/getPostDetails");
     Map<String, dynamic> bodyData = {'pid': postId, 'uid': userId};
+
+    var headers = {'Content-Type': 'application/json'};
+    var encoding = Encoding.getByName('utf-8');
 
     var res = await client.post(
       uri,
@@ -76,6 +86,8 @@ class RemoteServices {
 
   // ---------- Get All Ads post main Cat wise from API ------------------
   static Future<List<AdsPost>?> fetchCatWisedAds(int mCatId) async {
+    var client = http.Client();
+
     var uri = Uri.parse("$API_URL/adspost/relatedAds/mainId-$mCatId");
     var response = await client.get(uri);
     // await client.get(uri, headers: {'Content-Type': 'application/json'});
@@ -121,6 +133,8 @@ class RemoteServices {
   // ---------- Get keyword list from API ------------------
   static Future<List<String>?> fetchAdsWiseKeyword(String keyword) async {
     List<String> li = [];
+    var client = http.Client();
+
     var uri = Uri.parse("$API_URL/adspost/search-$keyword");
     var response =
         await client.get(uri, headers: {'Content-Type': 'application/json'});
@@ -137,6 +151,8 @@ class RemoteServices {
 
   // ---------- Get All Ads post from API ------------------
   static Future<List<AdsPost>?> fetchKeywordWisedAds(String keyword) async {
+    var client = http.Client();
+
     var uri = Uri.parse("$API_URL/adspost/keywordSearch-$keyword");
     var response =
         await client.get(uri, headers: {'Content-Type': 'application/json'});
@@ -151,6 +167,8 @@ class RemoteServices {
 
   // ---------- Insert Ads post view or favorites into API ------------------
   static Future<bool> addPostReaction(PostReaction postReaction) async {
+    var client = http.Client();
+
     var uri = Uri.parse("$API_URL/adspost/userAction");
     Map<String, dynamic> bodyData = {
       'pid': postReaction.pid,
@@ -158,6 +176,9 @@ class RemoteServices {
       'p_view': postReaction.pView,
       'uid': postReaction.uid
     };
+
+    var headers = {'Content-Type': 'application/json'};
+    var encoding = Encoding.getByName('utf-8');
 
     var res = await client.post(
       uri,
@@ -170,18 +191,19 @@ class RemoteServices {
 
   // ---------- Insert Ads post view or favorites into API ------------------
   static Future<bool> updatedFavorite(PostReaction postReaction) async {
+    var client = http.Client();
+
     var uri = Uri.parse("$API_URL/adspost/favoritesUpdate");
-    Map<String, dynamic> bodyData = {
+    var bodyData = {
       'uid': postReaction.uid,
-      'pid': postReaction.pid,
-      'p_favorite': postReaction.pFavorite
+      'pid': postReaction.pid.toString(),
+      'p_favorite': postReaction.pFavorite.toString()
     };
 
     var res = await client.post(
       uri,
       // headers: headers,
-      body: json.encode(bodyData),
-      encoding: encoding,
+      body: bodyData,
     );
     if (res.statusCode == 200) {
       return true;
@@ -194,6 +216,8 @@ class RemoteServices {
 
   // ---------------- user registration ( user data save in database) --------------------
   static Future<dynamic> addUser(UsersData userData, String loginType) async {
+    var client = http.Client();
+
     var uri = Uri.parse("$API_URL/userLogin/singUp");
     Map<String, dynamic> bodyData;
     bodyData = {
@@ -204,7 +228,7 @@ class RemoteServices {
       'u_email': userData.uEmail
     };
 
-    http.Response res = await http.post(uri, body: bodyData);
+    http.Response res = await client.post(uri, body: bodyData);
     print(res.statusCode);
     if (res.statusCode == 200) {
       return res.body;
@@ -215,30 +239,42 @@ class RemoteServices {
 
   // ---------- check user register or not ------------------
   static Future<dynamic> checkUser(String userId) async {
+    var client = http.Client();
+
     var uri = Uri.parse("$API_URL/userLogin/checkUser");
+
+    var url = Uri.http(API_URL, "/userLogin/checkUser");
 
     Map<String, dynamic> bodyData = {'uid': userId, 'pid': 5};
 
-    http.Response res = await http.post(uri, body: bodyData);
+    var res = await client.post(url, body: bodyData);
 
     if (res.statusCode == 200) {
-      // List<UsersData> uData = usersDataFromJson(res.body);
-      UsersData uData = UsersData.fromJson(json.decode(res.body));
-      return uData;
-    } else {
-      return null;
+      return res.body;
     }
+
+    // http.Response res = await http.post(uri, body: bodyData);
+
+    // if (res.statusCode == 200) {
+    //   // List<UsersData> uData = usersDataFromJson(res.body);
+    //   UsersData uData = UsersData.fromJson(json.decode(res.body));
+    //   return uData;
+    // } else {
+    //   return null;
+    // }
   }
 
   // ---------- Post for Get OTP Login to API ------------------
   static Future<dynamic> getOTP(String phone, String app_signature) async {
+    var client = http.Client();
+
     final uri = Uri.parse("$API_URL/userLogin/otpLogin");
     Map<String, dynamic> bodyData = {
       'phone': phone,
       'app_signature': app_signature
     };
 
-    http.Response res = await http.post(uri, body: bodyData);
+    http.Response res = await client.post(uri, body: bodyData);
     // print("Result: ${res.body}");
     if (res.statusCode == 200) {
       return res.body;
@@ -247,6 +283,7 @@ class RemoteServices {
 
   // ---------- Post OTP Verify OTP and Hash code to API ------------------
   static Future<dynamic> verifyOTP(String hash, int otp, String phoneNo) async {
+    var client = http.Client();
     final uri = Uri.parse("$API_URL/userLogin/verifyOtp");
     Map<String, dynamic> bodyData = {
       'hash': hash,
@@ -254,7 +291,7 @@ class RemoteServices {
       'phone': phoneNo
     };
 
-    http.Response res = await http.post(uri, body: bodyData);
+    http.Response res = await client.post(uri, body: bodyData);
     print("Result: ${res.body}");
     if (res.statusCode == 200) {
       return res.body;
@@ -267,7 +304,8 @@ class RemoteServices {
   static Future<String?> userLogin(String loginId, String password) async {
     var uri = Uri.parse("$API_URL/userLogin/logIn");
     Map<String, String> bodyData = {'loginId': loginId, 'password': password};
-    http.Response res = await http.post(uri, body: bodyData);
+    var _client = http.Client();
+    http.Response res = await _client.post(uri, body: bodyData);
 
     if (res.statusCode == 200) {
       return "logged";

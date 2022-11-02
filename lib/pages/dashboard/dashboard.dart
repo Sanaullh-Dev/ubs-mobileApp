@@ -53,16 +53,22 @@ class _DashboardPageState extends State<DashboardPage> {
             onTap: (index) => selectPage.value = index,
             items: [
               BottomNavigationBarItem(
-                  icon: Icon(Icons.home_filled, size: 80.sp), label: "Home"),
+                  icon: Icon(Icons.home_outlined, size: 70.sp),
+                  activeIcon: Icon(Icons.home, size: 70.sp), 
+                  label: "Home"),                
               BottomNavigationBarItem(
-                  icon: Icon(Icons.chat_rounded, size: 80.sp), label: "Chats"),
+                  icon: Icon(Icons.chat_bubble_outline, size: 60.sp),
+                  activeIcon: Icon(Icons.chat_bubble, size: 60.sp),
+                   label: "Chats"),
               BottomNavigationBarItem(
                   icon: Icon(null, size: 60.w), label: "Sell"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite_border, size: 80.sp),
+                  icon: Icon(Icons.favorite_border, size: 60.sp),
+                  activeIcon: Icon(Icons.favorite, size: 60.sp, ),
                   label: "My Ads"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.manage_accounts, size: 80.sp),
+                  icon: Icon(Icons.manage_accounts_outlined, size: 70.sp),
+                  activeIcon: Icon(Icons.manage_accounts, size: 70.sp),
                   label: "Account")
             ],
           ),

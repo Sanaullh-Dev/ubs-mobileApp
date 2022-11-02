@@ -22,7 +22,7 @@ class PostList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final TextTheme textTheme = Theme.of(context).textTheme;
+    // final TextTheme textTheme = Theme.of(context).textTheme;
 
     if (homeController.typeList.value == "catList") {
       homeController.fetchCatWiseAds(homeController.mainCat.value);

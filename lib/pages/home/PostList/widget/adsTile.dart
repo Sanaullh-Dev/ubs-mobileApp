@@ -63,7 +63,7 @@ class AdsTitle extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                        featuredTag(),
+                        // featuredTag(),
                         Text(
                           "₹ ${adsData.pPrice.toString()}",
                           style: heading4,

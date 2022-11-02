@@ -23,7 +23,7 @@ class TitleBar extends StatelessWidget {
     PostReaction postReaction = PostReaction(
         uid: userLogin.userId,
         pid: adsPostData.pId!,
-        pFavorite: adsPostData.pFavorite == 1 ? 0 : 1,
+        pFavorite: postDetailsCon.postFavorite.value == 1 ? 0 : 1,
         pView: adsPostData.pView ?? 0);
     var res = await RemoteServices.updatedFavorite(postReaction);
     if (res) {
@@ -50,25 +50,25 @@ class TitleBar extends StatelessWidget {
                 adsPostData.pPrice.toString(),
                 style: heading1,
               ),
-              GestureDetector(
-                onTap: () => updatedFavorite(),
-                child: Padding(
-                  padding: EdgeInsets.only(right: 15.w),
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    decoration: favoriteBorder,
-                    child: Icon(
-                      postDetailsCon.postFavorite.value
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      size: 60.sp,
-                      color: postDetailsCon.postFavorite.value
-                          ? Colors.red
-                          : Colors.black,
+              Obx(() => GestureDetector(
+                    onTap: () => updatedFavorite(),
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 15.w),
+                      child: Container(
+                        padding: const EdgeInsets.all(5),
+                        decoration: favoriteBorder,
+                        child: Icon(
+                          postDetailsCon.postFavorite.value == 1
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          size: 60.sp,
+                          color: postDetailsCon.postFavorite.value == 1
+                              ? Colors.red
+                              : Colors.black,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              )
+                  ))
             ],
           ),
           addVerticalSpace(8.h),

@@ -9,6 +9,7 @@ import 'package:ubs/pages/PostDetails/post_details_controller.dart';
 import 'package:ubs/pages/PostDetails/widget/RelatedAds.dart';
 import 'package:ubs/pages/PostDetails/widget/image_slider.dart';
 import 'package:ubs/pages/PostDetails/widget/title_bar.dart';
+import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/text_style.dart';
@@ -26,11 +27,13 @@ class PostDetails extends StatefulWidget {
 class _PostDetailsState extends State<PostDetails> {
   final PostDetailsController postDetController =
       Get.find<PostDetailsController>();
+  final HomeController homeCont = Get.find<HomeController>();
 
   @override
   void initState() {
     super.initState();
     postDetController.adsPost.value = widget.adsPostData;
+    postDetController.postFavorite.value = widget.adsPostData.pFavorite!;
     updateViewReaction();
   }
 
@@ -140,6 +143,7 @@ class _PostDetailsState extends State<PostDetails> {
                         children: [
                           IconButton(
                             onPressed: () {
+                              homeCont.fetchAds();
                               Navigator.pop(context);
                             },
                             icon: Icon(
