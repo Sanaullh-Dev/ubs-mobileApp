@@ -85,12 +85,20 @@ class RemoteServices {
   // static Future<List<String>?> fetchKeywordList() async {}
 
   // ---------- Get All Ads post main Cat wise from API ------------------
-  static Future<List<AdsPost>?> fetchCatWisedAds(int mCatId) async {
+  static Future<List<AdsPost>?> fetchCatWisedAds(String userId, int mCatId) async {
     var client = http.Client();
 
-    var uri = Uri.parse("$API_URL/adspost/relatedAds/mainId-$mCatId");
-    var response = await client.get(uri);
-    // await client.get(uri, headers: {'Content-Type': 'application/json'});
+    var uri = Uri.parse("$API_URL/adspost/relatedAds/mainId");
+    Map<String, dynamic> bodyData = {'mainId': mCatId, 'uid': userId};
+    var headers = {'Content-Type': 'application/json'};
+    var encoding = Encoding.getByName('utf-8');    
+  
+    var response = await client.post(
+      uri,
+      headers: headers,
+      body: json.encode(bodyData),
+      encoding: encoding,
+    );
 
     if (response.statusCode == 200) {
       var jsonString = response.body;

@@ -25,11 +25,8 @@ class _MyAdsState extends State<MyAds> {
             headerSliverBuilder: (context, _) {
               return [
                 SliverAppBar(
-                  title: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: Text("My Ads", style: heading2),
-                  ),
+                  // centerTitle: true,
+                  title: Text("My Ads", style: heading2),
                 ),
                 SliverAppBar(
                   automaticallyImplyLeading: false,

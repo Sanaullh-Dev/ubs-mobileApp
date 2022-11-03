@@ -11,11 +11,9 @@ class MyAdsList extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(height: 15),
-          // borderRadius: BorderRadius.circular(5),
           Container(
-            // height: 150,
             width: double.infinity,
-            margin: const EdgeInsets.fromLTRB(15, 10, 10, 10),
+            margin: const EdgeInsets.fromLTRB(20, 10, 15, 10),
             padding: const EdgeInsets.only(bottom: 15),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
@@ -82,10 +80,10 @@ class MyAdsList extends StatelessWidget {
                             children: [
                               Icon(Icons.remove_red_eye),
                               Text("  View : 2", style: btnText),
-                              SizedBox(width: 15),
+                              const SizedBox(width: 15),
                               Text("|", style: btnText),
-                              SizedBox(width: 15),
-                              Icon(Icons.favorite),
+                              const SizedBox(width: 15),
+                              const Icon(Icons.favorite),
                               Text("  favorite : 2", style: btnText),
                             ],
                           ),
@@ -94,16 +92,24 @@ class MyAdsList extends StatelessWidget {
                     ],
                   ),
                 ),
-                
-                VerticalDivider(thickness: 5 , color: Colors.red,) ,
+                Divider(
+                    color: Colors.blueGrey[100],
+                    thickness: 2,
+                    endIndent: 15,
+                    indent: 15,
+                    height: 25),
                 Padding(
                   padding: const EdgeInsets.only(right: 15),
                   child: Align(
                     alignment: Alignment.centerRight,
-                    child: Container(
-                      width: 50,
-                      height: 50,
-                      color: Colors.red,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                        side: const BorderSide(width: 3, color: Colors.blueGrey)
+                      ),
+                      child: Text("Mark as sold", style: buttonTextLight),
+                      onPressed: () {},
                     ),
                   ),
                 )

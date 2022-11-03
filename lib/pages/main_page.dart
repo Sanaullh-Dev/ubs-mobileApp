@@ -20,7 +20,9 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    loginController.getSecureValue();
+    if(loginController.loginStatus == "no"){
+      loginController.getSecureValue();
+    }
   }
   
 

@@ -102,6 +102,13 @@ TextStyle buttonTextStyle = TextStyle(
     letterSpacing: 1,
     fontFamily: "Poppins");
 
+TextStyle buttonTextLight = TextStyle(
+    color: Colors.black,
+    fontSize: 28.sp,
+    fontWeight: FontWeight.w500,
+    letterSpacing: 1,
+    fontFamily: "Poppins");
+
 TextStyle textfield = TextStyle(
     color: Colors.black,
     fontSize: 35.sp,

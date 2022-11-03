@@ -56,9 +56,9 @@ class HomeController extends GetxController {
     }
   }
 
-  void fetchCatWiseAds(int mainCatId) async {
+  void fetchCatWiseAds(String userId, int mainCatId) async {
     listStatus.value = true;
-    var adsPosts = await RemoteServices.fetchCatWisedAds(mainCatId);
+    var adsPosts = await RemoteServices.fetchCatWisedAds(userId, mainCatId);
     listStatus.value = false;
     if (adsPosts != null) {
       catWiseAdsList.value = [];
@@ -66,9 +66,9 @@ class HomeController extends GetxController {
     }
   }
 
-  void fetchRelatedCatWiseAds(int mainCatId) async {
+  void fetchRelatedCatWiseAds(String userId, int mainCatId) async {
     relatedCatAdsList.value = [];
-    var adsPosts = await RemoteServices.fetchCatWisedAds(mainCatId);
+    var adsPosts = await RemoteServices.fetchCatWisedAds(userId, mainCatId);
     if (adsPosts != null) {
       relatedCatAdsList.value = adsPosts;
     }

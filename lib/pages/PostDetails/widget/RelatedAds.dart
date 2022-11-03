@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:ubs/model/post_model.dart';
+import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/PostDetails/post_details_controller.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/utils/constants.dart';
@@ -14,14 +14,17 @@ const double iconsSize = 40;
 class RelatedAds extends StatelessWidget {
   final int mCateId;
   final int showingPostId;
+  final UserLogin usersData;
   const RelatedAds(
-      {super.key, required this.mCateId, required this.showingPostId});
+      {super.key,
+      required this.mCateId,
+      required this.showingPostId,
+      required this.usersData});
 
   @override
   Widget build(BuildContext context) {
-    
     HomeController homeController = Get.find<HomeController>();
-    homeController.fetchRelatedCatWiseAds(mCateId);
+    homeController.fetchRelatedCatWiseAds(usersData.userId, mCateId);
     final PostDetailsController postDetController =
         Get.find<PostDetailsController>();
 
@@ -40,9 +43,9 @@ class RelatedAds extends StatelessWidget {
                           showingPostId
                       ? const SizedBox()
                       : GestureDetector(
-                          onTap: () async{
+                          onTap: () async {
                             await postDetController.getAdsPostDetails(
-                                homeController.relatedCatAdsList.value[index]);                            
+                                homeController.relatedCatAdsList.value[index]);
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -69,7 +72,8 @@ class RelatedAds extends StatelessWidget {
                                 ),
                                 addVerticalSpace(8.h),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 10.w),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,

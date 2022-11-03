@@ -12,21 +12,31 @@ import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
 
-class PostList extends StatelessWidget {
+class PostList extends StatefulWidget {
   final UserLogin userData;
   PostList({super.key, required this.userData});
 
+  @override
+  State<PostList> createState() => _PostListState();
+}
+
+class _PostListState extends State<PostList> {
   final HomeController homeController = Get.find<HomeController>();
   final SearchController searchController = Get.find<SearchController>();
 
   @override
+  void initState() {
+    super.initState();
+    if (homeController.typeList.value == "catList") {
+      homeController.fetchCatWiseAds(
+          widget.userData.userId, homeController.mainCat.value);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    // final TextTheme textTheme = Theme.of(context).textTheme;
 
-    if (homeController.typeList.value == "catList") {
-      homeController.fetchCatWiseAds(homeController.mainCat.value);
-    }
     // else if (homeController.typeList.value == "keywordList") {
     //   homeController.catWiseAdsList.value =
     //       searchController.keywordWiseAdsList.value;
@@ -136,7 +146,7 @@ class PostList extends StatelessWidget {
                                   vertical: 15.sp, horizontal: 30.sp),
                               child: totalAdsWithSearch(),
                             ),
-                            getList(homeController.catWiseAdsList),
+                            Obx(() => getList(homeController.catWiseAdsList)),
                           ],
                         ),
                       );
@@ -223,8 +233,14 @@ class PostList extends StatelessWidget {
       itemCount: adsList.length,
       itemBuilder: (BuildContext context, int index) {
         return AdsTitle(
-          userData: userData,
+          userData: widget.userData,
           adsData: adsList[index],
+          onpop: () {
+            if (homeController.typeList.value == "catList") {
+              homeController.fetchCatWiseAds(
+                  widget.userData.userId, homeController.mainCat.value);
+            }
+          },
         );
       },
     );

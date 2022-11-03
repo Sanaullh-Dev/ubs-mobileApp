@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/PostDetails/post_details.dart';
+import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/custom_fun.dart';
@@ -12,7 +14,12 @@ import 'package:ubs/utils/text_style.dart';
 class AdsTitle extends StatelessWidget {
   final UserLogin userData;
   final AdsPost adsData;
-  const AdsTitle({super.key, required this.adsData, required this.userData});
+  VoidCallback onpop;
+  AdsTitle(
+      {super.key,
+      required this.adsData,
+      required this.userData,
+      required this.onpop});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +33,7 @@ class AdsTitle extends StatelessWidget {
               adsPostData: adsData,
             ),
           ),
-        );
+        ).then((value) => onpop);
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 6.h),
@@ -73,13 +80,12 @@ class AdsTitle extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.all(5.sp),
                       child: Icon(
-                        // postData.favorite == "no"?
-                        Icons.favorite_border,
-                        // : Icons.favorite,
+                        adsData.pFavorite == 1
+                            ? Icons.favorite
+                            : Icons.favorite_border,
                         size: 50.sp,
                         color:
-                            // postData.favorite == "no" ?
-                            Colors.black,
+                            adsData.pFavorite == 1 ? Colors.red : Colors.black,
                         // : Colors.red,
                       ),
                     )
