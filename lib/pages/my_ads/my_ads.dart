@@ -50,9 +50,9 @@ class _MyAdsState extends State<MyAds> {
                 )
               ];
             },
-            body: const TabBarView(children: [
-              MyAdsList(),
-              FavoritesList(),
+            body: TabBarView(children: [
+              MyAdsList(userLogin: widget.userData),
+              FavoritesList(userData: widget.userData),
             ]),
           ),
         ),

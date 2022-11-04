@@ -14,27 +14,17 @@ import 'package:ubs/utils/text_style.dart';
 class AdsTitle extends StatelessWidget {
   final UserLogin userData;
   final AdsPost adsData;
-  VoidCallback onpop;
+  VoidCallback onPress;
   AdsTitle(
       {super.key,
       required this.adsData,
       required this.userData,
-      required this.onpop});
+      required this.onPress});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PostDetails(
-              userData: userData,
-              adsPostData: adsData,
-            ),
-          ),
-        ).then((value) => onpop);
-      },
+      onTap: onPress,
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 6.h),
         padding: EdgeInsets.symmetric(vertical: 20.h),

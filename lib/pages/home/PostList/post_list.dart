@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/user_login.dart';
+import 'package:ubs/pages/PostDetails/post_details.dart';
 import 'package:ubs/pages/searchAds/controller/search_controller.dart';
 import 'package:ubs/pages/searchAds/search_ads.dart';
 import 'package:ubs/pages/home/PostList/widget/adsTile.dart';
@@ -235,11 +236,21 @@ class _PostListState extends State<PostList> {
         return AdsTitle(
           userData: widget.userData,
           adsData: adsList[index],
-          onpop: () {
-            if (homeController.typeList.value == "catList") {
-              homeController.fetchCatWiseAds(
-                  widget.userData.userId, homeController.mainCat.value);
-            }
+          onPress: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PostDetails(
+                  userData: widget.userData,
+                  adsPostData: adsList[index],
+                ),
+              ),
+            ).then((value) {
+              if (homeController.typeList.value == "catList") {
+                homeController.fetchCatWiseAds(
+                    widget.userData.userId, homeController.mainCat.value);
+              }
+            });
           },
         );
       },

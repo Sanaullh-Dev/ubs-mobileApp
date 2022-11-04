@@ -51,11 +51,12 @@ TextStyle heading4WithUnderLine = GoogleFonts.poppins(
 TextStyle heading5 = GoogleFonts.poppins(
     fontSize: 32.sp, color: Colors.black, letterSpacing: 0.5);
 
-TextStyle heading6 = TextStyle(
+TextStyle heading6 = GoogleFonts.poppins(
   color: COLOR_BLACK,
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.w500,
   fontSize: 28.sp,
   letterSpacing: 0.8,
+  height: 1
 );
 
 TextStyle appBarTitle = GoogleFonts.poppins(
@@ -86,6 +87,12 @@ TextStyle cardTitle = TextStyle(
   color: COLOR_BLACK,
   fontWeight: FontWeight.w500,
   fontSize: 23.sp,
+);
+
+TextStyle cardSubTitle = TextStyle(
+  color: COLOR_BLACK,
+  fontWeight: FontWeight.w500,
+  fontSize: 25.sp,
 );
 
 TextStyle btnText = TextStyle(

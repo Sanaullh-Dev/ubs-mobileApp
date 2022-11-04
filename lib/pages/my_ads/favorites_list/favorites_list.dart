@@ -1,121 +1,146 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ubs/model/ads_post.dart';
+import 'package:get/get.dart';
+import 'package:ubs/model/user_login.dart';
+import 'package:ubs/pages/my_ads/controller/my_ads_controller.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/custom_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 
-class FavoritesList extends StatelessWidget {
-  const FavoritesList({super.key});
+class FavoritesList extends StatefulWidget {
+  final UserLogin userData;
+  const FavoritesList({super.key, required this.userData});
+
+  @override
+  State<FavoritesList> createState() => _FavoritesListState();
+}
+
+class _FavoritesListState extends State<FavoritesList> {
+  final MyAdsController myAdsController = Get.find<MyAdsController>();
+
+  @override
+  void initState() {
+    super.initState();
+    myAdsController.fetchFavoriteAds(widget.userData.userId);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    // final Size size = MediaQuery.of(context).size;
     // double imgSize = size.width * 0.15;
 
-    return ListView.builder(
-      itemCount: 5,
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          margin: EdgeInsets.symmetric(vertical: 6.h),
-          padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 30.w),
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                width: 0.8,
-                color: COLOR_LIGHT_BLACK.withAlpha(50),
-              ),
-            ),
-          ),
-          child: Row(children: [
-            SizedBox(
-              width: 160.sp,
-              height: 160.sp,
-              child: Image.asset(
-                "lib/assets/images/user.png",
-                fit: BoxFit.fitWidth,
-              ),
-              // child: Image.network(
-              //   getLink(adsData.pImg1),
-              //   fit: BoxFit.fitWidth,
-              // ),
-            ),
-            addHorizontalSpace(25.w),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  // "₹ ${adsData.pPrice.toString()}",
-                  "₹ 5,000",
-                  style: heading4,
-                ),
-                Container(
-                  margin: EdgeInsets.only(right: 20.sp),
-                  // child: Text(adsData.pTitle, style: heading5),
-                  child: Text("adsData.pTitle", style: heading5),
-                ),
-              ],
-            ),
-            Spacer(),
-            Container(
-                    padding: EdgeInsets.all(5.sp),
-                    child: Icon(
-                      // postData.favorite == "no"?
-                      Icons.favorite_border,
-                      // : Icons.favorite,
-                      size: 50.sp,
-                      color:
-                          // postData.favorite == "no" ?
-                          Colors.black,
-                      // : Colors.red,
+    return Padding(
+      padding: EdgeInsets.only(top: 10.h),
+      child: Obx(
+        () => myAdsController.adsList.value.isEmpty
+            ? const Center(child: CircularProgressIndicator())
+            : 
+            ListView.builder(
+                itemCount: myAdsController.adsList.value.length,
+                itemBuilder: (BuildContext context, int index) {
+                  AdsPost ads = myAdsController.adsList.value[index];
+                  return Container(
+                    margin: EdgeInsets.symmetric(vertical: 6.h),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 30.w),
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          width: 1.5,
+                          color: COLOR_LIGHT_BLACK.withAlpha(100),
+                        ),
+                      ),
                     ),
-                  ),
-                  
-            addHorizontalSpace(12),
-          ]),
-        );
-
-        // return Container(
-        //   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        //   decoration: const BoxDecoration(
-        //     border:
-        //         Border(bottom: BorderSide(color: Colors.black87, width: 0.8)),
-        //   ),
-        //   child: SizedBox(
-        //       width: double.infinity,
-        //       height: imgSize,
-        //       child: Row(
-        //         children: [
-        //           SizedBox(
-        //             height: imgSize,
-        //             width: imgSize,
-        //             child: Container(
-        //               color: Colors.red,
-        //             ),
-        //             // child: ShowImage(
-        //             //   imageUrl: getLink("ad")),
-        //           ),
-        //           const SizedBox(width: 20),
-        //           Column(
-        //             mainAxisAlignment: MainAxisAlignment.center,
-        //             crossAxisAlignment: CrossAxisAlignment.start,
-        //             children: [
-        //               Text(
-        //                 "\$ 5,000",
-        //                 style: labelText,
-        //               ),
-        //               Text(
-        //                 "Iphone 11 pro 2015",
-        //                 style: textfield,
-        //               ),
-        //             ],
-        //           ),
-        //           Spacer(),
-        //           Icon(Icons.favorite)
-        //         ],
-        //       )),
-        // );
-      },
+                    child: Row(children: [
+                      SizedBox(
+                        width: 160.sp,
+                        height: 160.sp,
+                        child: Image.network(
+                          getLink(ads.pImg1),
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
+                      addHorizontalSpace(25.w),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "₹ ${ads.pPrice.toString()}",
+                              style: heading4,
+                            ),
+                            const SizedBox(height: 4),
+                            Text(ads.pTitle,
+                                style: heading6,
+                                maxLines: 2,
+                                softWrap: true,
+                                ),
+                          ],
+                        ),
+                      ),
+                      Spacer(),
+                      const SizedBox(width: 15),
+                      Container(
+                        padding: EdgeInsets.all(5.sp),
+                        child: Icon(
+                          ads.pFavorite == 1
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          size: 50.sp,
+                          color: ads.pFavorite == 1 ? Colors.red : Colors.black,
+                        ),
+                      ),
+                      addHorizontalSpace(12),
+                    ]),
+                  );
+                },
+              ),
+      ),
     );
   }
 }
+
+
+// return Container(
+//   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+//   decoration: const BoxDecoration(
+//     border:
+//         Border(bottom: BorderSide(color: Colors.black87, width: 0.8)),
+//   ),
+//   child: SizedBox(
+//       width: double.infinity,
+//       height: imgSize,
+//       child: Row(
+//         children: [
+//           SizedBox(
+//             height: imgSize,
+//             width: imgSize,
+//             child: Container(
+//               color: Colors.red,
+//             ),
+//             // child: ShowImage(
+//             //   imageUrl: getLink("ad")),
+//           ),
+//           const SizedBox(width: 20),
+//           Column(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Text(
+//                 "\$ 5,000",
+//                 style: labelText,
+//               ),
+//               Text(
+//                 "Iphone 11 pro 2015",
+//                 style: textfield,
+//               ),
+//             ],
+//           ),
+//           Spacer(),
+//           Icon(Icons.favorite)
+//         ],
+//       )),
+// );
+      
