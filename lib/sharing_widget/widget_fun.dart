@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
@@ -49,25 +50,14 @@ SnackbarController getSnackBarFavorite() {
     GetSnackBar(
       messageText: Text("Saved into your Favorite", style: snackBarText),
       icon: const Icon(Icons.favorite, color: Colors.red, size: 30),
-      duration: const Duration(seconds: 4),
+      duration: const Duration(seconds: 2),
       padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 25),
       margin: const EdgeInsets.only(bottom: 5),
     ),
   );
 }
 
-SnackbarController getSnackBarFavorite(String title, Widget action, Icon icon) {
-  return Get.showSnackbar(
-    GetSnackBar(
-      messageText: Text(title, style: snackBarText),
-      icon: icon,
-      duration: const Duration(seconds: 4),
-      mainButton: action,
-      padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 25),
-      margin: const EdgeInsets.only(bottom: 5),
-    ),
-  );
-}
+
 
 
 // Icon(

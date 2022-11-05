@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:ubs/pages/searchAds/search_ads.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ubs/utils/constants.dart';
 
 class SearchBar extends StatelessWidget {
   final double width;
@@ -18,7 +19,7 @@ class SearchBar extends StatelessWidget {
     // final ThemeData themData = Theme.of(context);
 
     return Container(
-      height: 120.h,
+      // height: 120.h,
       padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 30.sp),
       alignment: Alignment.centerRight,
       decoration: BoxDecoration(
@@ -37,20 +38,23 @@ class SearchBar extends StatelessWidget {
         children: [
           addHorizontalSpace(10),
           Expanded(
-            child: TextFormField(
-              onTap: () {
-                Get.to(const SearchAds());
-              },
-              readOnly: true,
+            child: TextField(
+                onTap: () {
+                  Get.to(const SearchAds());
+                },
+                readOnly: true,
                 style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 35.sp,
-                    fontFamily: "Poppins"),
+                    color: COLOR_BLACK, fontSize: 31.sp, fontFamily: "Poppins"),
+                controller: TextEditingController(
+                    text: "Find Car, Mobile Phone, and more "),
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.all(0.0),
-                  hintText: "Find Car, Mobile Phone, and more ",
+                  contentPadding: const EdgeInsets.symmetric(vertical: 0),
                   hintStyle: TextStyle(fontSize: 32.sp),
-                  border: textBoxBorder(),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50.r),
+                  borderSide: BorderSide(
+                      color: COLOR_PRIMARY, width: 3.sp),
+                  ),
                   prefixIcon: IconButton(
                     onPressed: () {},
                     icon: Icon(
@@ -77,13 +81,12 @@ class SearchBar extends StatelessWidget {
     );
   }
 
-  textBoxBorder() {
-  return OutlineInputBorder(
-    borderRadius: BorderRadius.circular(100.r),
-    borderSide: BorderSide(width: 5
-    , color: Colors.blueGrey.shade800),
-  );
-}
+  OutlineInputBorder textBoxBorder() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(100),
+      borderSide: BorderSide(width: 5, color: COLOR_PRIMARY),
+    );
+  }
 }
 
 // Container(

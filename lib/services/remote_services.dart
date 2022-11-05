@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/categories.dart';
 import 'package:ubs/model/post_reaction.dart';
+import 'package:ubs/model/user_login.dart';
 import 'package:ubs/model/users_data.dart';
 import 'package:ubs/utils/constants.dart';
 
@@ -81,8 +82,6 @@ class RemoteServices {
         ? AdsPost.fromJson(json.decode(res.body))
         : null;
   }
-
-  // static Future<List<String>?> fetchKeywordList() async {}
 
   // ---------- Get All Ads post main Cat wise from API ------------------
   static Future<List<AdsPost>?> fetchCatWisedAds(
@@ -274,7 +273,7 @@ class RemoteServices {
     var client = http.Client();
 
     var uri = Uri.parse("$API_URL/adspost/deleteMySalesAds");
-    Map<String, dynamic> bodyData = {'uid': userId, 'pid' : pid};
+    Map<String, dynamic> bodyData = {'uid': userId, 'pid': pid};
     var headers = {'Content-Type': 'application/json'};
     var encoding = Encoding.getByName('utf-8');
 
@@ -318,30 +317,22 @@ class RemoteServices {
   }
 
   // ---------- check user register or not ------------------
-  static Future<dynamic> checkUser(String userId) async {
+  static Future<UsersData?> checkUser(String userId) async {
     var client = http.Client();
 
     var uri = Uri.parse("$API_URL/userLogin/checkUser");
 
-    var url = Uri.http(API_URL, "/userLogin/checkUser");
+    // var url = Uri.http(API_URL, "/userLogin/checkUser");
 
-    Map<String, dynamic> bodyData = {'uid': userId, 'pid': 5};
+    Map<String, dynamic> bodyData = {'uid': userId};
 
-    var res = await client.post(url, body: bodyData);
+    var res = await client.post(uri, body: bodyData);
 
     if (res.statusCode == 200) {
-      return res.body;
+      UsersData userData = UsersData.fromJson(json.decode(res.body));
+      return userData;
     }
-
-    // http.Response res = await http.post(uri, body: bodyData);
-
-    // if (res.statusCode == 200) {
-    //   // List<UsersData> uData = usersDataFromJson(res.body);
-    //   UsersData uData = UsersData.fromJson(json.decode(res.body));
-    //   return uData;
-    // } else {
-    //   return null;
-    // }
+    return null;
   }
 
   // ---------- Post for Get OTP Login to API ------------------

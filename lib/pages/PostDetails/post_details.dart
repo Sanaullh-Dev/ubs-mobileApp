@@ -5,10 +5,11 @@ import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/post_reaction.dart';
 import 'package:ubs/model/user_login.dart';
-import 'package:ubs/pages/PostDetails/post_details_controller.dart';
+import 'package:ubs/pages/PostDetails/controller/post_details_controller.dart';
 import 'package:ubs/pages/PostDetails/widget/RelatedAds.dart';
 import 'package:ubs/pages/PostDetails/widget/image_slider.dart';
 import 'package:ubs/pages/PostDetails/widget/title_bar.dart';
+import 'package:ubs/pages/PostDetails/widget/userinfo_bar.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
@@ -29,8 +30,6 @@ class _PostDetailsState extends State<PostDetails> {
       Get.find<PostDetailsController>();
   final HomeController homeCont = Get.find<HomeController>();
 
-
-
   @override
   void initState() {
     super.initState();
@@ -40,6 +39,7 @@ class _PostDetailsState extends State<PostDetails> {
         : widget.adsPostData.pFavorite!;
     postDetController.postFavorite.value = pFavorite;
     updateViewReaction();
+    postDetController.fetchUserInfo(widget.adsPostData.pUid);
   }
 
   updateViewReaction() async {
@@ -68,7 +68,7 @@ class _PostDetailsState extends State<PostDetails> {
 
     return SafeArea(
       child: WillPopScope(
-        onWillPop: () async{
+        onWillPop: () async {
           await homeCont.fetchAds();
           return true;
         },
@@ -114,8 +114,13 @@ class _PostDetailsState extends State<PostDetails> {
                             ],
                           ),
                         ),
-                        addDivider(),
                         // Title - Related Added
+                        addDivider(),
+                        UserInfoBar(
+                            url: postDetController.userData.value[0].uPhone!,
+                            userName: postDetController.userData.value[0].uName,
+                            onPress: () {}),
+                        addDivider(),
                         // Related Added
                         Padding(
                           padding: const EdgeInsets.symmetric(

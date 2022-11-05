@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/post_reaction.dart';
 import 'package:ubs/model/user_login.dart';
-import 'package:ubs/pages/PostDetails/post_details_controller.dart';
+import 'package:ubs/pages/PostDetails/controller/post_details_controller.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
@@ -27,6 +27,7 @@ class TitleBar extends StatelessWidget {
         pView: adsPostData.pView ?? 0);
     var res = await RemoteServices.updatedFavorite(postReaction);
     if (res) {
+      getSnackBarFavorite();
       await postDetailsCon.getAdsPostDetails(adsPostData);
     }
   }

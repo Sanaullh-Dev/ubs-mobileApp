@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
+import 'package:ubs/model/users_data.dart';
 import 'package:ubs/services/remote_services.dart';
 
 class PostDetailsController extends GetxController {
@@ -32,6 +33,15 @@ class PostDetailsController extends GetxController {
         adsData.pUid, adsData.pId!.toString());
     if (res != null) {
       postFavorite.value = res.pFavorite!;
+    }
+  }
+
+  Rx<UsersData> userData =
+      UsersData(uName: "", logId: "", logPass: "", loginWith: "").obs;
+  fetchUserInfo(String userId) async {
+    var res = await RemoteServices.checkUser(userId);
+    if (res != null) {
+      userData.value = res;
     }
   }
 }

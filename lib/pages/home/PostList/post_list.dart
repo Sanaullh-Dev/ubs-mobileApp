@@ -30,18 +30,13 @@ class _PostListState extends State<PostList> {
     super.initState();
     if (homeController.typeList.value == "catList") {
       homeController.fetchCatWiseAds(
-          widget.userData.userId, homeController.mainCat.value);
+          widget.userData.userId, homeController.mainCat.value);      
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
-    // else if (homeController.typeList.value == "keywordList") {
-    //   homeController.catWiseAdsList.value =
-    //       searchController.keywordWiseAdsList.value;
-    // }
 
     return SafeArea(
       child: WillPopScope(

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/my_ads/controller/my_ads_controller.dart';
+import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/custom_fun.dart';
@@ -20,11 +22,28 @@ class MyAdsList extends StatefulWidget {
 class _MyAdsListState extends State<MyAdsList> {
   final MyAdsController myAdsController = Get.find<MyAdsController>();
   var dateFormat = DateFormat('dd-MMM-yyyy');
+  RxBool isDismissible = true.obs;
 
   @override
   void initState() {
     super.initState();
     myAdsController.fetchMySalesAds(widget.userLogin.userId);
+  }
+
+  SnackbarController deleteSnackBar() {
+    return Get.showSnackbar(
+      GetSnackBar(
+        messageText: Text("Do you want delete", style: snackBarText),
+        // icon: const Icon(FontAwesomeIcons.trash, color: COLOR_PRIMARY),
+        duration: const Duration(seconds: 3),
+        mainButton: const Icon(
+          FontAwesomeIcons.trash,
+          color: COLOR_PRIMARY,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 25),
+        margin: const EdgeInsets.only(bottom: 5),
+      ),
+    );
   }
 
   @override
@@ -77,27 +96,13 @@ class _MyAdsListState extends State<MyAdsList> {
                                 PopupMenuItem<String>(
                                     value: 'Delete', child: Text('Delete')),
                               ],
-                              onSelected: (val) {
+                              onSelected: (val) async {
                                 if (val == "Delete") {
-                                  getSnackBarFavorite(
-                                      "hello",
-                                      ElevatedButton.icon(
-                                          onPressed: () {},
-                                          icon: Icon(Icons.autorenew_rounded),
-                                          label: Text("Undo")),
-                                      const );
-                                  // getSnackBar("hello", const Icon(Icons.favorite));
-                                  // final snackBar = SnackBar(
-                                  //   content: const Text('Yay! A SnackBar!'),
-                                  //   action: SnackBarAction(
-                                  //     label: 'Undo',
-                                  //     onPressed: () {
-                                  //       // Some code to undo the change.
-                                  //     },
-                                  //   ),
-                                  // );
-                                  // ScaffoldMessenger.of(context)
-                                  //     .showSnackBar(snackBar);
+                                  deleteSnackBar();
+                                  await RemoteServices.deleteMySalesAds(
+                                      widget.userLogin.userId, ads.pId!);
+                                  myAdsController
+                                      .fetchMySalesAds(widget.userLogin.userId);
                                 }
                               },
                             ),

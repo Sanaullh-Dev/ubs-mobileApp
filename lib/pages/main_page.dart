@@ -20,6 +20,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
+    // ignore: unrelated_type_equality_checks
     if(loginController.loginStatus == "no"){
       loginController.getSecureValue();
     }
