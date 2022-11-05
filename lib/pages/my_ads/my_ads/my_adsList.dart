@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/my_ads/controller/my_ads_controller.dart';
+import 'package:ubs/sharing_widget/widget_fun.dart';
+import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/custom_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 
@@ -73,10 +75,31 @@ class _MyAdsListState extends State<MyAdsList> {
                               itemBuilder: (context) =>
                                   const <PopupMenuItem<String>>[
                                 PopupMenuItem<String>(
-                                    value: 'Delete',
-                                    child: Text('Delete')),
+                                    value: 'Delete', child: Text('Delete')),
                               ],
-                              onSelected: (_) {},
+                              onSelected: (val) {
+                                if (val == "Delete") {
+                                  getSnackBarFavorite(
+                                      "hello",
+                                      ElevatedButton.icon(
+                                          onPressed: () {},
+                                          icon: Icon(Icons.autorenew_rounded),
+                                          label: Text("Undo")),
+                                      const );
+                                  // getSnackBar("hello", const Icon(Icons.favorite));
+                                  // final snackBar = SnackBar(
+                                  //   content: const Text('Yay! A SnackBar!'),
+                                  //   action: SnackBarAction(
+                                  //     label: 'Undo',
+                                  //     onPressed: () {
+                                  //       // Some code to undo the change.
+                                  //     },
+                                  //   ),
+                                  // );
+                                  // ScaffoldMessenger.of(context)
+                                  //     .showSnackBar(snackBar);
+                                }
+                              },
                             ),
 
                             // IconButton(

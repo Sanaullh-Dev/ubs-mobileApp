@@ -6,7 +6,6 @@ class MyAdsController extends GetxController {
   RxList<AdsPost> adsList = List<AdsPost>.empty().obs;
   RxList<AdsPost> mySalesAdsList = List<AdsPost>.empty().obs;
   // RxBool loading = true.obs;
-  
 
   void fetchFavoriteAds(String userId) async {
     var data = await RemoteServices.fetchFavoritesAds(userId);
@@ -16,11 +15,11 @@ class MyAdsController extends GetxController {
     }
   }
 
-    void fetchMySalesAds(String userId) async {
+  void fetchMySalesAds(String userId) async {
     var data = await RemoteServices.fetchMySalesAds(userId);
     if (data != null) {
       mySalesAdsList.value = data;
     }
   }
-  
+
 }

@@ -85,14 +85,15 @@ class RemoteServices {
   // static Future<List<String>?> fetchKeywordList() async {}
 
   // ---------- Get All Ads post main Cat wise from API ------------------
-  static Future<List<AdsPost>?> fetchCatWisedAds(String userId, int mCatId) async {
+  static Future<List<AdsPost>?> fetchCatWisedAds(
+      String userId, int mCatId) async {
     var client = http.Client();
 
     var uri = Uri.parse("$API_URL/adspost/relatedAds/mainId");
     Map<String, dynamic> bodyData = {'mainId': mCatId, 'uid': userId};
     var headers = {'Content-Type': 'application/json'};
-    var encoding = Encoding.getByName('utf-8');    
-  
+    var encoding = Encoding.getByName('utf-8');
+
     var response = await client.post(
       uri,
       headers: headers,
@@ -220,15 +221,15 @@ class RemoteServices {
     }
   }
 
-    // ---------- Get All favorites Ads from API ------------------
+  // ---------- Get All favorites Ads from API ------------------
   static Future<List<AdsPost>?> fetchFavoritesAds(String userId) async {
     var client = http.Client();
 
     var uri = Uri.parse("$API_URL/adspost/favoriteList");
-    Map<String, dynamic> bodyData = { 'uid': userId};
+    Map<String, dynamic> bodyData = {'uid': userId};
     var headers = {'Content-Type': 'application/json'};
-    var encoding = Encoding.getByName('utf-8');    
-  
+    var encoding = Encoding.getByName('utf-8');
+
     var response = await client.post(
       uri,
       headers: headers,
@@ -244,15 +245,15 @@ class RemoteServices {
     }
   }
 
-    // ---------- Get All My Sales Ads from API ------------------
+  // ---------- Get All My Sales Ads from API ------------------
   static Future<List<AdsPost>?> fetchMySalesAds(String userId) async {
     var client = http.Client();
 
     var uri = Uri.parse("$API_URL/adspost/mySalesAds");
-    Map<String, dynamic> bodyData = { 'uid': userId};
+    Map<String, dynamic> bodyData = {'uid': userId};
     var headers = {'Content-Type': 'application/json'};
-    var encoding = Encoding.getByName('utf-8');    
-  
+    var encoding = Encoding.getByName('utf-8');
+
     var response = await client.post(
       uri,
       headers: headers,
@@ -268,6 +269,28 @@ class RemoteServices {
     }
   }
 
+  // ---------- Delete My Sales Ads Post from API ------------------
+  static Future<bool> deleteMySalesAds(String userId, int pid) async {
+    var client = http.Client();
+
+    var uri = Uri.parse("$API_URL/adspost/deleteMySalesAds");
+    Map<String, dynamic> bodyData = {'uid': userId, 'pid' : pid};
+    var headers = {'Content-Type': 'application/json'};
+    var encoding = Encoding.getByName('utf-8');
+
+    var response = await client.delete(
+      uri,
+      headers: headers,
+      body: json.encode(bodyData),
+      encoding: encoding,
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   // **************************** user login ************************************
 

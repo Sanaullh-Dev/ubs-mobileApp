@@ -65,6 +65,12 @@ TextStyle appBarTitle = GoogleFonts.poppins(
     fontSize: 38.sp,
     letterSpacing: 1);
 
+    TextStyle snackBarText = GoogleFonts.poppins(
+    color: Colors.white,
+    fontWeight: FontWeight.w500,
+    fontSize: 25.sp,
+    letterSpacing: 0.8);
+
 // TextStyle(
 //     color: Colors.black,
 //     fontWeight: FontWeight.w600,
