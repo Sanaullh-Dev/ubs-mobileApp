@@ -27,17 +27,17 @@ class AdsList extends StatefulWidget {
 class _AdsListState extends State<AdsList> {
   final homeController = Get.find<HomeController>();
 
-  // void addPostReaction(int index) async {
-  //   PostReaction postReaction = PostReaction(
-  //       uid: widget.userData.userId,
-  //       pid: widget.adsPost[index].pId!,
-  //       pFavorite: widget.adsPost[index].pFavorite == 1 ? 0 : 1,
-  //       pView: widget.adsPost[index].pView ?? 0);
-  //   var res = await RemoteServices.addPostReaction(postReaction);
-  //   if (res) {
-  //     homeController.fetchAds();
-  //   }
-  // }
+  void addPostReaction(int index) async {
+    PostReaction postReaction = PostReaction(
+        uid: widget.userData.userId,
+        pid: widget.adsPost[index].pId!,
+        pFavorite: widget.adsPost[index].pFavorite == 1 ? 0 : 1,
+        pView: widget.adsPost[index].pView ?? 0);
+    var res = await RemoteServices.addPostReaction(postReaction);
+    if (res) {
+      homeController.fetchAds();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,17 +94,20 @@ class _AdsListState extends State<AdsList> {
                     Positioned(
                       right: 5.w,
                       top: 5.h,
-                      child: Container(
-                        padding: EdgeInsets.all(10.w),
-                        decoration: favoriteBorder,
-                        child: Icon(
-                          widget.adsPost[index].pFavorite == 1
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          size: 40.sp,
-                          color: widget.adsPost[index].pFavorite == 1
-                              ? Colors.red
-                              : Colors.black54,
+                      child: GestureDetector(
+                        onTap: () => addPostReaction(index),
+                        child: Container(
+                          padding: EdgeInsets.all(10.w),
+                          decoration: favoriteBorder,
+                          child: Icon(
+                            widget.adsPost[index].pFavorite == 1
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            size: 40.sp,
+                            color: widget.adsPost[index].pFavorite == 1
+                                ? Colors.red
+                                : Colors.black54,
+                          ),
                         ),
                       ),
                     )

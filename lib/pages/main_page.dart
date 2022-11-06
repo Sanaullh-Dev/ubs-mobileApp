@@ -4,6 +4,8 @@ import 'package:ubs/pages/dashboard/dashboard.dart';
 import 'package:ubs/pages/login/controller/login_controller.dart';
 import 'package:get/get.dart';
 import 'package:ubs/pages/login/login_home.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:ubs/utils/constants.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({super.key});
@@ -20,12 +22,8 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    // ignore: unrelated_type_equality_checks
-    if(loginController.loginStatus == "no"){
-      loginController.getSecureValue();
-    }
+    loginController.getSecureValue();    
   }
-  
 
   //  final mainCont = Get.find<MainController>();
   @override
@@ -37,10 +35,16 @@ class _MainPageState extends State<MainPage> {
           if (loginController.loginStatus.value == "logged") {
             return DashboardPage(userData: loginController.uData.value);
           }
-          if (loginController.loginStatus.value == "waiting") {
-            return const Center(child: CircularProgressIndicator());
+          if (loginController.loginStatus.value == "checking") {
+            return Scaffold(              
+              body: Center(
+                child: SizedBox(
+                    height: 300.sp,
+                    width: 300.sp,
+                    child: Image.asset("lib/assets/images/BiS.png")),
+              ),
+            );
           } else {
-            // return PasswordScreen(newUser: true, userId: "84848484");
             return const LoginHome();
           }
         },

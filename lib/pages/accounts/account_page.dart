@@ -20,27 +20,27 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   // final LoginController loginCont = Get.find<LoginController>();
-  final user = FirebaseAuth.instance.currentUser!;
+  // final user = FirebaseAuth.instance.currentUser!;
 
-  TextEditingController nameCont =
-      TextEditingController(text: "Sanaulla Shaikh111");
-  TextEditingController aboutCont =
-      TextEditingController(text: "I am sanaulla shaikh");
-  TextEditingController mobileCont = TextEditingController(text: "98888888");
-  TextEditingController emailCont =
-      TextEditingController(text: "sanaulla@gmail.com");
+  // TextEditingController nameCont =
+  //     TextEditingController(text: "Sanaulla Shaikh111");
+  // TextEditingController aboutCont =
+  //     TextEditingController(text: "I am sanaulla shaikh");
+  // TextEditingController mobileCont = TextEditingController(text: "98888888");
+  // TextEditingController emailCont =
+  //     TextEditingController(text: "sanaulla@gmail.com");
 
   @override
   void initState() {
     // TODO: implement initState
-    getUserData();
+    // getUserData();
     super.initState();
   }
 
-  getUserData(){
-    nameCont.text = user.displayName!;
-    emailCont.text = user.email != null ? user.email! : "";
-  }
+  // getUserData(){
+  //   nameCont.text = user.displayName!;
+  //   emailCont.text = user.email != null ? user.email! : "";
+  // }
 
   @override
   Widget build(BuildContext context) {

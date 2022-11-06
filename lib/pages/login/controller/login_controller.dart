@@ -11,7 +11,7 @@ class LoginController extends GetxController {
   GoogleSignInAccount? _user;
   GoogleSignInAccount get user => _user!;
   RxString loginId = "".obs;
-  Rx<String> loginStatus = "".obs;
+  Rx<String> loginStatus = "checking".obs;
   Rx<UserLogin> uData = UserLogin(userId: "", upass: "").obs;
   Rx<List<StorageItem>>? items;
 

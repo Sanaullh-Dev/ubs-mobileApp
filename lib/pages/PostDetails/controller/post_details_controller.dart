@@ -38,7 +38,8 @@ class PostDetailsController extends GetxController {
 
   Rx<UsersData> userData =
       UsersData(uName: "", logId: "", logPass: "", loginWith: "").obs;
-  fetchUserInfo(String userId) async {
+   
+   fetchUserInfo(String userId) async {
     var res = await RemoteServices.checkUser(userId);
     if (res != null) {
       userData.value = res;

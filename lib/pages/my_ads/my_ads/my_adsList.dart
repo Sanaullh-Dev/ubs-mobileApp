@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/my_ads/controller/my_ads_controller.dart';
+import 'package:ubs/pages/my_ads/my_ads/view_ads/view_my_ads.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
@@ -28,22 +29,6 @@ class _MyAdsListState extends State<MyAdsList> {
   void initState() {
     super.initState();
     myAdsController.fetchMySalesAds(widget.userLogin.userId);
-  }
-
-  SnackbarController deleteSnackBar() {
-    return Get.showSnackbar(
-      GetSnackBar(
-        messageText: Text("Do you want delete", style: snackBarText),
-        // icon: const Icon(FontAwesomeIcons.trash, color: COLOR_PRIMARY),
-        duration: const Duration(seconds: 3),
-        mainButton: const Icon(
-          FontAwesomeIcons.trash,
-          color: COLOR_PRIMARY,
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 25),
-        margin: const EdgeInsets.only(bottom: 5),
-      ),
-    );
   }
 
   @override
@@ -98,11 +83,17 @@ class _MyAdsListState extends State<MyAdsList> {
                               ],
                               onSelected: (val) async {
                                 if (val == "Delete") {
-                                  deleteSnackBar();
-                                  await RemoteServices.deleteMySalesAds(
-                                      widget.userLogin.userId, ads.pId!);
-                                  myAdsController
-                                      .fetchMySalesAds(widget.userLogin.userId);
+                                  alertDialogBox(
+                                      context: context,
+                                      title: "Delete Listing",
+                                      message:
+                                          "You want to delete your ads and you can't be undo this",
+                                      onOK: () async {
+                                        // await RemoteServices.deleteMySalesAds(
+                                        //     widget.userLogin.userId, ads.pId!);
+                                        // myAdsController.fetchMySalesAds(
+                                        //     widget.userLogin.userId);
+                                      });
                                 }
                               },
                             ),
@@ -113,52 +104,66 @@ class _MyAdsListState extends State<MyAdsList> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 10),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 100,
-                              height: 100,
-                              child: Image.network(
-                                getLink(ads.pImg1),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(width: 15),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      InkWell(
+                        onTap: () {
+                          Get.to(ViewMyAds(
+                              adsPostData: ads, userData: widget.userLogin));
+                        },
+                        child: Container(
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10, top: 10),
+                            child: Row(
                               children: [
-                                Text(
-                                  ads.pTitle,
-                                  style: messageLabel,
-                                  maxLines: 1,
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
+                                SizedBox(
+                                  width: 100,
+                                  height: 100,
+                                  child: Hero(
+                                    tag: "post${ads.pId}",
+                                    transitionOnUserGestures: true,
+                                    child: Image.network(
+                                      getLink(ads.pImg1),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
-                                const SizedBox(height: 5),
-                                Text(
-                                  "₹ ${ads.pPrice.toString()}",
-                                  style: heading5,
-                                ),
-                                const SizedBox(height: 5),
-                                Row(
+                                const SizedBox(width: 15),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    const Icon(Icons.remove_red_eye),
-                                    Text("  View : ${ads.pFavorite ?? 0}",
-                                        style: btnText),
-                                    const SizedBox(width: 15),
-                                    Text("|", style: btnText),
-                                    const SizedBox(width: 15),
-                                    const Icon(Icons.favorite),
-                                    Text("  favorite : ${ads.pView ?? 0}",
-                                        style: btnText),
+                                    Text(
+                                      ads.pTitle,
+                                      style: messageLabel,
+                                      maxLines: 1,
+                                      softWrap: true,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    const SizedBox(height: 5),
+                                    Text(
+                                      "₹ ${ads.pPrice.toString()}",
+                                      style: heading5,
+                                    ),
+                                    const SizedBox(height: 5),
+                                    Row(
+                                      children: [
+                                        const Icon(Icons.remove_red_eye),
+                                        Text("  View : ${ads.pFavorite ?? 0}",
+                                            style: btnText),
+                                        const SizedBox(width: 15),
+                                        Text("|", style: btnText),
+                                        const SizedBox(width: 15),
+                                        const Icon(Icons.favorite),
+                                        Text("  favorite : ${ads.pView ?? 0}",
+                                            style: btnText),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ],
                             ),
-                          ],
+                          ),
                         ),
                       ),
                       Divider(

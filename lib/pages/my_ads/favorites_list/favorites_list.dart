@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:get/get.dart';
+import 'package:ubs/model/post_reaction.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/my_ads/controller/my_ads_controller.dart';
+import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/custom_fun.dart';
@@ -26,6 +28,18 @@ class _FavoritesListState extends State<FavoritesList> {
     myAdsController.fetchFavoriteAds(widget.userData.userId);
   }
 
+  void addPostReaction(AdsPost ads) async {
+    PostReaction postReaction = PostReaction(
+        uid: widget.userData.userId,
+        pid: ads.pId!,
+        pFavorite: ads.pFavorite == 1 ? 0 : 1,
+        pView: ads.pView ?? 0);
+    var res = await RemoteServices.addPostReaction(postReaction);
+    if (res) {
+      myAdsController.fetchFavoriteAds(widget.userData.userId);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // final Size size = MediaQuery.of(context).size;
@@ -36,8 +50,7 @@ class _FavoritesListState extends State<FavoritesList> {
       child: Obx(
         () => myAdsController.adsList.value.isEmpty
             ? const Center(child: CircularProgressIndicator())
-            : 
-            ListView.builder(
+            : ListView.builder(
                 itemCount: myAdsController.adsList.value.length,
                 itemBuilder: (BuildContext context, int index) {
                   AdsPost ads = myAdsController.adsList.value[index];
@@ -72,24 +85,26 @@ class _FavoritesListState extends State<FavoritesList> {
                               style: heading4,
                             ),
                             const SizedBox(height: 4),
-                            Text(ads.pTitle,
-                                style: heading6,
-                                maxLines: 2,
-                                softWrap: true,
-                                ),
+                            Text(
+                              ads.pTitle,
+                              style: heading6,
+                              maxLines: 2,
+                              softWrap: true,
+                            ),
                           ],
                         ),
                       ),
                       Spacer(),
                       const SizedBox(width: 15),
-                      Container(
-                        padding: EdgeInsets.all(5.sp),
-                        child: Icon(
-                          ads.pFavorite == 1
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          size: 50.sp,
-                          color: ads.pFavorite == 1 ? Colors.red : Colors.black,
+                      GestureDetector(
+                        onTap: () => addPostReaction(ads),
+                        child: Container(
+                          padding: EdgeInsets.all(5.sp),
+                          child: Icon(
+                            Icons.favorite,
+                            size: 70.sp,
+                            color: COLOR_PRIMARY,
+                          ),
                         ),
                       ),
                       addHorizontalSpace(12),

@@ -50,6 +50,7 @@ TextStyle heading4WithUnderLine = GoogleFonts.poppins(
 
 TextStyle heading5 = GoogleFonts.poppins(
     fontSize: 32.sp, color: Colors.black, letterSpacing: 0.5);
+    
 
 TextStyle heading6 = GoogleFonts.poppins(
   color: COLOR_BLACK,

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/post_reaction.dart';
 import 'package:ubs/model/user_login.dart';
+import 'package:ubs/model/users_data.dart';
 import 'package:ubs/pages/PostDetails/controller/post_details_controller.dart';
 import 'package:ubs/pages/PostDetails/widget/RelatedAds.dart';
 import 'package:ubs/pages/PostDetails/widget/image_slider.dart';
@@ -29,6 +30,7 @@ class _PostDetailsState extends State<PostDetails> {
   final PostDetailsController postDetController =
       Get.find<PostDetailsController>();
   final HomeController homeCont = Get.find<HomeController>();
+  Rx<UsersData>? userData;
 
   @override
   void initState() {
@@ -39,7 +41,7 @@ class _PostDetailsState extends State<PostDetails> {
         : widget.adsPostData.pFavorite!;
     postDetController.postFavorite.value = pFavorite;
     updateViewReaction();
-    postDetController.fetchUserInfo(widget.adsPostData.pUid);
+    postDetController.fetchUserInfo(widget.userData.userId);
   }
 
   updateViewReaction() async {
@@ -50,6 +52,11 @@ class _PostDetailsState extends State<PostDetails> {
         pView: 1);
     await RemoteServices.addPostReaction(postReaction);
     await postDetController.getAdsPostDetails(widget.adsPostData);
+
+    var res = await RemoteServices.checkUser(widget.adsPostData.pUid);
+    if (res != null) {
+      userData?.value = res;
+    }
   }
 
   updateFavorite() async {
@@ -117,8 +124,8 @@ class _PostDetailsState extends State<PostDetails> {
                         // Title - Related Added
                         addDivider(),
                         UserInfoBar(
-                            url: postDetController.userData.value[0].uPhone!,
-                            userName: postDetController.userData.value[0].uName,
+                            url: postDetController.userData.value.uName,
+                            userName: postDetController.userData.value.uName,
                             onPress: () {}),
                         addDivider(),
                         // Related Added

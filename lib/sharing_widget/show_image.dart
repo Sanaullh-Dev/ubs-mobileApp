@@ -20,6 +20,28 @@ class ShowImage extends StatelessWidget {
   }
 }
 
+
+class ShowUserPhoto extends StatelessWidget {
+  final String imageUrl;
+  const ShowUserPhoto({super.key, required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(
+      imageUrl,
+      fit: BoxFit.fill,      
+      errorBuilder: (context, error, stackTrace) => Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Image.asset(
+          "lib/assets/images/user.png",
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+}
+
+
 // CachedNetworkImage(
 //       imageUrl: getLink(imageUrl),
 //       imageBuilder: (context, imageProvider) => Container(

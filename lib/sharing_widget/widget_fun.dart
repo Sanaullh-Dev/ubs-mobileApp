@@ -57,6 +57,45 @@ SnackbarController getSnackBarFavorite() {
   );
 }
 
+Future<dynamic> alertDialogBox(
+    {required BuildContext context,
+    required String title,
+    required String message,
+    required VoidCallback onOK}) {
+  return showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+            title: Text(title),
+            content: Text(message),
+            actionsPadding: const EdgeInsets.only(bottom: 30, top: 40),
+            actions: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(ctx).pop();
+                },
+                child: Text('Cancel',
+                    style: btnText.copyWith(
+                        decoration: TextDecoration.underline,
+                        color: Colors.black)),
+              ),
+              SizedBox(width: 8),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(ctx).pop();
+                },
+                child: Text('Accept',
+                    style: btnText.copyWith(
+                        decoration: TextDecoration.underline,
+                        color: COLOR_PRIMARY)),
+              ),
+              const SizedBox(width: 5),
+            ],
+          ));
+}
+
+
+
+ 
 
 
 
