@@ -19,9 +19,7 @@ TextStyle heading2 = TextStyle(
     fontFamily: "Roboto");
 
 TextStyle heading2InBold = GoogleFonts.poppins(
-    color: Colors.black,
-    fontWeight: FontWeight.w600,
-    fontSize: 40.sp);
+    color: Colors.black, fontWeight: FontWeight.w600, fontSize: 40.sp);
 
 TextStyle heading3 = TextStyle(
     color: COLOR_BLACK,
@@ -30,7 +28,7 @@ TextStyle heading3 = TextStyle(
     fontFamily: "Roboto");
 
 TextStyle heading4 = GoogleFonts.poppins(
-  color: COLOR_BLACK,
+  color: Colors.black,
   fontWeight: FontWeight.w500,
   fontSize: 35.sp,
 );
@@ -50,15 +48,13 @@ TextStyle heading4WithUnderLine = GoogleFonts.poppins(
 
 TextStyle heading5 = GoogleFonts.poppins(
     fontSize: 32.sp, color: Colors.black, letterSpacing: 0.5);
-    
 
 TextStyle heading6 = GoogleFonts.poppins(
-  color: COLOR_BLACK,
-  fontWeight: FontWeight.w500,
-  fontSize: 28.sp,
-  letterSpacing: 0.8,
-  height: 1
-);
+    color: Colors.black,
+    fontWeight: FontWeight.w500,
+    fontSize: 28.sp,
+    letterSpacing: 0.8,
+    height: 1);
 
 TextStyle appBarTitle = GoogleFonts.poppins(
     color: Colors.black,
@@ -66,7 +62,7 @@ TextStyle appBarTitle = GoogleFonts.poppins(
     fontSize: 38.sp,
     letterSpacing: 1);
 
-    TextStyle snackBarText = GoogleFonts.poppins(
+TextStyle snackBarText = GoogleFonts.poppins(
     color: Colors.white,
     fontWeight: FontWeight.w500,
     fontSize: 25.sp,
@@ -136,3 +132,9 @@ TextStyle labelText = TextStyle(
     fontWeight: FontWeight.w600,
     letterSpacing: 1,
     fontFamily: "Poppins");
+
+TextStyle sectionTitle = GoogleFonts.poppins(
+    color: Colors.black,
+    fontSize: 22.sp,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 1);

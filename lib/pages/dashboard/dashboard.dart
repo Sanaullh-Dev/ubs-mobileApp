@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/Chats/chats_dashboard.dart';
 import 'package:ubs/pages/accounts/account_page.dart';
+import 'package:ubs/pages/accounts/home_account/home_account.dart';
+import 'package:ubs/pages/accounts/profile_page.dart/user_profile.dart';
 import 'package:ubs/pages/home/home_page.dart';
 import 'package:ubs/pages/my_ads/my_ads.dart';
 import 'package:ubs/pages/selling/sale_main_categories.dart';
@@ -34,7 +36,7 @@ class _DashboardPageState extends State<DashboardPage> {
       const ChatsDashboard(),
       HomePage(userData: widget.userData),
       MyAds(userData: widget.userData),
-      const AccountPage(),
+      const HomeAccount(),
       // const SaleMainCategories()
     ];
 
@@ -54,17 +56,20 @@ class _DashboardPageState extends State<DashboardPage> {
             items: [
               BottomNavigationBarItem(
                   icon: Icon(Icons.home_outlined, size: 70.sp),
-                  activeIcon: Icon(Icons.home, size: 70.sp), 
-                  label: "Home"),                
+                  activeIcon: Icon(Icons.home, size: 70.sp),
+                  label: "Home"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.chat_bubble_outline, size: 60.sp),
                   activeIcon: Icon(Icons.chat_bubble, size: 60.sp),
-                   label: "Chats"),
+                  label: "Chats"),
               BottomNavigationBarItem(
                   icon: Icon(null, size: 60.w), label: "Sell"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.favorite_border, size: 60.sp),
-                  activeIcon: Icon(Icons.favorite, size: 60.sp, ),
+                  activeIcon: Icon(
+                    Icons.favorite,
+                    size: 60.sp,
+                  ),
                   label: "My Ads"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.manage_accounts_outlined, size: 70.sp),
