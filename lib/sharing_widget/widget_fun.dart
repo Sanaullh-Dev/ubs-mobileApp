@@ -17,7 +17,7 @@ Widget addHorizontalSpace(double width) {
   );
 }
 
-Widget addDivider() {
+Divider addDivider() {
   return Divider(
     thickness: 2,
     color: Colors.blueGrey.shade200,

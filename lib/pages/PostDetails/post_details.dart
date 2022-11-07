@@ -11,6 +11,7 @@ import 'package:ubs/pages/PostDetails/widget/RelatedAds.dart';
 import 'package:ubs/pages/PostDetails/widget/image_slider.dart';
 import 'package:ubs/pages/PostDetails/widget/title_bar.dart';
 import 'package:ubs/pages/PostDetails/widget/userinfo_bar.dart';
+import 'package:ubs/pages/accounts/profile_page.dart/user_profile.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
@@ -41,7 +42,7 @@ class _PostDetailsState extends State<PostDetails> {
         : widget.adsPostData.pFavorite!;
     postDetController.postFavorite.value = pFavorite;
     updateViewReaction();
-    postDetController.fetchUserInfo(widget.userData.userId);
+    postDetController.fetchUserInfo(widget.adsPostData.pUid);
   }
 
   updateViewReaction() async {
@@ -71,6 +72,7 @@ class _PostDetailsState extends State<PostDetails> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    ScrollController scrollController = ScrollController();
     // final TextTheme textTheme = Theme.of(context).textTheme;
 
     return SafeArea(
@@ -87,6 +89,7 @@ class _PostDetailsState extends State<PostDetails> {
               () => Stack(
                 children: [
                   SingleChildScrollView(
+                    controller: scrollController,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -100,7 +103,7 @@ class _PostDetailsState extends State<PostDetails> {
                         TitleBar(
                             adsPostData: postDetController.adsPost.value,
                             userLogin: widget.userData),
-                        addVerticalSpace(10.h),
+                        addVerticalSpace(40.h),
                         // Description section
                         Padding(
                           padding: const EdgeInsets.symmetric(
@@ -122,25 +125,38 @@ class _PostDetailsState extends State<PostDetails> {
                           ),
                         ),
                         // Title - Related Added
+                        const SizedBox(height: 40),
                         addDivider(),
-                        UserInfoBar(
-                            url: postDetController.userData.value.uName,
-                            userName: postDetController.userData.value.uName,
-                            onPress: () {}),
+                        InkWell(
+                          onTap: () {
+                            Get.to(UserProfile(
+                                userLogin: widget.userData,
+                                profileUser: postDetController.userData.value));
+                          },
+                          child: UserInfoBar(
+                              url: postDetController.userData.value.uName,
+                              userName: postDetController.userData.value.uName,
+                              onPress: () {}),
+                        ),
                         addDivider(),
+                        const SizedBox(height: 20),
                         // Related Added
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 15),
+                              vertical: 8, horizontal: 25),
                           child: Text(
                             "Related Ads",
                             style: heading3,
                           ),
                         ),
+                        const SizedBox(height: 20),
                         RelatedAds(
+                            scrolledCont: scrollController,
                             usersData: widget.userData,
                             mCateId: postDetController.adsPost.value.pMcat,
-                            showingPostId: postDetController.adsPost.value.pId!)
+                            showingPostId:
+                                postDetController.adsPost.value.pId!),
+                        const SizedBox(height: 20),
                       ],
                     ),
                   ),

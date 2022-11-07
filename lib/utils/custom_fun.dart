@@ -8,6 +8,9 @@ String formatCurrency(num amount, {int decimalCount = 0}) {
 }
 
   // Get path to Link convert 
-  String getLink(String path){
+  String getLink(String? path){
+    if(path != null && path != ""){
     return "$API_URL/${path.replaceAll("\\", "/")}";
+    }
+    return "";
   }

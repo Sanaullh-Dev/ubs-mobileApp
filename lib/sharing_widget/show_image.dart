@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ShowImage extends StatelessWidget {
-  final String imageUrl;
+  final String? imageUrl;
   const ShowImage({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
     return Image.network(
-      imageUrl,
-      fit: BoxFit.fill,      
+      imageUrl ?? "",
+      fit: BoxFit.cover,
       errorBuilder: (context, error, stackTrace) => Padding(
         padding: const EdgeInsets.all(15.0),
         child: Image.asset(
@@ -20,7 +20,6 @@ class ShowImage extends StatelessWidget {
   }
 }
 
-
 class ShowUserPhoto extends StatelessWidget {
   final String imageUrl;
   const ShowUserPhoto({super.key, required this.imageUrl});
@@ -29,7 +28,7 @@ class ShowUserPhoto extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.network(
       imageUrl,
-      fit: BoxFit.fill,      
+      fit: BoxFit.fill,
       errorBuilder: (context, error, stackTrace) => Padding(
         padding: const EdgeInsets.all(5.0),
         child: Image.asset(

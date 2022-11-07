@@ -15,11 +15,13 @@ class RelatedAds extends StatelessWidget {
   final int mCateId;
   final int showingPostId;
   final UserLogin usersData;
+  final ScrollController scrolledCont;
   const RelatedAds(
       {super.key,
       required this.mCateId,
       required this.showingPostId,
-      required this.usersData});
+      required this.usersData,
+      required this.scrolledCont});
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,12 @@ class RelatedAds extends StatelessWidget {
                           onTap: () async {
                             await postDetController.getAdsPostDetails(
                                 homeController.relatedCatAdsList.value[index]);
+
+                            scrolledCont.animateTo(
+                              scrolledCont.position.minScrollExtent,
+                              curve: Curves.easeOut,
+                              duration: const Duration(seconds: 500),
+                            );
                           },
                           child: Container(
                             decoration: BoxDecoration(

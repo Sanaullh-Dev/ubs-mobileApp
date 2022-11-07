@@ -36,9 +36,9 @@ class UserInfoBar extends StatelessWidget {
                 ),
                 subtitle: Text("See Profile",
                     style: GoogleFonts.poppins(
-                        color: Colors.blue,
+                        color: Colors.blue[800],
                         fontWeight: FontWeight.w500,
-                        fontSize: 25.sp,
+                        fontSize: 28.sp,
                         decoration: TextDecoration.underline)),
                 trailing: const Icon(Icons.arrow_forward_ios),
               ),

@@ -74,10 +74,16 @@ TextStyle snackBarText = GoogleFonts.poppins(
 //     fontSize: 38.sp,
 //     letterSpacing: 1);
 
-TextStyle titleLabel = TextStyle(
+TextStyle titleLabel = GoogleFonts.poppins(
   color: COLOR_BLACK,
   fontWeight: FontWeight.w500,
   fontSize: 30.sp,
+);
+
+TextStyle subtitleLabel = GoogleFonts.poppins(
+  color: COLOR_BLACK,
+  fontWeight: FontWeight.w500,
+  fontSize: 25.sp,
 );
 
 TextStyle messageLabel = GoogleFonts.poppins(
@@ -109,7 +115,6 @@ TextStyle buttonTextStyle = TextStyle(
     color: Colors.white,
     fontSize: 28.sp,
     fontWeight: FontWeight.w500,
-    letterSpacing: 1,
     fontFamily: "Poppins");
 
 TextStyle buttonTextLight = TextStyle(

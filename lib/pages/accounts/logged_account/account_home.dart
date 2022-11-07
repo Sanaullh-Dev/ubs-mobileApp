@@ -37,7 +37,7 @@ class _HomeAccountState extends State<HomeAccount> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text("Welcome To BIS", style: heading2InBold),
-                        Text("Login in to your account >",
+                        Text("View and edit profile",
                             style: heading5.copyWith(
                               fontWeight: FontWeight.w600,
                                 color: Colors.black,
@@ -49,6 +49,20 @@ class _HomeAccountState extends State<HomeAccount> {
               ),
             ),
             // const Divider(thickness: 1, color: Colors.black54),
+            const SizedBox(height: 10),
+            ListTile(
+              leading: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: Icon(
+                FontAwesomeIcons.gear,
+                size: 65.sp,
+                color: Colors.blueGrey,
+              )),
+              title: Text("Help & Support", style: titleLabel.copyWith(color: Colors.black)),
+              subtitle: Text("Help center and legal terms", style: titleLabel),
+              trailing: Icon(Icons.arrow_forward_ios),
+            ),
             const SizedBox(height: 10),
             ListTile(
               leading: SizedBox(

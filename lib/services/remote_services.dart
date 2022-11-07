@@ -173,6 +173,23 @@ class RemoteServices {
     }
   }
 
+  static Future<List<AdsPost>?> fetchUserProfileAds(
+      String profile_userId, String userId) async {
+    var uri = Uri.parse("$API_URL/adspost/userProfileAds");
+
+    Map<String, dynamic> bodyData = {'uid': profile_userId, 'uid_reaction': userId};
+    var client = http.Client();
+
+    http.Response response = await client.post(uri, body: bodyData);
+
+    if (response.statusCode == 200) {
+      var jsonString = response.body;
+      return adsPostFromJson(jsonString);
+    } else {
+      return null;
+    }
+  }
+
   // ---------- Insert Ads post view or favorites into API ------------------
   static Future<bool> addPostReaction(PostReaction postReaction) async {
     var client = http.Client();

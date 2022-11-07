@@ -33,6 +33,8 @@ class PostDetailsController extends GetxController {
         adsData.pUid, adsData.pId!.toString());
     if (res != null) {
       postFavorite.value = res.pFavorite!;
+      adsPost.value = adsData;
+      fetchUserInfo(adsData.pUid);
     }
   }
 
