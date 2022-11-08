@@ -16,7 +16,7 @@ class ChatIndividual extends StatefulWidget {
 class _ChatIndividualState extends State<ChatIndividual>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  PanelController _penelController = PanelController();
+  final PanelController _panelController = PanelController();
   double maxHeight = 120;
   bool isTyping = false;
   TextEditingController messageBox = TextEditingController();
@@ -96,7 +96,7 @@ class _ChatIndividualState extends State<ChatIndividual>
                   maxHeight: isTyping == true ? maxHeight : 290,
                   minHeight: 60,
                   defaultPanelState: PanelState.OPEN,
-                  controller: _penelController,
+                  controller: _panelController,
                   header: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     width: size.width,

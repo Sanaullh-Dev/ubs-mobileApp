@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/Chats/chats_dashboard.dart';
 import 'package:ubs/pages/accounts/logged_account/account_details.dart';
-import 'package:ubs/pages/accounts/home_account/home_account.dart';
+import 'package:ubs/pages/accounts/home_account.dart';
+import 'package:ubs/pages/accounts/logged_account/logged_home.dart';
 import 'package:ubs/pages/accounts/profile_page.dart/user_profile.dart';
 import 'package:ubs/pages/home/home_page.dart';
 import 'package:ubs/pages/my_ads/my_ads.dart';
@@ -37,7 +38,9 @@ class _DashboardPageState extends State<DashboardPage> {
       HomePage(userData: widget.userData),
       MyAds(userData: widget.userData),
       // const HomeAccount(),
-      AccountPage(userLogged: widget.userData)
+      widget.userData.userId != ""
+          ? LoggedHome(userLogin: widget.userData)
+          : HomeAccount(userLogin: widget.userData)
     ];
 
     return Scaffold(

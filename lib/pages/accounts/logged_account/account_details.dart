@@ -2,9 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ubs/model/user_login.dart';
-import 'package:ubs/model/users_data.dart';
-import 'package:ubs/pages/login/controller/login_controller.dart';
+import 'package:ubs/pages/accounts/controller/account_controller.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/show_image.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
@@ -12,17 +10,15 @@ import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AccountPage extends StatefulWidget {
-  final UserLogin userLogged;
-  const AccountPage({super.key, required this.userLogged});
+class AccountDetails extends StatefulWidget {
+  const AccountDetails({super.key});
 
   @override
-  State<AccountPage> createState() => _AccountPageState();
+  State<AccountDetails> createState() => _AccountDetailsState();
 }
 
-class _AccountPageState extends State<AccountPage> {
-  Rx<UsersData> userData =
-      UsersData(logId: "", logPass: "", uName: "", loginWith: "").obs;
+class _AccountDetailsState extends State<AccountDetails> {
+  final AccountController accountController = Get.find<AccountController>();
   // final LoginController loginCont = Get.find<LoginController>();
   // final user = FirebaseAuth.instance.currentUser!;
 
@@ -36,21 +32,18 @@ class _AccountPageState extends State<AccountPage> {
 
   @override
   void initState() {
-    getUserData();
     super.initState();
   }
 
-  getUserData() async {
-    var res = await RemoteServices.checkUser(widget.userLogged.userId);
-    if (res != null) {
-      userData.value = res;
-    }
+  updateUserData() async{
+    working on update
+    RemoteServices.addUser(userData, loginType)
+
   }
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-
+    // var size = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
@@ -66,7 +59,8 @@ class _AccountPageState extends State<AccountPage> {
               ],
             ),
             body: Obx(
-              () => userData.value.uName == ""
+              // userData
+              () => accountController.userData.value.logId == ""
                   ? const Center(child: CircularProgressIndicator())
                   : SingleChildScrollView(
                       child: Padding(
@@ -95,30 +89,40 @@ class _AccountPageState extends State<AccountPage> {
                                     badgeColor: COLOR_PRIMARY,
                                     position: BadgePosition.bottomEnd(),
                                     child: ClipOval(
-                                        child: userData.value.uPhoto == null
+                                        child: accountController
+                                                    .userData.value.uPhoto ==
+                                                null
                                             ? Image.asset(
                                                 "lib/assets/images/user.png")
                                             : ShowImage(
-                                                imageUrl:
-                                                    userData.value.uPhoto!)),
+                                                imageUrl: accountController
+                                                    .userData.value.uPhoto!)),
                                   ),
                                 ),
                                 addHorizontalSpace(50.w),
                                 Expanded(
                                   child: textBox(
+                                      onChange: (val) => accountController
+                                          .userData.value.uName,
+                                      isEnable: true,
                                       hintText: "Sanaulla Shaikh",
                                       labelName: "Your Name",
                                       textController: TextEditingController(
-                                          text: userData.value.uName)),
+                                          text: accountController
+                                              .userData.value.uName)),
                                 )
                               ],
                             ),
                             addVerticalSpace(50.h),
                             textBox(
-                                hintText: "I am sanaulla shaikh",
-                                labelName: "Something about you",
+                                onChange: (val) =>
+                                    accountController.userData.value.uAbout,
+                                isEnable: true,
+                                hintText: "I like this etc..",
+                                labelName: "Tell something about you",
                                 textController: TextEditingController(
-                                    text: userData.value.uAbout)),
+                                    text: accountController
+                                        .userData.value.uAbout)),
                             addVerticalSpace(80.h),
                             Text(
                               "Contact information",
@@ -130,6 +134,8 @@ class _AccountPageState extends State<AccountPage> {
                                 SizedBox(
                                   width: 70,
                                   child: textBox(
+                                      onChange: (val) {},
+                                      isEnable: false,
                                       labelName: "Country",
                                       hintText: "+ 91",
                                       textController:
@@ -138,10 +144,18 @@ class _AccountPageState extends State<AccountPage> {
                                 addHorizontalSpace(50.w),
                                 Expanded(
                                   child: textBox(
+                                      onChange: (val) => accountController
+                                          .userData.value.uPhone,
+                                      isEnable: accountController
+                                                  .userData.value.loginWith ==
+                                              "phone"
+                                          ? false
+                                          : true,
                                       hintText: "988888888",
                                       labelName: "Phone Number",
                                       textController: TextEditingController(
-                                          text: userData.value.uPhone)),
+                                          text: accountController
+                                              .userData.value.uPhone)),
                                 ),
                               ],
                             ),
@@ -150,10 +164,18 @@ class _AccountPageState extends State<AccountPage> {
                                 style: messageLabel),
                             addVerticalSpace(30.h),
                             textBox(
+                                onChange: (val) =>
+                                    accountController.userData.value.uEmail,
+                                isEnable: accountController
+                                            .userData.value.loginWith ==
+                                        "phone"
+                                    ? true
+                                    : false,
                                 hintText: "Ex. yourname@gmail.com",
                                 labelName: "Email",
                                 textController: TextEditingController(
-                                    text: userData.value.uEmail)),
+                                    text: accountController
+                                        .userData.value.uEmail)),
                             addVerticalSpace(22.h),
                             Text(
                                 "You have verified your email. It's important to allow us to securely communicate with you.",
@@ -165,22 +187,28 @@ class _AccountPageState extends State<AccountPage> {
             )));
   }
 
-  Widget textBox(
-      {required String labelName,
-      required String hintText,
-      required TextEditingController textController}) {
+  Widget textBox({
+    required String labelName,
+    required String hintText,
+    required TextEditingController textController,
+    required bool isEnable,
+    required Function(String) onChange,
+  }) {
     return TextFormField(
+      enabled: isEnable,
       controller: textController,
       style: textfield,
       keyboardType: TextInputType.number,
-      maxLength: 10,
+      onChanged: onChange,
+      // maxLength: 10,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(0, 15.sp, 0, 5.sp),
-        counterText: "",
-        label: Text(labelName, style: titleLabel),
-        hintText: hintText,
-        hintStyle: heading5,
-      ),
+          contentPadding: EdgeInsets.fromLTRB(0, 15.sp, 0, 5.sp),
+          counterText: "",
+          label: Text(labelName, style: titleLabel),
+          hintText: hintText,
+          hintStyle: heading5,
+          filled: !isEnable,
+          fillColor: Colors.grey[300]),
     );
   }
 }
