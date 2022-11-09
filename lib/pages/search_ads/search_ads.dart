@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:ubs/pages/searchAds/controller/search_controller.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
-import 'package:ubs/utils/constants.dart';
+import 'package:ubs/pages/search_ads/controller/search_controller.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class SearchAds extends StatefulWidget {

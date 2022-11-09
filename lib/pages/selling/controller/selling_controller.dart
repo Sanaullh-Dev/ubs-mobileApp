@@ -25,7 +25,7 @@ class SellingController extends GetxController {
 
   var mainCatList = List<Categories>.empty().obs;
   var subCatList = List<Categories>.empty().obs;
-  RxString page_status = "".obs;
+  RxString pageStatus = "".obs;
 
   @override
   void onInit() {
@@ -49,10 +49,10 @@ class SellingController extends GetxController {
   }
 
   insertPostAds(AdsPost adsPost) async {
-    page_status.value = "Loading";
+    pageStatus.value = "Loading";
     var res = await RemoteServices.postAds(adsPost);
     if (res != null) {
-      page_status.value = "Your Post uploaded successfully";
+      pageStatus.value = "Your Post uploaded successfully";
       
     }
   }

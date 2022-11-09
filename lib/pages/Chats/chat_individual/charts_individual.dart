@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:ubs/pages/Chats/chat_individual/widget/own_message.dart';
-import 'package:ubs/pages/Chats/chat_individual/widget/replay_message.dart';
+import 'package:ubs/pages/chats/chat_individual/widget/own_message.dart';
+import 'package:ubs/pages/chats/chat_individual/widget/replay_message.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 

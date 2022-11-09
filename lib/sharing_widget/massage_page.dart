@@ -80,7 +80,7 @@ class MessagePage extends StatelessWidget {
         addVerticalSpace(25),
         PrimaryButton(
           onPress: () {
-            sellingController.page_status.value = "";
+            sellingController.pageStatus.value = "";
             homeCont.fetchAds();
             Navigator.of(context)
                 .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);

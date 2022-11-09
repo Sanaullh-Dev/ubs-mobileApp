@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ubs/pages/searchAds/search_ads.dart';
+import 'package:ubs/pages/search_ads/search_ads.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/utils/constants.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/user_login.dart';
-import 'package:ubs/pages/Chats/chats_dashboard.dart';
+import 'package:ubs/pages/chats/chats_dashboard.dart';
 import 'package:ubs/pages/accounts/logged_account/account_details.dart';
 import 'package:ubs/pages/accounts/home_account.dart';
 import 'package:ubs/pages/accounts/logged_account/logged_home.dart';

@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/user_login.dart';
-import 'package:ubs/pages/PostDetails/post_details.dart';
+import 'package:ubs/pages/Post_details/post_details.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
@@ -24,7 +24,7 @@ class AdsTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onPress,
+      onTap:  onPress,
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 6.h),
         padding: EdgeInsets.symmetric(vertical: 20.h),

@@ -40,10 +40,10 @@ class _SaleFinalPageState extends State<SaleFinalPage> {
               },
               icon: const Icon(Icons.arrow_back_outlined)),
         ),
-        body: Obx(() => sellingController.page_status.value != ""
+        body: Obx(() => sellingController.pageStatus.value != ""
             ? MessagePage(
                 sellingController: sellingController,
-                message: sellingController.page_status.value,
+                message: sellingController.pageStatus.value,
                 size: size)
             : Container(
                 height: size.height,

@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  alt_sms_autofill: ^1.0.0
   badges: ^2.0.3
   bubble: ^1.2.1
   carousel_pro: ^1.0.0
@@ -37,25 +38,24 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_screenutil: ^5.5.4
+  flutter_secure_storage: ^6.0.0
   flutter_staggered_grid_view: ^0.6.2
   font_awesome_flutter: ^10.1.0
   get: ^4.6.5
+  google_fonts: ^3.0.1
   google_sign_in: ^5.4.2
   http: ^0.13.5
+  image_picker: ^0.8.6
   intl: ^0.17.0
   page_transition: ^2.0.9
   path: ^1.6.4
   path_provider: ^2.0.11
   permission_handler: ^9.2.0
   photo_gallery: ^1.1.1
-  sliding_up_panel: ^2.0.0+1
-  transparent_image: ^2.0.0
   pinput: ^2.2.16
-  google_fonts: ^3.0.1
+  sliding_up_panel: ^2.0.0+1
   sms_autofill: ^2.2.0
-  alt_sms_autofill: ^1.0.0
-  flutter_secure_storage: ^6.0.0
-  # cached_network_image: ^3.2.2
+  transparent_image: ^2.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

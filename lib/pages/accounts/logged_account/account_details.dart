@@ -1,17 +1,19 @@
 import 'package:badges/badges.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ubs/pages/accounts/controller/account_controller.dart';
-import 'package:ubs/services/remote_services.dart';
+import 'package:ubs/pages/accounts/logged_account/widget/bottom_option.dart';
+import 'package:ubs/pages/accounts/logged_account/widget/profile_image.dart';
 import 'package:ubs/sharing_widget/show_image.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
+import 'package:ubs/utils/custom_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AccountDetails extends StatefulWidget {
-  const AccountDetails({super.key});
+  final String userId;
+  const AccountDetails({super.key, required this.userId});
 
   @override
   State<AccountDetails> createState() => _AccountDetailsState();
@@ -33,34 +35,39 @@ class _AccountDetailsState extends State<AccountDetails> {
   @override
   void initState() {
     super.initState();
-  }
-
-  updateUserData() async{
-    working on update
-    RemoteServices.addUser(userData, loginType)
-
+    // accountController.fetchUserData(widget.userId);
   }
 
   @override
   Widget build(BuildContext context) {
-    // var size = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
               toolbarHeight: 100.h,
               leading: IconButton(
-                  icon: Icon(Icons.close, size: 60.sp), onPressed: () {}),
+                  icon: Icon(Icons.close, size: 60.sp),
+                  onPressed: () {
+                    Get.back();
+                    accountController.fetchUserData(widget.userId);
+                  }),
               actions: [
-                Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 30.w, vertical: 30.w),
-                    child: Text("Save", style: heading5)),
+                InkWell(
+                  onTap: () {
+                    accountController
+                        .updateUserData()
+                        .then((value) => Get.back());
+                  },
+                  child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 30.w, vertical: 30.w),
+                      child: Text("Save", style: heading5)),
+                ),
                 addHorizontalSpace(20.w)
               ],
             ),
             body: Obx(
               // userData
-              () => accountController.userData.value.logId == ""
+              () => accountController.loading.value == true
                   ? const Center(child: CircularProgressIndicator())
                   : SingleChildScrollView(
                       child: Padding(
@@ -74,9 +81,9 @@ class _AccountDetailsState extends State<AccountDetails> {
                             Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                SizedBox(
-                                  width: 200.sp,
-                                  height: 200.sp,
+                                InkWell(
+                                  onTap: () =>
+                                      bottomOption(context, accountController),
                                   child: Badge(
                                     badgeContent: Container(
                                       margin: EdgeInsets.symmetric(
@@ -88,22 +95,20 @@ class _AccountDetailsState extends State<AccountDetails> {
                                     ),
                                     badgeColor: COLOR_PRIMARY,
                                     position: BadgePosition.bottomEnd(),
-                                    child: ClipOval(
-                                        child: accountController
-                                                    .userData.value.uPhoto ==
-                                                null
-                                            ? Image.asset(
-                                                "lib/assets/images/user.png")
-                                            : ShowImage(
-                                                imageUrl: accountController
-                                                    .userData.value.uPhoto!)),
+                                    child: SizedBox(
+                                      height: 200.sp,
+                                      width: 200.sp,
+                                      child: ClipOval(
+                                          child: getProfileImage(
+                                              accountController)),
+                                    ),
                                   ),
                                 ),
                                 addHorizontalSpace(50.w),
                                 Expanded(
                                   child: textBox(
                                       onChange: (val) => accountController
-                                          .userData.value.uName,
+                                          .userData.value.uName = val,
                                       isEnable: true,
                                       hintText: "Sanaulla Shaikh",
                                       labelName: "Your Name",
@@ -115,8 +120,8 @@ class _AccountDetailsState extends State<AccountDetails> {
                             ),
                             addVerticalSpace(50.h),
                             textBox(
-                                onChange: (val) =>
-                                    accountController.userData.value.uAbout,
+                                onChange: (val) => accountController
+                                    .userData.value.uAbout = val,
                                 isEnable: true,
                                 hintText: "I like this etc..",
                                 labelName: "Tell something about you",
@@ -145,7 +150,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                                 Expanded(
                                   child: textBox(
                                       onChange: (val) => accountController
-                                          .userData.value.uPhone,
+                                          .userData.value.uPhone = val,
                                       isEnable: accountController
                                                   .userData.value.loginWith ==
                                               "phone"
@@ -164,8 +169,8 @@ class _AccountDetailsState extends State<AccountDetails> {
                                 style: messageLabel),
                             addVerticalSpace(30.h),
                             textBox(
-                                onChange: (val) =>
-                                    accountController.userData.value.uEmail,
+                                onChange: (val) => accountController
+                                    .userData.value.uEmail = val,
                                 isEnable: accountController
                                             .userData.value.loginWith ==
                                         "phone"

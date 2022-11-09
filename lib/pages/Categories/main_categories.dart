@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/categories.dart';
 import 'package:ubs/model/user_login.dart';
-import 'package:ubs/pages/Categories/sub_categories.dart';
+import 'package:ubs/pages/categories/sub_categories.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/custom_fun.dart';
 

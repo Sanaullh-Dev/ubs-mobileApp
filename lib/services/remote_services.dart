@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/categories.dart';
 import 'package:ubs/model/post_reaction.dart';
-import 'package:ubs/model/user_login.dart';
 import 'package:ubs/model/users_data.dart';
 import 'package:ubs/utils/constants.dart';
 
@@ -114,7 +113,7 @@ class RemoteServices {
 
     http.MultipartRequest request = http.MultipartRequest("POST", uri);
 
-    request = await imgFileAdd(adsPost, request);
+    request = await imgFileUploadAds(adsPost, request);
     request.fields["pTitle"] = adsPost.pTitle;
     request.fields["pBrand"] = adsPost.pBrand;
     request.fields["pDescribe"] = adsPost.pDescribe;
@@ -174,10 +173,13 @@ class RemoteServices {
   }
 
   static Future<List<AdsPost>?> fetchUserProfileAds(
-      String profile_userId, String userId) async {
+      String profileUserId, String userId) async {
     var uri = Uri.parse("$API_URL/adspost/userProfileAds");
 
-    Map<String, dynamic> bodyData = {'uid': profile_userId, 'uid_reaction': userId};
+    Map<String, dynamic> bodyData = {
+      'uid': profileUserId,
+      'uid_reaction': userId
+    };
     var client = http.Client();
 
     http.Response response = await client.post(uri, body: bodyData);
@@ -333,14 +335,36 @@ class RemoteServices {
     }
   }
 
+  // ---------------- update user data in database --------------------
+  static Future<bool> updateUserData(UsersData userData, String photoFrom) async {
+    var uri = Uri.parse("$API_URL/userLogin/updateUserProfile");
+
+    http.MultipartRequest request = http.MultipartRequest("POST", uri);
+
+    if(photoFrom == "local"){
+    request = await imgUploadUserProfile(userData.uPhoto, request);
+    }
+    request.fields["log_id"] = userData.logId;
+    request.fields["u_name"] = userData.uName;
+    request.fields["u_about"] = userData.uAbout ?? "";
+    request.fields["u_phone"] = userData.uPhone ?? "";
+    request.fields["u_email"] = userData.uEmail ?? "";
+    request.fields["u_photo"] = userData.uPhoto ?? "";
+
+    // var response = await request.send();
+    http.Response response =
+        await http.Response.fromStream(await request.send());
+    // print("Result: ${response.body}");
+
+    return response.statusCode == 200 ? true : false;
+  }
+
   // ---------- check user register or not ------------------
   static Future<UsersData?> checkUser(String userId) async {
     var client = http.Client();
 
     var uri = Uri.parse("$API_URL/userLogin/checkUser");
-
-    // var url = Uri.http(API_URL, "/userLogin/checkUser");
-
+    
     Map<String, dynamic> bodyData = {'uid': userId};
 
     var res = await client.post(uri, body: bodyData);
@@ -353,13 +377,13 @@ class RemoteServices {
   }
 
   // ---------- Post for Get OTP Login to API ------------------
-  static Future<dynamic> getOTP(String phone, String app_signature) async {
+  static Future<dynamic> getOTP(String phone, String appSignature) async {
     var client = http.Client();
 
     final uri = Uri.parse("$API_URL/userLogin/otpLogin");
     Map<String, dynamic> bodyData = {
       'phone': phone,
-      'app_signature': app_signature
+      'app_signature': appSignature
     };
 
     http.Response res = await client.post(uri, body: bodyData);
@@ -406,7 +430,7 @@ class RemoteServices {
   }
 }
 
-imgFileAdd(AdsPost adsPost, http.MultipartRequest request) async {
+imgFileUploadAds(AdsPost adsPost, http.MultipartRequest request) async {
   if (adsPost.pImg1.isNotEmpty) {
     http.MultipartFile multipartFile =
         await http.MultipartFile.fromPath("ads_image", adsPost.pImg1);
@@ -438,3 +462,16 @@ imgFileAdd(AdsPost adsPost, http.MultipartRequest request) async {
   }
   return request;
 }
+
+
+imgUploadUserProfile(String? Image_url, http.MultipartRequest request) async {
+  if (Image_url != null ) {
+    http.MultipartFile multipartFile =
+        await http.MultipartFile.fromPath("profile_photo", Image_url);
+    request.files.add(multipartFile);
+  }  
+  return request;
+}
+
+
+

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ubs/model/cats_board.dart';
-import 'package:ubs/pages/Chats/widgets/chart_list.dart';
+import 'package:ubs/pages/chats/widgets/chart_list.dart';
 import 'package:ubs/sharing_widget/sample_data.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';

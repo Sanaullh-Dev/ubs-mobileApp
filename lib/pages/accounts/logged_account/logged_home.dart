@@ -3,8 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/user_login.dart';
+import 'package:ubs/model/users_data.dart';
 import 'package:ubs/pages/accounts/controller/account_controller.dart';
 import 'package:ubs/pages/accounts/logged_account/account_details.dart';
+import 'package:ubs/pages/accounts/logged_account/widget/profile_image.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class LoggedHome extends StatefulWidget {
@@ -27,6 +29,7 @@ class _LoggedHomeState extends State<LoggedHome> {
 
   @override
   Widget build(BuildContext context) {
+    // UsersData userDt = accountController.userData.value;
     return Scaffold(
         body: Obx(
       () => accountController.userData.value.logId == ""
@@ -38,7 +41,8 @@ class _LoggedHomeState extends State<LoggedHome> {
                 children: [
                   const SizedBox(height: 50),
                   InkWell(
-                    onTap: () => Get.to(const AccountDetails()),
+                    onTap: () => Get.to(AccountDetails(
+                        userId: accountController.userData.value.logId)),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       child: Row(
@@ -46,7 +50,9 @@ class _LoggedHomeState extends State<LoggedHome> {
                           SizedBox(
                               width: 180.sp,
                               height: 180.sp,
-                              child: Image.asset("lib/assets/images/user.png")),
+                              child: ClipOval(
+                                child: getProfileImage(accountController),
+                              )),
                           const SizedBox(width: 20),
                           Expanded(
                             child: Column(
