@@ -7,6 +7,8 @@ import 'package:ubs/model/users_data.dart';
 import 'package:ubs/pages/accounts/controller/account_controller.dart';
 import 'package:ubs/pages/accounts/logged_account/account_details.dart';
 import 'package:ubs/pages/accounts/logged_account/widget/profile_image.dart';
+import 'package:ubs/pages/login/controller/login_controller.dart';
+import 'package:ubs/pages/main_page.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class LoggedHome extends StatefulWidget {
@@ -20,6 +22,7 @@ class LoggedHome extends StatefulWidget {
 class _LoggedHomeState extends State<LoggedHome> {
   var design = "";
   final AccountController accountController = Get.find<AccountController>();
+  final LoginController loginController = Get.find<LoginController>();
 
   @override
   void initState() {
@@ -120,7 +123,10 @@ class _LoggedHomeState extends State<LoggedHome> {
                     child: ElevatedButton(
                       child: Text("Log out",
                           style: buttonTextStyle.copyWith(color: Colors.black)),
-                      onPressed: () {},
+                      onPressed: () {
+                        loginController.logoutUser();
+                        Get.to(MainPage());
+                      },
                     ),
                   )
                 ],

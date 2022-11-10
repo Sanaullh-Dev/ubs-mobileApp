@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ubs/pages/login/controller/login_controller.dart';
 import 'package:ubs/pages/login/user_id/login_uid.dart';
+import 'package:ubs/pages/main_page.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +16,7 @@ class LoginHome extends StatefulWidget {
 }
 
 class _LoginHomeState extends State<LoginHome> {
-  final LoginController loginControl = Get.find<LoginController>();  
+  final LoginController loginControl = Get.find<LoginController>();
 
   @override
   void initState() {
@@ -26,7 +27,7 @@ class _LoginHomeState extends State<LoginHome> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;    
+    var height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: Container(
@@ -71,7 +72,9 @@ class _LoginHomeState extends State<LoginHome> {
                       btnIcon: FontAwesomeIcons.google,
                       width: width * 0.7,
                       onPressed: () {
-                        loginControl.googleLogin();
+                        loginControl
+                            .googleLogin()
+                            .then((value) => {Get.to(MainPage())});
                       },
                     ),
                     addVerticalSpace(30.h),

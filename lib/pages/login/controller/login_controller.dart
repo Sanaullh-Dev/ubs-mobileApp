@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ubs/model/user_login.dart';
+import 'package:ubs/model/users_data.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/services/secure_storage.dart';
 
@@ -48,28 +49,46 @@ class LoginController extends GetxController {
   }
 
   Future googleLogin() async {
-    loginStatus.value = "waiting";
-    final googleUser = await googleSignIn.signIn();
-    if (googleUser == null) {
-      loginStatus.value = "no";
-      return;
+    try {
+      loginStatus.value = "waiting";
+      final googleUser = await googleSignIn.signIn();
+      if (googleUser == null) {
+        loginStatus.value = "no";
+        return;
+      }
+      _user = googleUser;
+      final googleAuth = await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+
+      UserCredential usersDB =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      final user = FirebaseAuth.instance.currentUser!;
+
+      var userData = UsersData.fromJson({
+        "log_id": user.email,
+        "log_pass": "",
+        "u_name": user.displayName,
+        "login_with": "google",
+        "u_phone": "",
+        "u_email": user.email,
+      });
+
+      var res = await RemoteServices.addUser(userData, "google");
+      if (res != null) {
+        bool res = await writeSecure(user.email!, "");
+        if (res) {}
+      }
+
+      loginStatus.value = "login";
+    } catch (e) {
+      print(e);
     }
-    _user = googleUser;
-    final googleAuth = await googleUser.authentication;
-
-    final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-
-    await FirebaseAuth.instance.signInWithCredential(credential);
-    loginStatus.value = "login";
   }
 
-  // checking logging details
-  // void getLoginDetails() async {
-  //   if (prefs.getString("uid") != null) {
-  //     loginStatus.value = "login";
-  //   }else {
-  //     loginStatus.value = "no";
-  //   }
-  // }
+  logoutUser() {
+    _storageService.deleteSecureData("LoginId");
+    _storageService.deleteSecureData("LoginPass");
+  }
 }
