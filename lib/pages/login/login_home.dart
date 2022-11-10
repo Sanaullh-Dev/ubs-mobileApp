@@ -72,9 +72,12 @@ class _LoginHomeState extends State<LoginHome> {
                       btnIcon: FontAwesomeIcons.google,
                       width: width * 0.7,
                       onPressed: () {
-                        loginControl
-                            .googleLogin()
-                            .then((value) => {Get.to(MainPage())});
+                        loginControl.googleLogin().then((value) => {
+                              if (value == true)
+                                {
+                                  Get.to(MainPage()),
+                                }
+                            });
                       },
                     ),
                     addVerticalSpace(30.h),

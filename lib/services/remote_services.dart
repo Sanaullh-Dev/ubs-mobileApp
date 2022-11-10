@@ -313,7 +313,7 @@ class RemoteServices {
   // **************************** user login ************************************
 
   // ---------------- user registration ( user data save in database) --------------------
-  static Future<dynamic> addUser(UsersData userData, String loginType) async {
+  static Future<dynamic> addUser(UsersData userData) async {
     var client = http.Client();
 
     var uri = Uri.parse("$API_URL/userLogin/singUp");
@@ -321,6 +321,7 @@ class RemoteServices {
     bodyData = {
       'log_pass': userData.logPass,
       'u_name': userData.uName,
+      'u_photo': userData.uPhoto ?? null,
       'login_with': userData.loginWith,
       'u_phone': userData.uPhone,
       'u_email': userData.uEmail

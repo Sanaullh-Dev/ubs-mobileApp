@@ -46,7 +46,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
         "u_email": widget.loginType == "phone" ? "" : widget.userId,
       });
 
-      var res = await RemoteServices.addUser(userData!, widget.loginType);
+      var res = await RemoteServices.addUser(userData!);
       if (res != null) {
         bool res = await loginCont.writeSecure(widget.userId, password.text);
         if (res) {

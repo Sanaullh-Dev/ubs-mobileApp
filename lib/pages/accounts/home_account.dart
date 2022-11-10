@@ -8,8 +8,6 @@ class HomeAccount extends StatelessWidget {
   final UserLogin userLogin;
   const HomeAccount({super.key ,  required this.userLogin});
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

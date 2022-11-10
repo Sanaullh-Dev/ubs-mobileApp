@@ -21,11 +21,11 @@ const fillColor = Color.fromRGBO(222, 231, 240, .57);
 // const String API_URL = "http://localhost:8080";
 
 // this link for emulator connect with api
-// const String API_URL = "http://10.0.2.2:8080";
+const String API_URL = "http://10.0.2.2:8080";
 
 // this link for real device connect with api (for check ip command ipconfig)
 // const String API_URL = "http://192.168.1.9:8080"; // my laptop
-const String API_URL = "http://192.168.1.104:8080"; // my SPC PC
+// const String API_URL = "http://192.168.1.104:8080"; // my SPC PC
 
 // AWS Host - Online API_URL;
 // const String API_URL = "http://44.197.196.6:8080";

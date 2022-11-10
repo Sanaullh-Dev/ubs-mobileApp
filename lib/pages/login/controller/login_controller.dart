@@ -23,14 +23,15 @@ class LoginController extends GetxController {
   }
 
   void getSecureValue() async {
+    // _storageService.deleteSecureData("LoginId");
     var userId = await _storageService.readSecureData("LoginId");
     var Upass = await _storageService.readSecureData("LoginPass");
-    if (userId == null || Upass == null) {
+    if (userId == null) {
       loginStatus.value = "no";
     } else {
-      var res = await RemoteServices.userLogin(userId, Upass);
+      var res = await RemoteServices.userLogin(userId, Upass ?? "");
       if (res == "logged") {
-        uData.value = UserLogin(userId: userId, upass: Upass);
+        uData.value = UserLogin(userId: userId, upass: Upass ?? "");
         loginStatus.value = "logged";
       }
     }
@@ -48,43 +49,49 @@ class LoginController extends GetxController {
     }
   }
 
-  Future googleLogin() async {
+  Future<bool?> googleLogin() async {
     try {
       loginStatus.value = "waiting";
       final googleUser = await googleSignIn.signIn();
       if (googleUser == null) {
         loginStatus.value = "no";
-        return;
+        return false;
       }
-      _user = googleUser;
-      final googleAuth = await googleUser.authentication;
+      // _user = googleUser;
+      // final googleAuth = await googleUser.authentication;
+      // final credential = GoogleAuthProvider.credential(
+      //     accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
 
-      final credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-
-      UserCredential usersDB =
-          await FirebaseAuth.instance.signInWithCredential(credential);
+      // UserCredential usersDB =
+      //     await FirebaseAuth.instance.signInWithCredential(credential);
       final user = FirebaseAuth.instance.currentUser!;
 
-      var userData = UsersData.fromJson({
-        "log_id": user.email,
-        "log_pass": "",
-        "u_name": user.displayName,
-        "login_with": "google",
-        "u_phone": "",
-        "u_email": user.email,
-      });
+      var res = await RemoteServices.checkUser(user.email!);
+      if (res == null) {
+        var userData = UsersData.fromJson({
+          "log_id": user.email,
+          "log_pass" : "",
+          "u_name": user.displayName,
+          "login_with": "google",
+          "u_phone": "",
+          "u_photo": user.photoURL,
+          "u_email": user.email,
+        });
 
-      var res = await RemoteServices.addUser(userData, "google");
-      if (res != null) {
-        bool res = await writeSecure(user.email!, "");
-        if (res) {}
+        var res = await RemoteServices.addUser(userData);
+        if (res != null) {
+          await writeSecure(user.email!, "");
+          loginStatus.value = "login";
+          return true;
+        }
+      } else {
+        await writeSecure(user.email!, "");
+        return true;
       }
-
-      loginStatus.value = "login";
     } catch (e) {
       print(e);
     }
+    return null;
   }
 
   logoutUser() {
