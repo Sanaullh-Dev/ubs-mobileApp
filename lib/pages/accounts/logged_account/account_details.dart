@@ -100,9 +100,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                                       width: 200.sp,
                                       child: ClipOval(
                                           child: getProfileImage(
-                                              accountController,
-                                              accountController
-                                                  .userData.value.loginWith)),
+                                              accountController)),
                                     ),
                                   ),
                                 ),

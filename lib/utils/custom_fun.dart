@@ -7,10 +7,14 @@ String formatCurrency(num amount, {int decimalCount = 0}) {
   return formatCurrency.format(amount);
 }
 
-  // Get path to Link convert 
-  String getLink(String? path){
-    if(path != null && path != ""){
-    return "$API_URL/${path.replaceAll("\\", "/")}";
+// Get path to Link convert
+String getLink(String? path) {
+  if (path != null && path != "") {
+    var ck = path.substring(0, 4); // http
+    if (ck == "http") {
+      return path;
     }
-    return "";
+    return "$API_URL/${path.replaceAll("\\", "/")}";
   }
+  return "";
+}

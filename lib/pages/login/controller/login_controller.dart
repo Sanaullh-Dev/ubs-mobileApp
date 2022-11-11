@@ -9,8 +9,8 @@ import 'package:ubs/services/secure_storage.dart';
 class LoginController extends GetxController {
   static final StorageService _storageService = StorageService();
   final googleSignIn = GoogleSignIn();
-  GoogleSignInAccount? _user;
-  GoogleSignInAccount get user => _user!;
+  // GoogleSignInAccount? _user;
+  // GoogleSignInAccount get user => _user!;
   RxString loginId = "".obs;
   Rx<String> loginStatus = "checking".obs;
   Rx<UserLogin> uData = UserLogin(userId: "", upass: "").obs;
@@ -56,37 +56,29 @@ class LoginController extends GetxController {
       if (googleUser == null) {
         loginStatus.value = "no";
         return false;
-      }
-      // _user = googleUser;
-      // final googleAuth = await googleUser.authentication;
-      // final credential = GoogleAuthProvider.credential(
-      //     accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+      } else {
+        var res = await RemoteServices.checkUser(googleUser.email);
+        if (res == null) {
+          var userData = UsersData.fromJson({
+            "log_id": googleUser.email,
+            "log_pass": "",
+            "u_name": googleUser.displayName,
+            "login_with": "google",
+            "u_phone": "",
+            "u_photo": googleUser.photoUrl,
+            "u_email": googleUser.email,
+          });
 
-      // UserCredential usersDB =
-      //     await FirebaseAuth.instance.signInWithCredential(credential);
-      final user = FirebaseAuth.instance.currentUser!;
-
-      var res = await RemoteServices.checkUser(user.email!);
-      if (res == null) {
-        var userData = UsersData.fromJson({
-          "log_id": user.email,
-          "log_pass" : "",
-          "u_name": user.displayName,
-          "login_with": "google",
-          "u_phone": "",
-          "u_photo": user.photoURL,
-          "u_email": user.email,
-        });
-
-        var res = await RemoteServices.addUser(userData);
-        if (res != null) {
-          await writeSecure(user.email!, "");
-          loginStatus.value = "login";
+          var res = await RemoteServices.addUser(userData);
+          if (res != null) {
+            await writeSecure(googleUser.email, "");
+            loginStatus.value = "login";
+            return true;
+          }
+        } else {
+          await writeSecure(googleUser.email, "");
           return true;
         }
-      } else {
-        await writeSecure(user.email!, "");
-        return true;
       }
     } catch (e) {
       print(e);
@@ -99,3 +91,13 @@ class LoginController extends GetxController {
     _storageService.deleteSecureData("LoginPass");
   }
 }
+
+
+// _user = googleUser;
+// final googleAuth = await googleUser.authentication;
+// final credential = GoogleAuthProvider.credential(
+//     accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+
+// UserCredential usersDB =
+//     await FirebaseAuth.instance.signInWithCredential(credential);
+// final user = FirebaseAuth.instance.currentUser;

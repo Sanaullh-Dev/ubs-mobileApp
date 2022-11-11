@@ -24,9 +24,7 @@ class AccountController extends GetxController {
       userData.value = res;
       if (userData.value.uPhoto != null) {
         isPhoto.value = "url";
-        if(userData.value.loginWith !="google"){
         userPhoto = File(getLink(userData.value.uPhoto));
-        }
       }
     }
   }

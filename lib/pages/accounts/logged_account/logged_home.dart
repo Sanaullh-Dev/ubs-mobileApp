@@ -54,8 +54,7 @@ class _LoggedHomeState extends State<LoggedHome> {
                               width: 180.sp,
                               height: 180.sp,
                               child: ClipOval(
-                                child: getProfileImage(accountController,
-                                    accountController.userData.value.loginWith),
+                                child: getProfileImage(accountController),
                               )),
                           const SizedBox(width: 20),
                           Expanded(

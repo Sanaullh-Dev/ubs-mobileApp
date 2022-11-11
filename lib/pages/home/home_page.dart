@@ -50,7 +50,7 @@ class LatestPost extends StatefulWidget {
   final UserLogin userData;
   final Size size;
   final TextTheme textTheme;
-  LatestPost(
+  const LatestPost(
       {super.key,
       required this.size,
       required this.textTheme,
