@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ubs/pages/accounts/controller/account_controller.dart';
 import 'package:ubs/sharing_widget/show_image.dart';
-import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/custom_fun.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -24,14 +23,14 @@ class GetProfileImage extends StatelessWidget {
             offset: Offset(1, 1),
             blurStyle: BlurStyle.normal,
             blurRadius: 5,
-            color: Color.fromARGB(132, 0, 0, 0),
+            color: Color.fromARGB(37, 0, 0, 0),
           )
         ],
         borderRadius: const BorderRadius.all(Radius.circular(100)),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(100.0),
-        child: getImage(),
+        child: Obx(() => getImage()),
       ),
     );
   }

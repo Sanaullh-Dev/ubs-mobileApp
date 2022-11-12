@@ -14,7 +14,9 @@ import 'package:get/get.dart';
 
 class DashboardPage extends StatefulWidget {
   final UserLogin userData;
-  const DashboardPage({super.key, required this.userData});
+  final int selectPage;
+  const DashboardPage(
+      {super.key, required this.userData, required this.selectPage});
 
   @override
   State<DashboardPage> createState() => _DashboardPageState();
@@ -27,6 +29,7 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
     super.initState();
+    selectPage.value = widget.selectPage;
   }
 
   //  final mainCont = Get.find<MainController>();

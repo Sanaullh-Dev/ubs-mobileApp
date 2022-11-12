@@ -4,10 +4,8 @@ import 'package:get/get.dart';
 import 'package:ubs/pages/accounts/controller/account_controller.dart';
 import 'package:ubs/pages/accounts/logged_account/widget/bottom_option.dart';
 import 'package:ubs/pages/accounts/logged_account/widget/profile_image.dart';
-import 'package:ubs/sharing_widget/show_image.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
-import 'package:ubs/utils/custom_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

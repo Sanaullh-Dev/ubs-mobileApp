@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/user_login.dart';
+import 'package:ubs/pages/home/home_page.dart';
 import 'package:ubs/pages/my_ads/controller/my_ads_controller.dart';
 import 'package:ubs/pages/my_ads/my_ads/view_ads/view_my_ads.dart';
-import 'package:ubs/services/remote_services.dart';
+import 'package:ubs/pages/my_ads/widgets/empty_page.dart';
+import 'package:ubs/pages/selling/sale_main_categories.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
-import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/custom_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 
@@ -33,9 +33,19 @@ class _MyAdsListState extends State<MyAdsList> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
     return Obx(
       () => myAdsController.mySalesAdsList.value.isEmpty
-          ? const Center(child: CircularProgressIndicator())
+          ? myAdsController.myAdsLoading.value == true
+              ? const Center(child: CircularProgressIndicator())
+              : EmptyPage(
+                  size: size,
+                  btnName: "Post",
+                  onBtnPress: () {
+                    Get.to(SaleMainCategories(userData: widget.userLogin));
+                  },
+                  imagePath: "lib/assets/images/my_ads.png")
           : ListView.builder(
               itemCount: myAdsController.mySalesAdsList.value.length,
               itemBuilder: (BuildContext context, int index) {

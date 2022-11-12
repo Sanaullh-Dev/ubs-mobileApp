@@ -143,3 +143,15 @@ TextStyle sectionTitle = GoogleFonts.poppins(
     fontSize: 22.sp,
     fontWeight: FontWeight.w600,
     letterSpacing: 1);
+
+TextStyle subTitle2 = TextStyle(
+    color: COLOR_BLACK,
+    fontSize: 28.sp,
+    fontWeight: FontWeight.w400,
+    fontFamily: "Roboto");
+
+TextStyle trailingTestStyle = TextStyle(
+    // color: COLOR_LIGHT_BLACK,
+    fontSize: 22.sp,
+    fontWeight: FontWeight.w400,
+    fontFamily: "Roboto");

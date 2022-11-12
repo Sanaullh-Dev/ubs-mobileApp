@@ -3,6 +3,7 @@ import 'package:ubs/model/cats_board.dart';
 import 'package:ubs/pages/chats/widgets/chats_ListTiles.dart';
 import 'package:ubs/pages/chats/widgets/filters_btn.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChartList extends StatelessWidget {
   final List<ChatBoard> chatBoard;
@@ -15,11 +16,12 @@ class ChartList extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 8, bottom: 4, left: 15),
+          const SizedBox(height: 15),
+          Padding(
+            padding: const EdgeInsets.only(top: 8, bottom: 4, left: 15),
             child: Text(
               "Quick Filters",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: 35.sp, fontWeight: FontWeight.w500),
             ),
           ),
           Padding(
@@ -27,17 +29,17 @@ class ChartList extends StatelessWidget {
             child: Wrap(
               children: [
                 const FiltersButtons(btnTitle: "All", isActive: true),
-                addHorizontalSpace(10),
+                addHorizontalSpace(15),
                 const FiltersButtons(
                   btnTitle: "Meeting",
                   isActive: false,
                 ),
-                addHorizontalSpace(10),
+                addHorizontalSpace(15),
                 const FiltersButtons(
                   btnTitle: "Unread",
                   isActive: false,
                 ),
-                addHorizontalSpace(10),
+                addHorizontalSpace(15),
                 const FiltersButtons(
                   btnTitle: "Imports",
                   isActive: false,

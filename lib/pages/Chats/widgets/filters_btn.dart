@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ubs/utils/constants.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FiltersButtons extends StatelessWidget {
   final String btnTitle;
@@ -23,11 +24,11 @@ class FiltersButtons extends StatelessWidget {
       ),
       onPressed: () {},
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 1),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
         child: Text(
           btnTitle,
           style: TextStyle(
-              fontSize: 12,
+              fontSize: 30.sp,
               color: Colors.blueGrey.shade400,
               fontWeight: FontWeight.w500),
         ),

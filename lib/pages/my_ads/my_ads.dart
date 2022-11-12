@@ -52,7 +52,7 @@ class _MyAdsState extends State<MyAds> {
             },
             body: TabBarView(children: [
               MyAdsList(userLogin: widget.userData),
-              FavoritesList(userData: widget.userData),
+              FavoritesList(userLogin: widget.userData),
             ]),
           ),
         ),

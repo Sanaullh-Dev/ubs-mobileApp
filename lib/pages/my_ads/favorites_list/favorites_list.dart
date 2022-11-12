@@ -4,7 +4,10 @@ import 'package:ubs/model/ads_post.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/post_reaction.dart';
 import 'package:ubs/model/user_login.dart';
+import 'package:ubs/pages/dashboard/dashboard.dart';
+import 'package:ubs/pages/home/home_page.dart';
 import 'package:ubs/pages/my_ads/controller/my_ads_controller.dart';
+import 'package:ubs/pages/my_ads/widgets/empty_page.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
@@ -12,8 +15,8 @@ import 'package:ubs/utils/custom_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class FavoritesList extends StatefulWidget {
-  final UserLogin userData;
-  const FavoritesList({super.key, required this.userData});
+  final UserLogin userLogin;
+  const FavoritesList({super.key, required this.userLogin});
 
   @override
   State<FavoritesList> createState() => _FavoritesListState();
@@ -25,31 +28,42 @@ class _FavoritesListState extends State<FavoritesList> {
   @override
   void initState() {
     super.initState();
-    myAdsController.fetchFavoriteAds(widget.userData.userId);
+    myAdsController.fetchFavoriteAds(widget.userLogin.userId);
   }
 
   void addPostReaction(AdsPost ads) async {
     PostReaction postReaction = PostReaction(
-        uid: widget.userData.userId,
+        uid: widget.userLogin.userId,
         pid: ads.pId!,
         pFavorite: ads.pFavorite == 1 ? 0 : 1,
         pView: ads.pView ?? 0);
     var res = await RemoteServices.addPostReaction(postReaction);
     if (res) {
-      myAdsController.fetchFavoriteAds(widget.userData.userId);
+      myAdsController.fetchFavoriteAds(widget.userLogin.userId);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // final Size size = MediaQuery.of(context).size;
+    final Size size = MediaQuery.of(context).size;
     // double imgSize = size.width * 0.15;
 
     return Padding(
       padding: EdgeInsets.only(top: 10.h),
       child: Obx(
         () => myAdsController.adsList.value.isEmpty
-            ? const Center(child: CircularProgressIndicator())
+            ? myAdsController.favoritesAdsLoading.value == true
+                ? const Center(child: CircularProgressIndicator())
+                : EmptyPage(
+                    size: size,
+                    btnName: "Discover",
+                    onBtnPress: () {
+                      Get.offAll(DashboardPage(
+                        userData: widget.userLogin,
+                        selectPage: 0,
+                      ));
+                    },
+                    imagePath: "lib/assets/images/favorites_list.png")
             : ListView.builder(
                 itemCount: myAdsController.adsList.value.length,
                 itemBuilder: (BuildContext context, int index) {

@@ -40,7 +40,7 @@ class _ChatsDashboardState extends State<ChatsDashboard> {
                   title: Container(
                       width: MediaQuery.of(context).size.width,
                       padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: const Text("Chats")),
+                      child: Text("Chats", style: heading2InBold)),
                 ),
                 SliverAppBar(
                   pinned: true,

@@ -22,7 +22,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    loginController.getSecureValue();    
+    loginController.getSecureValue();
   }
 
   //  final mainCont = Get.find<MainController>();
@@ -33,10 +33,11 @@ class _MainPageState extends State<MainPage> {
       child: Obx(
         () {
           if (loginController.loginStatus.value == "logged") {
-            return DashboardPage(userData: loginController.uData.value);
+            return DashboardPage(
+                userData: loginController.uData.value, selectPage: 0);
           }
           if (loginController.loginStatus.value == "checking") {
-            return Scaffold(              
+            return Scaffold(
               body: Center(
                 child: SizedBox(
                     height: 300.sp,
