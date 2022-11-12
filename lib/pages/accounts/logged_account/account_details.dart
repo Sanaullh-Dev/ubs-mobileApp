@@ -85,24 +85,17 @@ class _AccountDetailsState extends State<AccountDetails> {
                                   onTap: () =>
                                       bottomOption(context, accountController),
                                   child: Badge(
-                                    badgeContent: Container(
-                                      margin: EdgeInsets.symmetric(
-                                          horizontal: 10.sp, vertical: 20.sp),
-                                      child: Icon(
-                                        Icons.edit_outlined,
-                                        size: 50.sp,
+                                      badgeContent: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 10.sp, vertical: 20.sp),
+                                        child: Icon(
+                                          Icons.edit_outlined,
+                                          size: 50.sp,
+                                        ),
                                       ),
-                                    ),
-                                    badgeColor: COLOR_PRIMARY,
-                                    position: BadgePosition.bottomEnd(),
-                                    child: SizedBox(
-                                      height: 200.sp,
-                                      width: 200.sp,
-                                      child: ClipOval(
-                                          child: getProfileImage(
-                                              accountController)),
-                                    ),
-                                  ),
+                                      badgeColor: COLOR_PRIMARY,
+                                      position: BadgePosition.bottomEnd(),
+                                      child: GetProfileImage(imgSize: 200)),
                                 ),
                                 addHorizontalSpace(50.w),
                                 Expanded(

@@ -9,6 +9,7 @@ import 'package:ubs/pages/accounts/logged_account/account_details.dart';
 import 'package:ubs/pages/accounts/logged_account/widget/profile_image.dart';
 import 'package:ubs/pages/login/controller/login_controller.dart';
 import 'package:ubs/pages/main_page.dart';
+import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class LoggedHome extends StatefulWidget {
@@ -50,12 +51,7 @@ class _LoggedHomeState extends State<LoggedHome> {
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       child: Row(
                         children: [
-                          SizedBox(
-                              width: 180.sp,
-                              height: 180.sp,
-                              child: ClipOval(
-                                child: getProfileImage(accountController),
-                              )),
+                          GetProfileImage(imgSize: 180),
                           const SizedBox(width: 20),
                           Expanded(
                             child: Column(

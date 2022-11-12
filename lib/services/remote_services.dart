@@ -337,20 +337,23 @@ class RemoteServices {
   }
 
   // ---------------- update user data in database --------------------
-  static Future<bool> updateUserData(UsersData userData, String photoFrom) async {
+  static Future<bool> updateUserData(
+      UsersData userData, String photoFrom) async {
     var uri = Uri.parse("$API_URL/userLogin/updateUserProfile");
 
     http.MultipartRequest request = http.MultipartRequest("POST", uri);
 
-    if(photoFrom == "local"){
-    request = await imgUploadUserProfile(userData.uPhoto, request);
+    if (photoFrom == "local") {
+      request = await imgUploadUserProfile(userData.uPhoto, request);
+      // request.fields["u_photo"] = "";
+    } else {
+      request.fields["u_photo"] = userData.uPhoto ?? "";
     }
     request.fields["log_id"] = userData.logId;
     request.fields["u_name"] = userData.uName;
     request.fields["u_about"] = userData.uAbout ?? "";
     request.fields["u_phone"] = userData.uPhone ?? "";
     request.fields["u_email"] = userData.uEmail ?? "";
-    request.fields["u_photo"] = userData.uPhoto ?? "";
 
     // var response = await request.send();
     http.Response response =
@@ -365,7 +368,7 @@ class RemoteServices {
     var client = http.Client();
 
     var uri = Uri.parse("$API_URL/userLogin/checkUser");
-    
+
     Map<String, dynamic> bodyData = {'uid': userId};
 
     var res = await client.post(uri, body: bodyData);
@@ -464,15 +467,11 @@ imgFileUploadAds(AdsPost adsPost, http.MultipartRequest request) async {
   return request;
 }
 
-
 imgUploadUserProfile(String? Image_url, http.MultipartRequest request) async {
-  if (Image_url != null ) {
+  if (Image_url != null) {
     http.MultipartFile multipartFile =
         await http.MultipartFile.fromPath("profile_photo", Image_url);
     request.files.add(multipartFile);
-  }  
+  }
   return request;
 }
-
-
-

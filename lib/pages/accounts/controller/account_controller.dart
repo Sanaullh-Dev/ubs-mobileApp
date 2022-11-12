@@ -11,7 +11,7 @@ class AccountController extends GetxController {
       UsersData(logId: "", logPass: "", uName: "", loginWith: "").obs;
   RxBool loading = false.obs;
   RxString isPhoto = "".obs;
-  File? userPhoto;
+  Rx<File> userPhoto = File("").obs;
 
   // @override
   // void onInit() {
@@ -19,12 +19,14 @@ class AccountController extends GetxController {
   // }
 
   void fetchUserData(String userId) async {
+    userPhoto.value = File("");
+    isPhoto.value = "";
     var res = await RemoteServices.checkUser(userId);
     if (res != null) {
       userData.value = res;
       if (userData.value.uPhoto != null) {
         isPhoto.value = "url";
-        userPhoto = File(getLink(userData.value.uPhoto));
+        userPhoto.value = File(getLink(userData.value.uPhoto));
       }
     }
   }
@@ -32,7 +34,7 @@ class AccountController extends GetxController {
   Future<bool> updateUserData() async {
     loading.value = true;
     if (userPhoto != null) {
-      userData.value.uPhoto = userPhoto!.path;
+      userData.value.uPhoto = userPhoto.value.path;
     }
     var res =
         await RemoteServices.updateUserData(userData.value, isPhoto.value);
@@ -46,7 +48,7 @@ class AccountController extends GetxController {
           source:
               pickType == "gallery" ? ImageSource.gallery : ImageSource.camera);
       if (image == null) return;
-      userPhoto = File(image.path);
+      userPhoto.value = File(image.path);
       isPhoto.value = "local";
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
@@ -55,7 +57,7 @@ class AccountController extends GetxController {
 
   removerImage() {
     isPhoto.value = "";
-    userPhoto = null;
+    userPhoto.value = File("");
     userData.value.uPhoto = "";
   }
 }
