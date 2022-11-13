@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ubs/model/cats_board.dart';
+import 'package:ubs/pages/Chats/widgets/chats_firebase.dart';
 import 'package:ubs/pages/chats/widgets/chart_list.dart';
 import 'package:ubs/sharing_widget/sample_data.dart';
 import 'package:ubs/utils/constants.dart';
@@ -64,12 +66,18 @@ class _ChatsDashboardState extends State<ChatsDashboard> {
                 )
               ];
             },
-            body: TabBarView(
-              children: [
-              ChartList(chatBoard:chatBoard),
+            body: TabBarView(children: [
+              const ChartFirebase(),
               // ChartList(chatBoard:chatBoard),
-              ChartList(chatBoard:chatBoard.where((ChatBoard cb) => cb.postType == "Buy").toList()),
-              ChartList(chatBoard:chatBoard.where((ChatBoard cb) => cb.postType == "Sale").toList()),              
+              // ChartList(chatBoard:chatBoard),
+              ChartList(
+                  chatBoard: chatBoard
+                      .where((ChatBoard cb) => cb.postType == "Buy")
+                      .toList()),
+              ChartList(
+                  chatBoard: chatBoard
+                      .where((ChatBoard cb) => cb.postType == "Sale")
+                      .toList()),
             ]),
           ),
         ),

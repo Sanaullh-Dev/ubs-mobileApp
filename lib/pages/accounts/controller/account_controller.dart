@@ -13,11 +13,6 @@ class AccountController extends GetxController {
   RxString isPhoto = "".obs;
   Rx<File> userPhoto = File("").obs;
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  // }
-
   void fetchUserData(String userId) async {
     userPhoto.value = File("");
     isPhoto.value = "";

@@ -14,19 +14,19 @@ Future bottomOption(BuildContext context, AccountController accCont) {
           child: ListView(
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
             children: [
-              listTile(
+              customsTile(
                   Icons.camera_alt_outlined,
                   "Take a picture",
                   () => accCont
                       .imagePickFromGallery("camera")
                       .then((value) => Navigator.pop(context))),
-              listTile(
+              customsTile(
                   Icons.photo_outlined,
                   "Select from Gallery",
                   () => accCont
                       .imagePickFromGallery("gallery")
                       .then((value) => Navigator.pop(context))),
-              listTile(FontAwesomeIcons.trashCan, "Remove picture",
+              customsTile(FontAwesomeIcons.trashCan, "Remove picture",
                   () => {accCont.removerImage(), Navigator.pop(context)}),
             ],
           ),
@@ -34,7 +34,7 @@ Future bottomOption(BuildContext context, AccountController accCont) {
       });
 }
 
-Widget listTile(IconData icon, String labelName, VoidCallback onPress) {
+Widget customsTile(IconData icon, String labelName, VoidCallback onPress) {
   return ListTile(
     contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
     onTap: onPress,
