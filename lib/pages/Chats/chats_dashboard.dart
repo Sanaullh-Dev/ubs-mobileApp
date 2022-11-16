@@ -18,7 +18,7 @@ class ChatsDashboard extends StatefulWidget {
 }
 
 class _ChatsDashboardState extends State<ChatsDashboard> {
-  final ChatsController chatsController = Get.find<ChatsController>();
+  final dashboard chatsController = Get.find<dashboard>();
   List<ChatBoard> chatBoard = [];
 
   @override

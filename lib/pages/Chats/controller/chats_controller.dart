@@ -4,7 +4,7 @@ import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/cats_board.dart';
 import 'package:ubs/services/firestore_service.dart';
 
-class ChatsController extends GetxController {
+class dashboard extends GetxController {
   Rx<Stream<QuerySnapshot>> chatsRoom = const Stream<QuerySnapshot>.empty().obs;
   RxList<String> chatsUserId = <String>["917499604663"].obs;
 
@@ -40,7 +40,7 @@ class ChatsController extends GetxController {
   //   chatsRoom.value = FirebaseFirestore.instance
   //       .collection('ChatsRoom')
   //       .where('users', arrayContains: loginUser)
-  //       .snapshots();
+  //       .snapshots(); dashboard
   //   // print("data : " + chatsRoom.value.toString());
   // }
 

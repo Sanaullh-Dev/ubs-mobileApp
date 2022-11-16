@@ -20,7 +20,7 @@ class ChartFirebase1 extends StatefulWidget {
 }
 
 class _ChartFirebase1State extends State<ChartFirebase1> {
-  final ChatsController chatsController = Get.find<ChatsController>();
+  final dashboard chatsController = Get.find<dashboard>();
 
   @override
   void initState() {
