@@ -57,7 +57,7 @@ class LoginController extends GetxController {
         loginStatus.value = "no";
         return false;
       } else {
-        var res = await RemoteServices.checkUser(googleUser.email);
+        var res = await RemoteServices.getUserData(googleUser.email);
         if (res == null) {
           var userData = UsersData.fromJson({
             "log_id": googleUser.email,

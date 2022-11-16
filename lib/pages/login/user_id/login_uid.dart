@@ -45,7 +45,7 @@ class LoginUid extends StatelessWidget {
               labelText: signType == "phone" ? "Get OTP" : "Next",
               onPress: () async {
                 String userId = "91${loginControl.loginId.value}";
-                UsersData? ck = await RemoteServices.checkUser(userId);
+                UsersData? ck = await RemoteServices.getUserData(userId);
                 if (ck == null) {
                   if (signType == "phone") {
                     if (loginControl.loginId.value.length <= 10) {

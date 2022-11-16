@@ -53,10 +53,11 @@ class MyApp extends StatelessWidget {
           routes: {
             '/': (context) => MainPage(),
             '/home': (context) => MainPage(),
-            '/chat': (context) => const ChatsDashboard(),
+            '/chat': (context) =>
+                ChatsDashboard(userLogin: UserLogin(upass: "", userId: "")),
             '/chatDetails': (context) => const ChatIndividual(),
-            '/SaleMainCategories': (context) => SaleMainCategories(
-                userData: UserLogin(userId: "", upass: "")),
+            '/SaleMainCategories': (context) =>
+                SaleMainCategories(userData: UserLogin(userId: "", upass: "")),
           },
         );
       },

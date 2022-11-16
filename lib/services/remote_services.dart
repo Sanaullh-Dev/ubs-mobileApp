@@ -364,7 +364,7 @@ class RemoteServices {
   }
 
   // ---------- check user register or not ------------------
-  static Future<UsersData?> checkUser(String userId) async {
+  static Future<UsersData?> getUserData(String userId) async {
     var client = http.Client();
 
     var uri = Uri.parse("$API_URL/userLogin/checkUser");

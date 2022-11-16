@@ -16,7 +16,7 @@ class AccountController extends GetxController {
   void fetchUserData(String userId) async {
     userPhoto.value = File("");
     isPhoto.value = "";
-    var res = await RemoteServices.checkUser(userId);
+    var res = await RemoteServices.getUserData(userId);
     if (res != null) {
       userData.value = res;
       if (userData.value.uPhoto != null) {

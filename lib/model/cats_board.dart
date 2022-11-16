@@ -9,8 +9,8 @@ class ChatBoard {
       required this.userName,
       required this.userImg,
       required this.userLastSeen,
-      required this.lastMessage,
-      required this.messageStatus,
+      this.lastMessage,
+      this.messageStatus,
       required this.postTitle,
       required this.postImg,
       required this.price,
@@ -20,8 +20,8 @@ class ChatBoard {
     final String userName;
     final String userImg;
     final DateTime userLastSeen;
-    final String lastMessage;
-    final String messageStatus;
+    final String? lastMessage;
+    final String? messageStatus;
     final String postTitle;
     final String postImg;
     final int price;

@@ -12,6 +12,9 @@ import 'package:ubs/pages/Post_details/widget/image_slider.dart';
 import 'package:ubs/pages/Post_details/widget/title_bar.dart';
 import 'package:ubs/pages/Post_details/widget/userinfo_bar.dart';
 import 'package:ubs/pages/accounts/profile_page.dart/user_profile.dart';
+import 'package:ubs/pages/chats/chats_dashboard.dart';
+import 'package:ubs/pages/chats/controller/chats_controller.dart';
+import 'package:ubs/pages/dashboard/dashboard.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
@@ -30,6 +33,7 @@ class PostDetails extends StatefulWidget {
 class _PostDetailsState extends State<PostDetails> {
   final PostDetailsController postDetController =
       Get.find<PostDetailsController>();
+  final dashboard chatsController = Get.find<dashboard>();
   final HomeController homeCont = Get.find<HomeController>();
   Rx<UsersData>? userData;
 
@@ -54,7 +58,7 @@ class _PostDetailsState extends State<PostDetails> {
     await RemoteServices.addPostReaction(postReaction);
     await postDetController.getAdsPostDetails(widget.adsPostData);
 
-    var res = await RemoteServices.checkUser(widget.adsPostData.pUid);
+    var res = await RemoteServices.getUserData(widget.adsPostData.pUid);
     if (res != null) {
       userData?.value = res;
     }
@@ -127,6 +131,7 @@ class _PostDetailsState extends State<PostDetails> {
                         // Title - Related Added
                         const SizedBox(height: 40),
                         addDivider(),
+                        // User Profile Bar
                         InkWell(
                           onTap: () {
                             Get.to(UserProfile(
@@ -211,7 +216,18 @@ class _PostDetailsState extends State<PostDetails> {
                 children: [
                   Expanded(
                     child: TextButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        chatsController
+                            .addChatRoom(
+                                loggedUser: widget.userData.userId,
+                                adsPostData: postDetController.adsPost.value)
+                            .then((value) {
+                          if (value) {
+                            Get.offAll(DashboardPage(
+                                userData: widget.userData, selectPage: 1));
+                          }
+                        });
+                      },
                       icon: Icon(
                         FontAwesomeIcons.comment,
                         size: 45.sp,

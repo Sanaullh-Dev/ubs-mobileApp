@@ -52,7 +52,9 @@ class ChartList extends StatelessWidget {
             shrinkWrap: true,
             itemCount: chatBoard.length,
             itemBuilder: (BuildContext context, int index) {
-              return ChatsListTitle(chatData: chatBoard[index],);
+              return ChatsListTitle(
+                userId:"sanaulla",
+                chatData: chatBoard[index],);
             },
           ),
         ],

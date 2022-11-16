@@ -37,7 +37,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     final pageOptions = [
       HomePage(userData: widget.userData),
-      const ChatsDashboard(),
+      ChatsDashboard(userLogin: widget.userData),
       HomePage(userData: widget.userData),
       MyAds(userData: widget.userData),
       // const HomeAccount(),
