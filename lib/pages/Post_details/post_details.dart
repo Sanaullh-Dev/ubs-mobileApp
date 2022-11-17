@@ -6,15 +6,14 @@ import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/post_reaction.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/model/users_data.dart';
+import 'package:ubs/pages/Chats/chat_individual/charts_individual.dart';
+import 'package:ubs/pages/Chats/controller/chats_controller.dart';
 import 'package:ubs/pages/Post_details/controller/post_details_controller.dart';
 import 'package:ubs/pages/Post_details/widget/RelatedAds.dart';
 import 'package:ubs/pages/Post_details/widget/image_slider.dart';
 import 'package:ubs/pages/Post_details/widget/title_bar.dart';
 import 'package:ubs/pages/Post_details/widget/userinfo_bar.dart';
 import 'package:ubs/pages/accounts/profile_page.dart/user_profile.dart';
-import 'package:ubs/pages/chats/chats_dashboard.dart';
-import 'package:ubs/pages/chats/controller/chats_controller.dart';
-import 'package:ubs/pages/dashboard/dashboard.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
@@ -33,7 +32,7 @@ class PostDetails extends StatefulWidget {
 class _PostDetailsState extends State<PostDetails> {
   final PostDetailsController postDetController =
       Get.find<PostDetailsController>();
-  final dashboard chatsController = Get.find<dashboard>();
+  final ChatsController chatsController = Get.find<ChatsController>();
   final HomeController homeCont = Get.find<HomeController>();
   Rx<UsersData>? userData;
 
@@ -221,10 +220,12 @@ class _PostDetailsState extends State<PostDetails> {
                             .addChatRoom(
                                 loggedUser: widget.userData.userId,
                                 adsPostData: postDetController.adsPost.value)
-                            .then((value) {
-                          if (value) {
-                            Get.offAll(DashboardPage(
-                                userData: widget.userData, selectPage: 1));
+                            .then((docId) {
+                          if (docId != null) {
+                            Get.offAll(ChatsIndividual(
+                                douId: docId,
+                                userLogin: widget.userData,
+                                adsData: postDetController.adsPost.value));
                           }
                         });
                       },

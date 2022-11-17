@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ubs/model/cats_board.dart';
-import 'package:ubs/pages/chats/widgets/chats_ListTiles.dart';
-import 'package:ubs/pages/chats/widgets/filters_btn.dart';
+import 'package:ubs/pages/chats/chats_dashboard/widgets/chats_ListTiles.dart';
+import 'package:ubs/pages/chats/chats_dashboard/widgets/filters_btn.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

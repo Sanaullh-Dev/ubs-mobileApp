@@ -2,14 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/user_login.dart';
-import 'package:ubs/model/users_data.dart';
-import 'package:ubs/pages/accounts/profile_page.dart/user_profile.dart';
 import 'package:ubs/pages/chats/controller/chats_controller.dart';
-import 'package:ubs/pages/chats/widgets/chats_ListTiles.dart';
-import 'package:ubs/pages/chats/widgets/filters_btn.dart';
-import 'package:ubs/services/remote_services.dart';
-import 'package:ubs/sharing_widget/widget_fun.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChartFirebase1 extends StatefulWidget {
   final UserLogin userLogin;
@@ -20,7 +13,7 @@ class ChartFirebase1 extends StatefulWidget {
 }
 
 class _ChartFirebase1State extends State<ChartFirebase1> {
-  final dashboard chatsController = Get.find<dashboard>();
+  final ChatsController chatsController = Get.find<ChatsController>();
 
   @override
   void initState() {
@@ -42,38 +35,39 @@ class _ChartFirebase1State extends State<ChartFirebase1> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 15),
-              Padding(
-                padding: const EdgeInsets.only(top: 8, bottom: 4, left: 15),
-                child: Text(
-                  "Quick Filters",
-                  style:
-                      TextStyle(fontSize: 35.sp, fontWeight: FontWeight.w500),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-                child: Wrap(
-                  children: [
-                    const FiltersButtons(btnTitle: "All", isActive: true),
-                    addHorizontalSpace(15),
-                    const FiltersButtons(
-                      btnTitle: "Meeting",
-                      isActive: false,
-                    ),
-                    addHorizontalSpace(15),
-                    const FiltersButtons(
-                      btnTitle: "Unread",
-                      isActive: false,
-                    ),
-                    addHorizontalSpace(15),
-                    const FiltersButtons(
-                      btnTitle: "Imports",
-                      isActive: false,
-                    ),
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 8, bottom: 4, left: 15),
+              //   child: Text(
+              //     "Quick Filters",
+              //     style:
+              //         TextStyle(fontSize: 35.sp, fontWeight: FontWeight.w500),
+              //   ),
+              // ),
+              // Padding(
+              //   padding:
+              //       const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+              //   child: Wrap(
+              //     children: [
+              //       const FiltersButtons(btnTitle: "All", isActive: true),
+              //       addHorizontalSpace(15),
+              //       const FiltersButtons(
+              //         btnTitle: "Meeting",
+              //         isActive: false,
+              //       ),
+              //       addHorizontalSpace(15),
+              //       const FiltersButtons(
+              //         btnTitle: "Unread",
+              //         isActive: false,
+              //       ),
+              //       addHorizontalSpace(15),
+              //       const FiltersButtons(
+              //         btnTitle: "Imports",
+              //         isActive: false,
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              
               StreamBuilder<QuerySnapshot>(
                   stream: chatsController.chatsRoom.value,
                   builder: (context, snapshot) {
@@ -109,6 +103,7 @@ class _ChartFirebase1State extends State<ChartFirebase1> {
                     //   }).toList(),
                     // );
                   }),
+            
             ],
           ),
         ));

@@ -14,7 +14,7 @@ import 'package:ubs/utils/text_style.dart';
 class ChatsListTitle extends StatefulWidget {
   final ChatBoard chatData;
   final String userId;
-  const ChatsListTitle({required this.chatData , required this.userId});
+  const ChatsListTitle({super.key, required this.chatData , required this.userId});
   // const ChatsListTitle({required this.userId});
 
   @override

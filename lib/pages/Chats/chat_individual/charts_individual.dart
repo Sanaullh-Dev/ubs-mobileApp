@@ -1,19 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:ubs/pages/chats/chat_individual/widget/own_message.dart';
-import 'package:ubs/pages/chats/chat_individual/widget/replay_message.dart';
+import 'package:ubs/model/ads_post.dart';
+import 'package:ubs/model/user_login.dart';
+import 'package:ubs/pages/Chats/controller/chats_controller.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 
-class ChatIndividual extends StatefulWidget {
-  const ChatIndividual({Key? key}) : super(key: key);
+class ChatsIndividual extends StatefulWidget {
+  final String douId;
+  final UserLogin userLogin;
+  final AdsPost adsData;
+  const ChatsIndividual(
+      {super.key,
+      required this.douId,
+      required this.userLogin,
+      required this.adsData});
 
   @override
-  State<ChatIndividual> createState() => _ChatIndividualState();
+  State<ChatsIndividual> createState() => _ChatsIndividualState();
 }
 
-class _ChatIndividualState extends State<ChatIndividual>
+class _ChatsIndividualState extends State<ChatsIndividual>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final PanelController _panelController = PanelController();
@@ -21,10 +31,13 @@ class _ChatIndividualState extends State<ChatIndividual>
   bool isTyping = false;
   TextEditingController messageBox = TextEditingController();
 
+  final ChatsController chatsCont = Get.find<ChatsController>();
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(initialIndex: 0, length: 2, vsync: this);
+    chatsCont.getChatsHistory(widget.douId);
   }
 
   @override
@@ -36,6 +49,7 @@ class _ChatIndividualState extends State<ChatIndividual>
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    AdsPost adsPost = widget.adsData;
 
     return SafeArea(
       child: Stack(
@@ -59,13 +73,39 @@ class _ChatIndividualState extends State<ChatIndividual>
             ),
             body: Stack(
               children: [
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 50,
-                  itemBuilder: (BuildContext context, int index) {
-                    return index.isEven ? OwnMessage() : RelayMessage();
-                  },
-                ),
+                StreamBuilder<QuerySnapshot>(
+                    stream: chatsCont.chatsHistory.value,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return const Center(
+                            child: Text('Something went wrong'));
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: Text("Loading"));
+                      }
+                      if (snapshot.data!.docs.isNotEmpty) {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            DocumentSnapshot data = snapshot.data!.docs[index];
+                            // return ChatsListTitle(chatData: ,);
+                            return ListTile(title: Text(data['adsPostUsers']));
+                          },
+                        );
+                      }
+                      return const Center(child: Text("Data not"));
+                    }),
+
+                // ListView.builder(
+                //   shrinkWrap: true,
+                //   itemCount: 50,
+                //   itemBuilder: (BuildContext context, int index) {
+                //     return index.isEven ? OwnMessage() : RelayMessage();
+                //   },
+                // ),
+
+                // Product Details Bar
                 Align(
                   alignment: Alignment.topCenter,
                   child: Container(
@@ -79,19 +119,20 @@ class _ChatIndividualState extends State<ChatIndividual>
                         right: 46, top: 10, bottom: 10, left: 14),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children: [
                         Text(
-                          "Product Title",
+                          adsPost.pTitle,
                           style: TextStyle(fontSize: 18, color: Colors.black),
                         ),
                         Text(
-                          "\$5,000",
+                          adsPost.pPrice.toString(),
                           style: TextStyle(fontSize: 18, color: Colors.black),
                         ),
                       ],
                     ),
                   ),
                 ),
+
                 SlidingUpPanel(
                   maxHeight: isTyping == true ? maxHeight : 290,
                   minHeight: 60,
@@ -204,27 +245,31 @@ class _ChatIndividualState extends State<ChatIndividual>
                                     prefixIcon: const Padding(
                                       padding: EdgeInsets.only(right: 8),
                                       child: Icon(
-                                        FontAwesomeIcons.paperclip,
+                                        // FontAwesomeIcons.paperclip,
+                                        FontAwesomeIcons.pen,
                                         color: COLOR_INDICATOR,
                                         size: 25,
                                       ),
                                     ),
                                     suffixIcon: TextButton(
-                                      onPressed: () {},
-                                      style: TextButton.styleFrom(
-                                        backgroundColor: COLOR_PRIMARY,
-                                        shape: const CircleBorder(),
-                                      ),
-                                      child: messageBox.text != ""
-                                          ? const Icon(
-                                              Icons.send,
-                                              color: Colors.white,
-                                            )
-                                          : const Icon(
-                                              FontAwesomeIcons.microphone,
-                                              color: Colors.white,
-                                            ),
-                                    ),
+                                        onPressed: () async {
+                                          chatsCont
+                                              .saveMessage(
+                                                  widget.douId,
+                                                  messageBox.text,
+                                                  widget.userLogin.userId)
+                                              .then((value) => value == true
+                                                  ? messageBox.text = ""
+                                                  : null);
+                                        },
+                                        style: TextButton.styleFrom(
+                                          backgroundColor: COLOR_PRIMARY,
+                                          shape: const CircleBorder(),
+                                        ),
+                                        child: const Icon(
+                                          Icons.send,
+                                          color: Colors.white,
+                                        )),
                                     hintStyle: const TextStyle(
                                       fontSize: 20,
                                     ),

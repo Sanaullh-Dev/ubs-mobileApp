@@ -3,8 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:ubs/main_binding.dart';
 import 'package:ubs/model/user_login.dart';
-import 'package:ubs/pages/chats/chat_individual/charts_individual.dart';
-import 'package:ubs/pages/chats/chats_dashboard.dart';
+import 'package:ubs/pages/chats/chats_dashboard/chats_dashboard.dart';
 import 'package:ubs/pages/selling/sale_main_categories.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +54,6 @@ class MyApp extends StatelessWidget {
             '/home': (context) => MainPage(),
             '/chat': (context) =>
                 ChatsDashboard(userLogin: UserLogin(upass: "", userId: "")),
-            '/chatDetails': (context) => const ChatIndividual(),
             '/SaleMainCategories': (context) =>
                 SaleMainCategories(userData: UserLogin(userId: "", upass: "")),
           },

@@ -1,38 +1,48 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
-import 'package:ubs/model/cats_board.dart';
+import 'package:ubs/model/message_data.dart';
 import 'package:ubs/services/firestore_service.dart';
 
-class dashboard extends GetxController {
+class ChatsController extends GetxController {
   Rx<Stream<QuerySnapshot>> chatsRoom = const Stream<QuerySnapshot>.empty().obs;
+  Rx<Stream<QuerySnapshot>> chatsHistory =
+      const Stream<QuerySnapshot>.empty().obs;
   RxList<String> chatsUserId = <String>["917499604663"].obs;
 
-  String getChatRoomId(String user1, String user2) {
-    if (user1.substring(0, 1).codeUnitAt(0) >
-        user2.substring(0, 1).codeUnitAt(0)) {
-      return "${user2}_$user1";
-    } else {
-      return "${user1}_$user2";
-    }
-  }
-
   // Add new chats Room between tow users
-  Future<bool> addChatRoom(
+  Future<String?> addChatRoom(
       {required String loggedUser, required AdsPost adsPostData}) async {
     // var chatRoomId = getChatRoomId(loggedUser, adsUser);
     // List<String> users = [loggedUser, adsUser];
 
+    var documentId = "${adsPostData.pId}__$loggedUser";
     Map<String, dynamic> chatRoomData = {
+      "users": [loggedUser, adsPostData.pUid],
       "adsPostUsers": adsPostData.pUid,
+      "adsPostId": adsPostData.pId,
       "adsStatus": "active"
     };
 
     return await FirestoreDatabaseHelper.addNewChatRoom(
-            adsPostId: adsPostData.pId.toString(), chatRoomData: chatRoomData)
+            docId: documentId, chatRoomData: chatRoomData)
         .then((value) {
-      return value;
+      return documentId;
     });
+  }
+
+  Future<bool> saveMessage(
+      String docId, String message, String loggedUid) async {
+    MessageData messageData = MessageData.fromJson({
+      "message": message,
+      "sendBy": loggedUid,
+      "messageType": "text", // this for text-message or offer-message
+      "time": DateTime.now().toString(),
+      "status": "unread"
+    });
+
+    return await FirestoreDatabaseHelper.saveMessage(
+        docId: docId, messageData: messageData.toJson());
   }
 
   // void getChatsBoard(String loginUser) async {
@@ -45,8 +55,18 @@ class dashboard extends GetxController {
   // }
 
   getChatsUsersList(String userId) async {
-    getBuyerUser(userId);
-    getSellerUser(userId);
+    chatsRoom.value = FirestoreDatabaseHelper.chatsRoom
+        .where('users', arrayContains: userId)
+        .snapshots();
+    // getBuyerUser(userId);
+    // getSellerUser(userId);
+  }
+
+  getChatsHistory(String docId) {
+    chatsHistory.value = FirestoreDatabaseHelper.chatsRoom
+        .doc(docId)
+        .collection("chats")
+        .snapshots();
   }
 
   // In this function for user get all buyer of user of ads
@@ -90,8 +110,11 @@ class dashboard extends GetxController {
   }
 }
 
-
-// FirestoreDatabaseHelper.chatsRoom.get().then((value) {
-    //   value.docs.forEach((element) {
-    // });
-    // });
+  // String getChatRoomId(String user1, String user2) {
+  //   if (user1.substring(0, 1).codeUnitAt(0) >
+  //       user2.substring(0, 1).codeUnitAt(0)) {
+  //     return "${user2}_$user1";
+  //   } else {
+  //     return "${user1}_$user2";
+  //   }
+  // }

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/cats_board.dart';
 import 'package:ubs/model/user_login.dart';
+import 'package:ubs/pages/chats/chats_dashboard/widgets/chart_list.dart';
+import 'package:ubs/pages/chats/chats_dashboard/widgets/chats_firebase.dart';
 import 'package:ubs/pages/chats/controller/chats_controller.dart';
-import 'package:ubs/pages/chats/widgets/chart_list.dart';
-import 'package:ubs/pages/chats/widgets/chats_firebase.dart';
 import 'package:ubs/sharing_widget/sample_data.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
@@ -18,14 +18,15 @@ class ChatsDashboard extends StatefulWidget {
 }
 
 class _ChatsDashboardState extends State<ChatsDashboard> {
-  final dashboard chatsController = Get.find<dashboard>();
+  final ChatsController chatsController = Get.find<ChatsController>();
   List<ChatBoard> chatBoard = [];
 
   @override
   void initState() {
     super.initState();
-    chatsController.getBuyerUser(widget.userLogin.userId);
-    chatsController.getSellerUser(widget.userLogin.userId);
+    chatsController.getChatsUsersList(widget.userLogin.userId);
+    // chatsController.getBuyerUser(widget.userLogin.userId);
+    // chatsController.getSellerUser(widget.userLogin.userId);
     for (int i = 0; i < chartBoardList.length; i++) {
       chatBoard.add(ChatBoard.fromJson(chartBoardList[i]));
     }
