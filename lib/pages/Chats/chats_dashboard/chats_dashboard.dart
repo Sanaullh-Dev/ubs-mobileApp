@@ -18,15 +18,13 @@ class ChatsDashboard extends StatefulWidget {
 }
 
 class _ChatsDashboardState extends State<ChatsDashboard> {
-  final ChatsController chatsController = Get.find<ChatsController>();
+  final ChatsController chatsController = Get.put(ChatsController());
   List<ChatBoard> chatBoard = [];
 
   @override
   void initState() {
     super.initState();
-    chatsController.getChatsUsersList(widget.userLogin.userId);
-    // chatsController.getBuyerUser(widget.userLogin.userId);
-    // chatsController.getSellerUser(widget.userLogin.userId);
+    chatsController.getChatsRoomsList(widget.userLogin.userId);
     for (int i = 0; i < chartBoardList.length; i++) {
       chatBoard.add(ChatBoard.fromJson(chartBoardList[i]));
     }

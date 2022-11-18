@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/categories.dart';
+import 'package:ubs/model/chats_room.dart';
 import 'package:ubs/model/post_reaction.dart';
 import 'package:ubs/model/users_data.dart';
 import 'package:ubs/utils/constants.dart';
@@ -432,6 +433,25 @@ class RemoteServices {
       return null;
     }
   }
+
+  // ---------- check user register or not ------------------
+  static Future<ChatsRoomModel?> getChatRoomDetails(
+      String userId, int pId) async {
+    var client = http.Client();
+
+    var uri = Uri.parse("$API_URL/chats/chatRoomData");
+
+    Map<String, dynamic> bodyData = {'userId': userId, 'pId': pId.toString()};
+
+    var res = await client.post(uri, body: bodyData);
+
+    if (res.statusCode == 200) {
+      var da = res.body.substring(1, res.body.length -1);
+      ChatsRoomModel cRdet = ChatsRoomModel.fromJson(json.decode(da));
+      return cRdet;
+    }
+    return null;
+  }
 }
 
 imgFileUploadAds(AdsPost adsPost, http.MultipartRequest request) async {
@@ -475,3 +495,17 @@ imgUploadUserProfile(String? Image_url, http.MultipartRequest request) async {
   }
   return request;
 }
+
+// var asds = [
+//   {
+//     "pId": 43,
+//     "pTitle": "redmi 10 note pro",
+//     "pPrice": 6500,
+//     "pImage": "upload/postImages/Pune/redmi_10_note-1.jpeg",
+//     "userId": "sanaullashaikh191@gmail.com",
+//     "userName": "sanaulla- 191-Email",
+//     "userPhoto": "url",
+//     "lastMag": null,
+//     "postType": null
+//   }
+// ];

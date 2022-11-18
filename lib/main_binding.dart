@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:ubs/pages/Chats/controller/chats_controller.dart';
 import 'package:ubs/pages/Post_details/controller/post_details_controller.dart';
 import 'package:ubs/pages/accounts/controller/account_controller.dart';
+import 'package:ubs/pages/chats/controller/chats_controller.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/pages/login/controller/login_controller.dart';
 import 'package:ubs/pages/my_ads/controller/my_ads_controller.dart';

@@ -1,7 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:ubs/model/cats_board.dart';
+import 'package:ubs/model/chats_room.dart';
 import 'package:ubs/model/users_data.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/show_image.dart';
@@ -12,9 +12,9 @@ import 'package:ubs/utils/custom_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class ChatsListTitle extends StatefulWidget {
-  final ChatBoard chatData;
+  final ChatsRoomModel chatRoom;
   final String userId;
-  const ChatsListTitle({super.key, required this.chatData , required this.userId});
+  const ChatsListTitle({super.key, required this.chatRoom , required this.userId});
   // const ChatsListTitle({required this.userId});
 
   @override
@@ -84,7 +84,7 @@ class _ChatsListTitleState extends State<ChatsListTitle> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5.0),
                           child: Image.asset(
-                            widget.chatData.postImg,
+                            widget.chatRoom.pImage,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -97,11 +97,11 @@ class _ChatsListTitleState extends State<ChatsListTitle> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(widget.chatData.userName, style: heading6),
-                            Text(
-                                formatter.format(widget.chatData.userLastSeen) +
-                                    "   ",
-                                style: trailingTestStyle)
+                            Text(widget.chatRoom.userName, style: heading6),
+                            // Text(
+                            //     formatter.format(widget.chatRoom.userLastSeen) +
+                            //         "   ",
+                            //     style: trailingTestStyle)
                           ],
                         ),
                         const SizedBox(height: 5),
@@ -112,7 +112,7 @@ class _ChatsListTitleState extends State<ChatsListTitle> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  widget.chatData.postTitle,
+                                  widget.chatRoom.pTitle,
                                   maxLines: 1,
                                   softWrap: false,
                                   overflow: TextOverflow.ellipsis,
@@ -124,7 +124,8 @@ class _ChatsListTitleState extends State<ChatsListTitle> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Icon(
-                                      widget.chatData.messageStatus == "read"
+                                      // widget.chatRoom.messageStatus == "read"
+                                      "read" == "read"
                                           ? Icons.done_all_outlined
                                           : Icons.done,
                                       color: Colors.blueGrey.shade200,
@@ -132,7 +133,7 @@ class _ChatsListTitleState extends State<ChatsListTitle> {
                                     ),
                                     const SizedBox(width: 5),
                                     Text(
-                                      widget.chatData.postTitle,
+                                      widget.chatRoom.pTitle,
                                       maxLines: 1,
                                       softWrap: false,
                                       overflow: TextOverflow.ellipsis,

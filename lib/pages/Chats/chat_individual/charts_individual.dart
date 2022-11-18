@@ -90,7 +90,8 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                           itemBuilder: (BuildContext context, int index) {
                             DocumentSnapshot data = snapshot.data!.docs[index];
                             // return ChatsListTitle(chatData: ,);
-                            return ListTile(title: Text(data['adsPostUsers']));
+                            // return ListTile(title: Text(data['adsPostUsers']));
+                            return const ListTile(title: Text('adsPostUsers'));
                           },
                         );
                       }

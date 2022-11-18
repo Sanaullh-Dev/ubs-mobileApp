@@ -222,7 +222,7 @@ class _PostDetailsState extends State<PostDetails> {
                                 adsPostData: postDetController.adsPost.value)
                             .then((docId) {
                           if (docId != null) {
-                            Get.offAll(ChatsIndividual(
+                            Get.to(ChatsIndividual(
                                 douId: docId,
                                 userLogin: widget.userData,
                                 adsData: postDetController.adsPost.value));

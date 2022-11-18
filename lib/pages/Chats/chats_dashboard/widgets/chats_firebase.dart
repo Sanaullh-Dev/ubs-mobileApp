@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/user_login.dart';
+import 'package:ubs/pages/chats/chats_dashboard/widgets/chats_ListTiles.dart';
 import 'package:ubs/pages/chats/controller/chats_controller.dart';
 
 class ChartFirebase1 extends StatefulWidget {
@@ -29,7 +30,7 @@ class _ChartFirebase1State extends State<ChartFirebase1> {
 
   @override
   Widget build(BuildContext context) {
-    // final TextTheme textTheme = Theme.of(context).textTheme;
+    // final TextTheme textTheme = Theme.of(context).textTheme; recved
     return Obx(() => SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,45 +68,58 @@ class _ChartFirebase1State extends State<ChartFirebase1> {
               //     ],
               //   ),
               // ),
-              
-              StreamBuilder<QuerySnapshot>(
-                  stream: chatsController.chatsRoom.value,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return const Text('Something went wrong');
-                    }
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Text("Loading");
-                    }
-                    if (snapshot.data!.docs.isNotEmpty) {
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          DocumentSnapshot data = snapshot.data!.docs[index];
-                          String userName = getAdsUser( data['chatsUser']);
-                          // return ChatsListTitle(chatData: ,);
-                          return ListTile(title: Text(data['adsPostUsers']));
-                        },
-                      );
-                    }
-                    return const Center(child: Text("Data not"));
-
-                    // return ListView(
-                    //   shrinkWrap: true,
-                    //   children:
-                    //       snapshot.data!.docs.map((DocumentSnapshot document) {
-                    //     Map<String, dynamic> data =
-                    //         document.data()! as Map<String, dynamic>;
-                    //     return ListTile(
-                    //       title: Text(data['name']),
-                    //     );
-                    //   }).toList(),
-                    // );
-                  }),
-            
+              chatsController.chatsRooms.value.length > 0
+                  ? const Center(child: CircularProgressIndicator())
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: chatsController.chatsRooms.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var val = chatsController.chatsRooms[index];
+                        return ChatsListTitle(
+                            chatRoom: val, userId: widget.userLogin.userId);
+                      },
+                    )
             ],
           ),
         ));
   }
 }
+
+
+  // StreamBuilder<QuerySnapshot>(
+  //   stream: chatsController.chatsRoom.value,
+  //   builder: (context, snapshot) {
+  //     if (snapshot.hasError) {
+  //       return const Text('Something went wrong');
+  //     }
+  //     if (snapshot.connectionState == ConnectionState.waiting) {
+  //       return const Text("Loading");
+  //     }
+  //     if (snapshot.data!.docs.isNotEmpty) {
+        
+  //       return ListView.builder(
+  //         shrinkWrap: true,
+  //         itemCount: snapshot.data!.docs.length,
+  //         itemBuilder: (BuildContext context, int index) {
+  //           DocumentSnapshot data = snapshot.data!.docs[index];
+  //           String userName = getAdsUser( data['chatsUser']);
+  //           // return ChatsListTitle(chatData: ,);
+  //           return ListTile(title: Text(data['adsPostUsers']));
+  //         },
+  //       );
+  //     }
+  //     return const Center(child: Text("Data not"));
+
+  //     // return ListView(
+  //     //   shrinkWrap: true,
+  //     //   children:
+  //     //       snapshot.data!.docs.map((DocumentSnapshot document) {
+  //     //     Map<String, dynamic> data =
+  //     //         document.data()! as Map<String, dynamic>;
+  //     //     return ListTile(
+  //     //       title: Text(data['name']),
+  //     //     );
+  //     //   }).toList(),
+  //     // );
+  //   }),
+            
