@@ -39,28 +39,3 @@ class ShowUserPhoto extends StatelessWidget {
     );
   }
 }
-
-
-// CachedNetworkImage(
-//       imageUrl: getLink(imageUrl),
-//       imageBuilder: (context, imageProvider) => Container(
-//         decoration: BoxDecoration(
-//           image: DecorationImage(
-//               image: imageProvider,
-//               fit: BoxFit.cover,
-//               // colorFilter: ColorFilter.mode(Colors.red, BlendMode.colorBurn)
-//               ),
-//         ),
-//       ),
-//       // progressIndicatorBuilder: (context, url, downloadProgress) =>
-//       //     CircularProgressIndicator(value: downloadProgress.progress),
-//       placeholder: (context, url) => const CircularProgressIndicator(),
-//       errorWidget: (context, url, error) => Padding(
-//         padding: const EdgeInsets.all(25.0),
-//         child:
-//             Image.asset("lib/assets/images/not_found.png", fit: BoxFit.contain),
-//       ),
-//     )
-
-
-

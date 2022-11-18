@@ -3,21 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:ubs/model/ads_post.dart';
-import 'package:ubs/model/user_login.dart';
-import 'package:ubs/pages/Chats/controller/chats_controller.dart';
+import 'package:ubs/model/chats_room.dart';
+import 'package:ubs/model/massage_model.dart';
+import 'package:ubs/pages/chats/chat_individual/widget/own_message.dart';
+import 'package:ubs/pages/chats/chat_individual/widget/replay_message.dart';
+import 'package:ubs/pages/chats/chats_dashboard/widgets/chats_ListTiles.dart';
+import 'package:ubs/pages/chats/controller/chats_controller.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 
 class ChatsIndividual extends StatefulWidget {
-  final String douId;
-  final UserLogin userLogin;
-  final AdsPost adsData;
+  final String userId;
+  final ChatsRoomModel chatRoom;
   const ChatsIndividual(
-      {super.key,
-      required this.douId,
-      required this.userLogin,
-      required this.adsData});
+      {super.key, required this.userId, required this.chatRoom});
 
   @override
   State<ChatsIndividual> createState() => _ChatsIndividualState();
@@ -37,19 +36,19 @@ class _ChatsIndividualState extends State<ChatsIndividual>
   void initState() {
     super.initState();
     _tabController = TabController(initialIndex: 0, length: 2, vsync: this);
-    chatsCont.getChatsHistory(widget.douId);
+    chatsCont.getChatsHistory(widget.chatRoom.docId!);
   }
 
   @override
   void dispose() {
     _tabController.dispose();
-    super.dispose();
+    super.dispose();    
   }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    AdsPost adsPost = widget.adsData;
+    ChatsRoomModel chatRoom = widget.chatRoom;
 
     return SafeArea(
       child: Stack(
@@ -65,7 +64,6 @@ class _ChatsIndividualState extends State<ChatsIndividual>
             ),
           ),
           Scaffold(
-            // key: _key,
             backgroundColor: Colors.blueGrey.shade100.withAlpha(210),
             appBar: AppBar(
               title: const Text('Uer Name'),
@@ -73,67 +71,62 @@ class _ChatsIndividualState extends State<ChatsIndividual>
             ),
             body: Stack(
               children: [
-                StreamBuilder<QuerySnapshot>(
-                    stream: chatsCont.chatsHistory.value,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return const Center(
-                            child: Text('Something went wrong'));
-                      }
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: Text("Loading"));
-                      }
-                      if (snapshot.data!.docs.isNotEmpty) {
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: snapshot.data!.docs.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            DocumentSnapshot data = snapshot.data!.docs[index];
-                            // return ChatsListTitle(chatData: ,);
-                            // return ListTile(title: Text(data['adsPostUsers']));
-                            return const ListTile(title: Text('adsPostUsers'));
-                          },
-                        );
-                      }
-                      return const Center(child: Text("Data not"));
-                    }),
-
-                // ListView.builder(
-                //   shrinkWrap: true,
-                //   itemCount: 50,
-                //   itemBuilder: (BuildContext context, int index) {
-                //     return index.isEven ? OwnMessage() : RelayMessage();
-                //   },
-                // ),
-
-                // Product Details Bar
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    decoration: BoxDecoration(color: COLOR_WHITE, boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withAlpha(100),
-                        blurRadius: 4.0,
-                      )
-                    ]),
-                    padding: const EdgeInsets.only(
-                        right: 46, top: 10, bottom: 10, left: 14),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          adsPost.pTitle,
-                          style: TextStyle(fontSize: 18, color: Colors.black),
-                        ),
-                        Text(
-                          adsPost.pPrice.toString(),
-                          style: TextStyle(fontSize: 18, color: Colors.black),
-                        ),
-                      ],
+                Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(color: COLOR_WHITE, boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withAlpha(100),
+                          blurRadius: 4.0,
+                        )
+                      ]),
+                      padding: const EdgeInsets.only(
+                          right: 46, top: 10, bottom: 10, left: 14),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            chatRoom.pTitle,
+                            style: TextStyle(fontSize: 18, color: Colors.black),
+                          ),
+                          Text(
+                            chatRoom.pPrice.toString(),
+                            style: TextStyle(fontSize: 18, color: Colors.black),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
+                    const SizedBox(height: 10),
+                    StreamBuilder<QuerySnapshot>(
+                        stream: chatsCont.chatsHistory,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return const Center(
+                                child: Text('Something went wrong'));
+                          }
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(child: Text("Loading"));
+                          }
+                          if (snapshot.data!.docs.isNotEmpty) {
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: snapshot.data!.docs.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                DocumentSnapshot data =
+                                    snapshot.data!.docs[index];
+                                var da = getMessageData(data);
+                                return data["sendBy"] == widget.userId
+                                    ? OwnMessage(messageData: da)
+                                    : ReplyMessage(messageData: da);
+                              },
+                            );
+                          }
+                          return const Center(child: Text("Data not"));
+                        }),
+                  ],
                 ),
-
+                // Product Details Bar
                 SlidingUpPanel(
                   maxHeight: isTyping == true ? maxHeight : 290,
                   minHeight: 60,
@@ -146,15 +139,6 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                     color: Colors.white70,
                     child: Stack(
                       children: [
-                        // Align(
-                        //   alignment: Alignment.topCenter,
-                        //   child: Container(
-                        //     margin: const EdgeInsets.only(top: 8),
-                        //     width: 60,
-                        //     height: 5,
-                        //     color: Colors.blueGrey.shade300,
-                        //   ),
-                        // ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20),
                           child: TabBar(
@@ -256,9 +240,9 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                                         onPressed: () async {
                                           chatsCont
                                               .saveMessage(
-                                                  widget.douId,
+                                                  chatRoom.docId!,
                                                   messageBox.text,
-                                                  widget.userLogin.userId)
+                                                  widget.userId)
                                               .then((value) => value == true
                                                   ? messageBox.text = ""
                                                   : null);
@@ -304,5 +288,14 @@ class _ChatsIndividualState extends State<ChatsIndividual>
         ],
       ),
     );
+  }
+
+  MessageModel getMessageData(DocumentSnapshot data) {
+    return MessageModel(
+        message: data["message"],
+        messageType: data["messageType"],
+        sendBy: data["sendBy"],
+        status: data["status"],
+        time: DateTime.parse(data["time"]));
   }
 }

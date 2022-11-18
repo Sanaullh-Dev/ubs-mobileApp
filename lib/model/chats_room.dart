@@ -21,6 +21,7 @@ class ChatsRoomModel {
     this.userPhoto,
     this.lastMag,
     this.postType,
+    this.docId,
   });
 
   int pId;
@@ -32,6 +33,7 @@ class ChatsRoomModel {
   String? userPhoto;
   String? lastMag;
   String? postType;
+  String? docId;
 
   factory ChatsRoomModel.fromJson(Map<String, dynamic> json) => ChatsRoomModel(
         pId: json["pId"],
@@ -43,6 +45,7 @@ class ChatsRoomModel {
         userPhoto: json["userPhoto"],
         lastMag: json["lastMag"],
         postType: json["postType"],
+        docId: json["docId"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -55,5 +58,6 @@ class ChatsRoomModel {
         "userPhoto": userPhoto,
         "lastMag": lastMag,
         "postType": postType,
+        "docId": docId,
       };
 }

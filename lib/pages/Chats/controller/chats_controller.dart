@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/chats_room.dart';
 import 'package:ubs/model/message_data.dart';
@@ -8,8 +9,8 @@ import 'package:ubs/services/remote_services.dart';
 
 class ChatsController extends GetxController {
   Rx<Stream<QuerySnapshot>> chatsRoom = const Stream<QuerySnapshot>.empty().obs;
-  Rx<Stream<QuerySnapshot>> chatsHistory =
-      const Stream<QuerySnapshot>.empty().obs;
+  Stream<QuerySnapshot> chatsHistory = Stream.empty();
+  RxBool isLoading = false.obs;
   RxList<ChatsRoomModel> chatsRooms = List<ChatsRoomModel>.empty().obs;
   RxList<ChatUserList> chatUserList = List<ChatUserList>.empty().obs;
 
@@ -36,11 +37,13 @@ class ChatsController extends GetxController {
 
   Future<bool> saveMessage(
       String docId, String message, String loggedUid) async {
+    final DateFormat formatter = DateFormat('yyyy-MMM-dd');
+    
     MessageData messageData = MessageData.fromJson({
       "message": message,
       "sendBy": loggedUid,
       "messageType": "text", // this for text-message or offer-message
-      "time": DateTime.now().toString(),
+      "time": DateTime.now().toIso8601String(),
       "status": "unread"
     });
 
@@ -49,13 +52,14 @@ class ChatsController extends GetxController {
   }
 
   getChatsRoomsList(String userId) async {
-    ChatUserList chatUser;
-    FirestoreDatabaseHelper.chatsRoom
+    isLoading.value = true;
+    await FirestoreDatabaseHelper.chatsRoom
         .where('users', arrayContains: userId)
         .get()
-        .then((val) async {
-      val.docs.forEach((element) async {
+        .then((val) {
+      val.docs.forEach((element) {
         chatUserList.value.add(ChatUserList(
+            docId: element.id,
             pId: element.data()["adsPostId"],
             userId: element.data()["users"][0] == userId
                 ? element.data()["users"][1]
@@ -63,8 +67,8 @@ class ChatsController extends GetxController {
             postType:
                 element.data()["sellingUser"] == userId ? "sale" : "buy"));
       });
-      getChatsDetails();
     });
+    getChatsDetails();
   }
 
   getChatsDetails() async {
@@ -72,68 +76,35 @@ class ChatsController extends GetxController {
       var res = await RemoteServices.getChatRoomDetails(val.userId, val.pId);
       if (res != null) {
         chatsRooms.value.add(res);
-        chatsRooms.value[chatsRooms.length - 1].lastMag = val.postType;
+        chatsRooms.value[chatsRooms.length - 1].postType = val.postType;
+        chatsRooms.value[chatsRooms.length - 1].docId = val.docId;
       }
+      // print(chatsRooms.value);
+      isLoading.value = false;
     });
-    print(chatsRooms.value);
   }
 
   getChatsHistory(String docId) {
-    chatsHistory.value = FirestoreDatabaseHelper.chatsRoom
+    chatsHistory = FirestoreDatabaseHelper.chatsRoom
         .doc(docId)
         .collection("chats")
+        .orderBy("time")
         .snapshots();
   }
 }
 
 class ChatUserList {
   ChatUserList(
-      {required this.pId, required this.userId, required this.postType});
+      {required this.pId,
+      required this.userId,
+      required this.postType,
+      required this.docId});
 
   int pId;
   String userId;
   String postType;
+  String docId;
 }
-
-// In this function for user get all buyer of user of ads
-//   getBuyerUser(String userId) async {
-//     chatsRoom.value = FirestoreDatabaseHelper.chatsRoom
-//         .where('adsPostUsers', isEqualTo: userId)
-//         .snapshots();
-//     FirestoreDatabaseHelper.chatsRoom
-//         .where('adsPostUsers', isEqualTo: userId)
-//         .get()
-//         .then((value) {
-//       value.docs.forEach((element) {
-//         element.data()["chatsUser"].forEach((name) {
-//           // this line code if user id already added than do'n add into list
-//           if (!chatsUserId.value.any((element) => element == name)) {
-//             chatsUserId.value.add(name);
-//           }
-//         }) as List<String>;
-//         // print(chatsUserId.value);
-//         // print("getBuyerUser");
-//       });
-//     });
-//   }
-
-// In this function for user get all Seller to user
-//   getSellerUser(String userId) async {
-//     FirestoreDatabaseHelper.chatsRoom
-//         .where('chatsUser', arrayContains: userId)
-//         .get()
-//         .then((value) {
-//       value.docs.forEach((element) {
-//         var uid = element.data()["adsPostUsers"];
-//         if (!chatsUserId.value.any((element) => element == uid)) {
-//           chatsUserId.value.add(uid);
-//         }
-//       });
-//       // print(chatsUserId.value);
-//       // print("getSellerUser");
-//     });
-//   }
-// }
 
 // String getChatRoomId(String user1, String user2) {
 //   if (user1.substring(0, 1).codeUnitAt(0) >

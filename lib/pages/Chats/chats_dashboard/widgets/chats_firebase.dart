@@ -19,69 +19,65 @@ class _ChartFirebase1State extends State<ChartFirebase1> {
   @override
   void initState() {
     super.initState();
-  }
-
-  String getAdsUser(List<dynamic> users) {
-    if (users[0] == widget.userLogin.userId) {
-      return users[1];
+    if (chatsController.chatsRooms.value.isEmpty) {
+      chatsController.getChatsRoomsList(widget.userLogin.userId);
     }
-    return users[1];
   }
 
   @override
   Widget build(BuildContext context) {
     // final TextTheme textTheme = Theme.of(context).textTheme; recved
-    return Obx(() => SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 15),
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 8, bottom: 4, left: 15),
-              //   child: Text(
-              //     "Quick Filters",
-              //     style:
-              //         TextStyle(fontSize: 35.sp, fontWeight: FontWeight.w500),
-              //   ),
-              // ),
-              // Padding(
-              //   padding:
-              //       const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-              //   child: Wrap(
-              //     children: [
-              //       const FiltersButtons(btnTitle: "All", isActive: true),
-              //       addHorizontalSpace(15),
-              //       const FiltersButtons(
-              //         btnTitle: "Meeting",
-              //         isActive: false,
-              //       ),
-              //       addHorizontalSpace(15),
-              //       const FiltersButtons(
-              //         btnTitle: "Unread",
-              //         isActive: false,
-              //       ),
-              //       addHorizontalSpace(15),
-              //       const FiltersButtons(
-              //         btnTitle: "Imports",
-              //         isActive: false,
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              chatsController.chatsRooms.value.length > 0
-                  ? const Center(child: CircularProgressIndicator())
-                  : ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: chatsController.chatsRooms.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        var val = chatsController.chatsRooms[index];
-                        return ChatsListTitle(
-                            chatRoom: val, userId: widget.userLogin.userId);
-                      },
-                    )
-            ],
-          ),
-        ));
+    return Obx(() => chatsController.isLoading.value == true
+        ? const Center(child: CircularProgressIndicator())
+        : SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 15),
+                // Padding(
+                //   padding: const EdgeInsets.only(top: 8, bottom: 4, left: 15),
+                //   child: Text(
+                //     "Quick Filters",
+                //     style:
+                //         TextStyle(fontSize: 35.sp, fontWeight: FontWeight.w500),
+                //   ),
+                // ),
+                // Padding(
+                //   padding:
+                //       const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+                //   child: Wrap(
+                //     children: [
+                //       const FiltersButtons(btnTitle: "All", isActive: true),
+                //       addHorizontalSpace(15),
+                //       const FiltersButtons(
+                //         btnTitle: "Meeting",
+                //         isActive: false,
+                //       ),
+                //       addHorizontalSpace(15),
+                //       const FiltersButtons(
+                //         btnTitle: "Unread",
+                //         isActive: false,
+                //       ),
+                //       addHorizontalSpace(15),
+                //       const FiltersButtons(
+                //         btnTitle: "Imports",
+                //         isActive: false,
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: chatsController.chatsRooms.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var val = chatsController.chatsRooms[index];
+                    return ChatsListTitle(
+                        chatRoom: val, userId: widget.userLogin.userId);
+                  },
+                )
+              ],
+            ),
+          ));
   }
 }
 

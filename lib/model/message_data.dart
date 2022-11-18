@@ -35,7 +35,7 @@ class MessageData {
         "message": message,
         "sendBy": sendBy,
         "messageType": messageType,
-        "time": "${time.year.toString().padLeft(4, '0')}-${time.month.toString().padLeft(2, '0')}-${time.day.toString().padLeft(2, '0')}",
+        "time": time.toIso8601String(),
         "status": status,
     };
 }

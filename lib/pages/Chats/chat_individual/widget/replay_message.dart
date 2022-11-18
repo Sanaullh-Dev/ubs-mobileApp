@@ -1,10 +1,13 @@
 import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:ubs/model/massage_model.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 
-class RelayMessage extends StatelessWidget {
-  const RelayMessage({super.key});
+class ReplyMessage extends StatelessWidget {
+  final MessageModel messageData;
+  const ReplyMessage({super.key, required this.messageData});
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +24,11 @@ class RelayMessage extends StatelessWidget {
           child: Stack(
             children: [
               Padding(
-                padding:
-                    EdgeInsets.only(left: 10, right: 30, top: 5, bottom: 20),
+                padding: const EdgeInsets.only(
+                    left: 10, right: 30, top: 5, bottom: 30),
                 child: Text(
-                  "Hi I am sanaulla shaikh. I am from MH WW solapur. And I am looking for new mobile phone",
-                  // "H",
-                  style: TextStyle(fontSize: 16, color: Colors.black),
+                  messageData.message,
+                  style: const TextStyle(fontSize: 16, color: Colors.black),
                 ),
               ),
               addHorizontalSpace(8),
@@ -34,8 +36,8 @@ class RelayMessage extends StatelessWidget {
                   bottom: 4,
                   right: 10,
                   child: Text(
-                    "04:30 am",
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                    DateFormat('hh:mm a').format(messageData.time),
+                    style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ))
             ],
           ),
