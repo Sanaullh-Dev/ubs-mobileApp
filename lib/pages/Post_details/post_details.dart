@@ -7,7 +7,6 @@ import 'package:ubs/model/chats_room.dart';
 import 'package:ubs/model/post_reaction.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/model/users_data.dart';
-import 'package:ubs/pages/Chats/controller/chats_controller.dart';
 import 'package:ubs/pages/Post_details/controller/post_details_controller.dart';
 import 'package:ubs/pages/Post_details/widget/RelatedAds.dart';
 import 'package:ubs/pages/Post_details/widget/image_slider.dart';
@@ -15,6 +14,7 @@ import 'package:ubs/pages/Post_details/widget/title_bar.dart';
 import 'package:ubs/pages/Post_details/widget/userinfo_bar.dart';
 import 'package:ubs/pages/accounts/profile_page.dart/user_profile.dart';
 import 'package:ubs/pages/chats/chat_individual/charts_individual.dart';
+import 'package:ubs/pages/chats/controller/chats_controller.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
@@ -33,7 +33,7 @@ class PostDetails extends StatefulWidget {
 class _PostDetailsState extends State<PostDetails> {
   final PostDetailsController postDetController =
       Get.find<PostDetailsController>();
-  final ChatsController chatsController = Get.put(ChatsController());
+  final ChatsController chatsController = Get.find<ChatsController>();
   final HomeController homeCont = Get.find<HomeController>();
   Rx<UsersData>? userData;
 
@@ -232,7 +232,8 @@ class _PostDetailsState extends State<PostDetails> {
                                     pPrice: ads.pPrice,
                                     pImage: ads.pImg1,
                                     userId: ads.pUid,
-                                    userName: ads.uName)));
+                                    userName: ads.uName,
+                                    docId: docId)));
                             // ChatsIndividual(
                             //     douId: docId,
                             //     userLogin: widget.userData,

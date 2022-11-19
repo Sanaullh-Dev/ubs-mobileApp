@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:ubs/services/secure_storage.dart';
 import 'package:ubs/utils/constants.dart';
 
 String formatCurrency(num amount, {int decimalCount = 0}) {
@@ -17,4 +18,10 @@ String getLink(String? path) {
     return "$API_URL/${path.replaceAll("\\", "/")}";
   }
   return "";
+}
+
+Future<String> getLoginId() async {
+  final StorageService _storageService = StorageService();
+  var val = await _storageService.readSecureData("LoginId");
+  return val ?? "";
 }

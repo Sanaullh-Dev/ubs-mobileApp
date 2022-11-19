@@ -6,17 +6,22 @@ class ShowImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-      imageUrl ?? "",
-      fit: BoxFit.cover,
-      errorBuilder: (context, error, stackTrace) => Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Image.asset(
-          "lib/assets/images/not_found.png",
-          fit: BoxFit.contain,
-        ),
-      ),
-    );
+    return imageUrl == "" || imageUrl == null
+        ? Image.asset(
+            "lib/assets/images/user.png",
+            fit: BoxFit.cover,
+          )
+        : Image.network(
+            imageUrl ?? "",
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) => Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Image.asset(
+                "lib/assets/images/not_found.png",
+                fit: BoxFit.contain,
+              ),
+            ),
+          );
   }
 }
 

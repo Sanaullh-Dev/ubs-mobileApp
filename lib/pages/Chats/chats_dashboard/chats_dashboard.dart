@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ubs/model/user_login.dart';
-import 'package:ubs/pages/chats/chats_dashboard/widgets/chats_firebase.dart';
+import 'package:ubs/pages/chats/chats_dashboard/tabs/chats_all.dart';
+import 'package:ubs/pages/chats/chats_dashboard/tabs/chats_buy.dart';
+import 'package:ubs/pages/chats/chats_dashboard/tabs/chats_sale.dart';
+import 'package:ubs/pages/chats/controller/chats_controller.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
 
@@ -13,9 +17,15 @@ class ChatsDashboard extends StatefulWidget {
 }
 
 class _ChatsDashboardState extends State<ChatsDashboard> {
+  final ChatsController chatsController = Get.find<ChatsController>();
+
+  
   @override
   void initState() {
     super.initState();
+    if (chatsController.chatsRooms.value.isEmpty) {
+      chatsController.getChatsRoomsList(widget.userLogin.userId);
+    }
   }
 
   @override
@@ -60,9 +70,9 @@ class _ChatsDashboardState extends State<ChatsDashboard> {
               ];
             },
             body: TabBarView(children: [
-              ChartFirebase1(userLogin: widget.userLogin),
-              ChartFirebase1(userLogin: widget.userLogin),
-              ChartFirebase1(userLogin: widget.userLogin),
+              ChatsRoomAll(userLogin: widget.userLogin),
+              ChatsRoomBuy(userLogin: widget.userLogin),
+              ChatsRoomSale(userLogin: widget.userLogin),
 
               // ChartList(
               //     chatBoard: chatBoard

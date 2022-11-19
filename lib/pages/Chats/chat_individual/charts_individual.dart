@@ -71,7 +71,8 @@ class _ChatsIndividualState extends State<ChatsIndividual>
           Scaffold(
             backgroundColor: Colors.blueGrey.shade100.withAlpha(210),
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(80.0), // here the desired height
+              preferredSize:
+                  const Size.fromHeight(80.0), // here the desired height
               child: AppBar(
                 toolbarHeight: 70,
                 leadingWidth: 40,
@@ -304,11 +305,7 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                               // visible: MediaQuery.of(context).viewInsets.bottom > 0 ? true : false,
                               visible: !isTyping,
                               child: Wrap(
-                                children: [
-                                  Text(
-                                    "Is it available?",
-                                  )
-                                ],
+                                children: const [Text("Is it available?")],
                               ),
                             )
                           ],

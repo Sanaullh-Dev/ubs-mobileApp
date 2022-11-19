@@ -66,7 +66,18 @@ class _LatestPostState extends State<LatestPost> {
   @override
   void initState() {
     super.initState();
-    // loadAds();
+    getLoadData();
+  }
+
+  getLoadData() async {
+    await homeController.fetchAds();
+    await homeController.fetchMainCat();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    Get.delete<HomeController>();
   }
 
   @override
@@ -105,8 +116,7 @@ class _LatestPostState extends State<LatestPost> {
             await homeController.fetchAds();
           },
           child: Obx(
-            (() => homeController.adsPostList.value.isEmpty ||
-                    homeController.mainCatList.value.isEmpty
+            (() => homeController.isLoading.value
                 ? Center(
                     child: SizedBox(
                       height: 500.sp,
@@ -122,25 +132,42 @@ class _LatestPostState extends State<LatestPost> {
                       ),
                     ),
                   )
-                : SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        GestureDetector(
-                            onTap: () {}, child: addVerticalSpace(10)),
-                        CategoriesBar(userData: widget.userData),
-                        addVerticalSpace(10),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 14),
-                          child: Text("Fresh recommendation", style: heading4),
+                : homeController.adsPostList.value.isEmpty
+                    ? Center(
+                        child: SizedBox(
+                          height: 500.sp,
+                          width: 200.sp,
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                "lib/assets/images/not_found.png",
+                              ),
+                              addVerticalSpace(50.sp),
+                              Text("Ads Not Here", style: heading4)
+                            ],
+                          ),
                         ),
-                        SizedBox(height: 25.h),
-                        AdsList(
-                          userData: widget.userData,
-                          adsPost: homeController.adsPostList,
+                      )
+                    : SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            GestureDetector(
+                                onTap: () {}, child: addVerticalSpace(10)),
+                            CategoriesBar(userData: widget.userData),
+                            addVerticalSpace(10),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 14),
+                              child:
+                                  Text("Fresh recommendation", style: heading4),
+                            ),
+                            SizedBox(height: 25.h),
+                            AdsList(
+                              userData: widget.userData,
+                              adsPost: homeController.adsPostList,
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  )),
+                      )),
           ),
         ),
       ),

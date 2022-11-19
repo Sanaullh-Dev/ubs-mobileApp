@@ -10,7 +10,7 @@ import 'package:ubs/services/remote_services.dart';
 class ChatsController extends GetxController {
   Rx<Stream<QuerySnapshot>> chatsRoom = const Stream<QuerySnapshot>.empty().obs;
   Stream<QuerySnapshot> chatsHistory = Stream.empty();
-  RxBool isLoading = false.obs;
+  Rx<bool> isLoading = false.obs;
   RxList<ChatsRoomModel> chatsRooms = List<ChatsRoomModel>.empty().obs;
   RxList<ChatUserList> chatUserList = List<ChatUserList>.empty().obs;
 

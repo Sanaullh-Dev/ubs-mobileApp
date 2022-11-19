@@ -53,7 +53,7 @@ class RemoteServices {
 
     http.Response response = await client.post(uri, body: bodyData);
 
-    if (response.statusCode == 200) {
+  if (response.statusCode == 200) {
       var jsonString = response.body;
       return adsPostFromJson(jsonString);
     } else {

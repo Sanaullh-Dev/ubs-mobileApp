@@ -8,6 +8,7 @@ import 'package:ubs/pages/accounts/controller/account_controller.dart';
 import 'package:ubs/pages/accounts/logged_account/account_details.dart';
 import 'package:ubs/pages/accounts/logged_account/widget/profile_image.dart';
 import 'package:ubs/pages/login/controller/login_controller.dart';
+import 'package:ubs/pages/login/login_home.dart';
 import 'package:ubs/pages/main_page.dart';
 import 'package:ubs/utils/text_style.dart';
 
@@ -120,7 +121,7 @@ class _LoggedHomeState extends State<LoggedHome> {
                           style: buttonTextStyle.copyWith(color: Colors.black)),
                       onPressed: () {
                         loginController.logoutUser();
-                        Get.to(MainPage());
+                        Get.offAll(LoginHome());
                       },
                     ),
                   )
