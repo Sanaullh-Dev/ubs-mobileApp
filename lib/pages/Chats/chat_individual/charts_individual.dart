@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,8 +10,12 @@ import 'package:ubs/pages/chats/chat_individual/widget/own_message.dart';
 import 'package:ubs/pages/chats/chat_individual/widget/replay_message.dart';
 import 'package:ubs/pages/chats/chats_dashboard/widgets/chats_ListTiles.dart';
 import 'package:ubs/pages/chats/controller/chats_controller.dart';
+import 'package:ubs/sharing_widget/show_image.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
+import 'package:ubs/utils/custom_fun.dart';
+import 'package:ubs/utils/text_style.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChatsIndividual extends StatefulWidget {
   final String userId;
@@ -42,7 +47,7 @@ class _ChatsIndividualState extends State<ChatsIndividual>
   @override
   void dispose() {
     _tabController.dispose();
-    super.dispose();    
+    super.dispose();
   }
 
   @override
@@ -65,9 +70,48 @@ class _ChatsIndividualState extends State<ChatsIndividual>
           ),
           Scaffold(
             backgroundColor: Colors.blueGrey.shade100.withAlpha(210),
-            appBar: AppBar(
-              title: const Text('Uer Name'),
-              elevation: 0,
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(80.0), // here the desired height
+              child: AppBar(
+                toolbarHeight: 70,
+                leadingWidth: 40,
+                leading: IconButton(
+                    padding: const EdgeInsets.all(17),
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () => Get.back()),
+                title: Row(
+                  children: [
+                    SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: Badge(
+                        badgeColor: Colors.white,
+                        padding: const EdgeInsets.all(0),
+                        badgeContent: SizedBox(
+                            height: 30,
+                            width: 30,
+                            child: ShowUPhoto(
+                                imageUrl: getLink(chatRoom.userPhoto))),
+                        position: BadgePosition.bottomEnd(),
+                        child: SizedBox(
+                            width: 50,
+                            height: 50,
+                            child:
+                                ShowImage(imageUrl: getLink(chatRoom.pImage))),
+                      ),
+                    ),
+                    const SizedBox(width: 15),
+                    Text(chatRoom.userName,
+                        style:
+                            titleLabel.copyWith(fontWeight: FontWeight.w800)),
+                    const Spacer(),
+                    const Icon(FontAwesomeIcons.phone),
+                    const SizedBox(width: 15),
+                    IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))
+                  ],
+                ),
+                elevation: 0,
+              ),
             ),
             body: Stack(
               children: [
@@ -80,19 +124,13 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                           blurRadius: 4.0,
                         )
                       ]),
-                      padding: const EdgeInsets.only(
-                          right: 46, top: 10, bottom: 10, left: 14),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 30),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            chatRoom.pTitle,
-                            style: TextStyle(fontSize: 18, color: Colors.black),
-                          ),
-                          Text(
-                            chatRoom.pPrice.toString(),
-                            style: TextStyle(fontSize: 18, color: Colors.black),
-                          ),
+                          Text(chatRoom.pTitle, style: buttonTextLight),
+                          Text("₹ ${chatRoom.pPrice}", style: buttonTextLight),
                         ],
                       ),
                     ),

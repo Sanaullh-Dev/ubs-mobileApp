@@ -33,7 +33,7 @@ class PostDetails extends StatefulWidget {
 class _PostDetailsState extends State<PostDetails> {
   final PostDetailsController postDetController =
       Get.find<PostDetailsController>();
-  final ChatsController chatsController = Get.find<ChatsController>();
+  final ChatsController chatsController = Get.put(ChatsController());
   final HomeController homeCont = Get.find<HomeController>();
   Rx<UsersData>? userData;
 

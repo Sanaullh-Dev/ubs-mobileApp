@@ -67,7 +67,8 @@ class ChatsListTitle extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(chatRoom.userName.toUpperCase(), style: heading6),
-                      Text("06 Nov 2022     ", style: trailingTestStyle),
+                      Text(formatter.format(chatRoom.lastSeen),
+                          style: trailingTestStyle),
                       // Text(formatter.format("2020-08-20") + "   ",
                       //     style: trailingTestStyle)
                     ],
@@ -100,7 +101,7 @@ class ChatsListTitle extends StatelessWidget {
                               ),
                               const SizedBox(width: 5),
                               Text(
-                                chatRoom.pTitle,
+                                chatRoom.lastMag!,
                                 maxLines: 1,
                                 softWrap: false,
                                 overflow: TextOverflow.ellipsis,

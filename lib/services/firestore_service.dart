@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreDatabaseHelper {
-  static final chatsRoom = FirebaseFirestore.instance.collection('ChatsRoom');
+  static final  chatsRoom = FirebaseFirestore.instance.collection('ChatsRoom');
 
   static Future<bool> addNewChatRoom(
       {required String docId,
@@ -24,7 +24,4 @@ class FirestoreDatabaseHelper {
         .catchError((e) => false)
         .then((val) => true);
   }
-
-  // static F
-
 }

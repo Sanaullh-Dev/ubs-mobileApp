@@ -38,7 +38,7 @@ class ChatsController extends GetxController {
   Future<bool> saveMessage(
       String docId, String message, String loggedUid) async {
     final DateFormat formatter = DateFormat('yyyy-MMM-dd');
-    
+
     MessageData messageData = MessageData.fromJson({
       "message": message,
       "sendBy": loggedUid,
@@ -78,9 +78,22 @@ class ChatsController extends GetxController {
         chatsRooms.value.add(res);
         chatsRooms.value[chatsRooms.length - 1].postType = val.postType;
         chatsRooms.value[chatsRooms.length - 1].docId = val.docId;
+        await getUserLastMsg(val.docId, chatsRooms.length - 1);
       }
-      // print(chatsRooms.value);
       isLoading.value = false;
+    });
+  }
+
+  getUserLastMsg(String docId, int chatRoomIndex) async {
+    await FirestoreDatabaseHelper.chatsRoom
+        .doc(docId)
+        .collection("chats")
+        .orderBy("time", descending: true)
+        .limit(1)
+        .get()
+        .then((value) {
+      chatsRooms.value[chatRoomIndex].lastMag = value.docs[0].data()["message"];
+      chatsRooms.value[chatRoomIndex].lastSeen = value.docs[0].data()["time"];
     });
   }
 
