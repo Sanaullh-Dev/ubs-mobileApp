@@ -21,99 +21,100 @@ class ChatsListTitle extends StatelessWidget {
   final DateFormat showFormat = DateFormat('dd-MMM-yy');
   @override
   Widget build(BuildContext context) {
-    DateTime dt = DateTime.now();
-    if (chatRoom.lastSeen != null) {
-      dt = DateTime.parse(chatRoom.lastSeen!);
-    }
+    // var message = "";
+    // DateTime dt = DateTime.now();
+    // if (chatRoom.lastSeen != null) {
+    //   dt = DateTime.parse(chatRoom.lastSeen!);
+    // } else {
+    //   dt = DateTime.now();
+    //   message = "";
+    // }
 
-    return chatRoom.lastSeen == null
-        ? const SizedBox()
-        : GestureDetector(
-            onTap: () =>
-                Get.to(ChatsIndividual(chatRoom: chatRoom, userId: userId)),
-            child: Container(
-              width: double.infinity,
-              height: 110,
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-              decoration: BoxDecoration(
-                color: COLOR_WHITE,
-                border: Border(
-                  bottom: BorderSide(
-                    width: 1,
-                    color: Colors.blueGrey.shade100,
-                  ),
-                ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+    return GestureDetector(
+      onTap: () => Get.to(ChatsIndividual(chatRoom: chatRoom, userId: userId)),
+      child: Container(
+        width: double.infinity,
+        height: 110,
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        decoration: BoxDecoration(
+          color: COLOR_WHITE,
+          border: Border(
+            bottom: BorderSide(
+              width: 1,
+              color: Colors.blueGrey.shade100,
+            ),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+                padding: const EdgeInsets.all(0),
+                width: 100,
+                height: 110,
+                child: Badge(
+                  badgeColor: Colors.white,
+                  padding: const EdgeInsets.all(0),
+                  badgeContent: SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: ShowUPhoto(imageUrl: getLink(chatRoom.userPhoto))),
+                  position: BadgePosition.bottomEnd(),
+                  child: SizedBox(
+                      width: 90,
+                      height: 90,
+                      child: ShowImage(imageUrl: getLink(chatRoom.pImage))),
+                )),
+            addHorizontalSpace(25),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                      padding: const EdgeInsets.all(0),
-                      width: 100,
-                      height: 110,
-                      child: Badge(
-                        badgeColor: Colors.white,
-                        padding: const EdgeInsets.all(0),
-                        badgeContent: SizedBox(
-                            height: 50,
-                            width: 50,
-                            child: ShowUPhoto(
-                                imageUrl: getLink(chatRoom.userPhoto))),
-                        position: BadgePosition.bottomEnd(),
-                        child: SizedBox(
-                            width: 90,
-                            height: 90,
-                            child:
-                                ShowImage(imageUrl: getLink(chatRoom.pImage))),
-                      )),
-                  addHorizontalSpace(25),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(chatRoom.userName.toUpperCase(),
-                                style: heading6),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 15),
-                              child: Text(
-                                  showFormat.format(
-                                      DateTime.parse(chatRoom.lastSeen!)),
-                                  style: trailingTestStyle),
-                            ),
-                          ],
-                        ),
-                        // const SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  chatRoom.pTitle,
-                                  maxLines: 1,
-                                  softWrap: false,
-                                  overflow: TextOverflow.ellipsis,
-                                  style:
-                                      subtitleLabel.copyWith(fontSize: 29.sp),
-                                ),
-                                // const SizedBox(height: 5),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Icon(
-                                      // widget.chatRoom.messageStatus == "read"
-                                      "read" == "read"
-                                          ? Icons.done_all_outlined
-                                          : Icons.done,
-                                      color: Colors.blueGrey.shade200,
-                                      size: 35.sp,
-                                    ),
-                                    const SizedBox(width: 5),
-                                    Text(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(chatRoom.userName.toUpperCase(), style: heading6),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: chatRoom.lastSeen == null
+                            ? const SizedBox()
+                            : Text(
+                                showFormat
+                                    .format(DateTime.parse(chatRoom.lastSeen!)),
+                                style: trailingTestStyle),
+                      ),
+                    ],
+                  ),
+                  // const SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            chatRoom.pTitle,
+                            maxLines: 1,
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                            style: subtitleLabel.copyWith(fontSize: 29.sp),
+                          ),
+                          // const SizedBox(height: 5),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                // widget.chatRoom.messageStatus == "read"
+                                "read" == "read"
+                                    ? Icons.done_all_outlined
+                                    : Icons.done,
+                                color: Colors.blueGrey.shade200,
+                                size: 35.sp,
+                              ),
+                              const SizedBox(width: 5),
+                              chatRoom.lastMag == null
+                                  ? const SizedBox()
+                                  : Text(
                                       chatRoom.lastMag!,
                                       maxLines: 1,
                                       softWrap: false,
@@ -121,25 +122,25 @@ class ChatsListTitle extends StatelessWidget {
                                       style:
                                           subTitle2.copyWith(fontSize: 24.sp),
                                     )
-                                  ],
-                                ),
-                              ],
-                            ),
-                            IconButton(
-                                onPressed: () {
-                                  print("object");
-                                },
-                                icon: const Icon(Icons.more_vert_outlined,
-                                    size: 28, color: COLOR_BLACK))
-                          ],
-                        ),
-                      ],
-                    ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            print("object");
+                          },
+                          icon: const Icon(Icons.more_vert_outlined,
+                              size: 28, color: COLOR_BLACK))
+                    ],
                   ),
                 ],
               ),
             ),
-          );
+          ],
+        ),
+      ),
+    );
   }
 }
 

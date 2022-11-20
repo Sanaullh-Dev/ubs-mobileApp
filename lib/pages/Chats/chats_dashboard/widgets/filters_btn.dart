@@ -11,7 +11,7 @@ class FiltersButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final TextTheme textTheme = Theme.of(context).textTheme;
-    
+
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
         backgroundColor: isActive ? COLOR_PRIMARY : COLOR_WHITE,
@@ -31,6 +31,40 @@ class FiltersButtons extends StatelessWidget {
               fontSize: 30.sp,
               color: Colors.blueGrey.shade400,
               fontWeight: FontWeight.w500),
+        ),
+      ),
+    );
+  }
+}
+
+class PriceTag extends StatelessWidget {
+  final String tagTitle;
+  const PriceTag({super.key, required this.tagTitle});
+
+  @override
+  Widget build(BuildContext context) {
+    // final TextTheme textTheme = Theme.of(context).textTheme;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          // backgroundColor: isActive ? COLOR_PRIMARY : COLOR_WHITE,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+          ),
+          side: BorderSide(width: 1.5, color: Colors.blueGrey.shade400),
+        ),
+        onPressed: () {},
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
+          child: Text(
+            tagTitle,
+            style: TextStyle(
+                fontSize: 30.sp,
+                color: Colors.blueGrey.shade800,
+                fontWeight: FontWeight.w500),
+          ),
         ),
       ),
     );

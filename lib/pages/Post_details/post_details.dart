@@ -8,7 +8,7 @@ import 'package:ubs/model/post_reaction.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/model/users_data.dart';
 import 'package:ubs/pages/Post_details/controller/post_details_controller.dart';
-import 'package:ubs/pages/Post_details/widget/RelatedAds.dart';
+import 'package:ubs/pages/Post_details/widget/related_ads.dart';
 import 'package:ubs/pages/Post_details/widget/image_slider.dart';
 import 'package:ubs/pages/Post_details/widget/title_bar.dart';
 import 'package:ubs/pages/Post_details/widget/userinfo_bar.dart';

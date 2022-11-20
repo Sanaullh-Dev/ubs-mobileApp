@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/chats/chats_dashboard/widgets/chats_ListTiles.dart';
+import 'package:ubs/pages/chats/chats_dashboard/widgets/empty_screen.dart';
 import 'package:ubs/pages/chats/controller/chats_controller.dart';
 import 'package:ubs/utils/text_style.dart';
 
@@ -27,28 +28,9 @@ class _ChatsRoomAllState extends State<ChatsRoomAll> {
     return Obx(() => chatsController.isLoading.value == true
         ? const Center(child: CircularProgressIndicator())
         : chatsController.chatsRooms.length == 0
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    height: 150,
-                    width: 150,
-                    child: Image.asset("lib/assets/images/BiS.png"),
-                  ),
-                  const SizedBox(height: 25),
-                  Text("You've got no message so far!", style: heading3),
-                  const SizedBox(height: 25),
-                  SizedBox(
-                    width: 280,
-                    height: 60,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text("Start To Explore", style: buttonTextLight),
-                    ),
-                  ),
-                  const SizedBox(height: 120),
-                ],
-              )
+            ? const EmptyScreen(
+                title_1: "You've got no message so far!",
+                btnTitle: "Start To Explore")
             : SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

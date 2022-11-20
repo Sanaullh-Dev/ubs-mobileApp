@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/dashboard/dashboard.dart';
-import 'package:ubs/pages/login/controller/login_controller.dart';
 import 'package:get/get.dart';
 import 'package:ubs/pages/login/login_home.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/services/secure_storage.dart';
-import 'package:ubs/utils/constants.dart';
-import 'package:ubs/utils/custom_fun.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({super.key});
@@ -32,9 +29,9 @@ class _MainPageState extends State<MainPage> {
   }
 
   void getLoginData() async {
-    final StorageService _storageService = StorageService();
-    var userId = await _storageService.readSecureData("LoginId");
-    var Upass = await _storageService.readSecureData("LoginPass");
+    final StorageService storageService = StorageService();
+    var userId = await storageService.readSecureData("LoginId");
+    var Upass = await storageService.readSecureData("LoginPass");
     if (userId == null) {
       loginStatus.value = "no";
     } else {

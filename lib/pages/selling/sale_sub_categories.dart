@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:ubs/pages/selling/P1_info/sale_info-1.dart';
+import 'package:ubs/pages/selling/P1_info/sale_info_1.dart';
 import 'package:ubs/pages/selling/controller/selling_controller.dart';
 import 'package:ubs/utils/constants.dart';
 

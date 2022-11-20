@@ -1,7 +1,3 @@
-// ignore_for_file: constant_identifier_names
-
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

@@ -3,26 +3,40 @@ import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/categories.dart';
 import 'package:ubs/model/user_login.dart';
+import 'package:ubs/pages/Categories/controller/categories_controller.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
+import 'package:ubs/pages/home/home_page.dart';
 import 'package:ubs/pages/selling/sale_main_categories.dart';
 import 'package:ubs/utils/constants.dart';
 
-class SubCategoriesPage extends StatelessWidget {
+class SubCategories extends StatefulWidget {
   final UserLogin userData;
   final Categories catData;
   final String gotoPage;
-  SubCategoriesPage(
+  SubCategories(
       {super.key,
       required this.userData,
       required this.catData,
       required this.gotoPage});
 
-  HomeController homeCont = Get.find<HomeController>();
+  @override
+  State<SubCategories> createState() => _SubCategoriesState();
+}
+
+class _SubCategoriesState extends State<SubCategories> {
+  final CategoriesController cateCont = Get.find<CategoriesController>();
+  final HomeController homeController = Get.find<HomeController>();
+
+  @override
+  void dispose() {
+    super.dispose();
+    Get.delete<CategoriesController>();
+  }
 
   @override
   Widget build(BuildContext context) {
-    homeCont.fetchSubCat(catData.catId);
-    homeCont.catWiseAdsList.value = [];
+    cateCont.fetchSubCat(widget.catData.catId);
+    // cateCont.catWiseAdsList.value = [];
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -38,7 +52,7 @@ class SubCategoriesPage extends StatelessWidget {
           },
         ),
         title: Text(
-          catData.catName,
+          widget.catData.catName,
           style: TextStyle(
               fontSize: 36.sp,
               fontWeight: FontWeight.w500,
@@ -50,35 +64,39 @@ class SubCategoriesPage extends StatelessWidget {
         children: [
           Expanded(
               child: Obx(
-            () => homeCont.subCatList.value.isEmpty
+            () => cateCont.subCatList.value.isEmpty
                 ? const Center(child: CircularProgressIndicator())
                 : ListView.builder(
-                    itemCount: homeCont.subCatList.value.length,
+                    itemCount: cateCont.subCatList.value.length,
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                         onTap: () {
-                          if (gotoPage == "Sale") {
+                          if (widget.gotoPage == "Sale") {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    SaleMainCategories(userData: userData),
+                                builder: (context) => SaleMainCategories(
+                                    userData: widget.userData),
                               ),
                             );
-                          } else if (gotoPage == "Buy") {
-                            if (homeCont.subCatList[index].catName !=
+                          } else if (widget.gotoPage == "Buy") {
+                            if (cateCont.subCatList[index].catName !=
                                 "View All") {
-                              homeCont.subCat.value =
-                                  homeCont.subCatList[index].catId;
+                              cateCont.subCat.value =
+                                  cateCont.subCatList[index].catId;
                             }
-
-                            homeCont.mainCat.value = catData.catId;
-                            homeCont.typeList.value = "catList";
-                            homeCont.hintText.value =
-                                homeCont.subCatList[index].catName == "View All"
-                                    ? catData.catName
-                                    : homeCont.subCatList[index].catName;
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                '/', (Route<dynamic> route) => false);
+                            homeController.typeList.value = "catList";
+                            homeController.mainCat.value = widget.catData.catId;
+                            Get.back();
+                            // Get.to(HomePage(
+                            //     typeList: "catList",
+                            //     mainCatId: widget.catData.catId,
+                            //     userData: widget.userData));
+                            // cateCont.hintText.value =
+                            //     cateCont.subCatList[index].catName == "View All"
+                            //         ? catData.catName
+                            //         : cateCont.subCatList[index].catName;
+                            // Navigator.of(context).pushNamedAndRemoveUntil(
+                            //     '/', (Route<dynamic> route) => false);
                           }
                         },
                         child: Container(
@@ -94,7 +112,7 @@ class SubCategoriesPage extends StatelessWidget {
                               vertical: 6, horizontal: 8),
                           child: ListTile(
                             title: Text(
-                              homeCont.subCatList.value[index].catName,
+                              cateCont.subCatList.value[index].catName,
                               style: TextStyle(
                                   color: COLOR_BLACK,
                                   fontWeight: FontWeight.w500,

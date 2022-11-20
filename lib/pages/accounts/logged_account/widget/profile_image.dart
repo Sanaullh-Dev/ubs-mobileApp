@@ -26,7 +26,7 @@ class GetProfileImage extends StatelessWidget {
             color: Color.fromARGB(37, 0, 0, 0),
           )
         ],
-        borderRadius: const BorderRadius.all(Radius.circular(100)),
+        borderRadius: BorderRadius.all(Radius.circular(100)),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(100.0),

@@ -21,7 +21,7 @@ String getLink(String? path) {
 }
 
 Future<String> getLoginId() async {
-  final StorageService _storageService = StorageService();
-  var val = await _storageService.readSecureData("LoginId");
+  final StorageService storageService = StorageService();
+  var val = await storageService.readSecureData("LoginId");
   return val ?? "";
 }

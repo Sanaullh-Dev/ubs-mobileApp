@@ -4,10 +4,11 @@ import 'package:intl/intl.dart';
 import 'package:ubs/model/massage_model.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
+import 'package:ubs/utils/text_style.dart';
 
-class OwnMessage extends StatelessWidget {
+class OwnOfferMessage extends StatelessWidget {
   final MessageModel messageData;
-  const OwnMessage({super.key, required this.messageData});
+  const OwnOfferMessage({super.key, required this.messageData});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class OwnMessage extends StatelessWidget {
       child: ConstrainedBox(
         constraints: BoxConstraints(minWidth: 160, maxWidth: size - 45),
         child: Bubble(
-          color: COLOR_SECONDARY,
+          color: COLOR_PRIMARY,
           padding: const BubbleEdges.all(0),
           margin: const BubbleEdges.symmetric(horizontal: 10, vertical: 5),
           nip: BubbleNip.rightTop,
@@ -25,11 +26,20 @@ class OwnMessage extends StatelessWidget {
           child: Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.only(
-                    left: 10, right: 30, top: 5, bottom: 30),
-                child: Text(
-                  messageData.message,
-                  style: const TextStyle(fontSize: 16, color: Colors.black),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 15)
+                        .copyWith(right: 50),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("YOUR OFFER",
+                        style: heading6.copyWith(
+                            fontWeight: FontWeight.w700,
+                            color: COLOR_WHITE)),
+                    Text("₹ ${messageData.message}",
+                        style:
+                            heading2InBold.copyWith(color: COLOR_WHITE)),
+                  ],
                 ),
               ),
               Positioned(

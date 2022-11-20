@@ -14,7 +14,13 @@ import 'package:ubs/utils/text_style.dart';
 
 class HomePage extends StatefulWidget {
   final UserLogin userData;
-  const HomePage({super.key, required this.userData});
+  final String typeList;
+  final int mainCatId;
+  const HomePage(
+      {super.key,
+      required this.userData,
+      required this.typeList,
+      required this.mainCatId});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -25,15 +31,22 @@ class _HomePageState extends State<HomePage> {
   // List<AdsPost> adsPosts = [];
   final HomeController homeController = Get.find<HomeController>();
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
+
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   Get.delete<HomeController>();
+  // }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final TextTheme textTheme = Theme.of(context).textTheme;
+    // homeController.typeList.value = widget.typeList;
 
     return SafeArea(
       child: Obx(
@@ -74,11 +87,11 @@ class _LatestPostState extends State<LatestPost> {
     await homeController.fetchMainCat();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    Get.delete<HomeController>();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   Get.delete<HomeController>();
+  // }
 
   @override
   Widget build(BuildContext context) {

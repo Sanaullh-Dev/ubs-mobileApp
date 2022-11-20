@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:ubs/model/post_reaction.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/dashboard/dashboard.dart';
-import 'package:ubs/pages/home/home_page.dart';
 import 'package:ubs/pages/my_ads/controller/my_ads_controller.dart';
 import 'package:ubs/pages/my_ads/widgets/empty_page.dart';
 import 'package:ubs/services/remote_services.dart';

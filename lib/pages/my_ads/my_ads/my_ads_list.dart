@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/user_login.dart';
-import 'package:ubs/pages/home/home_page.dart';
 import 'package:ubs/pages/my_ads/controller/my_ads_controller.dart';
 import 'package:ubs/pages/my_ads/my_ads/view_ads/view_my_ads.dart';
 import 'package:ubs/pages/my_ads/widgets/empty_page.dart';
@@ -64,7 +63,7 @@ class _MyAdsListState extends State<MyAdsList> {
                             blurRadius: 4),
                         BoxShadow(
                             color: Colors.blueGrey[800]!,
-                            offset: Offset(-6, 0),
+                            offset: const Offset(-6, 0),
                             blurRadius: 0)
                       ]),
                   child: Column(

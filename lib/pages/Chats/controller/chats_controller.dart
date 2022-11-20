@@ -57,7 +57,7 @@ class ChatsController extends GetxController {
         .where('users', arrayContains: userId)
         .get()
         .then((val) {
-      val.docs.forEach((element) {
+      for (var element in val.docs) {
         chatUserList.value.add(ChatUserList(
             docId: element.id,
             pId: element.data()["adsPostId"],
@@ -66,35 +66,36 @@ class ChatsController extends GetxController {
                 : element.data()["users"][0],
             postType:
                 element.data()["sellingUser"] == userId ? "sale" : "buy"));
-      });
+      }
     });
     getChatsDetails();
   }
 
   getChatsDetails() async {
-    chatUserList.value.forEach((val) async {
+    for (var i = 0; i < chatUserList.value.length; i++) {
+      var val = chatUserList.value[i];
       var res = await RemoteServices.getChatRoomDetails(val.userId, val.pId);
       if (res != null) {
+        isLoading.value = true;
+        res.postType = val.postType;
+        res.docId = val.docId;
+        // chatsRooms.value[chatsRooms.length - 1].postType = val.postType;
+        // chatsRooms.value[chatsRooms.length - 1].docId = val.docId;
+        // await getUserLastMsg(val.docId, chatsRooms.length - 1);
+        await FirestoreDatabaseHelper.chatsRoom
+            .doc(val.docId)
+            .collection("chats")
+            .orderBy("time", descending: true)
+            .limit(1)
+            .get()
+            .then((value) {
+          res.lastMag = value.docs[0].data()["message"];
+          res.lastSeen = value.docs[0].data()["time"];
+        });
         chatsRooms.value.add(res);
-        chatsRooms.value[chatsRooms.length - 1].postType = val.postType;
-        chatsRooms.value[chatsRooms.length - 1].docId = val.docId;
-        await getUserLastMsg(val.docId, chatsRooms.length - 1);
+        isLoading.value = false;
       }
-      isLoading.value = false;
-    });
-  }
-
-  getUserLastMsg(String docId, int chatRoomIndex) async {
-    await FirestoreDatabaseHelper.chatsRoom
-        .doc(docId)
-        .collection("chats")
-        .orderBy("time", descending: true)
-        .limit(1)
-        .get()
-        .then((value) {
-      chatsRooms.value[chatRoomIndex].lastMag = value.docs[0].data()["message"];
-      chatsRooms.value[chatRoomIndex].lastSeen = value.docs[0].data()["time"];
-    });
+    }
   }
 
   getChatsHistory(String docId) {
@@ -104,6 +105,7 @@ class ChatsController extends GetxController {
         .orderBy("time")
         .snapshots();
   }
+
 }
 
 class ChatUserList {

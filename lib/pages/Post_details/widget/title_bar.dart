@@ -34,7 +34,7 @@ class TitleBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
+    // final TextTheme textTheme = Theme.of(context).textTheme;
     return Container(
       padding: EdgeInsets.symmetric(vertical: 12.w, horizontal: 25.h),
       decoration: BoxDecoration(

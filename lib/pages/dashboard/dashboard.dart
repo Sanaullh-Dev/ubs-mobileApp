@@ -34,9 +34,9 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     final pageOptions = [
-      HomePage(userData: widget.userData),
+      HomePage(userData: widget.userData, typeList: "all", mainCatId: 0),
       ChatsDashboard(userLogin: widget.userData),
-      HomePage(userData: widget.userData),
+      HomePage(userData: widget.userData, typeList: "all", mainCatId: 0),
       MyAds(userData: widget.userData),
       // const HomeAccount(),
       widget.userData.userId != ""
@@ -90,13 +90,7 @@ class _DashboardPageState extends State<DashboardPage> {
             child: FloatingActionButton(
               elevation: 0,
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        SaleMainCategories(userData: widget.userData),
-                  ),
-                );
+                Get.to(SaleMainCategories(userData: widget.userData));
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -108,13 +102,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   color: Colors.black87,
                   icon: const Icon(Icons.add_outlined),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            SaleMainCategories(userData: widget.userData),
-                      ),
-                    );
+                    Get.to(SaleMainCategories(userData: widget.userData));
                   },
                 ),
               ),

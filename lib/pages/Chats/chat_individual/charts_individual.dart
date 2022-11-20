@@ -7,9 +7,13 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:ubs/model/chats_room.dart';
 import 'package:ubs/model/massage_model.dart';
 import 'package:ubs/pages/chats/chat_individual/widget/own_message.dart';
+import 'package:ubs/pages/chats/chat_individual/widget/own_offer_message.dart';
 import 'package:ubs/pages/chats/chat_individual/widget/replay_message.dart';
+import 'package:ubs/pages/chats/chat_individual/widget/replay_offer_message.dart';
 import 'package:ubs/pages/chats/chats_dashboard/widgets/chats_ListTiles.dart';
+import 'package:ubs/pages/chats/chats_dashboard/widgets/filters_btn.dart';
 import 'package:ubs/pages/chats/controller/chats_controller.dart';
+import 'package:ubs/services/firestore_service.dart';
 import 'package:ubs/sharing_widget/show_image.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
@@ -108,7 +112,8 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                     const Spacer(),
                     const Icon(FontAwesomeIcons.phone),
                     const SizedBox(width: 15),
-                    IconButton(onPressed: () {}, icon: Icon(Icons.more_vert))
+                    IconButton(
+                        onPressed: () {}, icon: const Icon(Icons.more_vert))
                   ],
                 ),
                 elevation: 0,
@@ -152,12 +157,22 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                               shrinkWrap: true,
                               itemCount: snapshot.data!.docs.length,
                               itemBuilder: (BuildContext context, int index) {
+                                // here update ther message status to red
                                 DocumentSnapshot data =
                                     snapshot.data!.docs[index];
+                                if (data["sendBy"] != widget.userId) {
+                                  FirestoreDatabaseHelper.updateMessageStatus(
+                                      chatRoomId: chatRoom.docId!,
+                                      docId: data.id);
+                                }
                                 var da = getMessageData(data);
                                 return data["sendBy"] == widget.userId
-                                    ? OwnMessage(messageData: da)
-                                    : ReplyMessage(messageData: da);
+                                    ? data["messageType"] == "text"
+                                        ? OwnMessage(messageData: da)
+                                        : OwnOfferMessage(messageData: da)
+                                    : data["messageType"] == "text"
+                                        ? ReplyMessage(messageData: da)
+                                        : ReplyOfferMessage(messageData: da);
                               },
                             );
                           }
@@ -165,7 +180,6 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                         }),
                   ],
                 ),
-                // Product Details Bar
                 SlidingUpPanel(
                   maxHeight: isTyping == true ? maxHeight : 290,
                   minHeight: 60,
@@ -302,7 +316,6 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                               ),
                             ),
                             Visibility(
-                              // visible: MediaQuery.of(context).viewInsets.bottom > 0 ? true : false,
                               visible: !isTyping,
                               child: Wrap(
                                 children: const [Text("Is it available?")],
@@ -310,8 +323,64 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                             )
                           ],
                         ),
-                        SizedBox(
-                          height: 50,
+                        Container(
+                          // color: Colors.red,
+                          height: double.infinity,
+                          width: double.infinity,
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Wrap(
+                                children: const [
+                                  PriceTag(tagTitle: "500"),
+                                  PriceTag(tagTitle: "500"),
+                                  PriceTag(tagTitle: "500"),
+                                ],
+                              ),
+                              SizedBox(
+                                width: 250,
+                                child: TextField(
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                      prefix:
+                                          Text("₹  ", style: heading1InBold)),
+                                  style: heading1InBold,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      color: COLOR_INDICATOR,
+                                      // height: 15,
+                                      // color: Colors.red,
+                                      child: ListTile(
+                                        leading: const Icon(
+                                            FontAwesomeIcons.handHoldingHand,
+                                            color: Colors.black,
+                                            size: 30),
+                                        title: Text("Hello", style: heading6),
+                                        subtitle: Text("Sub title Hello",
+                                            style: buttonTextStyle),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 30),
+                                  ElevatedButton(
+                                      onPressed: () {},
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 18, horizontal: 18),
+                                        child: Text("Send", style: btnText),
+                                      )),
+                                  const SizedBox(width: 10),
+                                ],
+                              )
+                            ],
+                          ),
                         )
                       ],
                     ),

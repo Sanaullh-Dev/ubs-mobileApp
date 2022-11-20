@@ -17,8 +17,8 @@ class RemoteServices {
   // ---------- Get All Main Categories from API ------------------
   static Future<List<Categories>?> fetchMainCat() async {
     var uri = Uri.parse("$API_URL/category/main");
-    var _client = http.Client();
-    var response = await _client.get(uri);
+    var client = http.Client();
+    var response = await client.get(uri);
     // print(response.statusCode);
 
     if (response.statusCode == 200) {
@@ -149,8 +149,9 @@ class RemoteServices {
 
     if (response.statusCode == 200) {
       var jsonString = response.body;
-      (json.decode(jsonString) as List)
-          .forEach((val) => li.add(val["keyword"]));
+      for (var val in (json.decode(jsonString) as List)) {
+        li.add(val["keyword"]);
+      }
       return li;
     } else {
       return null;
@@ -487,10 +488,10 @@ imgFileUploadAds(AdsPost adsPost, http.MultipartRequest request) async {
   return request;
 }
 
-imgUploadUserProfile(String? Image_url, http.MultipartRequest request) async {
-  if (Image_url != null) {
+imgUploadUserProfile(String? ImageUrl, http.MultipartRequest request) async {
+  if (ImageUrl != null) {
     http.MultipartFile multipartFile =
-        await http.MultipartFile.fromPath("profile_photo", Image_url);
+        await http.MultipartFile.fromPath("profile_photo", ImageUrl);
     request.files.add(multipartFile);
   }
   return request;

@@ -1,19 +1,19 @@
-const RE_DATA = [
-  {
-    "image": "lib/assets/image1.jpg",
-    "amount": "20000",
-    "Address": "Jul-Solapur",
-    "location": "Solapur",
-    "Description": "Lorem "
-  },
-  {
-    "image": "lib/assets/image1.jpg",
-    "amount": "20000",
-    "Address": "Jul-Solapur",
-    "location": "Solapur",
-    "Description": "Lorem "
-  }
-];
+// const RE_DATA = [
+//   {
+//     "image": "lib/assets/image1.jpg",
+//     "amount": "20000",
+//     "Address": "Jul-Solapur",
+//     "location": "Solapur",
+//     "Description": "Lorem "
+//   },
+//   {
+//     "image": "lib/assets/image1.jpg",
+//     "amount": "20000",
+//     "Address": "Jul-Solapur",
+//     "location": "Solapur",
+//     "Description": "Lorem "
+//   }
+// ];
 
 // const List categoriesList = [
 //   {
@@ -278,80 +278,80 @@ const RE_DATA = [
 //   },
 // ];
 
-const List chartBoardList = [
-  {
-    "userName": "Sanaulla Shaikh",
-    "userImg": "lib/assets/user/sanaulla.jpg",
-    "userLastSeen": "2022-08-20",
-    "lastMessage": "Hi, I am sanaulla",
-    "messageStatus": "read",
-    "postTitle": "Iphone 8 Pro 2 year old",
-    "postImg": "lib/assets/images/add/iphone8.jpg",
-    "price" : 50000,
-    "postType": "Buy"
-  },
-  {
-    "userName": "Sameer Shaikh",
-    "userImg": "lib/assets/user/man.png",
-    "userLastSeen": "2022-08-20",
-    "lastMessage": "Hi, I am sameer",
-    "messageStatus": "read",
-    "postTitle": "Laptop i7 8gen 8gb 5 year old",
-    "postImg": "lib/assets/images/add/iphone8.jpg",
-    "price" : 80000,
-    "postType": "Sale"
-  },
-  {
-    "userName": "Abdul Kadir Shaikh",
-    "userImg": "lib/assets/user/man.png",
-    "userLastSeen": "2022-08-20",
-    "lastMessage": "Hi, I am Kadir",
-    "messageStatus": "received",
-    "postTitle": "Laptop i7 8gen 8gb 5 year old",
-    "postImg": "lib/assets/images/add/iphone8.jpg",
-    "price" : 120000,
-    "postType": "Sale"
-  },
-  {
-    "userName": "Gazala fareen shaikh",
-    "userImg": "lib/assets/user/woman.png",
-    "userLastSeen": "2020-08-01",
-    "lastMessage": "Hi, I am Gazala",
-    "messageStatus": "received",
-    "postTitle": "Mobile 8gb 64GB 1 year old",
-    "postImg": "lib/assets/images/add/iphone8.jpg",
-    "price" : 15000,
-    "postType": "Buy"
-  }
-];
+// const List chartBoardList = [
+//   {
+//     "userName": "Sanaulla Shaikh",
+//     "userImg": "lib/assets/user/sanaulla.jpg",
+//     "userLastSeen": "2022-08-20",
+//     "lastMessage": "Hi, I am sanaulla",
+//     "messageStatus": "read",
+//     "postTitle": "Iphone 8 Pro 2 year old",
+//     "postImg": "lib/assets/images/add/iphone8.jpg",
+//     "price" : 50000,
+//     "postType": "Buy"
+//   },
+//   {
+//     "userName": "Sameer Shaikh",
+//     "userImg": "lib/assets/user/man.png",
+//     "userLastSeen": "2022-08-20",
+//     "lastMessage": "Hi, I am sameer",
+//     "messageStatus": "read",
+//     "postTitle": "Laptop i7 8gen 8gb 5 year old",
+//     "postImg": "lib/assets/images/add/iphone8.jpg",
+//     "price" : 80000,
+//     "postType": "Sale"
+//   },
+//   {
+//     "userName": "Abdul Kadir Shaikh",
+//     "userImg": "lib/assets/user/man.png",
+//     "userLastSeen": "2022-08-20",
+//     "lastMessage": "Hi, I am Kadir",
+//     "messageStatus": "received",
+//     "postTitle": "Laptop i7 8gen 8gb 5 year old",
+//     "postImg": "lib/assets/images/add/iphone8.jpg",
+//     "price" : 120000,
+//     "postType": "Sale"
+//   },
+//   {
+//     "userName": "Gazala fareen shaikh",
+//     "userImg": "lib/assets/user/woman.png",
+//     "userLastSeen": "2020-08-01",
+//     "lastMessage": "Hi, I am Gazala",
+//     "messageStatus": "received",
+//     "postTitle": "Mobile 8gb 64GB 1 year old",
+//     "postImg": "lib/assets/images/add/iphone8.jpg",
+//     "price" : 15000,
+//     "postType": "Buy"
+//   }
+// ];
 
 
-const List chats_detils = [
-    {
-        "msg" : "Hi Sanaulla",
-        "msgDate" : "2020-08-20",
-        "msgSend" : 2,
-        "msgStatus" : "red",
-    },
-    {
-        "msg" : "Hi, How are you",
-        "msgDate" : "2020-08-21",
-        "msgSend" : 1,
-        "msgStatus" : "derived",
-    },
-    {
-        "msg" : "Hello?",
-        "msgDate" : "2020-08-22",
-        "msgSend" : 1,
-        "msgStatus" : "derived",
-    },
-    {
-        "msg" : "Hi Ganesh",
-        "msgDate" : "2020-08-10",
-        "msgSend" : 3,
-        "msgStatus" : "derived",
-    }    
-];
+// const List chats_detils = [
+//     {
+//         "msg" : "Hi Sanaulla",
+//         "msgDate" : "2020-08-20",
+//         "msgSend" : 2,
+//         "msgStatus" : "red",
+//     },
+//     {
+//         "msg" : "Hi, How are you",
+//         "msgDate" : "2020-08-21",
+//         "msgSend" : 1,
+//         "msgStatus" : "derived",
+//     },
+//     {
+//         "msg" : "Hello?",
+//         "msgDate" : "2020-08-22",
+//         "msgSend" : 1,
+//         "msgStatus" : "derived",
+//     },
+//     {
+//         "msg" : "Hi Ganesh",
+//         "msgDate" : "2020-08-10",
+//         "msgSend" : 3,
+//         "msgStatus" : "derived",
+//     }    
+// ];
 
 // spread operator
 // for (var cat in catData) ...[cardCate(cat: cat)],

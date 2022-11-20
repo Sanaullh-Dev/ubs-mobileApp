@@ -15,22 +15,21 @@ import 'package:ubs/utils/text_style.dart';
 
 class PostList extends StatefulWidget {
   final UserLogin userData;
-  PostList({super.key, required this.userData});
+  const PostList({super.key, required this.userData});
 
   @override
   State<PostList> createState() => _PostListState();
 }
 
 class _PostListState extends State<PostList> {
-  final HomeController homeController = Get.find<HomeController>();
+  final HomeController homeCont = Get.find<HomeController>();
   final SearchController searchController = Get.find<SearchController>();
 
   @override
   void initState() {
     super.initState();
-    if (homeController.typeList.value == "catList") {
-      homeController.fetchCatWiseAds(
-          widget.userData.userId, homeController.mainCat.value);      
+    if (homeCont.typeList.value == "catList") {
+      homeCont.fetchCatWiseAds(widget.userData.userId, homeCont.mainCat.value);
     }
   }
 
@@ -41,7 +40,7 @@ class _PostListState extends State<PostList> {
     return SafeArea(
       child: WillPopScope(
         onWillPop: () async {
-          homeController.typeList.value = "all";
+          homeCont.typeList.value = "all";
           return false;
         },
         child: Scaffold(
@@ -63,7 +62,7 @@ class _PostListState extends State<PostList> {
                           padding: EdgeInsets.zero,
                           constraints: const BoxConstraints(),
                           onPressed: () {
-                            homeController.typeList.value = "all";
+                            homeCont.typeList.value = "all";
                           },
                           icon: Icon(
                             Icons.arrow_back,
@@ -78,7 +77,7 @@ class _PostListState extends State<PostList> {
                               Get.to(SearchAds());
                             },
                             child: Text(
-                                "${homeController.hintText} Ads in your current location",
+                                "${homeCont.hintText} Ads in your current location",
                                 overflow: TextOverflow.ellipsis,
                                 softWrap: false,
                                 maxLines: 1,
@@ -114,10 +113,10 @@ class _PostListState extends State<PostList> {
           ),
           body: Obx(
             () {
-              if (homeController.typeList.value == "catList") {
-                return homeController.listStatus.value == true
+              if (homeCont.typeList.value == "catList") {
+                return homeCont.listStatus.value == true
                     ? const Center(child: CircularProgressIndicator())
-                    : homeController.catWiseAdsList.isEmpty
+                    : homeCont.catWiseAdsList.isEmpty
                         ? notFoundImage(size)
                         : SingleChildScrollView(
                             child: Column(
@@ -127,12 +126,12 @@ class _PostListState extends State<PostList> {
                                       vertical: 15.sp, horizontal: 30.sp),
                                   child: totalAdsBar(),
                                 ),
-                                getList(homeController.catWiseAdsList),
+                                getList(homeCont.catWiseAdsList),
                               ],
                             ),
                           );
-              } else if (homeController.typeList.value == "keywordList") {
-                return homeController.catWiseAdsList.isEmpty
+              } else if (homeCont.typeList.value == "keywordList") {
+                return homeCont.catWiseAdsList.isEmpty
                     ? notFoundImage(size)
                     : SingleChildScrollView(
                         child: Column(
@@ -142,7 +141,7 @@ class _PostListState extends State<PostList> {
                                   vertical: 15.sp, horizontal: 30.sp),
                               child: totalAdsWithSearch(),
                             ),
-                            Obx(() => getList(homeController.catWiseAdsList)),
+                            Obx(() => getList(homeCont.catWiseAdsList)),
                           ],
                         ),
                       );
@@ -180,7 +179,7 @@ class _PostListState extends State<PostList> {
   Widget totalAdsBar() {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(
-        homeController.catWiseAdsList.length.toString(),
+        homeCont.catWiseAdsList.length.toString(),
         style: TextStyle(
             color: Colors.black, fontSize: 35.sp, fontWeight: FontWeight.w600),
       ),
@@ -210,7 +209,7 @@ class _PostListState extends State<PostList> {
               color: Colors.cyan[200],
               // border: Border.all(width: 3, color: COLOR_WHITE),
               borderRadius: BorderRadius.circular(20.r)),
-          child: Text("${homeController.catWiseAdsList.length} ads",
+          child: Text("${homeCont.catWiseAdsList.length} ads",
               style: TextStyle(
                 color: COLOR_BLACK,
                 fontWeight: FontWeight.w400,
@@ -232,18 +231,13 @@ class _PostListState extends State<PostList> {
           userData: widget.userData,
           adsData: adsList[index],
           onPress: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => PostDetails(
-                  userData: widget.userData,
-                  adsPostData: adsList[index],
-                ),
-              ),
-            ).then((value) {
-              if (homeController.typeList.value == "catList") {
-                homeController.fetchCatWiseAds(
-                    widget.userData.userId, homeController.mainCat.value);
+            Get.to(PostDetails(
+              userData: widget.userData,
+              adsPostData: adsList[index],
+            ))?.then((value) {
+              if (homeCont.typeList.value == "catList") {
+                homeCont.fetchCatWiseAds(
+                    widget.userData.userId, homeCont.mainCat.value);
               }
             });
           },

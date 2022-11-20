@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/chats/chats_dashboard/widgets/chats_ListTiles.dart';
+import 'package:ubs/pages/chats/chats_dashboard/widgets/empty_screen.dart';
 import 'package:ubs/pages/chats/controller/chats_controller.dart';
 import 'package:ubs/utils/text_style.dart';
 
@@ -29,35 +30,14 @@ class _ChatsRoomBuyState extends State<ChatsRoomBuy> {
 
   @override
   Widget build(BuildContext context) {
-    // final TextTheme textTheme = Theme.of(context).textTheme; recved
+    // final TextTheme textTheme = Theme.of(context).textTheme;
     return Obx(() => chatsController.isLoading.value == true
         ? const Center(child: CircularProgressIndicator())
         : isEmpty.value
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  SizedBox(
-                    height: 150,
-                    width: 150,
-                    child: Image.asset("lib/assets/images/BiS.png"),
-                  ),
-                  const SizedBox(height: 25),
-                  Text("You've got no message so far!", style: heading3),
-                  const SizedBox(height: 15),
-                  Text("Be the first one to begin a conversation.",
-                      style: heading6),
-                  const SizedBox(height: 25),
-                  SizedBox(
-                    width: 280,
-                    height: 60,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text("Start Messaging", style: buttonTextLight),
-                    ),
-                  ),
-                  const SizedBox(height: 120),
-                ],
-              )
+            ? const EmptyScreen(
+                title_1: "You've got no message so far!",
+                title_2: "Be the first one to begin a conversation.",
+                btnTitle: "Start Messaging")
             : SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +49,7 @@ class _ChatsRoomBuyState extends State<ChatsRoomBuy> {
                       itemBuilder: (BuildContext context, int index) {
                         var val = chatsController.chatsRooms[index];
                         return val.postType != "buy"
-                            ? SizedBox()
+                            ? const SizedBox()
                             : ChatsListTitle(
                                 chatRoom: val, userId: widget.userLogin.userId);
                       },

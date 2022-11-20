@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ubs/pages/home/widget/categories_bar.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/utils/text_style.dart';

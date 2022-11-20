@@ -25,7 +25,7 @@ class _SaleInfo1State extends State<SaleInfo1> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -145,13 +145,12 @@ class _SaleInfo1State extends State<SaleInfo1> {
                         ),
                       ),
                       addVerticalSpace(80),
-                      
                     ],
                   ),
                 ),
               ),
               NextButton(
-                enable: true,
+                  enable: true,
                   labelText: "Next",
                   onPress: () {
                     if (_formKey.currentState!.validate()) {
@@ -160,9 +159,7 @@ class _SaleInfo1State extends State<SaleInfo1> {
                       sellingController.sellingPost.value.pTitle = _title.text;
                       sellingController.sellingPost.value.pDescribe =
                           _description.text;
-                      Navigator.push(
-                        context,
-                        // MaterialPageRoute(builder: (context) => ImagePickPage()),
+                      Get.to(
                         PageTransition(
                             type: PageTransitionType.rightToLeftJoined,
                             duration: const Duration(milliseconds: 400),

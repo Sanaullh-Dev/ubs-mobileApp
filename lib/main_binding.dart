@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:ubs/pages/Categories/controller/categories_controller.dart';
 import 'package:ubs/pages/Post_details/controller/post_details_controller.dart';
 import 'package:ubs/pages/accounts/controller/account_controller.dart';
 import 'package:ubs/pages/chats/controller/chats_controller.dart';
@@ -14,6 +15,7 @@ class MainBinding implements Bindings {
   void dependencies() {
     Get.lazyPut<LoginController>(() => LoginController(), fenix: true);
     Get.lazyPut<HomeController>(() => HomeController(), fenix: true);
+    Get.lazyPut<CategoriesController>(() => CategoriesController(), fenix: true);
     Get.lazyPut<SearchController>(() => SearchController(), fenix: true);
     // Get.lazyPut<MainController>(() => MainController(), fenix: true);
     Get.lazyPut<PostDetailsController>(() => PostDetailsController(),

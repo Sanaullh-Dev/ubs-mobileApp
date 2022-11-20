@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ubs/utils/constants.dart';
 
-Future<String> DialogPicker(
+Future<String> dialogPicker(
     BuildContext context, Size size) async {
   final TextTheme textTheme = Theme.of(context).textTheme;
   String select= "";

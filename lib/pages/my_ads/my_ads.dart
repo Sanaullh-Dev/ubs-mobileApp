@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/my_ads/favorites_list/favorites_list.dart';
-import 'package:ubs/pages/my_ads/my_ads/my_adsList.dart';
+import 'package:ubs/pages/my_ads/my_ads/my_ads_list.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
 

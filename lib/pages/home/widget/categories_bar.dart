@@ -18,8 +18,6 @@ class CategoriesBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
-    final Size size = MediaQuery.of(context).size;
     HomeController homeCont = Get.find<HomeController>();
     List<Categories> catData = homeCont.mainCatList;
 
@@ -37,13 +35,8 @@ class CategoriesBar extends StatelessWidget {
                 Text("Browser categories", style: titleLabel),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MainCategories(
-                            userData: userData, catData: catData),
-                      ),
-                    );
+                    Get.to(
+                        MainCategories(userData: userData, catData: catData));
                   },
                   child: Container(
                     padding:
@@ -67,17 +60,11 @@ class CategoriesBar extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     homeCont.subCatList.value = [];
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SubCategoriesPage(
-                          userData: userData,
-                          gotoPage: "Buy",
-                          catData: catData[index],
-                          // subCategoryData: catData[index].subCategories
-                        ),
-                      ),
-                    );
+                    Get.to(SubCategories(
+                      userData: userData,
+                      gotoPage: "Buy",
+                      catData: catData[index],
+                    ));
                   },
                   child: Container(
                     width: 210.sp,

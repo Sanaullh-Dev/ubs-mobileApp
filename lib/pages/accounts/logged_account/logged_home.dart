@@ -121,7 +121,7 @@ class _LoggedHomeState extends State<LoggedHome> {
                           style: buttonTextStyle.copyWith(color: Colors.black)),
                       onPressed: () {
                         loginController.logoutUser();
-                        Get.offAll(LoginHome());
+                        Get.offAll(const LoginHome());
                       },
                     ),
                   )

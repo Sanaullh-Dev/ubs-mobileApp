@@ -22,7 +22,7 @@ class _SaleMainCategoriesState extends State<SaleMainCategories> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final TextTheme textTheme = Theme.of(context).textTheme;
+    // final TextTheme textTheme = Theme.of(context).textTheme;
 
     return SafeArea(
       child: Scaffold(

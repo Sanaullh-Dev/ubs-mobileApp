@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:ubs/model/users_data.dart';
-import 'package:ubs/pages/login/Verify_otp/auto_verify.dart';
 import 'package:ubs/pages/login/controller/login_controller.dart';
 import 'package:ubs/pages/login/password/password_screen.dart';
 import 'package:ubs/pages/login/widget/common_widget.dart';
@@ -27,7 +24,7 @@ class LoginUid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final LoginController loginControl = Get.find<LoginController>();
-    TextEditingController countryCode = TextEditingController(text: "+91");
+    // TextEditingController countryCode = TextEditingController(text: "+91");
     getAppSing();
 
     return SafeArea(
