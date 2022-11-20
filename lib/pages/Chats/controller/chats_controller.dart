@@ -36,13 +36,16 @@ class ChatsController extends GetxController {
   }
 
   Future<bool> saveMessage(
-      String docId, String message, String loggedUid) async {
+      {required String postType,
+      required String docId,
+      required String message,
+      required String loggedUid}) async {
     final DateFormat formatter = DateFormat('yyyy-MMM-dd');
 
     MessageData messageData = MessageData.fromJson({
       "message": message,
       "sendBy": loggedUid,
-      "messageType": "text", // this for text-message or offer-message
+      "messageType": postType, // this for text-message or offer-message
       "time": DateTime.now().toIso8601String(),
       "status": "unread"
     });
@@ -72,7 +75,7 @@ class ChatsController extends GetxController {
   }
 
   getChatsDetails() async {
-    for (var i = 0; i < chatUserList.value.length; i++) {
+    for (var i = 0; i < chatUserList.value.length - 1; i++) {
       var val = chatUserList.value[i];
       var res = await RemoteServices.getChatRoomDetails(val.userId, val.pId);
       if (res != null) {
@@ -105,7 +108,6 @@ class ChatsController extends GetxController {
         .orderBy("time")
         .snapshots();
   }
-
 }
 
 class ChatUserList {

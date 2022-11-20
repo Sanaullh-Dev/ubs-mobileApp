@@ -38,8 +38,9 @@ class FiltersButtons extends StatelessWidget {
 }
 
 class PriceTag extends StatelessWidget {
+  final VoidCallback onPress;
   final String tagTitle;
-  const PriceTag({super.key, required this.tagTitle});
+  const PriceTag({super.key, required this.tagTitle, required this.onPress});
 
   @override
   Widget build(BuildContext context) {
@@ -55,17 +56,51 @@ class PriceTag extends StatelessWidget {
           ),
           side: BorderSide(width: 1.5, color: Colors.blueGrey.shade400),
         ),
-        onPressed: () {},
+        onPressed: onPress,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 12),
+          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
           child: Text(
             tagTitle,
             style: TextStyle(
-                fontSize: 30.sp,
+                fontSize: 25.sp,
                 color: Colors.blueGrey.shade800,
                 fontWeight: FontWeight.w500),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ChatsTag extends StatelessWidget {
+  final VoidCallback onPress;
+  final String tagTitle;
+  const ChatsTag({super.key, required this.tagTitle, required this.onPress});
+
+  @override
+  Widget build(BuildContext context) {
+    // final TextTheme textTheme = Theme.of(context).textTheme;
+
+    return Container(
+      margin: const EdgeInsets.only(left: 15, bottom: 15),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(width: 1, color: Colors.blueGrey[300]!),
+          borderRadius: BorderRadius.circular(5),
+          boxShadow: const [
+            BoxShadow(
+              offset: Offset(1, 1),
+              blurRadius: 1.0,
+              color: Colors.grey,
+            )
+          ]),
+      child: Text(
+        tagTitle,
+        style: TextStyle(
+            fontSize: 28.sp,
+            color: Colors.blueGrey.shade600,
+            fontWeight: FontWeight.w500),
       ),
     );
   }

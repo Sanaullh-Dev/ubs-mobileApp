@@ -38,6 +38,9 @@ class _ChatsIndividualState extends State<ChatsIndividual>
   double maxHeight = 120;
   bool isTyping = false;
   TextEditingController messageBox = TextEditingController();
+  List<int> priceList = [];
+  List<String> chatsList = [];
+  TextEditingController priceText = TextEditingController();
 
   final ChatsController chatsCont = Get.find<ChatsController>();
 
@@ -46,6 +49,22 @@ class _ChatsIndividualState extends State<ChatsIndividual>
     super.initState();
     _tabController = TabController(initialIndex: 0, length: 2, vsync: this);
     chatsCont.getChatsHistory(widget.chatRoom.docId!);
+    getPriceList();
+    chatsList.addAll([
+      "Is it sill available?",
+      "Let's meet up?",
+      "What's is last prices?",
+      "Coulde you share some picture?"
+    ]);
+  }
+
+  getPriceList() {
+    var price = widget.chatRoom.pPrice;
+    var amt = price - (price * 20 / 100);
+    for (var i = 0; i < 4; i++) {
+      priceList.add(amt.round());
+      amt = amt + (price * 10 / 100);
+    }
   }
 
   @override
@@ -180,216 +199,265 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                         }),
                   ],
                 ),
-                SlidingUpPanel(
-                  maxHeight: isTyping == true ? maxHeight : 290,
-                  minHeight: 60,
-                  defaultPanelState: PanelState.OPEN,
-                  controller: _panelController,
-                  header: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    width: size.width,
-                    height: 60,
-                    color: Colors.white70,
-                    child: Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20),
-                          child: TabBar(
-                            controller: _tabController,
-                            indicatorWeight: 3,
-                            indicatorColor: COLOR_INDICATOR,
-                            labelPadding: const EdgeInsets.only(bottom: 15),
-                            tabs: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Icon(
-                                    FontAwesomeIcons.message,
-                                    size: 25,
-                                  ),
-                                  addHorizontalSpace(12),
-                                  const Text(
-                                    "Chart",
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Icon(
-                                    FontAwesomeIcons.handPointer,
-                                    size: 25,
-                                  ),
-                                  addHorizontalSpace(12),
-                                  const Text(
-                                    "Make Offer",
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  panel: Container(
-                    margin: const EdgeInsets.only(top: 60),
-                    child: TabBarView(
-                      controller: _tabController,
-                      children: [
-                        Stack(
-                          children: [
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Card(
-                                margin: EdgeInsets.only(
-                                    left: 2,
-                                    right: 2,
-                                    bottom: MediaQuery.of(context)
-                                                .viewInsets
-                                                .bottom >
-                                            0
-                                        ? 0
-                                        : 8),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(0)),
-                                child: TextField(
-                                  controller: messageBox,
-                                  onTap: () {
-                                    isTyping = true;
-                                    setState(() {});
-                                  },
-                                  onChanged: (String e) {
-                                    setState(() {
-                                      double numLines =
-                                          '\n'.allMatches(e).length + 1;
-                                      if (numLines >= 1 && numLines < 5) {
-                                        maxHeight = 90 + (25 * numLines);
-                                      }
-                                    });
-                                  },
-                                  textAlignVertical: TextAlignVertical.center,
-                                  keyboardType: TextInputType.multiline,
-                                  maxLines: 5,
-                                  minLines: 1,
-                                  style: const TextStyle(
-                                    fontSize: 20,
-                                  ),
-                                  decoration: InputDecoration(
-                                    hintText: "Type a message",
-                                    border: InputBorder.none,
-                                    prefixIcon: const Padding(
-                                      padding: EdgeInsets.only(right: 8),
-                                      child: Icon(
-                                        // FontAwesomeIcons.paperclip,
-                                        FontAwesomeIcons.pen,
-                                        color: COLOR_INDICATOR,
-                                        size: 25,
-                                      ),
-                                    ),
-                                    suffixIcon: TextButton(
-                                        onPressed: () async {
-                                          chatsCont
-                                              .saveMessage(
-                                                  chatRoom.docId!,
-                                                  messageBox.text,
-                                                  widget.userId)
-                                              .then((value) => value == true
-                                                  ? messageBox.text = ""
-                                                  : null);
-                                        },
-                                        style: TextButton.styleFrom(
-                                          backgroundColor: COLOR_PRIMARY,
-                                          shape: const CircleBorder(),
-                                        ),
-                                        child: const Icon(
-                                          Icons.send,
-                                          color: Colors.white,
-                                        )),
-                                    hintStyle: const TextStyle(
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Visibility(
-                              visible: !isTyping,
-                              child: Wrap(
-                                children: const [Text("Is it available?")],
-                              ),
-                            )
-                          ],
-                        ),
-                        Container(
-                          // color: Colors.red,
-                          height: double.infinity,
-                          width: double.infinity,
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Wrap(
-                                children: const [
-                                  PriceTag(tagTitle: "500"),
-                                  PriceTag(tagTitle: "500"),
-                                  PriceTag(tagTitle: "500"),
-                                ],
-                              ),
-                              SizedBox(
-                                width: 250,
-                                child: TextField(
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                      prefix:
-                                          Text("₹  ", style: heading1InBold)),
-                                  style: heading1InBold,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: Container(
-                                      color: COLOR_INDICATOR,
-                                      // height: 15,
-                                      // color: Colors.red,
-                                      child: ListTile(
-                                        leading: const Icon(
-                                            FontAwesomeIcons.handHoldingHand,
-                                            color: Colors.black,
-                                            size: 30),
-                                        title: Text("Hello", style: heading6),
-                                        subtitle: Text("Sub title Hello",
-                                            style: buttonTextStyle),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 30),
-                                  ElevatedButton(
-                                      onPressed: () {},
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 18, horizontal: 18),
-                                        child: Text("Send", style: btnText),
-                                      )),
-                                  const SizedBox(width: 10),
-                                ],
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+                slidingUpBox(size)
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget slidingUpBox(Size size) {
+    return SlidingUpPanel(
+      maxHeight: isTyping == true ? maxHeight : 350,
+      minHeight: 60,
+      defaultPanelState: PanelState.OPEN,
+      controller: _panelController,
+      header: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        width: size.width,
+        height: 60,
+        color: Colors.white70,
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: TabBar(
+                controller: _tabController,
+                indicatorWeight: 3,
+                indicatorColor: COLOR_INDICATOR,
+                labelPadding: const EdgeInsets.only(bottom: 15),
+                tabs: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        FontAwesomeIcons.message,
+                        size: 25,
+                      ),
+                      addHorizontalSpace(12),
+                      const Text(
+                        "Chart",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        FontAwesomeIcons.handPointer,
+                        size: 25,
+                      ),
+                      addHorizontalSpace(12),
+                      const Text(
+                        "Make Offer",
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      panel: Container(
+        margin: const EdgeInsets.only(top: 60),
+        child: TabBarView(
+          controller: _tabController,
+          children: [
+            Stack(
+              children: [
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    padding: EdgeInsets.only(top: 5),
+                    margin: EdgeInsets.only(
+                        left: 2,
+                        right: 2,
+                        bottom: MediaQuery.of(context).viewInsets.bottom > 0
+                            ? 0
+                            : 8),
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        top: BorderSide(width: 1, color: COLOR_BLACK),
+                        // bottom: BorderSide(width: 5, color: borderColor)
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: messageBox,
+                        onTap: () {
+                          isTyping = true;
+                          setState(() {});
+                        },
+                        onChanged: (String e) {
+                          setState(() {
+                            double numLines = '\n'.allMatches(e).length + 1;
+                            if (numLines >= 1 && numLines < 5) {
+                              maxHeight = 90 + (25 * numLines);
+                            }
+                          });
+                        },
+                        textAlignVertical: TextAlignVertical.center,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 5,
+                        minLines: 1,
+                        style: const TextStyle(
+                          fontSize: 20,
+                        ),
+                        decoration: InputDecoration(
+                          hintText: "Type a message",
+                          border: InputBorder.none,
+                          prefixIcon: const Padding(
+                            padding: EdgeInsets.only(right: 8),
+                            child: Icon(
+                              // FontAwesomeIcons.paperclip,
+                              FontAwesomeIcons.pen,
+                              color: COLOR_INDICATOR,
+                              size: 25,
+                            ),
+                          ),
+                          suffixIcon: TextButton(
+                              onPressed: () async {
+                                chatsCont
+                                    .saveMessage(
+                                        docId: widget.chatRoom.docId!,
+                                        loggedUid: widget.userId,
+                                        message: messageBox.text,
+                                        postType: "text")
+                                    .then((value) => value == true
+                                        ? messageBox.text = ""
+                                        : null);
+                              },
+                              style: TextButton.styleFrom(
+                                backgroundColor: COLOR_PRIMARY,
+                                shape: const CircleBorder(),
+                              ),
+                              child: const Icon(
+                                Icons.send,
+                                color: Colors.white,
+                              )),
+                          hintStyle: const TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  child: Visibility(
+                    visible: !isTyping,
+                    child: Wrap(children: [
+                      for (var item in chatsList)
+                        ChatsTag(
+                          tagTitle: item,
+                          onPress: () {
+                            chatsCont
+                                .saveMessage(
+                                    docId: widget.chatRoom.docId!,
+                                    message: item,
+                                    loggedUid: widget.userId,
+                                    postType: "text")
+                                .then((value) => value == true
+                                    ? messageBox.text = ""
+                                    : null);
+                          },
+                        )
+                    ]),
+                  ),
+                )
+              ],
+            ),
+            Container(
+              height: double.infinity,
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Wrap(children: [
+                    for (var item in priceList)
+                      PriceTag(
+                        tagTitle: item.toString(),
+                        onPress: () => priceText.text = item.toString(),
+                      )
+                  ]),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: 250,
+                    child: TextField(
+                      controller: priceText,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                          contentPadding: EdgeInsets.zero,
+                          prefixIcon: Text("₹", style: heading2InBold)),
+                      style: heading2InBold,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          color: COLOR_INDICATOR,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 15),
+                          // height: 15,
+                          // color: Colors.red,
+                          child: Row(
+                            children: [
+                              const Icon(FontAwesomeIcons.handHoldingHand,
+                                  color: Colors.black, size: 30),
+                              const SizedBox(width: 20),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Good offer!", style: heading6),
+                                  Text("High chances of response",
+                                      style: buttonTextStyle),
+                                ],
+                                // save
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 30),
+                      ElevatedButton(
+                          onPressed: () {
+                            if (priceText.text != "") {
+                              chatsCont
+                                  .saveMessage(
+                                      docId: widget.chatRoom.docId!,
+                                      message: messageBox.text,
+                                      loggedUid: widget.userId,
+                                      postType: "offer")
+                                  .then((value) => value == true
+                                      ? messageBox.text = ""
+                                      : null);
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 18, horizontal: 18),
+                            child: Text("Send", style: btnText),
+                          )),
+                      const SizedBox(width: 10),
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
