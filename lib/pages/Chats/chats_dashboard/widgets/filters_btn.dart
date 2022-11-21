@@ -81,26 +81,29 @@ class ChatsTag extends StatelessWidget {
   Widget build(BuildContext context) {
     // final TextTheme textTheme = Theme.of(context).textTheme;
 
-    return Container(
-      margin: const EdgeInsets.only(left: 15, bottom: 15),
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(width: 1, color: Colors.blueGrey[300]!),
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: const [
-            BoxShadow(
-              offset: Offset(1, 1),
-              blurRadius: 1.0,
-              color: Colors.grey,
-            )
-          ]),
-      child: Text(
-        tagTitle,
-        style: TextStyle(
-            fontSize: 28.sp,
-            color: Colors.blueGrey.shade600,
-            fontWeight: FontWeight.w500),
+    return GestureDetector(
+      onTap: onPress,
+      child: Container(
+        margin: const EdgeInsets.only(left: 15, bottom: 15),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(width: 1, color: Colors.blueGrey[300]!),
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: const [
+              BoxShadow(
+                offset: Offset(1, 1),
+                blurRadius: 1.0,
+                color: Colors.grey,
+              )
+            ]),
+        child: Text(
+          tagTitle,
+          style: TextStyle(
+              fontSize: 28.sp,
+              color: Colors.blueGrey.shade600,
+              fontWeight: FontWeight.w500),
+        ),
       ),
     );
   }

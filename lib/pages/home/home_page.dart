@@ -31,16 +31,6 @@ class _HomePageState extends State<HomePage> {
   // List<AdsPost> adsPosts = [];
   final HomeController homeController = Get.find<HomeController>();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
-
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   Get.delete<HomeController>();
-  // }
 
   @override
   Widget build(BuildContext context) {

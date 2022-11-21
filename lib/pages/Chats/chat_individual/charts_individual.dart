@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -35,13 +36,16 @@ class _ChatsIndividualState extends State<ChatsIndividual>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final PanelController _panelController = PanelController();
-  double maxHeight = 120;
-  bool isTyping = false;
+  RxBool isTyping = false.obs;
   TextEditingController messageBox = TextEditingController();
   List<int> priceList = [];
-  List<String> chatsList = [];
+  List<String> chatsList = [
+    "Is it sill available?",
+    "Let's meet up?",
+    "What's is last prices?",
+    "Could you share some picture?"
+  ];
   TextEditingController priceText = TextEditingController();
-
   final ChatsController chatsCont = Get.find<ChatsController>();
 
   @override
@@ -50,12 +54,6 @@ class _ChatsIndividualState extends State<ChatsIndividual>
     _tabController = TabController(initialIndex: 0, length: 2, vsync: this);
     chatsCont.getChatsHistory(widget.chatRoom.docId!);
     getPriceList();
-    chatsList.addAll([
-      "Is it sill available?",
-      "Let's meet up?",
-      "What's is last prices?",
-      "Coulde you share some picture?"
-    ]);
   }
 
   getPriceList() {
@@ -91,126 +89,132 @@ class _ChatsIndividualState extends State<ChatsIndividual>
               fit: BoxFit.cover,
             ),
           ),
-          Scaffold(
-            backgroundColor: Colors.blueGrey.shade100.withAlpha(210),
-            appBar: PreferredSize(
-              preferredSize:
-                  const Size.fromHeight(80.0), // here the desired height
-              child: AppBar(
-                toolbarHeight: 70,
-                leadingWidth: 40,
-                leading: IconButton(
-                    padding: const EdgeInsets.all(17),
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: () => Get.back()),
-                title: Row(
-                  children: [
-                    SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: Badge(
-                        badgeColor: Colors.white,
-                        padding: const EdgeInsets.all(0),
-                        badgeContent: SizedBox(
-                            height: 30,
-                            width: 30,
-                            child: ShowUPhoto(
-                                imageUrl: getLink(chatRoom.userPhoto))),
-                        position: BadgePosition.bottomEnd(),
-                        child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child:
-                                ShowImage(imageUrl: getLink(chatRoom.pImage))),
+          KeyboardVisibilityBuilder(builder: (context, _visible) {
+            return Scaffold(
+              backgroundColor: Colors.blueGrey.shade100.withAlpha(210),
+              appBar: PreferredSize(
+                preferredSize:
+                    const Size.fromHeight(80.0), // here the desired height
+                child: AppBar(
+                  toolbarHeight: 70,
+                  leadingWidth: 40,
+                  leading: IconButton(
+                      padding: const EdgeInsets.all(17),
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () => Get.back()),
+                  title: Row(
+                    children: [
+                      SizedBox(
+                        height: 50,
+                        width: 50,
+                        child: Badge(
+                          badgeColor: Colors.white,
+                          padding: const EdgeInsets.all(0),
+                          badgeContent: SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: ShowUPhoto(
+                                  imageUrl: getLink(chatRoom.userPhoto))),
+                          position: BadgePosition.bottomEnd(),
+                          child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: ShowImage(
+                                  imageUrl: getLink(chatRoom.pImage))),
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 15),
-                    Text(chatRoom.userName,
-                        style:
-                            titleLabel.copyWith(fontWeight: FontWeight.w800)),
-                    const Spacer(),
-                    const Icon(FontAwesomeIcons.phone),
-                    const SizedBox(width: 15),
-                    IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.more_vert))
-                  ],
+                      const SizedBox(width: 15),
+                      Text(chatRoom.userName,
+                          style:
+                              titleLabel.copyWith(fontWeight: FontWeight.w800)),
+                      const Spacer(),
+                      const Icon(FontAwesomeIcons.phone),
+                      const SizedBox(width: 15),
+                      IconButton(
+                          onPressed: () {}, icon: const Icon(Icons.more_vert))
+                    ],
+                  ),
+                  elevation: 0,
                 ),
-                elevation: 0,
               ),
-            ),
-            body: Stack(
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(color: COLOR_WHITE, boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withAlpha(100),
-                          blurRadius: 4.0,
-                        )
-                      ]),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 30),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(chatRoom.pTitle, style: buttonTextLight),
-                          Text("₹ ${chatRoom.pPrice}", style: buttonTextLight),
-                        ],
+              body: Stack(
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        decoration:
+                            BoxDecoration(color: COLOR_WHITE, boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withAlpha(100),
+                            blurRadius: 4.0,
+                          )
+                        ]),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(chatRoom.pTitle, style: buttonTextLight),
+                            Text("₹ ${chatRoom.pPrice}",
+                                style: buttonTextLight),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    StreamBuilder<QuerySnapshot>(
-                        stream: chatsCont.chatsHistory,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasError) {
-                            return const Center(
-                                child: Text('Something went wrong'));
-                          }
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const Center(child: Text("Loading"));
-                          }
-                          if (snapshot.data!.docs.isNotEmpty) {
-                            return ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: snapshot.data!.docs.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                // here update ther message status to red
-                                DocumentSnapshot data =
-                                    snapshot.data!.docs[index];
-                                if (data["sendBy"] != widget.userId) {
-                                  FirestoreDatabaseHelper.updateMessageStatus(
-                                      chatRoomId: chatRoom.docId!,
-                                      docId: data.id);
-                                }
-                                var da = getMessageData(data);
-                                return data["sendBy"] == widget.userId
-                                    ? data["messageType"] == "text"
-                                        ? OwnMessage(messageData: da)
-                                        : OwnOfferMessage(messageData: da)
-                                    : data["messageType"] == "text"
-                                        ? ReplyMessage(messageData: da)
-                                        : ReplyOfferMessage(messageData: da);
-                              },
-                            );
-                          }
-                          return const Center(child: Text("Data not"));
-                        }),
-                  ],
-                ),
-                slidingUpBox(size)
-              ],
-            ),
-          ),
+                      const SizedBox(height: 10),
+                      StreamBuilder<QuerySnapshot>(
+                          stream: chatsCont.chatsHistory,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              return const Center(
+                                  child: Text('Something went wrong'));
+                            }
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(child: Text("Loading"));
+                            }
+                            if (snapshot.data!.docs.isNotEmpty) {
+                              return ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: snapshot.data!.docs.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  // here update ther message status to red
+                                  DocumentSnapshot data =
+                                      snapshot.data!.docs[index];
+                                  if (data["sendBy"] != widget.userId) {
+                                    FirestoreDatabaseHelper.updateMessageStatus(
+                                        chatRoomId: chatRoom.docId!,
+                                        docId: data.id);
+                                  }
+                                  var da = getMessageData(data);
+                                  return data["sendBy"] == widget.userId
+                                      ? data["messageType"] == "text"
+                                          ? OwnMessage(messageData: da)
+                                          : OwnOfferMessage(messageData: da)
+                                      : data["messageType"] == "text"
+                                          ? ReplyMessage(messageData: da)
+                                          : ReplyOfferMessage(messageData: da);
+                                },
+                              );
+                            }
+                            return const Center(child: Text("Data not"));
+                          }),
+                    ],
+                  ),
+                  slidingUpBox(size, _visible)
+                ],
+              ),
+            );
+          }),
         ],
       ),
     );
   }
 
-  Widget slidingUpBox(Size size) {
+  Widget slidingUpBox(Size size, bool visible) {
+    double maxHeight = 140;
+
     return SlidingUpPanel(
-      maxHeight: isTyping == true ? maxHeight : 350,
+      maxHeight: visible ? maxHeight : 350,
       minHeight: 60,
       defaultPanelState: PanelState.OPEN,
       controller: _panelController,
@@ -264,34 +268,51 @@ class _ChatsIndividualState extends State<ChatsIndividual>
         ),
       ),
       panel: Container(
-        margin: const EdgeInsets.only(top: 60),
+        margin: const EdgeInsets.only(top: 70),
         child: TabBarView(
           controller: _tabController,
           children: [
             Stack(
               children: [
+                // suggestion Text
+                Visibility(
+                  visible: !visible,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 15),
+                    child: Wrap(children: [
+                      for (var item in chatsList)
+                        ChatsTag(
+                          tagTitle: item,
+                          onPress: () => chatsCont
+                              .saveMessage(
+                                  docId: widget.chatRoom.docId!,
+                                  message: item,
+                                  loggedUid: widget.userId,
+                                  postType: "text")
+                              .then((value) =>
+                                  value == true ? messageBox.text = "" : null),
+                        )
+                    ]),
+                  ),
+                ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    padding: EdgeInsets.only(top: 5),
-                    margin: EdgeInsets.only(
-                        left: 2,
-                        right: 2,
-                        bottom: MediaQuery.of(context).viewInsets.bottom > 0
-                            ? 0
-                            : 8),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                    margin: EdgeInsets.only(left: 2, right: 2, bottom: 2),
                     decoration: const BoxDecoration(
-                      border: Border(
-                        top: BorderSide(width: 1, color: COLOR_BLACK),
-                        // bottom: BorderSide(width: 5, color: borderColor)
-                      ),
-                    ),
+                        border: Border(
+                      top: BorderSide(width: 2, color: COLOR_BLACK),
+                      // bottom: BorderSide(width: 1, color: COLOR_BLACK),
+                    )),
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(0),
                       child: TextField(
                         controller: messageBox,
                         onTap: () {
-                          isTyping = true;
+                          isTyping.value = true;
                           setState(() {});
                         },
                         onChanged: (String e) {
@@ -349,30 +370,6 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                     ),
                   ),
                 ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                  child: Visibility(
-                    visible: !isTyping,
-                    child: Wrap(children: [
-                      for (var item in chatsList)
-                        ChatsTag(
-                          tagTitle: item,
-                          onPress: () {
-                            chatsCont
-                                .saveMessage(
-                                    docId: widget.chatRoom.docId!,
-                                    message: item,
-                                    loggedUid: widget.userId,
-                                    postType: "text")
-                                .then((value) => value == true
-                                    ? messageBox.text = ""
-                                    : null);
-                          },
-                        )
-                    ]),
-                  ),
-                )
               ],
             ),
             Container(
@@ -386,9 +383,15 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                   Wrap(children: [
                     for (var item in priceList)
                       PriceTag(
-                        tagTitle: item.toString(),
-                        onPress: () => priceText.text = item.toString(),
-                      )
+                          tagTitle: item.toString(),
+                          onPress: () => chatsCont
+                              .saveMessage(
+                                  docId: widget.chatRoom.docId!,
+                                  message: item.toString(),
+                                  loggedUid: widget.userId,
+                                  postType: "offer")
+                              .then((value) =>
+                                  value == true ? messageBox.text = "" : null))
                   ]),
                   const SizedBox(height: 20),
                   SizedBox(
