@@ -90,11 +90,11 @@ class ChatsTag extends StatelessWidget {
             color: Colors.white,
             border: Border.all(width: 1, color: Colors.blueGrey[300]!),
             borderRadius: BorderRadius.circular(5),
-            boxShadow: const [
+            boxShadow: [
               BoxShadow(
-                offset: Offset(1, 1),
+                offset: const Offset(1, 1),
                 blurRadius: 1.0,
-                color: Colors.grey,
+                color: Colors.grey.withAlpha(50),
               )
             ]),
         child: Text(

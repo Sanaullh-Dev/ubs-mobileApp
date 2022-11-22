@@ -119,6 +119,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                                 if (value == null || value.isEmpty) {
                                   return 'Name can not empty';
                                 }
+                                return null;
                               })
                           : const SizedBox(),
                       addVerticalSpace(widget.newUser ? 80.h : 0),

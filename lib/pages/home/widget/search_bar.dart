@@ -19,7 +19,7 @@ class SearchBar extends StatelessWidget {
     // final ThemeData themData = Theme.of(context);
 
     return Container(
-      // height: 120.h,
+      height: 120.h,
       padding: EdgeInsets.symmetric(horizontal: 15.sp, vertical: 30.sp),
       alignment: Alignment.centerRight,
       decoration: BoxDecoration(
@@ -48,8 +48,7 @@ class SearchBar extends StatelessWidget {
                 controller: TextEditingController(
                     text: "Find Car, Mobile Phone, and more "),
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                  hintStyle: TextStyle(fontSize: 32.sp),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 0 ,horizontal: 5),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(50.r),
                   borderSide: BorderSide(

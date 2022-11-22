@@ -127,9 +127,7 @@ class ChatsListTitle extends StatelessWidget {
                         ],
                       ),
                       IconButton(
-                          onPressed: () {
-                            print("object");
-                          },
+                          onPressed: () {},
                           icon: const Icon(Icons.more_vert_outlined,
                               size: 28, color: COLOR_BLACK))
                     ],

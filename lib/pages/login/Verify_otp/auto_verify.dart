@@ -70,7 +70,7 @@ class _AutoVerifyState extends State<AutoVerify> with CodeAutoFill {
 
   void startTimer() {
     countdownTimer =
-        Timer.periodic(Duration(seconds: 1), (_) => setCountDown());
+        Timer.periodic(const Duration(seconds: 1), (_) => setCountDown());
   }
 
   void setCountDown() {

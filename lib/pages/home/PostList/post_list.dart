@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/Post_details/post_details.dart';
-import 'package:ubs/pages/home/PostList/widget/adsTile.dart';
+import 'package:ubs/pages/home/PostList/widget/ads_tile.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/pages/search_ads/controller/search_controller.dart';
 import 'package:ubs/pages/search_ads/search_ads.dart';
@@ -74,7 +74,7 @@ class _PostListState extends State<PostList> {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              Get.to(SearchAds());
+                              Get.to(const SearchAds());
                             },
                             child: Text(
                                 "${homeCont.hintText} Ads in your current location",
@@ -227,7 +227,7 @@ class _PostListState extends State<PostList> {
       shrinkWrap: true,
       itemCount: adsList.length,
       itemBuilder: (BuildContext context, int index) {
-        return AdsTitle(
+        return AdsTile(
           userData: widget.userData,
           adsData: adsList[index],
           onPress: () {

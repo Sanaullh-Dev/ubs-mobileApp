@@ -11,7 +11,7 @@ import 'package:ubs/pages/chats/chat_individual/widget/own_message.dart';
 import 'package:ubs/pages/chats/chat_individual/widget/own_offer_message.dart';
 import 'package:ubs/pages/chats/chat_individual/widget/replay_message.dart';
 import 'package:ubs/pages/chats/chat_individual/widget/replay_offer_message.dart';
-import 'package:ubs/pages/chats/chats_dashboard/widgets/chats_ListTiles.dart';
+import 'package:ubs/pages/chats/chats_dashboard/widgets/chats_list_tiles.dart';
 import 'package:ubs/pages/chats/chats_dashboard/widgets/filters_btn.dart';
 import 'package:ubs/pages/chats/controller/chats_controller.dart';
 import 'package:ubs/services/firestore_service.dart';
@@ -36,7 +36,6 @@ class _ChatsIndividualState extends State<ChatsIndividual>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final PanelController _panelController = PanelController();
-  RxBool isTyping = false.obs;
   TextEditingController messageBox = TextEditingController();
   List<int> priceList = [];
   List<String> chatsList = [
@@ -53,6 +52,8 @@ class _ChatsIndividualState extends State<ChatsIndividual>
     super.initState();
     _tabController = TabController(initialIndex: 0, length: 2, vsync: this);
     chatsCont.getChatsHistory(widget.chatRoom.docId!);
+    chatsCont.adsPrice.value = widget.chatRoom.pPrice.toDouble();
+    priceText.text = chatsCont.adsPrice.value.toString();
     getPriceList();
   }
 
@@ -91,119 +92,123 @@ class _ChatsIndividualState extends State<ChatsIndividual>
           ),
           KeyboardVisibilityBuilder(builder: (context, _visible) {
             return Scaffold(
-              backgroundColor: Colors.blueGrey.shade100.withAlpha(210),
-              appBar: PreferredSize(
-                preferredSize:
-                    const Size.fromHeight(80.0), // here the desired height
-                child: AppBar(
-                  toolbarHeight: 70,
-                  leadingWidth: 40,
-                  leading: IconButton(
-                      padding: const EdgeInsets.all(17),
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () => Get.back()),
-                  title: Row(
-                    children: [
-                      SizedBox(
-                        height: 50,
-                        width: 50,
-                        child: Badge(
-                          badgeColor: Colors.white,
-                          padding: const EdgeInsets.all(0),
-                          badgeContent: SizedBox(
-                              height: 30,
-                              width: 30,
-                              child: ShowUPhoto(
-                                  imageUrl: getLink(chatRoom.userPhoto))),
-                          position: BadgePosition.bottomEnd(),
-                          child: SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: ShowImage(
-                                  imageUrl: getLink(chatRoom.pImage))),
+                backgroundColor: Colors.blueGrey.shade100.withAlpha(210),
+                appBar: PreferredSize(
+                  preferredSize:
+                      const Size.fromHeight(80.0), // here the desired height
+                  child: AppBar(
+                    toolbarHeight: 70,
+                    leadingWidth: 40,
+                    leading: IconButton(
+                        padding: const EdgeInsets.all(17),
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () => Get.back()),
+                    title: Row(
+                      children: [
+                        SizedBox(
+                          height: 50,
+                          width: 50,
+                          child: Badge(
+                            badgeColor: Colors.white,
+                            padding: const EdgeInsets.all(0),
+                            badgeContent: SizedBox(
+                                height: 30,
+                                width: 30,
+                                child: ShowUPhoto(
+                                    imageUrl: getLink(chatRoom.userPhoto))),
+                            position: BadgePosition.bottomEnd(),
+                            child: SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: ShowImage(
+                                    imageUrl: getLink(chatRoom.pImage))),
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 15),
-                      Text(chatRoom.userName,
-                          style:
-                              titleLabel.copyWith(fontWeight: FontWeight.w800)),
-                      const Spacer(),
-                      const Icon(FontAwesomeIcons.phone),
-                      const SizedBox(width: 15),
-                      IconButton(
-                          onPressed: () {}, icon: const Icon(Icons.more_vert))
-                    ],
+                        const SizedBox(width: 15),
+                        Text(chatRoom.userName,
+                            style: titleLabel.copyWith(
+                                fontWeight: FontWeight.w800)),
+                        const Spacer(),
+                        const Icon(FontAwesomeIcons.phone),
+                        const SizedBox(width: 15),
+                        IconButton(
+                            onPressed: () {}, icon: const Icon(Icons.more_vert))
+                      ],
+                    ),
+                    elevation: 0,
                   ),
-                  elevation: 0,
                 ),
-              ),
-              body: Stack(
-                children: [
-                  Column(
+                body: Obx(
+                  () => Stack(
                     children: [
-                      Container(
-                        decoration:
-                            BoxDecoration(color: COLOR_WHITE, boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withAlpha(100),
-                            blurRadius: 4.0,
-                          )
-                        ]),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(chatRoom.pTitle, style: buttonTextLight),
-                            Text("₹ ${chatRoom.pPrice}",
-                                style: buttonTextLight),
-                          ],
-                        ),
+                      Column(
+                        children: [
+                          Container(
+                            decoration:
+                                BoxDecoration(color: COLOR_WHITE, boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withAlpha(100),
+                                blurRadius: 4.0,
+                              )
+                            ]),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 30),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(chatRoom.pTitle, style: buttonTextLight),
+                                Text("₹ ${chatRoom.pPrice}",
+                                    style: buttonTextLight),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          StreamBuilder<QuerySnapshot>(
+                              stream: chatsCont.chatsHistory,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasError) {
+                                  return const Center(
+                                      child: Text('Something went wrong'));
+                                }
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Center(child: Text("Loading"));
+                                }
+                                if (snapshot.data!.docs.isNotEmpty) {
+                                  return ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: snapshot.data!.docs.length,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      // here update message status to red
+                                      DocumentSnapshot data =
+                                          snapshot.data!.docs[index];
+                                      if (data["sendBy"] != widget.userId) {
+                                        FirestoreDatabaseHelper
+                                            .updateMessageStatus(
+                                                chatRoomId: chatRoom.docId!,
+                                                docId: data.id);
+                                      }
+                                      var da = getMessageData(data);
+                                      return data["sendBy"] == widget.userId
+                                          ? data["messageType"] == "text"
+                                              ? OwnMessage(messageData: da)
+                                              : OwnOfferMessage(messageData: da)
+                                          : data["messageType"] == "text"
+                                              ? ReplyMessage(messageData: da)
+                                              : ReplyOfferMessage(
+                                                  messageData: da);
+                                    },
+                                  );
+                                }
+                                return const SizedBox();
+                              }),
+                        ],
                       ),
-                      const SizedBox(height: 10),
-                      StreamBuilder<QuerySnapshot>(
-                          stream: chatsCont.chatsHistory,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasError) {
-                              return const Center(
-                                  child: Text('Something went wrong'));
-                            }
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const Center(child: Text("Loading"));
-                            }
-                            if (snapshot.data!.docs.isNotEmpty) {
-                              return ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: snapshot.data!.docs.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  // here update ther message status to red
-                                  DocumentSnapshot data =
-                                      snapshot.data!.docs[index];
-                                  if (data["sendBy"] != widget.userId) {
-                                    FirestoreDatabaseHelper.updateMessageStatus(
-                                        chatRoomId: chatRoom.docId!,
-                                        docId: data.id);
-                                  }
-                                  var da = getMessageData(data);
-                                  return data["sendBy"] == widget.userId
-                                      ? data["messageType"] == "text"
-                                          ? OwnMessage(messageData: da)
-                                          : OwnOfferMessage(messageData: da)
-                                      : data["messageType"] == "text"
-                                          ? ReplyMessage(messageData: da)
-                                          : ReplyOfferMessage(messageData: da);
-                                },
-                              );
-                            }
-                            return const Center(child: Text("Data not"));
-                          }),
+                      slidingUpBox(size, _visible)
                     ],
                   ),
-                  slidingUpBox(size, _visible)
-                ],
-              ),
-            );
+                ));
           }),
         ],
       ),
@@ -211,10 +216,15 @@ class _ChatsIndividualState extends State<ChatsIndividual>
   }
 
   Widget slidingUpBox(Size size, bool visible) {
+    // RxBool keyboardVisible = visible.obs;
     double maxHeight = 140;
 
     return SlidingUpPanel(
-      maxHeight: visible ? maxHeight : 350,
+      maxHeight: chatsCont.tabIndex.value == 0
+          ? chatsCont.isTyping.value
+              ? maxHeight
+              : 350
+          : 350,
       minHeight: 60,
       defaultPanelState: PanelState.OPEN,
       controller: _panelController,
@@ -226,102 +236,103 @@ class _ChatsIndividualState extends State<ChatsIndividual>
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: TabBar(
-                controller: _tabController,
-                indicatorWeight: 3,
-                indicatorColor: COLOR_INDICATOR,
-                labelPadding: const EdgeInsets.only(bottom: 15),
-                tabs: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        FontAwesomeIcons.message,
-                        size: 25,
+                padding: const EdgeInsets.only(top: 20),
+                child: KeyboardDismissOnTap(
+                  dismissOnCapturedTaps: true,
+                  child: TabBar(
+                    controller: _tabController,
+                    indicatorWeight: 2,
+                    indicatorColor: COLOR_INDICATOR,
+                    labelPadding: const EdgeInsets.only(bottom: 15),
+                    onTap: ((index) {
+                      chatsCont.isTyping.value = false;
+                      chatsCont.tabIndex.value = index;
+                    }),
+                    tabs: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            FontAwesomeIcons.message,
+                            size: 25,
+                          ),
+                          addHorizontalSpace(12),
+                          const Text(
+                            "Chart",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
                       ),
-                      addHorizontalSpace(12),
-                      const Text(
-                        "Chart",
-                        style: TextStyle(fontSize: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            FontAwesomeIcons.handPointer,
+                            size: 25,
+                          ),
+                          addHorizontalSpace(12),
+                          const Text(
+                            "Make Offer",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(
-                        FontAwesomeIcons.handPointer,
-                        size: 25,
-                      ),
-                      addHorizontalSpace(12),
-                      const Text(
-                        "Make Offer",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
+                )),
           ],
         ),
       ),
       panel: Container(
         margin: const EdgeInsets.only(top: 70),
         child: TabBarView(
+          physics: const NeverScrollableScrollPhysics(),
           controller: _tabController,
           children: [
             Stack(
               children: [
-                // suggestion Text
-                Visibility(
-                  visible: !visible,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 15),
-                    child: Wrap(children: [
-                      for (var item in chatsList)
-                        ChatsTag(
-                          tagTitle: item,
-                          onPress: () => chatsCont
-                              .saveMessage(
-                                  docId: widget.chatRoom.docId!,
-                                  message: item,
-                                  loggedUid: widget.userId,
-                                  postType: "text")
-                              .then((value) =>
-                                  value == true ? messageBox.text = "" : null),
-                        )
-                    ]),
-                  ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  child: Wrap(children: [
+                    for (var item in chatsList)
+                      ChatsTag(
+                        tagTitle: item,
+                        onPress: () => chatsCont
+                            .saveMessage(
+                                docId: widget.chatRoom.docId!,
+                                message: item,
+                                loggedUid: widget.userId,
+                                postType: "text")
+                            .then((value) =>
+                                value == true ? messageBox.text = "" : null),
+                      )
+                  ]),
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-                    margin: EdgeInsets.only(left: 2, right: 2, bottom: 2),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 12),
+                    margin: const EdgeInsets.only(left: 2, right: 2, bottom: 2),
                     decoration: const BoxDecoration(
+                        color: Colors.white,
                         border: Border(
-                      top: BorderSide(width: 2, color: COLOR_BLACK),
-                      // bottom: BorderSide(width: 1, color: COLOR_BLACK),
-                    )),
+                          top: BorderSide(width: 2, color: COLOR_BLACK),
+                          // bottom: BorderSide(width: 1, color: COLOR_BLACK),
+                        )),
                     child: Padding(
                       padding: const EdgeInsets.all(0),
                       child: TextField(
                         controller: messageBox,
                         onTap: () {
-                          isTyping.value = true;
-                          setState(() {});
+                          chatsCont.isTyping.value = true;
                         },
                         onChanged: (String e) {
-                          setState(() {
-                            double numLines = '\n'.allMatches(e).length + 1;
-                            if (numLines >= 1 && numLines < 5) {
-                              maxHeight = 90 + (25 * numLines);
-                            }
-                          });
+                          double numLines = '\n'.allMatches(e).length + 1;
+                          if (numLines >= 1 && numLines < 5) {
+                            maxHeight = 90 + (25 * numLines);
+                          }
                         },
                         textAlignVertical: TextAlignVertical.center,
                         keyboardType: TextInputType.multiline,
@@ -383,57 +394,41 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                   Wrap(children: [
                     for (var item in priceList)
                       PriceTag(
-                          tagTitle: item.toString(),
-                          onPress: () => chatsCont
+                        tagTitle: item.toString(),
+                        onPress: () {
+                          priceText.text = item.toString();
+                          chatsCont
                               .saveMessage(
                                   docId: widget.chatRoom.docId!,
                                   message: item.toString(),
                                   loggedUid: widget.userId,
                                   postType: "offer")
                               .then((value) =>
-                                  value == true ? messageBox.text = "" : null))
+                                  value == true ? messageBox.text = "" : null);
+                        },
+                      ),
                   ]),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: 250,
-                    child: TextField(
-                      controller: priceText,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.zero,
-                          prefixIcon: Text("₹", style: heading2InBold)),
-                      style: heading2InBold,
-                    ),
-                  ),
                   const SizedBox(height: 20),
                   Row(
                     children: [
-                      Expanded(
-                        child: Container(
-                          color: COLOR_INDICATOR,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 15),
-                          // height: 15,
-                          // color: Colors.red,
-                          child: Row(
-                            children: [
-                              const Icon(FontAwesomeIcons.handHoldingHand,
-                                  color: Colors.black, size: 30),
-                              const SizedBox(width: 20),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Good offer!", style: heading6),
-                                  Text("High chances of response",
-                                      style: buttonTextStyle),
-                                ],
-                                // save
-                              )
-                            ],
-                          ),
-                        ),
+                      SizedBox(
+                        width: 250,
+                        child: TextField(
+                            controller: priceText,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                                contentPadding: EdgeInsets.zero,
+                                prefixIcon: Text("₹", style: heading2InBold)),
+                            style: heading2InBold,
+                            onChanged: (val) {
+                              if (val == "") {
+                                chatsCont.adsPrice.value = 0;
+                              } else if (val.isNum) {
+                                chatsCont.adsPrice.value = double.parse(val);
+                              }
+                            }),
                       ),
-                      const SizedBox(width: 30),
+                      const Spacer(),
                       ElevatedButton(
                           onPressed: () {
                             if (priceText.text != "") {
@@ -455,6 +450,47 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                           )),
                       const SizedBox(width: 10),
                     ],
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          color: getOffersColor(
+                              widget.chatRoom.pPrice.toDouble(),
+                              chatsCont.adsPrice.toDouble()),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 15),
+                          // height: 15,
+                          // color: Colors.red,
+                          child: Row(
+                            children: [
+                              const Icon(FontAwesomeIcons.handHoldingHand,
+                                  color: Colors.black, size: 30),
+                              const SizedBox(width: 20),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      getOffersTitle(
+                                          widget.chatRoom.pPrice.toDouble(),
+                                          chatsCont.adsPrice.toDouble()),
+                                      style: titleLabel),
+                                  Text(
+                                      getOffersSubtitle(
+                                          widget.chatRoom.pPrice.toDouble(),
+                                          chatsCont.adsPrice.toDouble()),
+                                      style: subtitleLabel.copyWith(
+                                        fontSize: 14,
+                                      )),
+                                ],
+                                // save
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   )
                 ],
               ),
@@ -463,6 +499,39 @@ class _ChatsIndividualState extends State<ChatsIndividual>
         ),
       ),
     );
+  }
+
+  Color getOffersColor(double orgPrice, double offersPrice) {
+    var minPrice = orgPrice - (orgPrice * 0.4);
+
+    if (offersPrice < minPrice) {
+      return Colors.redAccent;
+    } else if (offersPrice >= minPrice && offersPrice <= orgPrice) {
+      return Colors.greenAccent;
+    }
+    return Colors.yellowAccent;
+  }
+
+  String getOffersTitle(double orgPrice, double offersPrice) {
+    var minPrice = orgPrice - (orgPrice * 0.4);
+
+    if (offersPrice < minPrice) {
+      return "Offers price is low!";
+    } else if (offersPrice >= minPrice && offersPrice <= orgPrice) {
+      return "Good offers!";
+    }
+    return "Rickey offer";
+  }
+
+  String getOffersSubtitle(double orgPrice, double offersPrice) {
+    var minPrice = orgPrice - (orgPrice * 0.4);
+
+    if (offersPrice < minPrice) {
+      return "Please increase the offer price so better chance to deal.";
+    } else if (offersPrice >= minPrice && offersPrice <= orgPrice) {
+      return "This offer to high changes of responses.";
+    }
+    return "Please original price for offering";
   }
 
   MessageModel getMessageData(DocumentSnapshot data) {

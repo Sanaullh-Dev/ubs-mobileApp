@@ -9,7 +9,7 @@ import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/services/secure_storage.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({super.key});
+  const MainPage({super.key});
 
   @override
   State<MainPage> createState() => _MainPageState();

@@ -77,7 +77,7 @@ Future<dynamic> alertDialogBox(
                         decoration: TextDecoration.underline,
                         color: Colors.black)),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               GestureDetector(
                 onTap: () {
                   Navigator.of(ctx).pop();

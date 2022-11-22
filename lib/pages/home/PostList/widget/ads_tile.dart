@@ -8,12 +8,12 @@ import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/custom_fun.dart';
 import 'package:ubs/utils/text_style.dart';
 
-class AdsTitle extends StatelessWidget {
+class AdsTile extends StatelessWidget {
   final UserLogin userData;
   final AdsPost adsData;
   VoidCallback onPress;
 
-  AdsTitle(
+  AdsTile(
       {super.key,
       required this.adsData,
       required this.userData,

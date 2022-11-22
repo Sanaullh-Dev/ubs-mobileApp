@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/categories.dart';
-import 'package:ubs/pages/login/controller/login_controller.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/utils/custom_fun.dart';
 

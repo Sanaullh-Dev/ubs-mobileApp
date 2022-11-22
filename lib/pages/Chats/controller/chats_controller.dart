@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:ubs/model/ads_post.dart';
@@ -9,10 +10,14 @@ import 'package:ubs/services/remote_services.dart';
 
 class ChatsController extends GetxController {
   Rx<Stream<QuerySnapshot>> chatsRoom = const Stream<QuerySnapshot>.empty().obs;
-  Stream<QuerySnapshot> chatsHistory = Stream.empty();
+  Stream<QuerySnapshot> chatsHistory = const Stream.empty();
   Rx<bool> isLoading = false.obs;
   RxList<ChatsRoomModel> chatsRooms = List<ChatsRoomModel>.empty().obs;
   RxList<ChatUserList> chatUserList = List<ChatUserList>.empty().obs;
+  RxBool isTyping = false.obs;
+  RxBool keyboardVisible = false.obs;
+  RxInt tabIndex = 0.obs;
+  RxDouble adsPrice = 0.0.obs;
 
   // Add new chats Room between tow users
   Future<String?> addChatRoom(

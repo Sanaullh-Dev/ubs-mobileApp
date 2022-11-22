@@ -16,16 +16,24 @@ class ChatsDashboard extends StatefulWidget {
   State<ChatsDashboard> createState() => _ChatsDashboardState();
 }
 
-class _ChatsDashboardState extends State<ChatsDashboard> {
+class _ChatsDashboardState extends State<ChatsDashboard>
+    with SingleTickerProviderStateMixin {
   final ChatsController chatsController = Get.find<ChatsController>();
+  late TabController _tabController;
 
-  
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: 3, vsync: this);
     if (chatsController.chatsRooms.value.isEmpty) {
       chatsController.getChatsRoomsList(widget.userLogin.userId);
     }
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -55,6 +63,7 @@ class _ChatsDashboardState extends State<ChatsDashboard> {
                     margin: EdgeInsets.zero,
                     height: 58,
                     child: TabBar(
+                        controller: _tabController,
                         indicatorWeight: 6,
                         indicatorColor: COLOR_BLACK,
                         labelColor: COLOR_BLACK,
@@ -69,7 +78,7 @@ class _ChatsDashboardState extends State<ChatsDashboard> {
                 )
               ];
             },
-            body: TabBarView(children: [
+            body: TabBarView(controller: _tabController, children: [
               ChatsRoomAll(userLogin: widget.userLogin),
               ChatsRoomBuy(userLogin: widget.userLogin),
               ChatsRoomSale(userLogin: widget.userLogin),

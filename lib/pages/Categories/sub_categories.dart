@@ -5,7 +5,6 @@ import 'package:ubs/model/categories.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/Categories/controller/categories_controller.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
-import 'package:ubs/pages/home/home_page.dart';
 import 'package:ubs/pages/selling/sale_main_categories.dart';
 import 'package:ubs/utils/constants.dart';
 
@@ -13,7 +12,7 @@ class SubCategories extends StatefulWidget {
   final UserLogin userData;
   final Categories catData;
   final String gotoPage;
-  SubCategories(
+  const SubCategories(
       {super.key,
       required this.userData,
       required this.catData,
