@@ -5,6 +5,7 @@ import 'package:ubs/model/massage_model.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OwnOfferMessage extends StatelessWidget {
   final MessageModel messageData;
@@ -16,46 +17,43 @@ class OwnOfferMessage extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: ConstrainedBox(
-        constraints: BoxConstraints(minWidth: 160, maxWidth: size - 45),
+        constraints: BoxConstraints(minWidth: 160.sp, maxWidth: size - 45),
         child: Bubble(
           color: COLOR_PRIMARY,
           padding: const BubbleEdges.all(0),
-          margin: const BubbleEdges.symmetric(horizontal: 10, vertical: 5),
+          margin: BubbleEdges.symmetric(horizontal: 25.sp, vertical: 20.sp),
           nip: BubbleNip.rightTop,
           elevation: 2,
           child: Stack(
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 15)
-                        .copyWith(right: 50),
+                    EdgeInsets.symmetric(vertical: 40.sp, horizontal: 30.sp)
+                        .copyWith(right: 100.sp),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("YOUR OFFER",
                         style: heading6.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: COLOR_WHITE)),
+                            fontWeight: FontWeight.w700, color: COLOR_WHITE)),
                     Text("₹ ${messageData.message}",
-                        style:
-                            heading2InBold.copyWith(color: COLOR_WHITE)),
+                        style: heading2InBold.copyWith(color: COLOR_WHITE)),
                   ],
                 ),
               ),
               Positioned(
-                  bottom: 4,
-                  right: 10,
+                  bottom: 4.sp,
+                  right: 15.sp,
                   child: Row(
                     children: [
                       Text(
                         DateFormat('hh:mm a').format(messageData.time),
-                        style:
-                            const TextStyle(fontSize: 12, color: Colors.black),
+                        style:TextStyle(fontSize: 26.sp, color: Colors.black),
                       ),
-                      addHorizontalSpace(8),
+                      addHorizontalSpace(12.sp),
                       Icon(
                         Icons.done_all,
-                        size: 20,
+                        size: 40.sp,
                         color: messageData.status == "read"
                             ? Colors.blue
                             : Colors.grey,

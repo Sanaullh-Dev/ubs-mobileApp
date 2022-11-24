@@ -7,6 +7,7 @@ import 'package:ubs/pages/chats/chats_dashboard/tabs/chats_sale.dart';
 import 'package:ubs/pages/chats/controller/chats_controller.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChatsDashboard extends StatefulWidget {
   final UserLogin userLogin;
@@ -19,22 +20,15 @@ class ChatsDashboard extends StatefulWidget {
 class _ChatsDashboardState extends State<ChatsDashboard>
     with SingleTickerProviderStateMixin {
   final ChatsController chatsController = Get.find<ChatsController>();
-  late TabController _tabController;
-
+  
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
     if (chatsController.chatsRooms.value.isEmpty) {
       chatsController.getChatsRoomsList(widget.userLogin.userId);
     }
   }
 
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,13 +51,13 @@ class _ChatsDashboardState extends State<ChatsDashboard>
                 ),
                 SliverAppBar(
                   pinned: true,
+                  automaticallyImplyLeading: false,
                   title: Container(
                     width: MediaQuery.of(context).size.width,
                     padding: EdgeInsets.zero,
                     margin: EdgeInsets.zero,
                     height: 58,
                     child: TabBar(
-                        controller: _tabController,
                         indicatorWeight: 6,
                         indicatorColor: COLOR_BLACK,
                         labelColor: COLOR_BLACK,
@@ -78,7 +72,7 @@ class _ChatsDashboardState extends State<ChatsDashboard>
                 )
               ];
             },
-            body: TabBarView(controller: _tabController, children: [
+            body: TabBarView(children: [
               ChatsRoomAll(userLogin: widget.userLogin),
               ChatsRoomBuy(userLogin: widget.userLogin),
               ChatsRoomSale(userLogin: widget.userLogin),

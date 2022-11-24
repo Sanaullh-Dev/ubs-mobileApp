@@ -5,6 +5,7 @@ import 'package:ubs/model/massage_model.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReplyOfferMessage extends StatelessWidget {
   final MessageModel messageData;
@@ -16,12 +17,12 @@ class ReplyOfferMessage extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: ConstrainedBox(
-        constraints: BoxConstraints(minWidth: 150, maxWidth: size - 45),
+        constraints: BoxConstraints(minWidth: 160.sp, maxWidth: size - 45),
         child: Bubble(
           color: COLOR_LIGHT_BLACK,
           elevation: 1,
           nip: BubbleNip.leftTop,
-          margin: const BubbleEdges.symmetric(horizontal: 10, vertical: 5),
+          margin: BubbleEdges.symmetric(horizontal: 10.sp, vertical: 5.sp),
           child: Stack(
             children: [
               Padding(

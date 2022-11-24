@@ -63,67 +63,72 @@ class _FavoritesListState extends State<FavoritesList> {
                       ));
                     },
                     imagePath: "lib/assets/images/favorites_list.png")
-            : ListView.builder(
-                itemCount: myAdsController.adsList.value.length,
-                itemBuilder: (BuildContext context, int index) {
-                  AdsPost ads = myAdsController.adsList.value[index];
-                  return Container(
-                    margin: EdgeInsets.symmetric(vertical: 6.h),
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15.h, horizontal: 30.w),
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          width: 1.5,
-                          color: COLOR_LIGHT_BLACK.withAlpha(100),
-                        ),
-                      ),
-                    ),
-                    child: Row(children: [
-                      SizedBox(
-                        width: 160.sp,
-                        height: 160.sp,
-                        child: Image.network(
-                          getLink(ads.pImg1),
-                          fit: BoxFit.fitWidth,
-                        ),
-                      ),
-                      addHorizontalSpace(25.w),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "₹ ${ads.pPrice.toString()}",
-                              style: heading4,
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              ads.pTitle,
-                              style: heading6,
-                              maxLines: 2,
-                              softWrap: true,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Spacer(),
-                      const SizedBox(width: 15),
-                      GestureDetector(
-                        onTap: () => addPostReaction(ads),
-                        child: Container(
-                          padding: EdgeInsets.all(5.sp),
-                          child: Icon(
-                            Icons.favorite,
-                            size: 70.sp,
-                            color: COLOR_PRIMARY,
+            : RefreshIndicator(
+                onRefresh: () async {
+                  myAdsController.fetchFavoriteAds(widget.userLogin.userId);
+                },
+                child: ListView.builder(
+                  itemCount: myAdsController.adsList.value.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    AdsPost ads = myAdsController.adsList.value[index];
+                    return Container(
+                      margin: EdgeInsets.symmetric(vertical: 6.h),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 15.h, horizontal: 30.w),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            width: 1.5,
+                            color: COLOR_LIGHT_BLACK.withAlpha(100),
                           ),
                         ),
                       ),
-                      addHorizontalSpace(12),
-                    ]),
-                  );
-                },
+                      child: Row(children: [
+                        SizedBox(
+                          width: 160.sp,
+                          height: 160.sp,
+                          child: Image.network(
+                            getLink(ads.pImg1),
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
+                        addHorizontalSpace(25.w),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "₹ ${ads.pPrice.toString()}",
+                                style: heading4,
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                ads.pTitle,
+                                style: heading6,
+                                maxLines: 2,
+                                softWrap: true,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Spacer(),
+                        const SizedBox(width: 15),
+                        GestureDetector(
+                          onTap: () => addPostReaction(ads),
+                          child: Container(
+                            padding: EdgeInsets.all(5.sp),
+                            child: Icon(
+                              Icons.favorite,
+                              size: 70.sp,
+                              color: COLOR_PRIMARY,
+                            ),
+                          ),
+                        ),
+                        addHorizontalSpace(12),
+                      ]),
+                    );
+                  },
+                ),
               ),
       ),
     );

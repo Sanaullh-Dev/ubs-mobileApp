@@ -94,32 +94,32 @@ class _ChatsIndividualState extends State<ChatsIndividual>
             return Scaffold(
                 backgroundColor: Colors.blueGrey.shade100.withAlpha(210),
                 appBar: PreferredSize(
-                  preferredSize:
-                      const Size.fromHeight(80.0), // here the desired height
+                  preferredSize: Size.fromHeight(160.sp),
+                  // here the desired height
                   child: AppBar(
-                    toolbarHeight: 70,
-                    leadingWidth: 40,
+                    toolbarHeight: 150.sp,
+                    leadingWidth: 80.sp,
                     leading: IconButton(
-                        padding: const EdgeInsets.all(17),
+                        padding: EdgeInsets.all(32.sp),
                         icon: const Icon(Icons.arrow_back),
                         onPressed: () => Get.back()),
                     title: Row(
                       children: [
                         SizedBox(
-                          height: 50,
-                          width: 50,
+                          height: 120.sp,
+                          width: 120.sp,
                           child: Badge(
                             badgeColor: Colors.white,
                             padding: const EdgeInsets.all(0),
                             badgeContent: SizedBox(
-                                height: 30,
-                                width: 30,
+                                height: 60.sp,
+                                width: 60.sp,
                                 child: ShowUPhoto(
                                     imageUrl: getLink(chatRoom.userPhoto))),
                             position: BadgePosition.bottomEnd(),
                             child: SizedBox(
-                                width: 50,
-                                height: 50,
+                                width: 130.sp,
+                                height: 130.sp,
                                 child: ShowImage(
                                     imageUrl: getLink(chatRoom.pImage))),
                           ),
@@ -129,10 +129,11 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                             style: titleLabel.copyWith(
                                 fontWeight: FontWeight.w800)),
                         const Spacer(),
-                        const Icon(FontAwesomeIcons.phone),
+                        Icon(FontAwesomeIcons.phone, size: 45.sp),
                         const SizedBox(width: 15),
                         IconButton(
-                            onPressed: () {}, icon: const Icon(Icons.more_vert))
+                            onPressed: () {},
+                            icon: Icon(Icons.more_vert, size: 60.sp))
                       ],
                     ),
                     elevation: 0,
@@ -151,12 +152,18 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                                 blurRadius: 4.0,
                               )
                             ]),
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 30),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 30.sp, horizontal: 60.sp),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(chatRoom.pTitle, style: buttonTextLight),
+                                Text(
+                                  chatRoom.pTitle,
+                                  style: buttonTextLight,
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: false,
+                                  maxLines: 1,
+                                ),
                                 Text("₹ ${chatRoom.pPrice}",
                                     style: buttonTextLight),
                               ],
@@ -217,64 +224,52 @@ class _ChatsIndividualState extends State<ChatsIndividual>
 
   Widget slidingUpBox(Size size, bool visible) {
     // RxBool keyboardVisible = visible.obs;
-    double maxHeight = 140;
-
+    double maxHeight = 280.sp;
     return SlidingUpPanel(
       maxHeight: chatsCont.tabIndex.value == 0
           ? chatsCont.isTyping.value
               ? maxHeight
-              : 350
-          : 350,
-      minHeight: 60,
+              : 700.sp
+          : 700.sp,
+      minHeight: 170.sp,
       defaultPanelState: PanelState.OPEN,
       controller: _panelController,
-      header: Container(
+      header: Container(      
         padding: const EdgeInsets.symmetric(horizontal: 15),
         width: size.width,
-        height: 60,
-        color: Colors.white70,
+        height: 170.sp,
+        color: Colors.transparent,
         child: Stack(
           children: [
             Padding(
-                padding: const EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: 35.sp, bottom: 35.sp),
                 child: KeyboardDismissOnTap(
                   dismissOnCapturedTaps: true,
                   child: TabBar(
                     controller: _tabController,
                     indicatorWeight: 2,
                     indicatorColor: COLOR_INDICATOR,
-                    labelPadding: const EdgeInsets.only(bottom: 15),
+                    labelPadding: EdgeInsets.only(bottom: 30.sp, top: 15.sp),
                     onTap: ((index) {
                       chatsCont.isTyping.value = false;
                       chatsCont.tabIndex.value = index;
+                      _panelController.open();
                     }),
                     tabs: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
-                            FontAwesomeIcons.message,
-                            size: 25,
-                          ),
+                          Icon(FontAwesomeIcons.message, size: 45.sp),
                           addHorizontalSpace(12),
-                          const Text(
-                            "Chart",
-                            style: TextStyle(fontSize: 16),
-                          ),
+                          Text("Chart", style: TextStyle(fontSize: 32.sp)),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
-                            FontAwesomeIcons.handPointer,
-                            size: 25,
-                          ),
+                          Icon(FontAwesomeIcons.handPointer, size: 45.sp),
                           addHorizontalSpace(12),
-                          const Text(
-                            "Make Offer",
-                            style: TextStyle(fontSize: 16),
-                          ),
+                          Text("Make Offer", style: TextStyle(fontSize: 32.sp)),
                         ],
                       ),
                     ],
@@ -283,8 +278,10 @@ class _ChatsIndividualState extends State<ChatsIndividual>
           ],
         ),
       ),
+      
       panel: Container(
-        margin: const EdgeInsets.only(top: 70),
+        color: Colors.white,
+        margin: EdgeInsets.only(top: 150.sp),
         child: TabBarView(
           physics: const NeverScrollableScrollPhysics(),
           controller: _tabController,
@@ -293,7 +290,7 @@ class _ChatsIndividualState extends State<ChatsIndividual>
               children: [
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                      EdgeInsets.symmetric(horizontal: 15.sp, vertical: 25.sp),
                   child: Wrap(children: [
                     for (var item in chatsList)
                       ChatsTag(
@@ -312,13 +309,14 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 12),
-                    margin: const EdgeInsets.only(left: 2, right: 2, bottom: 2),
-                    decoration: const BoxDecoration(
+                    padding: EdgeInsets.symmetric(
+                        vertical: 20.sp, horizontal: 20.sp),
+                    margin:
+                        EdgeInsets.only(left: 4.sp, right: 4.sp, bottom: 4.sp),
+                    decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border(
-                          top: BorderSide(width: 2, color: COLOR_BLACK),
+                          top: BorderSide(width: 2.sp, color: COLOR_BLACK),
                           // bottom: BorderSide(width: 1, color: COLOR_BLACK),
                         )),
                     child: Padding(
@@ -338,20 +336,16 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                         keyboardType: TextInputType.multiline,
                         maxLines: 5,
                         minLines: 1,
-                        style: const TextStyle(
-                          fontSize: 20,
+                        style: TextStyle(
+                          fontSize: 38.sp,
                         ),
                         decoration: InputDecoration(
                           hintText: "Type a message",
                           border: InputBorder.none,
-                          prefixIcon: const Padding(
-                            padding: EdgeInsets.only(right: 8),
-                            child: Icon(
-                              // FontAwesomeIcons.paperclip,
-                              FontAwesomeIcons.pen,
-                              color: COLOR_INDICATOR,
-                              size: 25,
-                            ),
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.only(right: 16.sp),
+                            child: Icon(FontAwesomeIcons.pen,
+                                color: COLOR_INDICATOR, size: 40.sp),
                           ),
                           suffixIcon: TextButton(
                               onPressed: () async {
@@ -369,12 +363,13 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                                 backgroundColor: COLOR_PRIMARY,
                                 shape: const CircleBorder(),
                               ),
-                              child: const Icon(
+                              child: Icon(
                                 Icons.send,
                                 color: Colors.white,
+                                size: 50.sp,
                               )),
-                          hintStyle: const TextStyle(
-                            fontSize: 20,
+                          hintStyle: TextStyle(
+                            fontSize: 35.sp,
                           ),
                         ),
                       ),
@@ -386,7 +381,7 @@ class _ChatsIndividualState extends State<ChatsIndividual>
             Container(
               height: double.infinity,
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.sp),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -408,16 +403,23 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                         },
                       ),
                   ]),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 30.sp),
                   Row(
                     children: [
+                      SizedBox(width: 50.sp),
                       SizedBox(
-                        width: 250,
+                        width: 500.sp,
+                        height: 80.sp,
                         child: TextField(
                             controller: priceText,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
-                                contentPadding: EdgeInsets.zero,
+                                contentPadding:
+                                    EdgeInsets.symmetric(vertical: 25.sp),
+                                prefixIconConstraints: BoxConstraints(
+                                    maxWidth: 55.sp,
+                                    minWidth: 50.sp,
+                                    maxHeight: 45.sp),
                                 prefixIcon: Text("₹", style: heading2InBold)),
                             style: heading2InBold,
                             onChanged: (val) {
@@ -444,50 +446,54 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                             }
                           },
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 18, horizontal: 18),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 35.sp, horizontal: 45.sp),
                             child: Text("Send", style: btnText),
                           )),
-                      const SizedBox(width: 10),
+                      SizedBox(width: 20.sp),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 40.sp),
                   Row(
                     children: [
-                      Expanded(
-                        child: Container(
-                          color: getOffersColor(
-                              widget.chatRoom.pPrice.toDouble(),
-                              chatsCont.adsPrice.toDouble()),
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 15),
-                          // height: 15,
-                          // color: Colors.red,
-                          child: Row(
-                            children: [
-                              const Icon(FontAwesomeIcons.handHoldingHand,
-                                  color: Colors.black, size: 30),
-                              const SizedBox(width: 20),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                      getOffersTitle(
-                                          widget.chatRoom.pPrice.toDouble(),
-                                          chatsCont.adsPrice.toDouble()),
-                                      style: titleLabel),
-                                  Text(
+                      Container(
+                        width: size.width - 40,
+                        color: getOffersColor(widget.chatRoom.pPrice.toDouble(),
+                            chatsCont.adsPrice.toDouble()),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 18.sp, horizontal: 30.sp),
+                        // height: 15,
+                        // color: Colors.red,
+                        child: Row(
+                          children: [
+                            Icon(FontAwesomeIcons.handHoldingHand,
+                                color: Colors.black, size: 55.sp),
+                            SizedBox(width: 40.sp),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                    getOffersTitle(
+                                        widget.chatRoom.pPrice.toDouble(),
+                                        chatsCont.adsPrice.toDouble()),
+                                    style: titleLabel.copyWith(
+                                        fontWeight: FontWeight.w700)),
+                                SizedBox(
+                                  width: size.width - 160,
+                                  child: Text(
                                       getOffersSubtitle(
                                           widget.chatRoom.pPrice.toDouble(),
                                           chatsCont.adsPrice.toDouble()),
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: false,
+                                      maxLines: 2,
                                       style: subtitleLabel.copyWith(
-                                        fontSize: 14,
-                                      )),
-                                ],
-                                // save
-                              )
-                            ],
-                          ),
+                                          fontSize: 23.sp)),
+                                ),
+                              ],
+                              // save
+                            )
+                          ],
                         ),
                       ),
                     ],
@@ -527,7 +533,7 @@ class _ChatsIndividualState extends State<ChatsIndividual>
     var minPrice = orgPrice - (orgPrice * 0.4);
 
     if (offersPrice < minPrice) {
-      return "Please increase the offer price so better chance to deal.";
+      return "Please increase the offer price,so better chance to deal.";
     } else if (offersPrice >= minPrice && offersPrice <= orgPrice) {
       return "This offer to high changes of responses.";
     }

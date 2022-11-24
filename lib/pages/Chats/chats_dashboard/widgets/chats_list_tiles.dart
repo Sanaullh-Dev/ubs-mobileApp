@@ -34,13 +34,13 @@ class ChatsListTitle extends StatelessWidget {
       onTap: () => Get.to(ChatsIndividual(chatRoom: chatRoom, userId: userId)),
       child: Container(
         width: double.infinity,
-        height: 110,
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        height: 200.sp,
+        padding: EdgeInsets.symmetric(vertical: 25.sp, horizontal: 10),
         decoration: BoxDecoration(
           color: COLOR_WHITE,
           border: Border(
             bottom: BorderSide(
-              width: 1,
+              width: 2.sp,
               color: Colors.blueGrey.shade100,
             ),
           ),
@@ -50,32 +50,33 @@ class ChatsListTitle extends StatelessWidget {
           children: [
             Container(
                 padding: const EdgeInsets.all(0),
-                width: 100,
-                height: 110,
+                width: 170.sp,
+                height: 180.sp,
                 child: Badge(
                   badgeColor: Colors.white,
                   padding: const EdgeInsets.all(0),
                   badgeContent: SizedBox(
-                      height: 50,
-                      width: 50,
+                      height: 80.sp,
+                      width: 80.sp,
                       child: ShowUPhoto(imageUrl: getLink(chatRoom.userPhoto))),
                   position: BadgePosition.bottomEnd(),
                   child: SizedBox(
-                      width: 90,
-                      height: 90,
+                      width: 150.sp,
+                      height: 150.sp,
                       child: ShowImage(imageUrl: getLink(chatRoom.pImage))),
                 )),
-            addHorizontalSpace(25),
+            addHorizontalSpace(40.sp),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  SizedBox(height: 10.sp),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(chatRoom.userName.toUpperCase(), style: heading6),
+                      Text(chatRoom.userName.toUpperCase(), style: heading6.copyWith(fontWeight: FontWeight.w600)),
                       Padding(
-                        padding: const EdgeInsets.only(right: 15),
+                        padding: EdgeInsets.only(right: 40.sp),
                         child: chatRoom.lastSeen == null
                             ? const SizedBox()
                             : Text(
@@ -85,19 +86,22 @@ class ChatsListTitle extends StatelessWidget {
                       ),
                     ],
                   ),
-                  // const SizedBox(height: 5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            chatRoom.pTitle,
-                            maxLines: 1,
-                            softWrap: false,
-                            overflow: TextOverflow.ellipsis,
-                            style: subtitleLabel.copyWith(fontSize: 29.sp),
+                          SizedBox(
+                            width: 510.sp,
+                            child: Text(
+                              chatRoom.pTitle,
+                              maxLines: 1,
+                              softWrap: false,
+                              overflow: TextOverflow.ellipsis,
+                              style: subtitleLabel.copyWith(fontSize: 29.sp),
+                            ),
                           ),
                           // const SizedBox(height: 5),
                           Row(
@@ -114,22 +118,25 @@ class ChatsListTitle extends StatelessWidget {
                               const SizedBox(width: 5),
                               chatRoom.lastMag == null
                                   ? const SizedBox()
-                                  : Text(
-                                      chatRoom.lastMag!,
-                                      maxLines: 1,
-                                      softWrap: false,
-                                      overflow: TextOverflow.ellipsis,
-                                      style:
-                                          subTitle2.copyWith(fontSize: 24.sp),
-                                    )
+                                  : SizedBox(
+                                    width: 260.sp,
+                                    child: Text(
+                                        chatRoom.lastMag!,
+                                        maxLines: 1,
+                                        softWrap: false,
+                                        overflow: TextOverflow.ellipsis,
+                                        style:
+                                            subTitle2.copyWith(fontSize: 24.sp),
+                                      ),
+                                  )
                             ],
                           ),
                         ],
                       ),
                       IconButton(
                           onPressed: () {},
-                          icon: const Icon(Icons.more_vert_outlined,
-                              size: 28, color: COLOR_BLACK))
+                          icon: Icon(Icons.more_vert_outlined,
+                              size: 65.sp, color: COLOR_BLACK))
                     ],
                   ),
                 ],

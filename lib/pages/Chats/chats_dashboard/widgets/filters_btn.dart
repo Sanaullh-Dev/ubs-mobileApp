@@ -47,18 +47,18 @@ class PriceTag extends StatelessWidget {
     // final TextTheme textTheme = Theme.of(context).textTheme;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
+      padding:EdgeInsets.symmetric(horizontal: 10.sp),
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
           // backgroundColor: isActive ? COLOR_PRIMARY : COLOR_WHITE,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18.0),
+            borderRadius: BorderRadius.circular(38.0.r),
           ),
-          side: BorderSide(width: 1.5, color: Colors.blueGrey.shade400),
+          side: BorderSide(width: 2.sp, color: Colors.blueGrey.shade400),
         ),
         onPressed: onPress,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+          padding: EdgeInsets.symmetric(vertical: 2.sp, horizontal: 8.sp),
           child: Text(
             tagTitle,
             style: TextStyle(

@@ -107,7 +107,7 @@ TextStyle cardSubTitle = TextStyle(
 TextStyle btnText = TextStyle(
   color: COLOR_BLACK,
   fontWeight: FontWeight.w500,
-  fontSize: 26.sp,
+  fontSize: 34.sp,
   letterSpacing: 0.9,
 );
 

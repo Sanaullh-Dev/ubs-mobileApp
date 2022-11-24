@@ -53,7 +53,7 @@ class RemoteServices {
 
     http.Response response = await client.post(uri, body: bodyData);
 
-  if (response.statusCode == 200) {
+    if (response.statusCode == 200) {
       var jsonString = response.body;
       return adsPostFromJson(jsonString);
     } else {
@@ -374,7 +374,7 @@ class RemoteServices {
     Map<String, dynamic> bodyData = {'uid': userId};
 
     var res = await client.post(uri, body: bodyData);
-
+    
     if (res.statusCode == 200) {
       UsersData userData = UsersData.fromJson(json.decode(res.body));
       return userData;
@@ -447,7 +447,7 @@ class RemoteServices {
     var res = await client.post(uri, body: bodyData);
 
     if (res.statusCode == 200) {
-      var da = res.body.substring(1, res.body.length -1);
+      var da = res.body.substring(1, res.body.length - 1);
       ChatsRoomModel cRdet = ChatsRoomModel.fromJson(json.decode(da));
       return cRdet;
     }

@@ -4,6 +4,7 @@ import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/chats/chats_dashboard/widgets/chats_list_tiles.dart';
 import 'package:ubs/pages/chats/chats_dashboard/widgets/empty_screen.dart';
 import 'package:ubs/pages/chats/controller/chats_controller.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChatsRoomAll extends StatefulWidget {
   final UserLogin userLogin;
@@ -35,38 +36,6 @@ class _ChatsRoomAllState extends State<ChatsRoomAll> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 15),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 8, bottom: 4, left: 15),
-                    //   child: Text(
-                    //     "Quick Filters",
-                    //     style:
-                    //         TextStyle(fontSize: 35.sp, fontWeight: FontWeight.w500),
-                    //   ),
-                    // ),
-                    // Padding(
-                    //   padding:
-                    //       const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-                    //   child: Wrap(
-                    //     children: [
-                    //       const FiltersButtons(btnTitle: "All", isActive: true),
-                    //       addHorizontalSpace(15),
-                    //       const FiltersButtons(
-                    //         btnTitle: "Meeting",
-                    //         isActive: false,
-                    //       ),
-                    //       addHorizontalSpace(15),
-                    //       const FiltersButtons(
-                    //         btnTitle: "Unread",
-                    //         isActive: false,
-                    //       ),
-                    //       addHorizontalSpace(15),
-                    //       const FiltersButtons(
-                    //         btnTitle: "Imports",
-                    //         isActive: false,
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                     ListView.builder(
                       shrinkWrap: true,
                       itemCount: chatsController.chatsRooms.length,

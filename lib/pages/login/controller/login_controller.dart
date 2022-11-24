@@ -79,7 +79,10 @@ class LoginController extends GetxController {
           return true;
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
+    
     return null;
   }
 
