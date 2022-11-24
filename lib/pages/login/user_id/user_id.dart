@@ -7,7 +7,8 @@ import 'package:ubs/utils/text_style.dart';
 
 class UserId extends StatefulWidget {
   final String idType;
-  const UserId({super.key, required this.idType});
+  final bool isError;
+  const UserId({super.key, required this.idType, required this.isError});
 
   @override
   State<UserId> createState() => _UserIdState();
@@ -41,7 +42,17 @@ class _UserIdState extends State<UserId> {
               style: heading1),
           addVerticalSpace(40.h),
           widget.idType == "phone" ? numberTextfield() : emailTextfield(),
-          addVerticalSpace(40.h),
+          widget.isError
+              ? Padding(
+                  padding: EdgeInsets.symmetric(vertical: 30.sp),
+                  child: Text(
+                    widget.idType == "phone"
+                        ? "Enter valid phone no"
+                        : "Enter valid Email-Id",
+                    style: heading6.copyWith(color: Colors.red),
+                  ),
+                )
+              : addVerticalSpace(40.h),
           Text(
               widget.idType == "phone"
                   ? "We'll send you a verification code on the same number."

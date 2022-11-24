@@ -10,6 +10,7 @@ import 'package:ubs/pages/selling/sale_main_categories.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/custom_fun.dart';
 import 'package:ubs/utils/text_style.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyAdsList extends StatefulWidget {
   final UserLogin userLogin;
@@ -55,8 +56,8 @@ class _MyAdsListState extends State<MyAdsList> {
                   AdsPost ads = myAdsController.mySalesAdsList.value[index];
                   return Container(
                     width: double.infinity,
-                    margin: const EdgeInsets.fromLTRB(20, 15, 15, 15),
-                    padding: const EdgeInsets.only(bottom: 15),
+                    margin: EdgeInsets.fromLTRB(40.sp, 30.sp, 30.sp, 30.sp),
+                    padding: EdgeInsets.only(bottom: 30.sp),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(6),
                         color: Colors.white,
@@ -73,8 +74,8 @@ class _MyAdsListState extends State<MyAdsList> {
                     child: Column(
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 30.sp, vertical: 15.sp),
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.vertical(
                                 top: Radius.circular(6)),
@@ -129,8 +130,8 @@ class _MyAdsListState extends State<MyAdsList> {
                               child: Row(
                                 children: [
                                   SizedBox(
-                                    width: 100,
-                                    height: 100,
+                                    width: 190.sp,
+                                    height: 190.sp,
                                     child: Hero(
                                       tag: "post${ads.pId}",
                                       transitionOnUserGestures: true,
@@ -140,7 +141,7 @@ class _MyAdsListState extends State<MyAdsList> {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(width: 15),
+                                  SizedBox(width: 25.sp),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment:
@@ -153,23 +154,23 @@ class _MyAdsListState extends State<MyAdsList> {
                                         softWrap: true,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                      const SizedBox(height: 5),
+                                      SizedBox(height: 8.sp),
                                       Text(
                                         "₹ ${ads.pPrice.toString()}",
-                                        style: heading5,
+                                        style: heading6,
                                       ),
-                                      const SizedBox(height: 5),
+                                      SizedBox(height: 8.sp),
                                       Row(
                                         children: [
-                                          const Icon(Icons.remove_red_eye),
-                                          Text("  View : ${ads.pView ?? 0}",
+                                          Icon(Icons.remove_red_eye, size: 38.sp),
+                                          Text(" View : ${ads.pView ?? 0}",
                                               style: btnText),
-                                          const SizedBox(width: 15),
+                                          SizedBox(width: 15.sp),
                                           Text("|", style: btnText),
-                                          const SizedBox(width: 15),
-                                          const Icon(Icons.favorite),
+                                          SizedBox(width: 15.sp),
+                                          Icon(Icons.favorite, size: 38.sp),
                                           Text(
-                                              "  favorite : ${ads.pFavorite ?? 0}",
+                                              " Favorite : ${ads.pFavorite ?? 0}",
                                               style: btnText),
                                         ],
                                       ),

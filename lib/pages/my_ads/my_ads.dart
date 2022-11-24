@@ -25,6 +25,7 @@ class _MyAdsState extends State<MyAds> {
             headerSliverBuilder: (context, _) {
               return [
                 SliverAppBar(
+                  automaticallyImplyLeading: false,
                   // centerTitle: true,
                   title: Text("My Ads", style: heading2),
                 ),

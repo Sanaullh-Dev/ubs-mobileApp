@@ -39,11 +39,13 @@ class _ChatsDashboardState extends State<ChatsDashboard>
       child: DefaultTabController(
         length: 3,
         child: Scaffold(
+          
           body: NestedScrollView(
             floatHeaderSlivers: true,
             headerSliverBuilder: (context, _) {
               return [
                 SliverAppBar(
+                  automaticallyImplyLeading: false,
                   title: Container(
                       width: MediaQuery.of(context).size.width,
                       padding: const EdgeInsets.symmetric(vertical: 8),

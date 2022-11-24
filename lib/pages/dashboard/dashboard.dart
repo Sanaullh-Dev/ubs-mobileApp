@@ -49,9 +49,9 @@ class _DashboardPageState extends State<DashboardPage> {
         bottomNavigationBar: Obx(
           () => BottomNavigationBar(
             selectedLabelStyle:
-                TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w400),
+                TextStyle(fontSize: 30.sp, fontWeight: FontWeight.w800),
             unselectedLabelStyle:
-                TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w400),
+                TextStyle(fontSize: 28.sp, fontWeight: FontWeight.w500),
             backgroundColor: COLOR_WHITE,
             fixedColor: COLOR_PRIMARY,
             type: BottomNavigationBarType.fixed,

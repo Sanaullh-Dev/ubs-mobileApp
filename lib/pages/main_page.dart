@@ -31,13 +31,13 @@ class _MainPageState extends State<MainPage> {
   void getLoginData() async {
     final StorageService storageService = StorageService();
     var userId = await storageService.readSecureData("LoginId");
-    var Upass = await storageService.readSecureData("LoginPass");
+    var uPass = await storageService.readSecureData("LoginPass");
     if (userId == null) {
       loginStatus.value = "no";
     } else {
-      var res = await RemoteServices.userLogin(userId, Upass ?? "");
+      var res = await RemoteServices.userLogin(userId, uPass ?? "");
       if (res == "logged") {
-        uData.value = UserLogin(userId: userId, upass: Upass ?? "");
+        uData.value = UserLogin(userId: userId, upass: uPass ?? "");
         loginStatus.value = "logged";
       }
     }

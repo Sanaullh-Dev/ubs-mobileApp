@@ -374,7 +374,7 @@ class RemoteServices {
     Map<String, dynamic> bodyData = {'uid': userId};
 
     var res = await client.post(uri, body: bodyData);
-    
+
     if (res.statusCode == 200) {
       UsersData userData = UsersData.fromJson(json.decode(res.body));
       return userData;
@@ -420,18 +420,22 @@ class RemoteServices {
 
   // ---------- user Login ------------------
   static Future<String?> userLogin(String loginId, String password) async {
-    var uri = Uri.parse("$API_URL/userLogin/logIn");
-    Map<String, String> bodyData = {'loginId': loginId, 'password': password};
-    var _client = http.Client();
-    http.Response res = await _client.post(uri, body: bodyData);
+    try {
+      var uri = Uri.parse("$API_URL/userLogin/logIn");
+      Map<String, String> bodyData = {'loginId': loginId, 'password': password};
+      var _client = http.Client();
+      http.Response res = await _client.post(uri, body: bodyData);
 
-    if (res.statusCode == 200) {
-      return "logged";
-    }
-    if (res.statusCode == 422) {
-      return "invalid password";
-    } else {
-      return null;
+      if (res.statusCode == 200) {
+        return "logged";
+      }
+      if (res.statusCode == 422) {
+        return "invalid password";
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print(e);
     }
   }
 

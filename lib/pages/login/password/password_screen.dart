@@ -31,6 +31,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
   TextEditingController name = TextEditingController();
   TextEditingController password = TextEditingController();
   Rx<bool> passShow = true.obs;
+  Rx<bool> passCk = true.obs;
   UsersData? userData;
   final _formKey = GlobalKey<FormState>();
 
@@ -49,8 +50,10 @@ class _PasswordScreenState extends State<PasswordScreen> {
       if (res != null) {
         bool res = await loginCont.writeSecure(widget.userId, password.text);
         if (res) {
-          Get.to(MainPage());
+          Get.offAll(const MainPage());
         }
+      } else {
+        passCk.value = false;
       }
     }
   }
@@ -61,10 +64,11 @@ class _PasswordScreenState extends State<PasswordScreen> {
     } else {
       var res = await RemoteServices.userLogin(widget.userId, password.text);
       if (res == "invalid password") {
+        passCk.value = false;
       } else if (res == "logged") {
         bool res = await loginCont.writeSecure(widget.userId, password.text);
         if (res) {
-          Get.to(MainPage());
+          Get.offAll(const MainPage());
         }
       }
     }
@@ -97,7 +101,9 @@ class _PasswordScreenState extends State<PasswordScreen> {
                         child: Image.asset("lib/assets/images/user.png"),
                       ),
                       addVerticalSpace(10.h),
-                      Text("Welcome $uname", style: heading5),
+                      Text("Welcome $uname",
+                          style:
+                              heading5.copyWith(fontWeight: FontWeight.w700)),
                       addVerticalSpace(50.h),
                       widget.newUser == false
                           ? const SizedBox()
@@ -125,17 +131,20 @@ class _PasswordScreenState extends State<PasswordScreen> {
                       addVerticalSpace(widget.newUser ? 80.h : 0),
                       Text("Password", style: heading2),
                       // addVerticalSpace(5.h),
-                      TextFormField(
-                          controller: password,
-                          obscureText: passShow.value,
-                          style: textfield,
-                          keyboardType: TextInputType.visiblePassword,
-                          maxLength: 15,
-                          autofocus: true,
-                          decoration: InputDecoration(
+                      SizedBox(
+                        height: 130.sp,
+                        child: TextFormField(
+                            controller: password,
+                            obscureText: passShow.value,
+                            style: textfield,
+                            keyboardType: TextInputType.visiblePassword,
+                            maxLength: 15,
+                            autofocus: true,
+                            decoration: InputDecoration(
                               // counterText: "",
                               hintText: "Password",
                               hintStyle: heading5,
+                              contentPadding: EdgeInsets.only(top: 40.sp),
                               suffixIcon: IconButton(
                                 icon: Icon(
                                   passShow.value
@@ -147,16 +156,28 @@ class _PasswordScreenState extends State<PasswordScreen> {
                                 onPressed: () {
                                   passShow.value = !passShow.value;
                                 },
-                              )),
-                          validator: (value) {
-                            if (value == null ||
-                                value.isEmpty ||
-                                value.length < 6) {
-                              return 'minimum length of 6 characters is required';
-                            }
-                            return null;
-                          }),
-                      addVerticalSpace(40.h),
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  value.length < 6) {
+                                return 'minimum length of 6 characters is required';
+                              }
+                              return null;
+                            }),
+                      ),
+                      passCk.value
+                          ? addVerticalSpace(20.h)
+                          : Visibility(
+                              visible: !passCk.value,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 28.sp),
+                                child: Text("Invalid Password showing",
+                                    style:
+                                        heading6.copyWith(color: Colors.red)),
+                              ),
+                            ),
                       Text(
                         "Forgot your password?",
                         style: TextStyle(

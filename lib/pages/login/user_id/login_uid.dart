@@ -9,12 +9,25 @@ import 'package:ubs/pages/login/user_id/user_id.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/next_btn.dart';
 
-class LoginUid extends StatelessWidget {
+class LoginUid extends StatefulWidget {
   final String signType;
-  LoginUid({super.key, required this.signType});
+  const LoginUid({super.key, required this.signType});
 
+  @override
+  State<LoginUid> createState() => _LoginUidState();
+}
+
+class _LoginUidState extends State<LoginUid> {
   String appSignature = "";
   bool newUser = false;
+  bool isError = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getAppSing();
+    isError = false;
+  }
 
   getAppSing() async {
     appSignature = await SmsAutoFill().getAppSignature;
@@ -25,7 +38,6 @@ class LoginUid extends StatelessWidget {
   Widget build(BuildContext context) {
     final LoginController loginControl = Get.find<LoginController>();
     // TextEditingController countryCode = TextEditingController(text: "+91");
-    getAppSing();
 
     return SafeArea(
       child: Scaffold(
@@ -36,16 +48,17 @@ class LoginUid extends StatelessWidget {
             }),
         body: Stack(
           children: [
-            UserId(idType: signType),
+            UserId(idType: widget.signType, isError: isError),
             NextButton(
               enable: false,
-              labelText: signType == "phone" ? "Get OTP" : "Next",
+              labelText: widget.signType == "phone" ? "Get OTP" : "Next",
               onPress: () async {
                 String userId = "91${loginControl.loginId.value}";
                 UsersData? ck = await RemoteServices.getUserData(userId);
                 if (ck == null) {
-                  if (signType == "phone") {
-                    if (loginControl.loginId.value.length <= 10) {
+                  if (widget.signType == "phone") {
+                    if (loginControl.loginId.value.length == 10 &&
+                        loginControl.loginId.value.isNumericOnly) {
                       // var res =
                       //     await RemoteServices.getOTP(userId, appSignature);
                       // if (res != null) {
@@ -53,20 +66,28 @@ class LoginUid extends StatelessWidget {
                       //   Get.to(AutoVerify(hashNo: result["hash"], userId: userId,appSignature: appSignature,));
                       // }
                       Get.to(PasswordScreen(
-                          userId: userId, newUser: true, loginType: signType));
+                          userId: userId,
+                          newUser: true,
+                          loginType: widget.signType));
                     } else {
-                      Get.to(PasswordScreen(
-                          userId: userId, newUser: false, loginType: signType));
+                      setState(() => isError = true);
+                      // Get.to(PasswordScreen(
+                      //     userId: userId, newUser: false, loginType: signType));
                     }
-                  } else if (signType == "email") {
+                  } else if (widget.signType == "email" &&
+                      loginControl.loginId.value.isEmail) {
                     // loginControl.passwordScreen.value = ! loginControl.passwordScreen.value;
+                    Get.to(PasswordScreen(
+                        userId: userId,
+                        newUser: true,
+                        loginType: widget.signType));
                   }
                 } else {
                   Get.to(PasswordScreen(
                       userName: ck.uName,
                       userId: userId,
                       newUser: false,
-                      loginType: signType));
+                      loginType: widget.signType));
                 }
               },
             )

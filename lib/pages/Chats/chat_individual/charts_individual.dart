@@ -125,9 +125,16 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                           ),
                         ),
                         const SizedBox(width: 15),
-                        Text(chatRoom.userName,
-                            style: titleLabel.copyWith(
-                                fontWeight: FontWeight.w800)),
+                        SizedBox(
+                          width: size.width * 0.40,
+                          child: Text(chatRoom.userName,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: false,
+                              maxLines: 2,                              
+                              style: titleLabel.copyWith(
+                                fontSize: 28.sp,
+                                  fontWeight: FontWeight.w800)),
+                        ),
                         const Spacer(),
                         Icon(FontAwesomeIcons.phone, size: 45.sp),
                         const SizedBox(width: 15),
@@ -234,7 +241,7 @@ class _ChatsIndividualState extends State<ChatsIndividual>
       minHeight: 170.sp,
       defaultPanelState: PanelState.OPEN,
       controller: _panelController,
-      header: Container(      
+      header: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         width: size.width,
         height: 170.sp,
@@ -278,7 +285,6 @@ class _ChatsIndividualState extends State<ChatsIndividual>
           ],
         ),
       ),
-      
       panel: Container(
         color: Colors.white,
         margin: EdgeInsets.only(top: 150.sp),

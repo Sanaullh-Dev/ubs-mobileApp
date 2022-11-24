@@ -10,8 +10,11 @@ import 'package:ubs/utils/text_style.dart';
 class ViewMyAds extends StatefulWidget {
   final UserLogin userData;
   final AdsPost adsPostData;
-  const ViewMyAds(
-      {super.key, required this.adsPostData, required this.userData});
+  const ViewMyAds({
+    super.key,
+    required this.adsPostData,
+    required this.userData,
+  });
 
   @override
   State<ViewMyAds> createState() => _ViewMyAdsState();
@@ -107,12 +110,14 @@ class _ViewMyAdsState extends State<ViewMyAds> {
                 // Ads heading Section
                 addVerticalSpace(10.h),
                 // addDivider(),
-                const PostReactionBar(),
+                PostReactionBar(
+                    favorites: widget.adsPostData.pFavorite,
+                    views: widget.adsPostData.pView),
                 addDivider(),
                 addVerticalSpace(30.h),
                 ListTile(
-                  title: Text("Your Ads Title", style: heading2InBold),
-                  subtitle: Text("product name", style: heading3),
+                  title: Text(widget.adsPostData.pTitle, style: heading2InBold),
+                  subtitle: Text(widget.adsPostData.pBrand, style: heading3),
                 ),
                 addDivider(),
                 addVerticalSpace(30.h),
@@ -163,7 +168,10 @@ List<String> getImage(AdsPost adsData) {
 }
 
 class PostReactionBar extends StatelessWidget {
-  const PostReactionBar({super.key});
+  final int? views;
+  final int? favorites;
+  const PostReactionBar(
+      {super.key, required this.favorites, required this.views});
 
   @override
   Widget build(BuildContext context) {
@@ -175,12 +183,13 @@ class PostReactionBar extends StatelessWidget {
           Wrap(children: [
             Icon(Icons.remove_red_eye_outlined, size: 60.sp),
             const SizedBox(width: 10),
-            Text("0", style: heading2)
+            Text(views == null ? "0" : views.toString(), style: heading2)
           ]),
           Wrap(children: [
             Icon(Icons.favorite, color: COLOR_PRIMARY, size: 60.sp),
             const SizedBox(width: 10),
-            Text("0", style: heading2)
+            Text(favorites == null ? "0" : favorites.toString(),
+                style: heading2)
           ]),
         ],
       ),

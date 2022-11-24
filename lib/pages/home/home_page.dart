@@ -91,6 +91,7 @@ class _LatestPostState extends State<LatestPost> {
         headerSliverBuilder: (context, _) {
           return <Widget>[
             SliverAppBar(
+              automaticallyImplyLeading: false,
               title: const LocationBar(),
               // titleSpacing: 5,
               toolbarHeight: 80.h,
