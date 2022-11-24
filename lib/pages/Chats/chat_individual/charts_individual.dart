@@ -142,75 +142,86 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                 body: Obx(
                   () => Stack(
                     children: [
-                      Column(
-                        children: [
-                          Container(
-                            decoration:
-                                BoxDecoration(color: COLOR_WHITE, boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withAlpha(100),
-                                blurRadius: 4.0,
-                              )
-                            ]),
-                            padding: EdgeInsets.symmetric(
-                                vertical: 30.sp, horizontal: 60.sp),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  chatRoom.pTitle,
-                                  style: buttonTextLight,
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: false,
-                                  maxLines: 1,
-                                ),
-                                Text("₹ ${chatRoom.pPrice}",
-                                    style: buttonTextLight),
-                              ],
+                      SizedBox(
+                        height: size.height - 360.sp,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              decoration:
+                                  BoxDecoration(color: COLOR_WHITE, boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withAlpha(100),
+                                  blurRadius: 4.0,
+                                )
+                              ]),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 30.sp, horizontal: 60.sp),
+                              // margin: EdgeInsets.zero,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    chatRoom.pTitle,
+                                    style: buttonTextLight,
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: false,
+                                    maxLines: 1,
+                                  ),
+                                  Text("₹ ${chatRoom.pPrice}",
+                                      style: buttonTextLight),
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 10),
-                          StreamBuilder<QuerySnapshot>(
-                              stream: chatsCont.chatsHistory,
-                              builder: (context, snapshot) {
-                                if (snapshot.hasError) {
-                                  return const Center(
-                                      child: Text('Something went wrong'));
-                                }
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return const Center(child: Text("Loading"));
-                                }
-                                if (snapshot.data!.docs.isNotEmpty) {
-                                  return ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: snapshot.data!.docs.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      // here update message status to red
-                                      DocumentSnapshot data =
-                                          snapshot.data!.docs[index];
-                                      if (data["sendBy"] != widget.userId) {
-                                        FirestoreDatabaseHelper
-                                            .updateMessageStatus(
-                                                chatRoomId: chatRoom.docId!,
-                                                docId: data.id);
-                                      }
-                                      var da = getMessageData(data);
-                                      return data["sendBy"] == widget.userId
-                                          ? data["messageType"] == "text"
-                                              ? OwnMessage(messageData: da)
-                                              : OwnOfferMessage(messageData: da)
-                                          : data["messageType"] == "text"
-                                              ? ReplyMessage(messageData: da)
-                                              : ReplyOfferMessage(
-                                                  messageData: da);
-                                    },
-                                  );
-                                }
-                                return const SizedBox();
-                              }),
-                        ],
+                            const SizedBox(height: 2),
+                            Expanded(
+                              child: StreamBuilder<QuerySnapshot>(
+                                  stream: chatsCont.chatsHistory,
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasError) {
+                                      return const Center(
+                                          child: Text('Something went wrong'));
+                                    }
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const Center(
+                                          child: Text("Loading"));
+                                    }
+                                    if (snapshot.data!.docs.isNotEmpty) {
+                                      return ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: snapshot.data!.docs.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          // here update message status to red
+                                          DocumentSnapshot data =
+                                              snapshot.data!.docs[index];
+                                          if (data["sendBy"] != widget.userId) {
+                                            FirestoreDatabaseHelper
+                                                .updateMessageStatus(
+                                                    chatRoomId: chatRoom.docId!,
+                                                    docId: data.id);
+                                          }
+                                          var da = getMessageData(data);
+                                          return data["sendBy"] == widget.userId
+                                              ? data["messageType"] == "text"
+                                                  ? OwnMessage(messageData: da)
+                                                  : OwnOfferMessage(
+                                                      messageData: da)
+                                              : data["messageType"] == "text"
+                                                  ? ReplyMessage(
+                                                      messageData: da)
+                                                  : ReplyOfferMessage(
+                                                      messageData: da);
+                                        },
+                                      );
+                                    }
+                                    return const SizedBox();
+                                  }),
+                            ),
+                          ],
+                        ),
                       ),
                       slidingUpBox(size, _visible)
                     ],
@@ -234,7 +245,7 @@ class _ChatsIndividualState extends State<ChatsIndividual>
       minHeight: 170.sp,
       defaultPanelState: PanelState.OPEN,
       controller: _panelController,
-      header: Container(      
+      header: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         width: size.width,
         height: 170.sp,
@@ -278,7 +289,6 @@ class _ChatsIndividualState extends State<ChatsIndividual>
           ],
         ),
       ),
-      
       panel: Container(
         color: Colors.white,
         margin: EdgeInsets.only(top: 150.sp),
@@ -437,7 +447,7 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                               chatsCont
                                   .saveMessage(
                                       docId: widget.chatRoom.docId!,
-                                      message: messageBox.text,
+                                      message: priceText.text,
                                       loggedUid: widget.userId,
                                       postType: "offer")
                                   .then((value) => value == true

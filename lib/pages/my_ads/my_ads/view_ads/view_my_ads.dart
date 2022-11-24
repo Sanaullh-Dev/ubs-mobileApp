@@ -107,12 +107,12 @@ class _ViewMyAdsState extends State<ViewMyAds> {
                 // Ads heading Section
                 addVerticalSpace(10.h),
                 // addDivider(),
-                const PostReactionBar(),
+                PostReactionBar(adsData: widget.adsPostData),
                 addDivider(),
                 addVerticalSpace(30.h),
                 ListTile(
-                  title: Text("Your Ads Title", style: heading2InBold),
-                  subtitle: Text("product name", style: heading3),
+                  title: Text(widget.adsPostData.pTitle, style: heading2InBold),
+                  subtitle: Text(widget.adsPostData.pBrand, style: heading3),
                 ),
                 addDivider(),
                 addVerticalSpace(30.h),
@@ -163,7 +163,8 @@ List<String> getImage(AdsPost adsData) {
 }
 
 class PostReactionBar extends StatelessWidget {
-  const PostReactionBar({super.key});
+  final AdsPost adsData;
+  const PostReactionBar({super.key, required this.adsData});
 
   @override
   Widget build(BuildContext context) {
@@ -175,12 +176,14 @@ class PostReactionBar extends StatelessWidget {
           Wrap(children: [
             Icon(Icons.remove_red_eye_outlined, size: 60.sp),
             const SizedBox(width: 10),
-            Text("0", style: heading2)
+            Text(adsData.pView != null ? adsData.pView.toString() : "0",
+                style: heading2)
           ]),
           Wrap(children: [
             Icon(Icons.favorite, color: COLOR_PRIMARY, size: 60.sp),
             const SizedBox(width: 10),
-            Text("0", style: heading2)
+            Text(adsData.pFavorite != null ? adsData.pFavorite.toString() : "0",
+                style: heading2)
           ]),
         ],
       ),

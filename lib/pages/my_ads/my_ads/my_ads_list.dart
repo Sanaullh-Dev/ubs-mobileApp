@@ -7,9 +7,11 @@ import 'package:ubs/pages/my_ads/controller/my_ads_controller.dart';
 import 'package:ubs/pages/my_ads/my_ads/view_ads/view_my_ads.dart';
 import 'package:ubs/pages/my_ads/widgets/empty_page.dart';
 import 'package:ubs/pages/selling/sale_main_categories.dart';
+import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/custom_fun.dart';
 import 'package:ubs/utils/text_style.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyAdsList extends StatefulWidget {
   final UserLogin userLogin;
@@ -46,19 +48,19 @@ class _MyAdsListState extends State<MyAdsList> {
                   },
                   imagePath: "lib/assets/images/my_ads.png")
           : RefreshIndicator(
-            onRefresh: () async {
-              myAdsController.fetchMySalesAds(widget.userLogin.userId);
-            },
-            child: ListView.builder(
+              onRefresh: () async {
+                myAdsController.fetchMySalesAds(widget.userLogin.userId);
+              },
+              child: ListView.builder(
                 itemCount: myAdsController.mySalesAdsList.value.length,
                 itemBuilder: (BuildContext context, int index) {
                   AdsPost ads = myAdsController.mySalesAdsList.value[index];
                   return Container(
                     width: double.infinity,
-                    margin: const EdgeInsets.fromLTRB(20, 15, 15, 15),
-                    padding: const EdgeInsets.only(bottom: 15),
+                    margin: EdgeInsets.fromLTRB(40.sp, 30.sp, 30.sp, 20.sp),
+                    padding: EdgeInsets.only(bottom: 20.sp),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
+                        borderRadius: BorderRadius.circular(12.r),
                         color: Colors.white,
                         boxShadow: [
                           const BoxShadow(
@@ -73,19 +75,19 @@ class _MyAdsListState extends State<MyAdsList> {
                     child: Column(
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 30.sp, vertical: 15.sp),
                           decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(6)),
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(12.r)),
                             color: Colors.blueGrey[100],
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Publish on ${dateFormat.format(ads.pDate!)}",
-                                  style: cardTitle),
+                              Text(
+                                  "Publish on ${dateFormat.format(ads.pDate!)}",
+                                  style: cardTitle.copyWith(fontSize: 26.sp)),
                               const Spacer(),
                               PopupMenuButton(
                                 child: const Icon(Icons.more_horiz),
@@ -102,15 +104,15 @@ class _MyAdsListState extends State<MyAdsList> {
                                         message:
                                             "You want to delete your ads and you can't be undo this",
                                         onOK: () async {
-                                          // await RemoteServices.deleteMySalesAds(
-                                          //     widget.userLogin.userId, ads.pId!);
-                                          // myAdsController.fetchMySalesAds(
-                                          //     widget.userLogin.userId);
+                                          await RemoteServices.deleteMySalesAds(
+                                              widget.userLogin.userId, ads.pId!);
+                                          myAdsController.fetchMySalesAds(
+                                              widget.userLogin.userId);
                                         });
                                   }
                                 },
                               ),
-          
+
                               // IconButton(
                               //     onPressed: () {},
                               //     icon: const Icon(Icons.more_horiz))
@@ -125,12 +127,12 @@ class _MyAdsListState extends State<MyAdsList> {
                           child: Container(
                             color: Colors.white,
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 10, top: 10),
+                              padding: EdgeInsets.only(left: 20.sp, top: 20.sp),
                               child: Row(
                                 children: [
                                   SizedBox(
-                                    width: 100,
-                                    height: 100,
+                                    width: 180.sp,
+                                    height: 180.sp,
                                     child: Hero(
                                       tag: "post${ads.pId}",
                                       transitionOnUserGestures: true,
@@ -140,9 +142,10 @@ class _MyAdsListState extends State<MyAdsList> {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(width: 15),
+                                  SizedBox(width: 20.sp),
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
@@ -153,23 +156,25 @@ class _MyAdsListState extends State<MyAdsList> {
                                         softWrap: true,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                      const SizedBox(height: 5),
+                                      SizedBox(height: 8.sp),
                                       Text(
                                         "₹ ${ads.pPrice.toString()}",
                                         style: heading5,
                                       ),
-                                      const SizedBox(height: 5),
+                                      SizedBox(height: 5.sp),
                                       Row(
                                         children: [
-                                          const Icon(Icons.remove_red_eye),
-                                          Text("  View : ${ads.pView ?? 0}",
-                                              style: btnText),
-                                          const SizedBox(width: 15),
-                                          Text("|", style: btnText),
-                                          const SizedBox(width: 15),
-                                          const Icon(Icons.favorite),
+                                          Icon(Icons.remove_red_eye, size: 44.sp),
+                                          Text(" View : ${ads.pView ?? 0}",
+                                              style: btnText.copyWith(
+                                                  fontSize: 30.sp)),
+                                          SizedBox(width: 20.sp),
+                                          Text("|", style: btnText.copyWith(
+                                                  fontSize: 30.sp)),
+                                          SizedBox(width: 20.sp),
+                                          Icon(Icons.favorite, size: 40.sp),
                                           Text(
-                                              "  favorite : ${ads.pFavorite ?? 0}",
+                                              " favorite : ${ads.pFavorite ?? 0}",
                                               style: btnText),
                                         ],
                                       ),
@@ -185,19 +190,20 @@ class _MyAdsListState extends State<MyAdsList> {
                             thickness: 2,
                             endIndent: 15,
                             indent: 15,
-                            height: 25),
+                            height: 45.sp),
                         Padding(
-                          padding: const EdgeInsets.only(right: 15),
+                          padding: EdgeInsets.only(right: 30.sp),
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.white,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 30, vertical: 15),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 60.sp, vertical: 25.sp),
                                   side: const BorderSide(
                                       width: 3, color: Colors.blueGrey)),
-                              child: Text("Mark as sold", style: buttonTextLight),
+                              child:
+                                  Text("Mark as sold", style: buttonTextLight),
                               onPressed: () {},
                             ),
                           ),
@@ -207,7 +213,7 @@ class _MyAdsListState extends State<MyAdsList> {
                   );
                 },
               ),
-          ),
+            ),
     );
   }
 }
