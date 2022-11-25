@@ -7,6 +7,7 @@ import 'package:ubs/pages/login/login_home.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/services/secure_storage.dart';
+import 'package:ubs/utils/text_style.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -16,8 +17,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  // final LoginController loginController = Get.put(LoginController());
-  // final MainController mainCont = Get.put(MainController());
   Rx<String> uid = "".obs;
   Rx<String> loginStatus = "checking".obs;
   Rx<UserLogin> uData = UserLogin(userId: "", upass: "").obs;
@@ -43,7 +42,6 @@ class _MainPageState extends State<MainPage> {
     }
   }
 
-  //  final mainCont = Get.find<MainController>();
   @override
   Widget build(BuildContext context) {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
@@ -55,14 +53,20 @@ class _MainPageState extends State<MainPage> {
           }
           if (loginStatus.value == "checking") {
             return Scaffold(
-              backgroundColor: Colors.black.withAlpha(150),
-              body: const Center(
-                child: CircularProgressIndicator()
-                // SizedBox(
-                //     height: 300.sp,
-                //     width: 300.sp,
-                //     child: Image.asset("lib/assets/images/BiS.png")                    
-                //     ),
+              backgroundColor: Colors.white,
+              body: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                        height: 250.sp,
+                        width: 250.sp,
+                        child: Image.asset("lib/assets/images/BiS.png")),
+                    SizedBox(height: 50.sp),
+                    Text("Loading...", style: heading2)
+                  ],
+                ),
               ),
             );
           } else {

@@ -60,6 +60,7 @@ class ChatsController extends GetxController {
   }
 
   getChatsRoomsList(String userId) async {
+    chatUserList.value = [];
     isLoading.value = true;
     await FirestoreDatabaseHelper.chatsRoom
         .where('users', arrayContains: userId)
@@ -80,6 +81,7 @@ class ChatsController extends GetxController {
   }
 
   getChatsDetails() async {
+    chatsRooms.value = [];
     for (var i = 0; i < chatUserList.value.length - 1; i++) {
       var val = chatUserList.value[i];
       var res = await RemoteServices.getChatRoomDetails(val.userId, val.pId);

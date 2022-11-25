@@ -31,7 +31,6 @@ class _HomePageState extends State<HomePage> {
   // List<AdsPost> adsPosts = [];
   final HomeController homeController = Get.find<HomeController>();
 
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -73,15 +72,13 @@ class _LatestPostState extends State<LatestPost> {
   }
 
   getLoadData() async {
-    await homeController.fetchAds();
-    await homeController.fetchMainCat();
+    if (homeController.adsPostList.value.isEmpty) {
+      await homeController.fetchAds();
+    }
+    if (homeController.mainCatList.value.isEmpty) {
+      await homeController.fetchMainCat();
+    }
   }
-
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   Get.delete<HomeController>();
-  // }
 
   @override
   Widget build(BuildContext context) {

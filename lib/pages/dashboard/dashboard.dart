@@ -6,6 +6,7 @@ import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/accounts/home_account.dart';
 import 'package:ubs/pages/accounts/logged_account/logged_home.dart';
 import 'package:ubs/pages/chats/chats_dashboard/chats_dashboard.dart';
+import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/pages/home/home_page.dart';
 import 'package:ubs/pages/my_ads/my_ads.dart';
 import 'package:ubs/pages/selling/sale_main_categories.dart';
@@ -25,6 +26,7 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   // final MainController mainCont = Get.put(MainController());
+  final HomeController homeController = Get.find<HomeController>();
   RxInt selectPage = 0.obs;
 
   @override
@@ -48,21 +50,27 @@ class _DashboardPageState extends State<DashboardPage> {
     ];
     return WillPopScope(
       onWillPop: () async {
-        return exitPop(
-            context: context,
-            title: "Alert Message",
-            message: "Do you want to exit from BIS",
-            onCancel: () => Get.back(),
-            onOK: () => exit(0));
+        if (homeController.typeList.value == "all" && selectPage.value == 0) {
+          return exitPop(
+              context: context,
+              title: "Alert Message",
+              message: "Do you want to exit from BIS",
+              onCancel: () => Get.back(),
+              onOK: () => exit(0));
+        } else {
+          homeController.typeList.value = "all";
+          selectPage.value = 0;
+          return false;
+        }
       },
       child: Scaffold(
           body: Obx(() => pageOptions[selectPage.value]),
           bottomNavigationBar: Obx(
             () => BottomNavigationBar(
               selectedLabelStyle:
-                  TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w400),
+                  TextStyle(fontSize: 26.sp, fontWeight: FontWeight.w500),
               unselectedLabelStyle:
-                  TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w400),
+                  TextStyle(fontSize: 26.sp, fontWeight: FontWeight.w500),
               backgroundColor: COLOR_WHITE,
               fixedColor: COLOR_PRIMARY,
               type: BottomNavigationBarType.fixed,

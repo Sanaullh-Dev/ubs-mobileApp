@@ -25,14 +25,19 @@ class _ChatsRoomAllState extends State<ChatsRoomAll> {
   @override
   Widget build(BuildContext context) {
     // final TextTheme textTheme = Theme.of(context).textTheme;
-    return Obx(() => chatsController.isLoading.value == true
-        ? const Center(child: CircularProgressIndicator())
-        : chatsController.chatsRooms.length == 0
-            ? const EmptyScreen(
-                title_1: "You've got no message so far!",
-                btnTitle: "Start To Explore")
-            : SingleChildScrollView(
-                child: Column(
+
+    return RefreshIndicator(
+      onRefresh: () async {
+        chatsController.getChatsRoomsList(widget.userLogin.userId);
+      },
+      child: SingleChildScrollView(        
+        child: Obx(() => chatsController.isLoading.value == true
+            ? const Center(child: CircularProgressIndicator())
+            : chatsController.chatsRooms.length == 0
+                ? const EmptyScreen(
+                    title_1: "You've got no message so far!",
+                    btnTitle: "Start To Explore")
+                : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 15),
@@ -46,8 +51,9 @@ class _ChatsRoomAllState extends State<ChatsRoomAll> {
                       },
                     )
                   ],
-                ),
-              ));
+                )),
+      ),
+    );
   }
 }
 

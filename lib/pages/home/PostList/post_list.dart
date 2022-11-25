@@ -37,12 +37,12 @@ class _PostListState extends State<PostList> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return SafeArea(
-      child: WillPopScope(
-        onWillPop: () async {
-          homeCont.typeList.value = "all";
-          return false;
-        },
+    return WillPopScope(
+      onWillPop: () async {
+        homeCont.typeList.value = "all";
+        return false;
+      },
+      child: SafeArea(
         child: Scaffold(
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(120),

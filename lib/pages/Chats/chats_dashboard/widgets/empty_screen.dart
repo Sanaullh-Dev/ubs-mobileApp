@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ubs/utils/text_style.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EmptyScreen extends StatelessWidget {
   final String title_1;
@@ -15,32 +16,40 @@ class EmptyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 150,
-          width: 150,
-          child: Image.asset("lib/assets/images/search.png"),
+    final Size size = MediaQuery.of(context).size;
+
+    return SingleChildScrollView(
+      physics: const AlwaysScrollableScrollPhysics(),
+      child: SizedBox(
+        height: size.height - 300.sp,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 150,
+              width: 150,
+              child: Image.asset("lib/assets/images/search.png"),
+            ),
+            const SizedBox(height: 25),
+            Text(title_1, style: heading3),
+            title_2 != null ? const SizedBox(height: 15) : const SizedBox(),
+            title_2 != null ? Text(title_2!, style: heading6) : const SizedBox(),
+            title_3 != null ? const SizedBox(height: 15) : const SizedBox(),
+            title_3 != null
+                ? Text(title_3!, style: heading6, textAlign: TextAlign.center)
+                : const SizedBox(),
+            const SizedBox(height: 25),
+            SizedBox(
+              width: 280,
+              height: 60,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: Text(btnTitle, style: buttonTextLight),
+              ),
+            ),
+          ],
         ),
-        const SizedBox(height: 25),
-        Text(title_1, style: heading3),
-        title_2 != null ? const SizedBox(height: 15) : const SizedBox(),
-        title_2 != null ? Text(title_2!, style: heading6) : const SizedBox(),
-        title_3 != null ? const SizedBox(height: 15) : const SizedBox(),
-        title_3 != null
-            ? Text(title_3!, style: heading6, textAlign: TextAlign.center)
-            : const SizedBox(),
-        const SizedBox(height: 25),
-        SizedBox(
-          width: 280,
-          height: 60,
-          child: ElevatedButton(
-            onPressed: () {},
-            child: Text(btnTitle, style: buttonTextLight),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

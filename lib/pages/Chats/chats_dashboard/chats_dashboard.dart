@@ -7,7 +7,7 @@ import 'package:ubs/pages/chats/chats_dashboard/tabs/chats_sale.dart';
 import 'package:ubs/pages/chats/controller/chats_controller.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class ChatsDashboard extends StatefulWidget {
   final UserLogin userLogin;
@@ -38,8 +38,7 @@ class _ChatsDashboardState extends State<ChatsDashboard>
     return SafeArea(
       child: DefaultTabController(
         length: 3,
-        child: Scaffold(
-          
+        child: Scaffold(          
           body: NestedScrollView(
             floatHeaderSlivers: true,
             headerSliverBuilder: (context, _) {

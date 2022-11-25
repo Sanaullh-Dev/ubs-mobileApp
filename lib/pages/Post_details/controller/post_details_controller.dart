@@ -25,14 +25,14 @@ class PostDetailsController extends GetxController {
           pView: 0,
           uPhoto: "")
       .obs;
-
-  Rx<int> postFavorite = 0.obs;
+    Rx<int> postFavorite = 0.obs;
+  
 
   getAdsPostDetails(AdsPost adsData) async {
     var res = await RemoteServices.getAdsPostDetails(
         adsData.pUid, adsData.pId!.toString());
     if (res != null) {
-      postFavorite.value = res.pFavorite!;
+      postFavorite.value = res.pFavorite ?? 0;
       adsPost.value = adsData;
       fetchUserInfo(adsData.pUid);
     }

@@ -11,9 +11,7 @@ class HomeController extends GetxController {
   RxList<Categories> mainCatList = List<Categories>.empty().obs;
   RxList<Categories> subCatList = List<Categories>.empty().obs;
   RxBool isLoading = false.obs;
-
   RxBool listStatus = false.obs;
-
   RxString typeList = "all".obs;
   RxString hintText = "".obs;
   RxInt mainCat = 0.obs;

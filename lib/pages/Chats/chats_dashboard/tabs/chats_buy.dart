@@ -38,25 +38,23 @@ class _ChatsRoomBuyState extends State<ChatsRoomBuy> {
                 title_1: "You've got no message so far!",
                 title_2: "Be the first one to begin a conversation.",
                 btnTitle: "Start Messaging")
-            : SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 15),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: chatsController.chatsRooms.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        var val = chatsController.chatsRooms[index];
-                        return val.postType != "buy"
-                            ? const SizedBox()
-                            : ChatsListTitle(
-                                chatRoom: val, userId: widget.userLogin.userId);
-                      },
-                    )
-                  ],
-                ),
-              ));
+            : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 15),
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: chatsController.chatsRooms.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var val = chatsController.chatsRooms[index];
+                    return val.postType != "buy"
+                        ? const SizedBox()
+                        : ChatsListTitle(
+                            chatRoom: val, userId: widget.userLogin.userId);
+                  },
+                )
+              ],
+            ));
   }
 }
 
