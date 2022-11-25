@@ -91,3 +91,43 @@ Future<dynamic> alertDialogBox(
             ],
           ));
 }
+
+exitPop({
+  required BuildContext context,
+  required String title,
+  required String message,
+  required VoidCallback onOK,
+  required VoidCallback onCancel,
+}) {
+  return showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+            title: Text(title, style: heading3),
+            content: Text(message, style: heading5),
+            actionsPadding: EdgeInsets.only(bottom: 40.sp, top: 40.sp),
+            actions: [
+              GestureDetector(
+                onTap: onCancel,
+                child: Text('Cancel',
+                    style: btnText.copyWith(
+                        decoration: TextDecoration.underline,
+                        color: Colors.black)),
+              ),
+              const SizedBox(width: 10),
+              GestureDetector(
+                onTap: onOK,
+                child: Container(                  
+                  decoration: BoxDecoration(
+                    color: COLOR_PRIMARY,
+                    borderRadius: BorderRadius.circular(20.r)),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 80.sp, vertical: 30.sp),
+                  child: Text('OK',
+                      style: btnText.copyWith(
+                          decoration: TextDecoration.underline)),
+                ),
+              ),
+              const SizedBox(width: 20),
+            ],
+          ));
+}

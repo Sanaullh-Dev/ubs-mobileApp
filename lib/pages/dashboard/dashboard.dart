@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/user_login.dart';
@@ -7,6 +9,7 @@ import 'package:ubs/pages/chats/chats_dashboard/chats_dashboard.dart';
 import 'package:ubs/pages/home/home_page.dart';
 import 'package:ubs/pages/my_ads/my_ads.dart';
 import 'package:ubs/pages/selling/sale_main_categories.dart';
+import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:get/get.dart';
 
@@ -44,6 +47,7 @@ class _DashboardPageState extends State<DashboardPage> {
           : HomeAccount(userLogin: widget.userData)
     ];
 
+<<<<<<< HEAD
     return Scaffold(
         body: Obx(() => pageOptions[selectPage.value]),
         bottomNavigationBar: Obx(
@@ -80,34 +84,83 @@ class _DashboardPageState extends State<DashboardPage> {
                   activeIcon: Icon(Icons.manage_accounts, size: 70.sp),
                   label: "Account")
             ],
+=======
+    return WillPopScope(
+      onWillPop: () async {
+        return exitPop(
+            context: context,
+            title: "Alert Message",
+            message: "Do you want to exit from BIS",
+            onCancel: () => Get.back(),
+            onOK: () => exit(0));
+      },
+      child: Scaffold(
+          body: Obx(() => pageOptions[selectPage.value]),
+          bottomNavigationBar: Obx(
+            () => BottomNavigationBar(
+              selectedLabelStyle:
+                  TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w400),
+              unselectedLabelStyle:
+                  TextStyle(fontSize: 22.sp, fontWeight: FontWeight.w400),
+              backgroundColor: COLOR_WHITE,
+              fixedColor: COLOR_PRIMARY,
+              type: BottomNavigationBarType.fixed,
+              currentIndex: selectPage.value,
+              onTap: (index) => selectPage.value = index,
+              items: [
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.home_outlined, size: 70.sp),
+                    activeIcon: Icon(Icons.home, size: 70.sp),
+                    label: "Home"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.chat_bubble_outline, size: 60.sp),
+                    activeIcon: Icon(Icons.chat_bubble, size: 60.sp),
+                    label: "Chats"),
+                BottomNavigationBarItem(
+                    icon: Icon(null, size: 60.w), label: "Sell"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.favorite_border, size: 60.sp),
+                    activeIcon: Icon(
+                      Icons.favorite,
+                      size: 60.sp,
+                    ),
+                    label: "My Ads"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.manage_accounts_outlined, size: 70.sp),
+                    activeIcon: Icon(Icons.manage_accounts, size: 70.sp),
+                    label: "Account")
+              ],
+            ),
+>>>>>>> c2fde7af0b9e0e692ac2d5f283dc223b53dc26ce
           ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: SizedBox(
-          height: 110.sp,
-          width: 110.sp,
-          child: FittedBox(
-            child: FloatingActionButton(
-              elevation: 0,
-              onPressed: () {
-                Get.to(SaleMainCategories(userData: widget.userData));
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: COLOR_PRIMARY, width: 8.sp),
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                ),
-                child: IconButton(
-                  color: Colors.black87,
-                  icon: const Icon(Icons.add_outlined),
-                  onPressed: () {
-                    Get.to(SaleMainCategories(userData: widget.userData));
-                  },
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: SizedBox(
+            height: 110.sp,
+            width: 110.sp,
+            child: FittedBox(
+              child: FloatingActionButton(
+                elevation: 0,
+                onPressed: () {
+                  Get.to(SaleMainCategories(userData: widget.userData));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: COLOR_PRIMARY, width: 8.sp),
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    color: Colors.black87,
+                    icon: const Icon(Icons.add_outlined),
+                    onPressed: () {
+                      Get.to(SaleMainCategories(userData: widget.userData));
+                    },
+                  ),
                 ),
               ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 }

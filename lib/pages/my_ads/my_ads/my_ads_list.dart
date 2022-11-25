@@ -7,6 +7,7 @@ import 'package:ubs/pages/my_ads/controller/my_ads_controller.dart';
 import 'package:ubs/pages/my_ads/my_ads/view_ads/view_my_ads.dart';
 import 'package:ubs/pages/my_ads/widgets/empty_page.dart';
 import 'package:ubs/pages/selling/sale_main_categories.dart';
+import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/custom_fun.dart';
 import 'package:ubs/utils/text_style.dart';
@@ -47,19 +48,24 @@ class _MyAdsListState extends State<MyAdsList> {
                   },
                   imagePath: "lib/assets/images/my_ads.png")
           : RefreshIndicator(
-            onRefresh: () async {
-              myAdsController.fetchMySalesAds(widget.userLogin.userId);
-            },
-            child: ListView.builder(
+              onRefresh: () async {
+                myAdsController.fetchMySalesAds(widget.userLogin.userId);
+              },
+              child: ListView.builder(
                 itemCount: myAdsController.mySalesAdsList.value.length,
                 itemBuilder: (BuildContext context, int index) {
                   AdsPost ads = myAdsController.mySalesAdsList.value[index];
                   return Container(
                     width: double.infinity,
+<<<<<<< HEAD
                     margin: EdgeInsets.fromLTRB(40.sp, 30.sp, 30.sp, 30.sp),
                     padding: EdgeInsets.only(bottom: 30.sp),
+=======
+                    margin: EdgeInsets.fromLTRB(40.sp, 30.sp, 30.sp, 20.sp),
+                    padding: EdgeInsets.only(bottom: 20.sp),
+>>>>>>> c2fde7af0b9e0e692ac2d5f283dc223b53dc26ce
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
+                        borderRadius: BorderRadius.circular(12.r),
                         color: Colors.white,
                         boxShadow: [
                           const BoxShadow(
@@ -77,16 +83,16 @@ class _MyAdsListState extends State<MyAdsList> {
                           padding: EdgeInsets.symmetric(
                               horizontal: 30.sp, vertical: 15.sp),
                           decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.vertical(
-                                top: Radius.circular(6)),
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(12.r)),
                             color: Colors.blueGrey[100],
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Publish on ${dateFormat.format(ads.pDate!)}",
-                                  style: cardTitle),
+                              Text(
+                                  "Publish on ${dateFormat.format(ads.pDate!)}",
+                                  style: cardTitle.copyWith(fontSize: 26.sp)),
                               const Spacer(),
                               PopupMenuButton(
                                 child: const Icon(Icons.more_horiz),
@@ -103,15 +109,15 @@ class _MyAdsListState extends State<MyAdsList> {
                                         message:
                                             "You want to delete your ads and you can't be undo this",
                                         onOK: () async {
-                                          // await RemoteServices.deleteMySalesAds(
-                                          //     widget.userLogin.userId, ads.pId!);
-                                          // myAdsController.fetchMySalesAds(
-                                          //     widget.userLogin.userId);
+                                          await RemoteServices.deleteMySalesAds(
+                                              widget.userLogin.userId, ads.pId!);
+                                          myAdsController.fetchMySalesAds(
+                                              widget.userLogin.userId);
                                         });
                                   }
                                 },
                               ),
-          
+
                               // IconButton(
                               //     onPressed: () {},
                               //     icon: const Icon(Icons.more_horiz))
@@ -126,12 +132,17 @@ class _MyAdsListState extends State<MyAdsList> {
                           child: Container(
                             color: Colors.white,
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 10, top: 10),
+                              padding: EdgeInsets.only(left: 20.sp, top: 20.sp),
                               child: Row(
                                 children: [
                                   SizedBox(
+<<<<<<< HEAD
                                     width: 190.sp,
                                     height: 190.sp,
+=======
+                                    width: 180.sp,
+                                    height: 180.sp,
+>>>>>>> c2fde7af0b9e0e692ac2d5f283dc223b53dc26ce
                                     child: Hero(
                                       tag: "post${ads.pId}",
                                       transitionOnUserGestures: true,
@@ -141,9 +152,14 @@ class _MyAdsListState extends State<MyAdsList> {
                                       ),
                                     ),
                                   ),
+<<<<<<< HEAD
                                   SizedBox(width: 25.sp),
+=======
+                                  SizedBox(width: 20.sp),
+>>>>>>> c2fde7af0b9e0e692ac2d5f283dc223b53dc26ce
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
@@ -159,6 +175,7 @@ class _MyAdsListState extends State<MyAdsList> {
                                         "₹ ${ads.pPrice.toString()}",
                                         style: heading6,
                                       ),
+<<<<<<< HEAD
                                       SizedBox(height: 8.sp),
                                       Row(
                                         children: [
@@ -171,6 +188,22 @@ class _MyAdsListState extends State<MyAdsList> {
                                           Icon(Icons.favorite, size: 38.sp),
                                           Text(
                                               " Favorite : ${ads.pFavorite ?? 0}",
+=======
+                                      SizedBox(height: 5.sp),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.remove_red_eye, size: 44.sp),
+                                          Text(" View : ${ads.pView ?? 0}",
+                                              style: btnText.copyWith(
+                                                  fontSize: 30.sp)),
+                                          SizedBox(width: 20.sp),
+                                          Text("|", style: btnText.copyWith(
+                                                  fontSize: 30.sp)),
+                                          SizedBox(width: 20.sp),
+                                          Icon(Icons.favorite, size: 40.sp),
+                                          Text(
+                                              " favorite : ${ads.pFavorite ?? 0}",
+>>>>>>> c2fde7af0b9e0e692ac2d5f283dc223b53dc26ce
                                               style: btnText),
                                         ],
                                       ),
@@ -186,19 +219,20 @@ class _MyAdsListState extends State<MyAdsList> {
                             thickness: 2,
                             endIndent: 15,
                             indent: 15,
-                            height: 25),
+                            height: 45.sp),
                         Padding(
-                          padding: const EdgeInsets.only(right: 15),
+                          padding: EdgeInsets.only(right: 30.sp),
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.white,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 30, vertical: 15),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 60.sp, vertical: 25.sp),
                                   side: const BorderSide(
                                       width: 3, color: Colors.blueGrey)),
-                              child: Text("Mark as sold", style: buttonTextLight),
+                              child:
+                                  Text("Mark as sold", style: buttonTextLight),
                               onPressed: () {},
                             ),
                           ),
@@ -208,7 +242,7 @@ class _MyAdsListState extends State<MyAdsList> {
                   );
                 },
               ),
-          ),
+            ),
     );
   }
 }

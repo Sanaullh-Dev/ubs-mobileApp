@@ -55,11 +55,14 @@ class _MainPageState extends State<MainPage> {
           }
           if (loginStatus.value == "checking") {
             return Scaffold(
-              body: Center(
-                child: SizedBox(
-                    height: 300.sp,
-                    width: 300.sp,
-                    child: Image.asset("lib/assets/images/BiS.png")),
+              backgroundColor: Colors.black.withAlpha(150),
+              body: const Center(
+                child: CircularProgressIndicator()
+                // SizedBox(
+                //     height: 300.sp,
+                //     width: 300.sp,
+                //     child: Image.asset("lib/assets/images/BiS.png")                    
+                //     ),
               ),
             );
           } else {
