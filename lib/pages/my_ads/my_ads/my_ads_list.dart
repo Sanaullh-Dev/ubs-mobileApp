@@ -57,13 +57,8 @@ class _MyAdsListState extends State<MyAdsList> {
                   AdsPost ads = myAdsController.mySalesAdsList.value[index];
                   return Container(
                     width: double.infinity,
-<<<<<<< HEAD
-                    margin: EdgeInsets.fromLTRB(40.sp, 30.sp, 30.sp, 30.sp),
-                    padding: EdgeInsets.only(bottom: 30.sp),
-=======
                     margin: EdgeInsets.fromLTRB(40.sp, 30.sp, 30.sp, 20.sp),
                     padding: EdgeInsets.only(bottom: 20.sp),
->>>>>>> c2fde7af0b9e0e692ac2d5f283dc223b53dc26ce
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12.r),
                         color: Colors.white,
@@ -110,7 +105,8 @@ class _MyAdsListState extends State<MyAdsList> {
                                             "You want to delete your ads and you can't be undo this",
                                         onOK: () async {
                                           await RemoteServices.deleteMySalesAds(
-                                              widget.userLogin.userId, ads.pId!);
+                                              widget.userLogin.userId,
+                                              ads.pId!);
                                           myAdsController.fetchMySalesAds(
                                               widget.userLogin.userId);
                                         });
@@ -136,13 +132,8 @@ class _MyAdsListState extends State<MyAdsList> {
                               child: Row(
                                 children: [
                                   SizedBox(
-<<<<<<< HEAD
                                     width: 190.sp,
                                     height: 190.sp,
-=======
-                                    width: 180.sp,
-                                    height: 180.sp,
->>>>>>> c2fde7af0b9e0e692ac2d5f283dc223b53dc26ce
                                     child: Hero(
                                       tag: "post${ads.pId}",
                                       transitionOnUserGestures: true,
@@ -152,11 +143,7 @@ class _MyAdsListState extends State<MyAdsList> {
                                       ),
                                     ),
                                   ),
-<<<<<<< HEAD
                                   SizedBox(width: 25.sp),
-=======
-                                  SizedBox(width: 20.sp),
->>>>>>> c2fde7af0b9e0e692ac2d5f283dc223b53dc26ce
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -175,35 +162,22 @@ class _MyAdsListState extends State<MyAdsList> {
                                         "₹ ${ads.pPrice.toString()}",
                                         style: heading6,
                                       ),
-<<<<<<< HEAD
-                                      SizedBox(height: 8.sp),
-                                      Row(
-                                        children: [
-                                          Icon(Icons.remove_red_eye, size: 38.sp),
-                                          Text(" View : ${ads.pView ?? 0}",
-                                              style: btnText),
-                                          SizedBox(width: 15.sp),
-                                          Text("|", style: btnText),
-                                          SizedBox(width: 15.sp),
-                                          Icon(Icons.favorite, size: 38.sp),
-                                          Text(
-                                              " Favorite : ${ads.pFavorite ?? 0}",
-=======
                                       SizedBox(height: 5.sp),
                                       Row(
                                         children: [
-                                          Icon(Icons.remove_red_eye, size: 44.sp),
+                                          Icon(Icons.remove_red_eye,
+                                              size: 44.sp),
                                           Text(" View : ${ads.pView ?? 0}",
                                               style: btnText.copyWith(
                                                   fontSize: 30.sp)),
                                           SizedBox(width: 20.sp),
-                                          Text("|", style: btnText.copyWith(
+                                          Text("|",
+                                              style: btnText.copyWith(
                                                   fontSize: 30.sp)),
                                           SizedBox(width: 20.sp),
                                           Icon(Icons.favorite, size: 40.sp),
                                           Text(
                                               " favorite : ${ads.pFavorite ?? 0}",
->>>>>>> c2fde7af0b9e0e692ac2d5f283dc223b53dc26ce
                                               style: btnText),
                                         ],
                                       ),

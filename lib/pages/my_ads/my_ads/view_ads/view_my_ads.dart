@@ -110,13 +110,7 @@ class _ViewMyAdsState extends State<ViewMyAds> {
                 // Ads heading Section
                 addVerticalSpace(10.h),
                 // addDivider(),
-<<<<<<< HEAD
-                PostReactionBar(
-                    favorites: widget.adsPostData.pFavorite,
-                    views: widget.adsPostData.pView),
-=======
                 PostReactionBar(adsData: widget.adsPostData),
->>>>>>> c2fde7af0b9e0e692ac2d5f283dc223b53dc26ce
                 addDivider(),
                 addVerticalSpace(30.h),
                 ListTile(
@@ -172,15 +166,8 @@ List<String> getImage(AdsPost adsData) {
 }
 
 class PostReactionBar extends StatelessWidget {
-<<<<<<< HEAD
-  final int? views;
-  final int? favorites;
-  const PostReactionBar(
-      {super.key, required this.favorites, required this.views});
-=======
   final AdsPost adsData;
   const PostReactionBar({super.key, required this.adsData});
->>>>>>> c2fde7af0b9e0e692ac2d5f283dc223b53dc26ce
 
   @override
   Widget build(BuildContext context) {
@@ -192,21 +179,13 @@ class PostReactionBar extends StatelessWidget {
           Wrap(children: [
             Icon(Icons.remove_red_eye_outlined, size: 60.sp),
             const SizedBox(width: 10),
-<<<<<<< HEAD
-            Text(views == null ? "0" : views.toString(), style: heading2)
-=======
             Text(adsData.pView != null ? adsData.pView.toString() : "0",
                 style: heading2)
->>>>>>> c2fde7af0b9e0e692ac2d5f283dc223b53dc26ce
           ]),
           Wrap(children: [
             Icon(Icons.favorite, color: COLOR_PRIMARY, size: 60.sp),
             const SizedBox(width: 10),
-<<<<<<< HEAD
-            Text(favorites == null ? "0" : favorites.toString(),
-=======
             Text(adsData.pFavorite != null ? adsData.pFavorite.toString() : "0",
->>>>>>> c2fde7af0b9e0e692ac2d5f283dc223b53dc26ce
                 style: heading2)
           ]),
         ],

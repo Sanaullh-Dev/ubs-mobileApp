@@ -46,45 +46,6 @@ class _DashboardPageState extends State<DashboardPage> {
           ? LoggedHome(userLogin: widget.userData)
           : HomeAccount(userLogin: widget.userData)
     ];
-
-<<<<<<< HEAD
-    return Scaffold(
-        body: Obx(() => pageOptions[selectPage.value]),
-        bottomNavigationBar: Obx(
-          () => BottomNavigationBar(
-            selectedLabelStyle:
-                TextStyle(fontSize: 30.sp, fontWeight: FontWeight.w800),
-            unselectedLabelStyle:
-                TextStyle(fontSize: 28.sp, fontWeight: FontWeight.w500),
-            backgroundColor: COLOR_WHITE,
-            fixedColor: COLOR_PRIMARY,
-            type: BottomNavigationBarType.fixed,
-            currentIndex: selectPage.value,
-            onTap: (index) => selectPage.value = index,
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home_outlined, size: 70.sp),
-                  activeIcon: Icon(Icons.home, size: 70.sp),
-                  label: "Home"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.chat_bubble_outline, size: 60.sp),
-                  activeIcon: Icon(Icons.chat_bubble, size: 60.sp),
-                  label: "Chats"),
-              BottomNavigationBarItem(
-                  icon: Icon(null, size: 60.w), label: "Sell"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite_border, size: 60.sp),
-                  activeIcon: Icon(
-                    Icons.favorite,
-                    size: 60.sp,
-                  ),
-                  label: "My Ads"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.manage_accounts_outlined, size: 70.sp),
-                  activeIcon: Icon(Icons.manage_accounts, size: 70.sp),
-                  label: "Account")
-            ],
-=======
     return WillPopScope(
       onWillPop: () async {
         return exitPop(
@@ -131,7 +92,6 @@ class _DashboardPageState extends State<DashboardPage> {
                     label: "Account")
               ],
             ),
->>>>>>> c2fde7af0b9e0e692ac2d5f283dc223b53dc26ce
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
