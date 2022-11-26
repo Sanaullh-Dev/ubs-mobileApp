@@ -183,7 +183,7 @@ class PostReactionBar extends StatelessWidget {
                 style: heading2)
           ]),
           Wrap(children: [
-            Icon(Icons.favorite, color: COLOR_PRIMARY, size: 60.sp),
+            Icon(Icons.favorite, color: primaryColor, size: 60.sp),
             const SizedBox(width: 10),
             Text(adsData.pFavorite != null ? adsData.pFavorite.toString() : "0",
                 style: heading2)

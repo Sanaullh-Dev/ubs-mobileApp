@@ -55,7 +55,7 @@ class _PostListState extends State<PostList> {
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: COLOR_GREY, width: 3)),
+                        border: Border.all(color: greyColor, width: 3)),
                     child: Row(
                       children: [
                         IconButton(
@@ -207,11 +207,11 @@ class _PostListState extends State<PostList> {
           padding: EdgeInsets.symmetric(vertical: 10.sp, horizontal: 30.sp),
           decoration: BoxDecoration(
               color: Colors.cyan[200],
-              // border: Border.all(width: 3, color: COLOR_WHITE),
+              // border: Border.all(width: 3, color: whiteColor),
               borderRadius: BorderRadius.circular(20.r)),
           child: Text("${homeCont.catWiseAdsList.length} ads",
               style: TextStyle(
-                color: COLOR_BLACK,
+                color: blackColor,
                 fontWeight: FontWeight.w400,
                 fontSize: 23.sp,
                 letterSpacing: 0.8,

@@ -30,11 +30,11 @@ class AdsTile extends StatelessWidget {
           border: Border(
             bottom: BorderSide(
               width: 0.8,
-              color: COLOR_LIGHT_BLACK.withAlpha(50),
+              color: lightBlackColor.withAlpha(50),
             ),
             top: BorderSide(
               width: 0.8,
-              color: COLOR_LIGHT_BLACK.withAlpha(50),
+              color: lightBlackColor.withAlpha(50),
             ),
           ),
         ),

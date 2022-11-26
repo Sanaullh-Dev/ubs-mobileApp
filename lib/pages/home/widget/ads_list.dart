@@ -144,7 +144,7 @@ class _AdsListState extends State<AdsList> {
                       softWrap: false,
                       maxLines: 1,
                       style: TextStyle(
-                          color: COLOR_BLACK,
+                          color: blackColor,
                           fontWeight: FontWeight.w400,
                           fontSize: 32.sp),
                     )

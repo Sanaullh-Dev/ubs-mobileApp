@@ -22,7 +22,7 @@ class CategoriesBar extends StatelessWidget {
     List<Categories> catData = homeCont.mainCatList;
 
     return Container(
-      color: COLOR_WHITE,
+      color: whiteColor,
       padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 15.h),
       height: 380.sp,
       child: Column(
@@ -42,7 +42,7 @@ class CategoriesBar extends StatelessWidget {
                     padding:
                         EdgeInsets.symmetric(horizontal: 30.w, vertical: 13.h),
                     decoration: BoxDecoration(
-                        color: COLOR_PRIMARY,
+                        color: primaryColor,
                         borderRadius: BorderRadius.circular(8)),
                     child: Text("See all", style: btnText),
                   ),

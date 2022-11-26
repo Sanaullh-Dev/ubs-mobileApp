@@ -5,7 +5,6 @@ import 'package:ubs/pages/chats/chats_dashboard/widgets/chats_list_tiles.dart';
 import 'package:ubs/pages/chats/chats_dashboard/widgets/empty_screen.dart';
 import 'package:ubs/pages/chats/controller/chats_controller.dart';
 
-
 class ChatsRoomSale extends StatefulWidget {
   final UserLogin userLogin;
   const ChatsRoomSale({super.key, required this.userLogin});
@@ -31,16 +30,19 @@ class _ChatsRoomSaleState extends State<ChatsRoomSale> {
   @override
   Widget build(BuildContext context) {
     // final TextTheme textTheme = Theme.of(context).textTheme;
-    return Obx(() => chatsController.isLoading.value == true
-        ? const Center(child: CircularProgressIndicator())
-        : isEmpty.value
-            ? const EmptyScreen(
-                title_1: "You've got no message so far!",
-                title_2: "As soon as someone sends you a message",
-                title_3: "It'll start appearing here.",
-                btnTitle: "Start Selling")
-            : SingleChildScrollView(
-                child: Column(
+    return RefreshIndicator(
+      onRefresh: () async {
+        chatsController.getChatsRoomsList(widget.userLogin.userId);
+      },
+      child: Obx(() => chatsController.isLoading.value == true
+          ? const Center(child: CircularProgressIndicator())
+          : isEmpty.value
+              ? const EmptyScreen(
+                  title_1: "You've got no message so far!",
+                  title_2: "As soon as someone sends you a message",
+                  title_3: "It'll start appearing here.",
+                  btnTitle: "Start Selling")
+              : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 15),
@@ -56,8 +58,8 @@ class _ChatsRoomSaleState extends State<ChatsRoomSale> {
                       },
                     )
                   ],
-                ),
-              ));
+                )),
+    );
   }
 }
 

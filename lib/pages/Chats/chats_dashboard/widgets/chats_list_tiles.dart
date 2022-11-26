@@ -37,7 +37,7 @@ class ChatsListTitle extends StatelessWidget {
         height: 200.sp,
         padding: EdgeInsets.symmetric(vertical: 25.sp, horizontal: 10),
         decoration: BoxDecoration(
-          color: COLOR_WHITE,
+          color: whiteColor,
           border: Border(
             bottom: BorderSide(
               width: 2.sp,
@@ -55,10 +55,18 @@ class ChatsListTitle extends StatelessWidget {
                 child: Badge(
                   badgeColor: Colors.white,
                   padding: const EdgeInsets.all(0),
-                  badgeContent: SizedBox(
-                      height: 80.sp,
-                      width: 80.sp,
-                      child: ShowUPhoto(imageUrl: getLink(chatRoom.userPhoto))),
+                  borderRadius: BorderRadius.circular(100),
+                  badgeContent: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 5.sp, color: primaryColor),
+                      borderRadius: BorderRadius.circular(50)
+                    ),
+                      height: 90.sp,
+                      width: 90.sp,
+                      child:
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: ShowUPhoto(imageUrl: getLink(chatRoom.userPhoto)))),
                   position: BadgePosition.bottomEnd(),
                   child: SizedBox(
                       width: 150.sp,
@@ -74,7 +82,9 @@ class ChatsListTitle extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(chatRoom.userName.toUpperCase(), style: heading6.copyWith(fontWeight: FontWeight.w600)),
+                      Text(chatRoom.userName.toUpperCase(),
+                          style:
+                              heading6.copyWith(fontWeight: FontWeight.w600)),
                       Padding(
                         padding: EdgeInsets.only(right: 40.sp),
                         child: chatRoom.lastSeen == null
@@ -119,8 +129,8 @@ class ChatsListTitle extends StatelessWidget {
                               chatRoom.lastMag == null
                                   ? const SizedBox()
                                   : SizedBox(
-                                    width: 260.sp,
-                                    child: Text(
+                                      width: 260.sp,
+                                      child: Text(
                                         chatRoom.lastMag!,
                                         maxLines: 1,
                                         softWrap: false,
@@ -128,7 +138,7 @@ class ChatsListTitle extends StatelessWidget {
                                         style:
                                             subTitle2.copyWith(fontSize: 24.sp),
                                       ),
-                                  )
+                                    )
                             ],
                           ),
                         ],
@@ -136,7 +146,7 @@ class ChatsListTitle extends StatelessWidget {
                       IconButton(
                           onPressed: () {},
                           icon: Icon(Icons.more_vert_outlined,
-                              size: 65.sp, color: COLOR_BLACK))
+                              size: 65.sp, color: blackColor))
                     ],
                   ),
                 ],

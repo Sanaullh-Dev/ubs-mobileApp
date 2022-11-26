@@ -65,7 +65,7 @@ class SaleSubCategories extends StatelessWidget {
                               reverseDuration:
                                   const Duration(milliseconds: 300),
                               childCurrent: this,
-                              child: SaleInfo1()));
+                              child: const SaleInfo1()));
                           // builder: (context) => GalleryPage()));
                         },
                         child: Container(
@@ -73,7 +73,7 @@ class SaleSubCategories extends StatelessWidget {
                             border: Border(
                               bottom: BorderSide(
                                 width: 0.8,
-                                color: COLOR_LIGHT_BLACK.withAlpha(50),
+                                color: lightBlackColor.withAlpha(50),
                               ),
                             ),
                           ),
@@ -83,7 +83,7 @@ class SaleSubCategories extends StatelessWidget {
                             title: Text(
                               sellingController.subCatList[index].catName,
                               style: const TextStyle(
-                                  color: COLOR_BLACK,
+                                  color: blackColor,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 18,
                                   fontFamily: "Roboto"),

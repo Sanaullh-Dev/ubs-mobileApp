@@ -103,7 +103,7 @@ class _SubCategoriesState extends State<SubCategories> {
                             border: Border(
                               bottom: BorderSide(
                                 width: 0.8,
-                                color: COLOR_LIGHT_BLACK.withAlpha(50),
+                                color: lightBlackColor.withAlpha(50),
                               ),
                             ),
                           ),
@@ -113,7 +113,7 @@ class _SubCategoriesState extends State<SubCategories> {
                             title: Text(
                               cateCont.subCatList.value[index].catName,
                               style: TextStyle(
-                                  color: COLOR_BLACK,
+                                  color: blackColor,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 35.sp,
                                   fontFamily: "Roboto"),

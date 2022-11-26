@@ -70,7 +70,7 @@ class _SaleInfo1State extends State<SaleInfo1> {
                           return null;
                         },
                         style: const TextStyle(
-                          color: COLOR_LIGHT_BLACK,
+                          color: lightBlackColor,
                           fontWeight: FontWeight.w400,
                           fontSize: 16,
                         ),
@@ -94,7 +94,7 @@ class _SaleInfo1State extends State<SaleInfo1> {
                           return null;
                         },
                         style: const TextStyle(
-                          color: COLOR_LIGHT_BLACK,
+                          color: lightBlackColor,
                           fontWeight: FontWeight.w400,
                           fontSize: 15,
                         ),
@@ -130,7 +130,7 @@ class _SaleInfo1State extends State<SaleInfo1> {
                           return null;
                         },
                         style: const TextStyle(
-                          color: COLOR_LIGHT_BLACK,
+                          color: lightBlackColor,
                           fontWeight: FontWeight.w400,
                           fontSize: 15,
                         ),
@@ -206,7 +206,7 @@ class _SaleInfo1State extends State<SaleInfo1> {
   //     }
   //   },
   //   style: const TextStyle(
-  //     color: COLOR_LIGHT_BLACK,
+  //     color: lightBlackColor,
   //     fontWeight: FontWeight.w400,
   //     fontSize: 16,
   //   ),

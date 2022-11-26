@@ -60,8 +60,8 @@ class _ChatsDashboardState extends State<ChatsDashboard>
                     height: 58,
                     child: TabBar(
                         indicatorWeight: 6,
-                        indicatorColor: COLOR_BLACK,
-                        labelColor: COLOR_BLACK,
+                        indicatorColor: blackColor,
+                        labelColor: blackColor,
                         labelStyle: heading4,
                         labelPadding: const EdgeInsets.only(bottom: 8, top: 8),
                         tabs: const [

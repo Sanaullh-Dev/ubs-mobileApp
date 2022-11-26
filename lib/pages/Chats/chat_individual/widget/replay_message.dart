@@ -18,7 +18,7 @@ class ReplyMessage extends StatelessWidget {
       child: ConstrainedBox(
         constraints: BoxConstraints(minWidth: 300.sp, maxWidth: size - 45),
         child: Bubble(
-          color: COLOR_WHITE,
+          color: whiteColor,
           elevation: 1,
           nip: BubbleNip.leftTop,
           margin: BubbleEdges.symmetric(horizontal: 15.sp, vertical: 10.sp),

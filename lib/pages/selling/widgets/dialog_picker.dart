@@ -21,7 +21,7 @@ Future<String> dialogPicker(
                   "Brand Names".toUpperCase(),
                   style: const TextStyle(
                       fontSize: 18,
-                      color: COLOR_BLACK,
+                      color: blackColor,
                       letterSpacing: 1,
                       fontWeight: FontWeight.w600),
                 ),
@@ -69,7 +69,7 @@ Future<String> dialogPicker(
                       "CANCEL".toUpperCase(),
                       style: const TextStyle(
                           fontSize: 16,
-                          color: COLOR_BLACK,
+                          color: blackColor,
                           fontWeight: FontWeight.w600),
                     ),
                   ),

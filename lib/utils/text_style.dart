@@ -4,7 +4,7 @@ import 'package:ubs/utils/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 TextStyle heading1 = TextStyle(
-    color: COLOR_BLACK,
+    color: blackColor,
     fontWeight: FontWeight.w500,
     fontSize: 52.sp,
     fontFamily: "Roboto");
@@ -22,7 +22,7 @@ TextStyle heading2InBold = GoogleFonts.poppins(
     color: Colors.black, fontWeight: FontWeight.w600, fontSize: 40.sp);
 
 TextStyle heading3 = TextStyle(
-    color: COLOR_BLACK,
+    color: blackColor,
     fontWeight: FontWeight.w600,
     fontSize: 40.sp,
     fontFamily: "Roboto");
@@ -34,14 +34,14 @@ TextStyle heading4 = GoogleFonts.poppins(
 );
 
 TextStyle heading4WithUnderLine = GoogleFonts.poppins(
-    color: COLOR_BLACK,
+    color: blackColor,
     fontWeight: FontWeight.w500,
     fontSize: 35.sp,
     decoration: TextDecoration.underline);
 
 // TextStyle(
 //   fontFamily: ,
-//   color: COLOR_BLACK,
+//   color: blackColor,
 //   fontWeight: FontWeight.w500,
 //   fontSize: 35.sp,
 // );
@@ -75,37 +75,37 @@ TextStyle snackBarText = GoogleFonts.poppins(
 //     letterSpacing: 1);
 
 TextStyle titleLabel = GoogleFonts.poppins(
-  color: COLOR_BLACK,
+  color: blackColor,
   fontWeight: FontWeight.w500,
   fontSize: 30.sp,
 );
 
 TextStyle subtitleLabel = GoogleFonts.poppins(
-  color: COLOR_BLACK,
+  color: blackColor,
   fontWeight: FontWeight.w500,
   fontSize: 25.sp,
 );
 
 TextStyle messageLabel = GoogleFonts.poppins(
-  color: COLOR_BLACK,
+  color: blackColor,
   fontWeight: FontWeight.w500,
   fontSize: 30.sp,
 );
 
 TextStyle cardTitle = TextStyle(
-  color: COLOR_BLACK,
+  color: blackColor,
   fontWeight: FontWeight.w500,
   fontSize: 23.sp,
 );
 
 TextStyle cardSubTitle = TextStyle(
-  color: COLOR_BLACK,
+  color: blackColor,
   fontWeight: FontWeight.w500,
   fontSize: 25.sp,
 );
 
 TextStyle btnText = TextStyle(
-  color: COLOR_BLACK,
+  color: blackColor,
   fontWeight: FontWeight.w500,
   fontSize: 34.sp,
   letterSpacing: 0.9,
@@ -145,13 +145,13 @@ TextStyle sectionTitle = GoogleFonts.poppins(
     letterSpacing: 1);
 
 TextStyle subTitle2 = TextStyle(
-    color: COLOR_BLACK,
+    color: blackColor,
     fontSize: 28.sp,
     fontWeight: FontWeight.w400,
     fontFamily: "Roboto");
 
 TextStyle trailingTestStyle = TextStyle(
-    // color: COLOR_LIGHT_BLACK,
+    // color: lightBlackColor,
     fontSize: 22.sp,
     fontWeight: FontWeight.w400,
     fontFamily: "Roboto");

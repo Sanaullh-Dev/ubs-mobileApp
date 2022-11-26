@@ -19,7 +19,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   Rx<String> uid = "".obs;
   Rx<String> loginStatus = "checking".obs;
-  Rx<UserLogin> uData = UserLogin(userId: "", upass: "").obs;
+  Rx<UserLogin> uData = UserLogin(userId: "", uPass: "").obs;
 
   @override
   void initState() {
@@ -36,7 +36,7 @@ class _MainPageState extends State<MainPage> {
     } else {
       var res = await RemoteServices.userLogin(userId, uPass ?? "");
       if (res == "logged") {
-        uData.value = UserLogin(userId: userId, upass: uPass ?? "");
+        uData.value = UserLogin(userId: userId, uPass: uPass ?? "");
         loginStatus.value = "logged";
       }
     }

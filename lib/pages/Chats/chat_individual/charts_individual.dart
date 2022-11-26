@@ -156,7 +156,7 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                           children: [
                             Container(
                               decoration:
-                                  BoxDecoration(color: COLOR_WHITE, boxShadow: [
+                                  BoxDecoration(color: whiteColor, boxShadow: [
                                 BoxShadow(
                                   color: Colors.black.withAlpha(100),
                                   blurRadius: 4.0,
@@ -266,7 +266,7 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                   child: TabBar(
                     controller: _tabController,
                     indicatorWeight: 2,
-                    indicatorColor: COLOR_INDICATOR,
+                    indicatorColor: indicatorColor,
                     labelPadding: EdgeInsets.only(bottom: 30.sp, top: 15.sp),
                     onTap: ((index) {
                       chatsCont.isTyping.value = false;
@@ -333,8 +333,8 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                     decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border(
-                          top: BorderSide(width: 2.sp, color: COLOR_BLACK),
-                          // bottom: BorderSide(width: 1, color: COLOR_BLACK),
+                          top: BorderSide(width: 2.sp, color: blackColor),
+                          // bottom: BorderSide(width: 1, color: blackColor),
                         )),
                     child: Padding(
                       padding: const EdgeInsets.all(0),
@@ -362,7 +362,7 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                           prefixIcon: Padding(
                             padding: EdgeInsets.only(right: 16.sp),
                             child: Icon(FontAwesomeIcons.pen,
-                                color: COLOR_INDICATOR, size: 40.sp),
+                                color: indicatorColor, size: 40.sp),
                           ),
                           suffixIcon: TextButton(
                               onPressed: () async {
@@ -377,7 +377,7 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                                         : null);
                               },
                               style: TextButton.styleFrom(
-                                backgroundColor: COLOR_PRIMARY,
+                                backgroundColor: primaryColor,
                                 shape: const CircleBorder(),
                               ),
                               child: Icon(

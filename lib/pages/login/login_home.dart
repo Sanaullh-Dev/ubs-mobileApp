@@ -31,7 +31,7 @@ class _LoginHomeState extends State<LoginHome> {
 
     return Scaffold(
       body: Container(
-        color: COLOR_WHITE,
+        color: whiteColor,
         child: Stack(
           children: [
             Positioned(
@@ -54,7 +54,7 @@ class _LoginHomeState extends State<LoginHome> {
               child: Container(
                 // height: 250,
                 width: double.infinity,
-                color: COLOR_PRIMARY,
+                color: primaryColor,
                 padding: EdgeInsets.symmetric(vertical: 50.h),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

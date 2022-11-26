@@ -75,7 +75,7 @@ class _UserProfileState extends State<UserProfile> {
                                 ],
                               ),
                               const VerticalDivider(
-                                  color: COLOR_BLACK, thickness: 1, width: 20),
+                                  color: blackColor, thickness: 1, width: 20),
                               Column(
                                 children: [
                                   Text("15", style: heading2InBold),
@@ -147,13 +147,13 @@ class _UserProfileState extends State<UserProfile> {
                                           children: [
                                             Text("₹ ${ads.pPrice}",
                                                 style: heading4),
-                                            Spacer(),
+                                            const Spacer(),
                                             ads.pFavorite == 1
                                                 ? Icon(Icons.favorite,
                                                     color: Colors.red, size: 50.sp)
                                                 : Icon(Icons.favorite_border,
                                                     color: Colors.black, size: 50.sp),
-                                            SizedBox(width: 15)
+                                            SizedBox(width: 15.sp)
                                           ],
                                         ),
                                         const SizedBox(height: 5),

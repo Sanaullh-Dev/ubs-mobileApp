@@ -49,7 +49,7 @@ class MainCategories extends StatelessWidget {
                     border: Border(
                       bottom: BorderSide(
                         width: 1,
-                        color: COLOR_LIGHT_BLACK.withAlpha(50),
+                        color: lightBlackColor.withAlpha(50),
                       ),
                     ),
                   ),
@@ -73,7 +73,7 @@ class MainCategories extends StatelessWidget {
                     title: Text(
                       catData[index].catName,
                       style: TextStyle(
-                          color: COLOR_BLACK,
+                          color: blackColor,
                           fontWeight: FontWeight.w500,
                           fontSize: 34.sp,
                           fontFamily: "Roboto"),

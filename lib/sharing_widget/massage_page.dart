@@ -24,7 +24,7 @@ class MessagePage extends StatelessWidget {
     return Container(
       width: size.width,
       height: size.height,
-      color: COLOR_BLACK.withAlpha(150),
+      color: blackColor.withAlpha(150),
       child: Center(
         child: Container(
             width: size.width - size.width * 0.1,
@@ -47,7 +47,7 @@ class MessagePage extends StatelessWidget {
         const Text(
           "Loading",
           style: TextStyle(
-            color: COLOR_BLACK,
+            color: blackColor,
             fontWeight: FontWeight.w700,
             fontSize: 22,
           ),
@@ -72,7 +72,7 @@ class MessagePage extends StatelessWidget {
         Text(
           message,
           style: const TextStyle(
-            color: COLOR_BLACK,
+            color: blackColor,
             fontWeight: FontWeight.w700,
             fontSize: 15,
           ),

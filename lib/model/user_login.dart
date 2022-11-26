@@ -7,19 +7,19 @@ String userDataToJson(UserLogin data) => json.encode(data.toJson());
 class UserLogin {
   UserLogin({
     required this.userId,
-    required this.upass,
+    required this.uPass,
   });
 
   String userId;
-  String upass;
+  String uPass;
 
   factory UserLogin.fromJson(Map<String, dynamic> json) => UserLogin(
         userId: json["userId"],
-        upass: json["Upass"],
+        uPass: json["uPass"],
       );
 
   Map<String, dynamic> toJson() => {
         "userId": userId,
-        "Upass": upass,
+        "uPass": uPass,
       };
 }

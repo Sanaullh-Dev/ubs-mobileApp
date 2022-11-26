@@ -9,6 +9,7 @@ import 'package:ubs/utils/constants.dart';
 
 class RemoteServices {
   static String HOST_URI = "http://10.0.2.2";
+  // ignore: non_constant_identifier_names
   static var HOST_PORT = 8080;
 
   // static var headers = {'Content-Type': 'application/json'};
@@ -323,14 +324,14 @@ class RemoteServices {
     bodyData = {
       'log_pass': userData.logPass,
       'u_name': userData.uName,
-      'u_photo': userData.uPhoto ?? null,
+      'u_photo': userData.uPhoto,
       'login_with': userData.loginWith,
       'u_phone': userData.uPhone,
       'u_email': userData.uEmail
     };
 
     http.Response res = await client.post(uri, body: bodyData);
-    print(res.statusCode);
+    // print(res.statusCode);
     if (res.statusCode == 200) {
       return res.body;
     } else {
@@ -410,7 +411,7 @@ class RemoteServices {
     };
 
     http.Response res = await client.post(uri, body: bodyData);
-    print("Result: ${res.body}");
+    // print("Result: ${res.body}");
     if (res.statusCode == 200) {
       return res.body;
     } else {
@@ -437,6 +438,7 @@ class RemoteServices {
     } catch (e) {
       print(e);
     }
+    return null;
   }
 
   // ---------- check user register or not ------------------
@@ -452,8 +454,7 @@ class RemoteServices {
 
     if (res.statusCode == 200) {
       var da = res.body.substring(1, res.body.length - 1);
-      ChatsRoomModel cRdet = ChatsRoomModel.fromJson(json.decode(da));
-      return cRdet;
+      return ChatsRoomModel.fromJson(json.decode(da));
     }
     return null;
   }
@@ -492,25 +493,11 @@ imgFileUploadAds(AdsPost adsPost, http.MultipartRequest request) async {
   return request;
 }
 
-imgUploadUserProfile(String? ImageUrl, http.MultipartRequest request) async {
-  if (ImageUrl != null) {
+imgUploadUserProfile(String? imageUrl, http.MultipartRequest request) async {
+  if (imageUrl != null) {
     http.MultipartFile multipartFile =
-        await http.MultipartFile.fromPath("profile_photo", ImageUrl);
+        await http.MultipartFile.fromPath("profile_photo", imageUrl);
     request.files.add(multipartFile);
   }
   return request;
 }
-
-// var asds = [
-//   {
-//     "pId": 43,
-//     "pTitle": "redmi 10 note pro",
-//     "pPrice": 6500,
-//     "pImage": "upload/postImages/Pune/redmi_10_note-1.jpeg",
-//     "userId": "sanaullashaikh191@gmail.com",
-//     "userName": "sanaulla- 191-Email",
-//     "userPhoto": "url",
-//     "lastMag": null,
-//     "postType": null
-//   }
-// ];

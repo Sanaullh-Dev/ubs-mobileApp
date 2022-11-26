@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-const Color COLOR_PRIMARY = Color(0xFFFFBB00);
-const Color COLOR_SECONDARY = Color(0xFFFCD772);
-const Color COLOR_WHITE = Color(0xFFFFFFFF);
-const Color COLOR_BLACK = Color(0x8B000000);
-const Color COLOR_GREY = Color(0xFF929292);
-const Color COLOR_LIGHT_BLACK = Color(0xFF5F5F5F);
-const Color COLOR_BORDER = Color(0xFFB0BEC5);
-const Color COLOR_INDICATOR = Color(0xFF78909C);
-const Color COLOR_INDICATOR_LIGHT = Color(0xFF7C888E);
+const Color primaryColor = Color(0xFFFFBB00);
+const Color secondaryColor= Color(0xFFFCD772);
+const Color whiteColor = Color(0xFFFFFFFF);
+const Color blackColor = Color(0x8B000000);
+const Color greyColor = Color(0xFF929292);
+const Color lightBlackColor = Color(0xFF5F5F5F);
+const Color mainBorderColor = Color(0xFFB0BEC5);
+const Color indicatorColor = Color(0xFF78909C);
+const Color indicatorLightColor = Color(0xFF7C888E);
 const borderColor = Color.fromRGBO(114, 178, 238, 1);
 const errorColor = Color.fromRGBO(255, 234, 238, 1);
 const fillColor = Color.fromRGBO(222, 231, 240, .57);
@@ -45,7 +45,7 @@ ThemeData getThemeData(double screenWidth) {
     textTheme: screenWidth < 500 ? TEXT_THEME_Small : TEXT_THEME_DEFAULT,
     fontFamily: "Poppins",
     appBarTheme: const AppBarTheme(
-        backgroundColor: COLOR_PRIMARY,
+        backgroundColor: primaryColor,
         titleTextStyle: TextStyle(
             fontSize: 25,
             fontWeight: FontWeight.w500,
@@ -67,45 +67,45 @@ ThemeData getThemeData(double screenWidth) {
 
 TextTheme TEXT_THEME_DEFAULT = TextTheme(
   headline1: const TextStyle(
-      color: COLOR_BLACK,
+      color: blackColor,
       fontWeight: FontWeight.w500,
       fontSize: 26,
       fontFamily: "Roboto"),
   headline2: const TextStyle(
-    color: COLOR_BLACK,
+    color: blackColor,
     fontWeight: FontWeight.w500,
     fontSize: 22,
   ),
   headline5: TextStyle(
-      color: COLOR_BLACK,
+      color: blackColor,
       fontWeight: FontWeight.w600,
       fontSize: 35.sp,
       fontFamily: "Roboto"),
   headline6: TextStyle(
-    color: COLOR_BLACK,
+    color: blackColor,
     fontWeight: FontWeight.w500,
     fontSize: 32.sp,
     letterSpacing: 0.8,
   ),
   bodyText1: const TextStyle(
-      color: COLOR_BLACK,
+      color: blackColor,
       fontWeight: FontWeight.w400,
       fontSize: 15,
       height: 1.5),
   bodyText2: const TextStyle(
-      color: COLOR_GREY,
+      color: greyColor,
       fontWeight: FontWeight.w500,
       fontSize: 15,
       letterSpacing: 0.9,
       height: 1.5),
   subtitle1: const TextStyle(
-      color: COLOR_BLACK, fontWeight: FontWeight.w400, fontSize: 12),
+      color: blackColor, fontWeight: FontWeight.w400, fontSize: 12),
   subtitle2: const TextStyle(
-      color: COLOR_LIGHT_BLACK, fontWeight: FontWeight.w400, fontSize: 16),
+      color: lightBlackColor, fontWeight: FontWeight.w400, fontSize: 16),
   caption: TextStyle(
-      color: COLOR_GREY, fontWeight: FontWeight.w400, fontSize: 25.sp),
+      color: greyColor, fontWeight: FontWeight.w400, fontSize: 25.sp),
   button: const TextStyle(
-    color: COLOR_BLACK,
+    color: blackColor,
     fontWeight: FontWeight.w500,
     fontSize: 14,
     letterSpacing: 0.9,
@@ -114,32 +114,32 @@ TextTheme TEXT_THEME_DEFAULT = TextTheme(
 
 TextTheme TEXT_THEME_Small = TextTheme(
   headline1: const TextStyle(
-    color: COLOR_BLACK,
+    color: blackColor,
     fontWeight: FontWeight.w700,
     fontSize: 22,
   ),
   headline2: const TextStyle(
-    color: COLOR_BLACK,
+    color: blackColor,
     fontWeight: FontWeight.w700,
     fontSize: 20,
   ),
   headline3: const TextStyle(
-    color: COLOR_BLACK,
+    color: blackColor,
     fontWeight: FontWeight.w700,
     fontSize: 18,
   ),
   headline4: const TextStyle(
-    color: COLOR_BLACK,
+    color: blackColor,
     fontWeight: FontWeight.w700,
     fontSize: 14,
   ),
   headline5: const TextStyle(
-    color: COLOR_BLACK,
+    color: blackColor,
     fontWeight: FontWeight.w700,
     fontSize: 12,
   ),
   headline6: const TextStyle(
-    color: COLOR_BLACK,
+    color: blackColor,
     fontWeight: FontWeight.w700,
     fontSize: 10,
   ),
@@ -148,19 +148,19 @@ TextTheme TEXT_THEME_Small = TextTheme(
   titleSmall: TextStyle(
       color: Colors.red, fontWeight: FontWeight.w400, fontSize: 15.sp),
   bodyText1: const TextStyle(
-      color: COLOR_BLACK,
+      color: blackColor,
       fontWeight: FontWeight.w500,
       fontSize: 12,
       height: 1.5),
   bodyText2: const TextStyle(
-      color: COLOR_GREY,
+      color: greyColor,
       fontWeight: FontWeight.w500,
       fontSize: 22,
       height: 1.5),
   subtitle1: TextStyle(
-      color: COLOR_BLACK, fontWeight: FontWeight.w400, fontSize: 18.sp),
+      color: blackColor, fontWeight: FontWeight.w400, fontSize: 18.sp),
   subtitle2: const TextStyle(
-      color: COLOR_GREY, fontWeight: FontWeight.w400, fontSize: 10),
+      color: greyColor, fontWeight: FontWeight.w400, fontSize: 10),
 );
 
 BoxDecoration favoriteBorder = BoxDecoration(
@@ -187,7 +187,7 @@ BoxDecoration onlyBottomBorder = BoxDecoration(
 );
 
 TextStyle snackbarTextStyle = const TextStyle(
-  color: COLOR_PRIMARY,
+  color: primaryColor,
   fontSize: 18,
   fontWeight: FontWeight.w500,
   letterSpacing: 1,

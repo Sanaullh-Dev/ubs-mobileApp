@@ -50,16 +50,16 @@ class MyApp extends StatelessWidget {
           initialRoute: '/',
           // initialBinding: MainBinding(),
           routes: {
-            '/': (context) => MainPage(),
-            '/home': (context) => MainPage(),
+            '/': (context) => const MainPage(),
+            '/home': (context) => const MainPage(),
             '/chat': (context) =>
-                ChatsDashboard(userLogin: UserLogin(upass: "", userId: "")),
+                ChatsDashboard(userLogin: UserLogin(uPass: "", userId: "")),
             '/SaleMainCategories': (context) =>
-                SaleMainCategories(userData: UserLogin(userId: "", upass: "")),
+                SaleMainCategories(userData: UserLogin(userId: "", uPass: "")),
           },
         );
       },
-      child: MainPage(),
+      child: const MainPage(),
     );
   }
 }

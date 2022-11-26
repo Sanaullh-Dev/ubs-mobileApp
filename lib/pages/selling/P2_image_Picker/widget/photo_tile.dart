@@ -34,7 +34,7 @@ class _PhotoTileState extends State<PhotoTile> {
         padding: const EdgeInsets.all(1),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            border: Border.all(color: COLOR_GREY.withAlpha(150), width: 1)),
+            border: Border.all(color: greyColor.withAlpha(150), width: 1)),
         child: Stack(
           children: [
             Positioned.fill(
@@ -70,14 +70,14 @@ class _PhotoTileState extends State<PhotoTile> {
               right: 30,
               child: widget.selectIndex == 0
                   ? Container(
-                      color: COLOR_PRIMARY,
+                      color: primaryColor,
                       margin: const EdgeInsets.all(6),
                       padding: const EdgeInsets.symmetric(
                           vertical: 5, horizontal: 8),
                       child: const Text(
                         "MAIN PHOTO",
                         style: TextStyle(
-                            color: COLOR_BLACK,
+                            color: blackColor,
                             fontSize: 8,
                             fontWeight: FontWeight.w500),
                       ),

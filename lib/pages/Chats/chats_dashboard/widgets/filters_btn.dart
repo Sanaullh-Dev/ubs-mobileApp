@@ -14,13 +14,13 @@ class FiltersButtons extends StatelessWidget {
 
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
-        backgroundColor: isActive ? COLOR_PRIMARY : COLOR_WHITE,
+        backgroundColor: isActive ? primaryColor : whiteColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(18.0),
         ),
         side: BorderSide(
             width: 1.5,
-            color: isActive ? COLOR_PRIMARY : Colors.blueGrey.shade400),
+            color: isActive ? primaryColor : Colors.blueGrey.shade400),
       ),
       onPressed: () {},
       child: Padding(
@@ -50,7 +50,7 @@ class PriceTag extends StatelessWidget {
       padding:EdgeInsets.symmetric(horizontal: 10.sp),
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
-          // backgroundColor: isActive ? COLOR_PRIMARY : COLOR_WHITE,
+          // backgroundColor: isActive ? primaryColor : whiteColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(38.0.r),
           ),

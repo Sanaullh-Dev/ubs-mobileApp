@@ -69,7 +69,7 @@ class _StateListPageState extends State<StateListPage> {
                       )
                     : const SizedBox(),
                 border: const OutlineInputBorder(
-                    borderSide: BorderSide(color: COLOR_GREY),
+                    borderSide: BorderSide(color: greyColor),
                     borderRadius: BorderRadius.all(Radius.circular(8))),
               ),
             ),

@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/chats_room.dart';
 import 'package:ubs/model/message_data.dart';
@@ -45,7 +43,7 @@ class ChatsController extends GetxController {
       required String docId,
       required String message,
       required String loggedUid}) async {
-    final DateFormat formatter = DateFormat('yyyy-MMM-dd');
+    // final DateFormat format = DateFormat('yyyy-MMM-dd');
 
     MessageData messageData = MessageData.fromJson({
       "message": message,

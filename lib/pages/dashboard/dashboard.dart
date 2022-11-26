@@ -71,8 +71,8 @@ class _DashboardPageState extends State<DashboardPage> {
                   TextStyle(fontSize: 26.sp, fontWeight: FontWeight.w500),
               unselectedLabelStyle:
                   TextStyle(fontSize: 26.sp, fontWeight: FontWeight.w500),
-              backgroundColor: COLOR_WHITE,
-              fixedColor: COLOR_PRIMARY,
+              backgroundColor: whiteColor,
+              fixedColor: primaryColor,
               type: BottomNavigationBarType.fixed,
               currentIndex: selectPage.value,
               onTap: (index) => selectPage.value = index,
@@ -114,7 +114,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: COLOR_PRIMARY, width: 8.sp),
+                    border: Border.all(color: primaryColor, width: 8.sp),
                     color: Colors.white,
                     shape: BoxShape.circle,
                   ),

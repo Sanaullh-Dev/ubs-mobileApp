@@ -28,8 +28,8 @@ class ImageSlider extends StatelessWidget {
           autoplay: false,
           boxFit: BoxFit.cover,
           dotBgColor: Colors.transparent,
-          dotColor: COLOR_WHITE,
-          dotIncreasedColor: COLOR_PRIMARY,
+          dotColor: whiteColor,
+          dotIncreasedColor: primaryColor,
           dotSize: 8,
           dotSpacing: 25,
           images: imgList

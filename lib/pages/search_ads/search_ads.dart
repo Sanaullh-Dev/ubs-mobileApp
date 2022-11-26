@@ -180,8 +180,8 @@ textBoxBorder() {
   //               border: Border.all(
   //                   width: 2,
   //                   color: isTyping.value == true
-  //                       ? COLOR_PRIMARY
-  //                       : COLOR_BLACK),
+  //                       ? primaryColor
+  //                       : blackColor),
   //               borderRadius: const BorderRadius.only(
   //                   topLeft: Radius.circular(10.0),
   //                   bottomLeft: Radius.circular(10.0))),
@@ -204,7 +204,7 @@ textBoxBorder() {
   //                 contentPadding:
   //                     EdgeInsets.symmetric(vertical: 18.sp),
   //                 hintText: "Search product or Category",
-  //                 focusColor: COLOR_PRIMARY,
+  //                 focusColor: primaryColor,
   //                 prefixIcon: IconButton(
   //                   onPressed: () => Get.back(),
   //                   icon: Icon(

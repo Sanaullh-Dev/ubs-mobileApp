@@ -165,7 +165,7 @@ class _AutoVerifyState extends State<AutoVerify> with CodeAutoFill {
                           },
                           child: Text("Resend OTP",
                               style: GoogleFonts.poppins(
-                                  color: COLOR_BLACK,
+                                  color: blackColor,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 34.sp,
                                   decoration: TextDecoration.underline)),

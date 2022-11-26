@@ -19,7 +19,7 @@ class OwnOfferMessage extends StatelessWidget {
       child: ConstrainedBox(
         constraints: BoxConstraints(minWidth: 160.sp, maxWidth: size - 45),
         child: Bubble(
-          color: COLOR_PRIMARY,
+          color: primaryColor,
           padding: const BubbleEdges.all(0),
           margin: BubbleEdges.symmetric(horizontal: 25.sp, vertical: 20.sp),
           nip: BubbleNip.rightTop,
@@ -35,9 +35,9 @@ class OwnOfferMessage extends StatelessWidget {
                   children: [
                     Text("YOUR OFFER",
                         style: heading6.copyWith(
-                            fontWeight: FontWeight.w700, color: COLOR_WHITE)),
+                            fontWeight: FontWeight.w700, color: whiteColor)),
                     Text("₹ ${messageData.message}",
-                        style: heading2InBold.copyWith(color: COLOR_WHITE)),
+                        style: heading2InBold.copyWith(color: whiteColor)),
                   ],
                 ),
               ),

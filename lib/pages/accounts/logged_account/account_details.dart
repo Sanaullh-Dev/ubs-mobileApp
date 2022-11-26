@@ -91,7 +91,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                                           size: 50.sp,
                                         ),
                                       ),
-                                      badgeColor: COLOR_PRIMARY,
+                                      badgeColor: primaryColor,
                                       position: BadgePosition.bottomEnd(),
                                       child: GetProfileImage(imgSize: 200)),
                                 ),

@@ -25,7 +25,7 @@ class LocalityPage extends StatelessWidget {
                 hintText: "Search city, area or neighborhood",
                 suffixIcon: isTyping == true ? const Icon(Icons.close) : null,
                 enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: COLOR_GREY),
+                    borderSide: BorderSide(color: greyColor),
                     borderRadius: BorderRadius.all(Radius.circular(8))),
               ),
             ),

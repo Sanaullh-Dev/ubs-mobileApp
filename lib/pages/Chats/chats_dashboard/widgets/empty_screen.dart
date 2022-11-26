@@ -22,6 +22,7 @@ class EmptyScreen extends StatelessWidget {
       physics: const AlwaysScrollableScrollPhysics(),
       child: SizedBox(
         height: size.height - 300.sp,
+        width: size.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

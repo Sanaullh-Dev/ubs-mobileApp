@@ -47,27 +47,27 @@ class _FavoritesListState extends State<FavoritesList> {
     final Size size = MediaQuery.of(context).size;
     // double imgSize = size.width * 0.15;
 
-    return Padding(
-      padding: EdgeInsets.only(top: 10.h),
-      child: Obx(
-        () => myAdsController.adsList.value.isEmpty
-            ? myAdsController.favoritesAdsLoading.value == true
-                ? const Center(child: CircularProgressIndicator())
-                : EmptyPage(
-                    size: size,
-                    btnName: "Discover",
-                    onBtnPress: () {
-                      Get.offAll(DashboardPage(
-                        userData: widget.userLogin,
-                        selectPage: 0,
-                      ));
-                    },
-                    imagePath: "lib/assets/images/favorites_list.png")
-            : RefreshIndicator(
-                onRefresh: () async {
-                  myAdsController.fetchFavoriteAds(widget.userLogin.userId);
-                },
-                child: ListView.builder(
+    return RefreshIndicator(
+      onRefresh: () async {
+        myAdsController.fetchFavoriteAds(widget.userLogin.userId);
+      },
+      child: Padding(
+        padding: EdgeInsets.only(top: 10.h),
+        child: Obx(
+          () => myAdsController.adsList.value.isEmpty
+              ? myAdsController.favoritesAdsLoading.value == true
+                  ? const Center(child: CircularProgressIndicator())
+                  : EmptyPage(
+                      size: size,
+                      btnName: "Discover",
+                      onBtnPress: () {
+                        Get.offAll(DashboardPage(
+                          userData: widget.userLogin,
+                          selectPage: 0,
+                        ));
+                      },
+                      imagePath: "lib/assets/images/favorites_list.png")
+              : ListView.builder(
                   itemCount: myAdsController.adsList.value.length,
                   itemBuilder: (BuildContext context, int index) {
                     AdsPost ads = myAdsController.adsList.value[index];
@@ -79,7 +79,7 @@ class _FavoritesListState extends State<FavoritesList> {
                         border: Border(
                           bottom: BorderSide(
                             width: 1.5,
-                            color: COLOR_LIGHT_BLACK.withAlpha(100),
+                            color: lightBlackColor.withAlpha(100),
                           ),
                         ),
                       ),
@@ -120,7 +120,7 @@ class _FavoritesListState extends State<FavoritesList> {
                             child: Icon(
                               Icons.favorite,
                               size: 70.sp,
-                              color: COLOR_PRIMARY,
+                              color: primaryColor,
                             ),
                           ),
                         ),
@@ -129,7 +129,7 @@ class _FavoritesListState extends State<FavoritesList> {
                     );
                   },
                 ),
-              ),
+        ),
       ),
     );
   }

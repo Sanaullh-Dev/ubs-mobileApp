@@ -21,8 +21,8 @@ class CardCategory extends StatelessWidget {
       height: 550.sp,
       decoration: const BoxDecoration(
         border: Border(
-            right: BorderSide(color: COLOR_BORDER, width: 1),
-            bottom: BorderSide(color: COLOR_BORDER, width: 1)),
+            right: BorderSide(color: mainBorderColor, width: 1),
+            bottom: BorderSide(color: mainBorderColor, width: 1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

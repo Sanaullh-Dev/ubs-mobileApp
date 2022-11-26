@@ -85,7 +85,7 @@ Future<dynamic> alertDialogBox(
                 child: Text('Accept',
                     style: btnText.copyWith(
                         decoration: TextDecoration.underline,
-                        color: COLOR_PRIMARY)),
+                        color: primaryColor)),
               ),
               const SizedBox(width: 5),
             ],
@@ -118,7 +118,7 @@ exitPop({
                 onTap: onOK,
                 child: Container(                  
                   decoration: BoxDecoration(
-                    color: COLOR_PRIMARY,
+                    color: primaryColor,
                     borderRadius: BorderRadius.circular(20.r)),
                   padding:
                       EdgeInsets.symmetric(horizontal: 80.sp, vertical: 30.sp),

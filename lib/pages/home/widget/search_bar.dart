@@ -44,7 +44,7 @@ class SearchBar extends StatelessWidget {
                 },
                 readOnly: true,
                 style: TextStyle(
-                    color: COLOR_BLACK, fontSize: 31.sp, fontFamily: "Poppins"),
+                    color: blackColor, fontSize: 31.sp, fontFamily: "Poppins"),
                 controller: TextEditingController(
                     text: "Find Car, Mobile Phone, and more "),
                 decoration: InputDecoration(
@@ -52,7 +52,7 @@ class SearchBar extends StatelessWidget {
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(50.r),
                   borderSide: BorderSide(
-                      color: COLOR_PRIMARY, width: 3.sp),
+                      color: primaryColor, width: 3.sp),
                   ),
                   prefixIcon: IconButton(
                     onPressed: () {},
@@ -83,7 +83,7 @@ class SearchBar extends StatelessWidget {
   OutlineInputBorder textBoxBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(100),
-      borderSide: BorderSide(width: 5, color: COLOR_PRIMARY),
+      borderSide: const BorderSide(width: 5, color: primaryColor),
     );
   }
 }
@@ -94,7 +94,7 @@ class SearchBar extends StatelessWidget {
 //               padding: EdgeInsets.all(12.h),
 //               decoration: BoxDecoration(
 //                   borderRadius: BorderRadius.circular(50.r),
-//                   border: Border.all(color: COLOR_GREY, width: 2)),
+//                   border: Border.all(color: greyColor, width: 2)),
 //               child: Row(
 //                 children: [
 //                   IconButton(
@@ -114,7 +114,7 @@ class SearchBar extends StatelessWidget {
 //                         softWrap: false,
 //                         maxLines: 1,
 //                         style: TextStyle(
-//                             color: COLOR_GREY,
+//                             color: greyColor,
 //                             fontWeight: FontWeight.w400,
 //                             fontSize: 35.sp)),
 //                   ),

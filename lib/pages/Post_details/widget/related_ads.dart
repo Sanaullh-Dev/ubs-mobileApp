@@ -31,7 +31,7 @@ class RelatedAds extends StatelessWidget {
         Get.find<PostDetailsController>();
 
     return Container(
-      color: COLOR_WHITE,
+      color: whiteColor,
       // padding: EdgeInsets.symmetric(vertical: 8.w),
       height: 470.sp,
       child: Obx(
@@ -58,7 +58,7 @@ class RelatedAds extends StatelessWidget {
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              border: Border.all(width: 1, color: COLOR_BORDER),
+                              border: Border.all(width: 1, color: mainBorderColor),
                               borderRadius: BorderRadius.circular(10.r),
                             ),
                             padding: EdgeInsets.all(15.w),

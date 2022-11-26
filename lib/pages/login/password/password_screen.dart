@@ -150,7 +150,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
                                   passShow.value
                                       ? FontAwesomeIcons.eyeSlash
                                       : FontAwesomeIcons.eye,
-                                  color: COLOR_BLACK,
+                                  color: blackColor,
                                   size: 50.sp,
                                 ),
                                 onPressed: () {

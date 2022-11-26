@@ -18,7 +18,7 @@ class OwnMessage extends StatelessWidget {
       child: ConstrainedBox(
         constraints: BoxConstraints(minWidth: 310.sp, maxWidth: size - 80),
         child: Bubble(
-          color: COLOR_SECONDARY,
+          color: secondaryColor,
           padding: const BubbleEdges.all(0),
           margin: BubbleEdges.symmetric(horizontal: 25.sp, vertical: 20.sp),
           nip: BubbleNip.rightTop,

@@ -5,7 +5,6 @@ import 'package:ubs/pages/chats/chats_dashboard/widgets/chats_list_tiles.dart';
 import 'package:ubs/pages/chats/chats_dashboard/widgets/empty_screen.dart';
 import 'package:ubs/pages/chats/controller/chats_controller.dart';
 
-
 class ChatsRoomBuy extends StatefulWidget {
   final UserLogin userLogin;
   const ChatsRoomBuy({super.key, required this.userLogin});
@@ -31,30 +30,35 @@ class _ChatsRoomBuyState extends State<ChatsRoomBuy> {
   @override
   Widget build(BuildContext context) {
     // final TextTheme textTheme = Theme.of(context).textTheme;
-    return Obx(() => chatsController.isLoading.value == true
-        ? const Center(child: CircularProgressIndicator())
-        : isEmpty.value
-            ? const EmptyScreen(
-                title_1: "You've got no message so far!",
-                title_2: "Be the first one to begin a conversation.",
-                btnTitle: "Start Messaging")
-            : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 15),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: chatsController.chatsRooms.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    var val = chatsController.chatsRooms[index];
-                    return val.postType != "buy"
-                        ? const SizedBox()
-                        : ChatsListTitle(
-                            chatRoom: val, userId: widget.userLogin.userId);
-                  },
-                )
-              ],
-            ));
+    return RefreshIndicator(
+      onRefresh: () async {
+        chatsController.getChatsRoomsList(widget.userLogin.userId);
+      },
+      child: Obx(() => chatsController.isLoading.value == true
+          ? const Center(child: CircularProgressIndicator())
+          : isEmpty.value
+              ? const EmptyScreen(
+                  title_1: "You've got no message so far!",
+                  title_2: "Be the first one to begin a conversation.",
+                  btnTitle: "Start Messaging")
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 15),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: chatsController.chatsRooms.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        var val = chatsController.chatsRooms[index];
+                        return val.postType != "buy"
+                            ? const SizedBox()
+                            : ChatsListTitle(
+                                chatRoom: val, userId: widget.userLogin.userId);
+                      },
+                    )
+                  ],
+                )),
+    );
   }
 }
 

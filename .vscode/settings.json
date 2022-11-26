@@ -1,7 +1,8 @@
 {
     "cSpell.words": [
         "Firestore",
-        "LTRB"
+        "LTRB",
+        "screenutil"
     ],
     "java.configuration.updateBuildConfiguration": "interactive"
 }

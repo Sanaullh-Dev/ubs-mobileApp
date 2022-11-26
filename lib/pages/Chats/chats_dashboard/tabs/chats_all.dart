@@ -30,29 +30,25 @@ class _ChatsRoomAllState extends State<ChatsRoomAll> {
       onRefresh: () async {
         chatsController.getChatsRoomsList(widget.userLogin.userId);
       },
-      child: SingleChildScrollView(        
-        child: Obx(() => chatsController.isLoading.value == true
-            ? const Center(child: CircularProgressIndicator())
-            : chatsController.chatsRooms.length == 0
-                ? const EmptyScreen(
-                    title_1: "You've got no message so far!",
-                    btnTitle: "Start To Explore")
-                : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 15),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: chatsController.chatsRooms.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        var val = chatsController.chatsRooms[index];
-                        return ChatsListTitle(
-                            chatRoom: val, userId: widget.userLogin.userId);
-                      },
-                    )
-                  ],
+      child: Obx(() => chatsController.isLoading.value == true
+          ? const Center(child: CircularProgressIndicator())
+          : chatsController.chatsRooms.isEmpty
+              ? const EmptyScreen(
+                  title_1: "You've got no message so far!",
+                  btnTitle: "Start To Explore")
+              : Padding(
+                  padding: EdgeInsets.only(top: 20.sp),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: chatsController.chatsRooms.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      var val = chatsController.chatsRooms[index];
+                      return ChatsListTitle(
+                          chatRoom: val,
+                          userId: widget.userLogin.userId);
+                    },
+                  ),
                 )),
-      ),
     );
   }
 }

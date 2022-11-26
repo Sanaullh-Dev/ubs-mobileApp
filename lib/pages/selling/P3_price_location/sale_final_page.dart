@@ -80,7 +80,7 @@ class _SaleFinalPageState extends State<SaleFinalPage> {
                                 return null;
                               },
                               style: const TextStyle(
-                                color: COLOR_LIGHT_BLACK,
+                                color: lightBlackColor,
                                 fontWeight: FontWeight.w400,
                                 fontSize: 15,
                               ),
@@ -102,7 +102,7 @@ class _SaleFinalPageState extends State<SaleFinalPage> {
                                 return null;
                               },
                               style: const TextStyle(
-                                color: COLOR_LIGHT_BLACK,
+                                color: lightBlackColor,
                                 fontWeight: FontWeight.w400,
                                 fontSize: 15,
                               ),

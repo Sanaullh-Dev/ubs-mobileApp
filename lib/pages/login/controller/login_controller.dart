@@ -12,7 +12,7 @@ class LoginController extends GetxController {
   // GoogleSignInAccount get user => _user!;
   RxString loginId = "".obs;
   Rx<String> loginStatus = "checking".obs;
-  Rx<UserLogin> uData = UserLogin(userId: "", upass: "").obs;
+  Rx<UserLogin> uData = UserLogin(userId: "", uPass: "").obs;
   Rx<List<StorageItem>>? items;
 
   @override
@@ -24,13 +24,13 @@ class LoginController extends GetxController {
   void getSecureValue() async {
     // _storageService.deleteSecureData("LoginId");
     var userId = await _storageService.readSecureData("LoginId");
-    var Upass = await _storageService.readSecureData("LoginPass");
+    var uPass = await _storageService.readSecureData("LoginPass");
     if (userId == null) {
       loginStatus.value = "no";
     } else {
-      var res = await RemoteServices.userLogin(userId, Upass ?? "");
+      var res = await RemoteServices.userLogin(userId, uPass ?? "");
       if (res == "logged") {
-        uData.value = UserLogin(userId: userId, upass: Upass ?? "");
+        uData.value = UserLogin(userId: userId, uPass: uPass ?? "");
         loginStatus.value = "logged";
       }
     }
