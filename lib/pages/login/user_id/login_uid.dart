@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:ubs/model/users_data.dart';
+import 'package:ubs/pages/login/Verify_otp/auto_verify.dart';
 import 'package:ubs/pages/login/controller/login_controller.dart';
 import 'package:ubs/pages/login/password/password_screen.dart';
 import 'package:ubs/pages/login/widget/common_widget.dart';
@@ -59,16 +62,16 @@ class _LoginUidState extends State<LoginUid> {
                   if (widget.signType == "phone") {
                     if (loginControl.loginId.value.length == 10 &&
                         loginControl.loginId.value.isNumericOnly) {
-                      // var res =
-                      //     await RemoteServices.getOTP(userId, appSignature);
-                      // if (res != null) {
-                      // Map<String, dynamic> result = jsonDecode(res);
-                      //   Get.to(AutoVerify(hashNo: result["hash"], userId: userId,appSignature: appSignature,));
-                      // }
-                      Get.to(PasswordScreen(
-                          userId: userId,
-                          newUser: true,
-                          loginType: widget.signType));
+                      var res =
+                          await RemoteServices.getOTP(userId, appSignature);
+                      if (res != null) {
+                      Map<String, dynamic> result = jsonDecode(res);
+                        Get.to(AutoVerify(hashNo: result["hash"], userId: userId,appSignature: appSignature,));
+                      }
+                      // Get.to(PasswordScreen(
+                      //     userId: userId,
+                      //     newUser: true,
+                      //     loginType: widget.signType));
                     } else {
                       setState(() => isError = true);
                       // Get.to(PasswordScreen(

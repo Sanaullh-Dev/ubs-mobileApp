@@ -324,7 +324,7 @@ class RemoteServices {
     bodyData = {
       'log_pass': userData.logPass,
       'u_name': userData.uName,
-      'u_photo': userData.uPhoto,
+      'u_photo': userData.uPhoto ?? "",
       'login_with': userData.loginWith,
       'u_phone': userData.uPhone,
       'u_email': userData.uEmail

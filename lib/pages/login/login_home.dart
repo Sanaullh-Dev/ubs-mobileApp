@@ -64,7 +64,7 @@ class _LoginHomeState extends State<LoginHome> {
                         btnIcon: Icons.phone_iphone,
                         width: width * 0.7,
                         onPressed: () {
-                          Get.to(LoginUid(signType: "phone"));
+                          Get.to(const LoginUid(signType: "phone"));
                         }),
                     addVerticalSpace(30.h),
                     loginBtn(
