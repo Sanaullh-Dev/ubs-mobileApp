@@ -52,8 +52,9 @@ class _ChatsRoomBuyState extends State<ChatsRoomBuy> {
                         var val = chatsController.chatsRooms[index];
                         return val.postType != "buy"
                             ? const SizedBox()
-                            : ChatsListTitle(
-                                chatRoom: val, userId: widget.userLogin.userId);
+                            : const SizedBox();
+                        // : ChatsListTitle(
+                        //     chatRoom: val, userId: widget.userLogin.userId);
                       },
                     )
                   ],

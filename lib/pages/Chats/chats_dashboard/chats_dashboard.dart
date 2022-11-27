@@ -18,12 +18,13 @@ class ChatsDashboard extends StatefulWidget {
 
 class _ChatsDashboardState extends State<ChatsDashboard>
     with SingleTickerProviderStateMixin {
-  final ChatsController chatsController = Get.find<ChatsController>();
+  // final ChatsController chatsController = Get.find<ChatsController>();
 
   @override
   void initState() {
     super.initState();
-    chatsController.getLoadData(widget.userLogin.userId);
+    // chatsController.getLoadData(widget.userLogin.userId);
+    
   }
 
   @override

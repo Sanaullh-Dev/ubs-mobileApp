@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/user_login.dart';
@@ -20,35 +21,62 @@ class _ChatsRoomAllState extends State<ChatsRoomAll> {
   @override
   void initState() {
     super.initState();
+    chatsController.getChatsRoomsList(widget.userLogin.userId);
   }
 
   @override
   Widget build(BuildContext context) {
     // final TextTheme textTheme = Theme.of(context).textTheme;
 
-    return RefreshIndicator(
-      onRefresh: () async {
-        // chatsController.getLoadData(widget.userLogin.userId);
-      },
-      child: Obx(() => chatsController.isLoading.value == true
-          ? const Center(child: CircularProgressIndicator())
-          : chatsController.chatsRooms.isEmpty
-              ? const EmptyScreen(
-                  title_1: "You've got no message so far!",
-                  btnTitle: "Start To Explore")
-              : Padding(
-                  padding: EdgeInsets.only(top: 20.sp),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: chatsController.chatsRooms.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      var val = chatsController.chatsRooms[index];
-                      return ChatsListTitle(
-                          chatRoom: val, userId: widget.userLogin.userId);
-                    },
-                  ),
-                )),
-    );
+    return StreamBuilder<QuerySnapshot>(
+        stream: chatsController.chatsRoomStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return const Center(child: Text('Something went wrong'));
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.data != null) {
+            if (snapshot.data!.docs.isNotEmpty) {
+              return Padding(
+                padding: EdgeInsets.only(top: 20.sp),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    DocumentSnapshot data = snapshot.data!.docs[index];
+                    return ChatsListTitle(
+                        doc: data, userId: widget.userLogin.userId);
+                  },
+                ),
+              );
+            }
+          }
+
+          return const EmptyScreen(
+              title_1: "You've got no message so far!",
+              btnTitle: "Start To Explore");
+        });
+
+    // return Obx(() => chatsController.isLoading.value == true
+    //     ? const Center(child: CircularProgressIndicator())
+    //     : chatsController.chatsRooms.isEmpty
+    //         ? const EmptyScreen(
+    //             title_1: "You've got no message so far!",
+    //             btnTitle: "Start To Explore")
+    //         : Padding(
+    //             padding: EdgeInsets.only(top: 20.sp),
+    //             child: ListView.builder(
+    //               shrinkWrap: true,
+    //               itemCount: chatsController.chatsRooms.length,
+    //               itemBuilder: (BuildContext context, int index) {
+    //                 var val = chatsController.chatsRooms[index];
+    //                 return ChatsListTitle(
+    //                     chatRoom: val, userId: widget.userLogin.userId);
+    //               },
+    //             ),
+    //           ));
   }
 }
 

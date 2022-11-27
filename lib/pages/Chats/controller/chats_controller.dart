@@ -9,72 +9,58 @@ import 'package:ubs/services/firestore_service.dart';
 import 'package:ubs/services/remote_services.dart';
 
 class ChatsController extends GetxController {
-  Stream<QuerySnapshot> chatsRoom = const Stream.empty();
+  Stream<QuerySnapshot> chatsRoomStream = const Stream.empty();
   Stream<QuerySnapshot> chatsHistory = const Stream.empty();
   Rx<bool> isLoading = false.obs;
   RxList<ChatsRoomModel> chatsRooms = List<ChatsRoomModel>.empty().obs;
-  RxList<ChatUserList> chatUserList = List<ChatUserList>.empty().obs;
+  // RxList<ChatUserList> chatUserList = List<ChatUserList>.empty().obs;
   RxBool isTyping = false.obs;
   RxBool keyboardVisible = false.obs;
   RxInt tabIndex = 0.obs;
   RxDouble adsPrice = 0.0.obs;
 
-  getLoadData(String userId) async {
-    if (chatsRooms.value.isEmpty) {
-      getChatsRoomsList(userId);
-      if (isLoading.value == true) {
-        // await getChatsDetails();
-        // await getUserMessage();
-      }
+  // getLoadData(String userId) async {
+  //   if (chatsRooms.value.isEmpty) {
+  //     getChatsRoomsList(userId);
+  //     if (isLoading.value == true) {
+  //       // await getChatsDetails();
+  //       // await getUserMessage();
+  //     }
+  //   }
+  // }
+
+  getChatsRoomsList(String userId) async {
+    var ck = await chatsRoomStream.isEmpty;
+    if (ck) {
+      chatsRoomStream = FirestoreDatabaseHelper.chatsRoom
+          .where('users', arrayContains: userId)
+          .snapshots();
     }
   }
 
-  getChatsRoomsList(String userId) {
-    chatUserList.value = [];
-    isLoading.value = true;
-    chatsRoom = FirestoreDatabaseHelper.chatsRoom
-        .where('users', arrayContains: userId)
-        .snapshots();
-
-    isLoading.value = false;
-
-    chatsRoom.listen((data) {
-      for (var element in data.docs) {
-        var data = ChatUserList(
-          docId: element.id,
-          pId: element.get("adsPostId"),
-          userId: element.get("users")[0] == userId
-              ? element.get("users")[1]
-              : element.get("users")[0],
-          postType: element.get("sellingUser") == userId ? "sale" : "buy",
-        );
-        getChatsDetails(data);
-      }
-    });
-  }
-
-  getChatsDetails(ChatUserList chatList) async {
-    var res =
-        await RemoteServices.getChatRoomDetails(chatList.userId, chatList.pId);
-    if (res != null) {
-      isLoading.value = true;
-      res.postType = chatList.postType;
-      res.docId = chatList.docId;
-      res.lastMag = "Loading...";
-      res.magStatus = "";
-      var ck =
-          chatsRooms.value.where((element) => element.docId == chatList.docId);
-
-      if (ck.isEmpty) {
-        chatsRooms.value.add(res);
-        getUserMessage(res);
-      } else {
-        print(ck);
-      }
+  Future<ChatsRoomModel?> getUserData(var doc, String userId) async {
+    var data = ChatUserList(
+      docId: doc.id,
+      pId: doc.get("adsPostId"),
+      userId: doc.get("users")[0] == userId
+          ? doc.get("users")[1]
+          : doc.get("users")[0],
+      postType: doc.get("sellingUser") == userId ? "sale" : "buy",
+    );
+    // getChatsDetails(data);
+    ChatsRoomModel? chatsRoomData =
+        await RemoteServices.getChatRoomDetails(data.userId, data.pId);
+    if (chatsRoomData != null) {
+      chatsRoomData.postType = data.postType;
+      chatsRoomData.docId = data.docId;
+      chatsRoomData.lastMag = "Loading...";
+      chatsRoomData.magStatus = "";
+      return chatsRoomData;
     }
+    return null;
   }
 
-  getUserMessage(ChatsRoomModel chatRoom) async {
+  Future<ChatsRoomModel> getUserMessage(ChatsRoomModel chatRoom) async {
     await FirestoreDatabaseHelper.chatsRoom
         .doc(chatRoom.docId)
         .collection("chats")
@@ -82,17 +68,35 @@ class ChatsController extends GetxController {
         .limit(1)
         .get()
         .then((value) {
-      chatRoom.lastMag = value.docs[0].data()["message"];
-      chatRoom.lastSeen = value.docs[0].data()["time"];
-      chatRoom.magStatus = value.docs[0].data()["status"];
-
-      var index =
-          chatsRooms.indexWhere((element) => element.docId == chatRoom.docId);
-      if (!index.isNegative) {
-        chatsRooms[index] = chatRoom;
+      if (value.docs.isNotEmpty) {
+        chatRoom.lastMag = value.docs[0].data()["message"];
+        chatRoom.lastSeen = value.docs[0].data()["time"];
+        chatRoom.magStatus = value.docs[0].data()["status"];
+        return chatRoom;
       }
     });
+    return chatRoom;
   }
+
+  // getChatsDetails(ChatsRoomModel chatList) async {
+  //   var res =
+  //       await RemoteServices.getChatRoomDetails(chatList.userId, chatList.pId);
+  //   if (res != null) {
+  //     res.postType = chatList.postType;
+  //     res.docId = chatList.docId;
+  //     res.lastMag = "Loading...";
+  //     res.magStatus = "";
+  //     var ck =
+  //         chatsRooms.value.where((element) => element.docId == chatList.docId);
+
+  //     if (ck.isEmpty) {
+  //       chatsRooms.value.add(res);
+  //       getUserMessage(res);
+  //     } else {
+  //       print(ck);
+  //     }
+  //   }
+  // }
 
   // getChatsDetails() async {
   //   chatsRooms.value = [];
