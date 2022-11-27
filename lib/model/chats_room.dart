@@ -16,6 +16,7 @@ class ChatsRoomModel {
     required this.userName,
     this.userPhoto,
     this.lastMag,
+    this.magStatus,
     this.postType,
     this.docId,
     this.lastSeen,
@@ -29,6 +30,7 @@ class ChatsRoomModel {
   String userName;
   String? userPhoto;
   String? lastMag;
+  String? magStatus;
   String? postType;
   String? docId;
   String? lastSeen;
@@ -42,6 +44,7 @@ class ChatsRoomModel {
         userName: json["userName"],
         userPhoto: json["userPhoto"],
         lastMag: json["lastMag"],
+        magStatus: json["magStatus"],
         postType: json["postType"],
         docId: json["docId"],
         lastSeen: json["lastSeen"],
@@ -56,6 +59,7 @@ class ChatsRoomModel {
         "userName": userName,
         "userPhoto": userPhoto,
         "lastMag": lastMag,
+        "magStatus": magStatus,
         "postType": postType,
         "docId": docId,
         "lastSeen": lastSeen,

@@ -32,7 +32,7 @@ class _ChatsRoomSaleState extends State<ChatsRoomSale> {
     // final TextTheme textTheme = Theme.of(context).textTheme;
     return RefreshIndicator(
       onRefresh: () async {
-        chatsController.getChatsRoomsList(widget.userLogin.userId);
+        // chatsController.getLoadData(widget.userLogin.userId);
       },
       child: Obx(() => chatsController.isLoading.value == true
           ? const Center(child: CircularProgressIndicator())

@@ -7,11 +7,11 @@ import 'package:ubs/model/chats_room.dart';
 import 'package:ubs/model/post_reaction.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/model/users_data.dart';
-import 'package:ubs/pages/Post_details/controller/post_details_controller.dart';
-import 'package:ubs/pages/Post_details/widget/related_ads.dart';
-import 'package:ubs/pages/Post_details/widget/image_slider.dart';
-import 'package:ubs/pages/Post_details/widget/title_bar.dart';
-import 'package:ubs/pages/Post_details/widget/userinfo_bar.dart';
+import 'package:ubs/pages/post_details/controller/post_details_controller.dart';
+import 'package:ubs/pages/post_details/widget/related_ads.dart';
+import 'package:ubs/pages/post_details/widget/image_slider.dart';
+import 'package:ubs/pages/post_details/widget/title_bar.dart';
+import 'package:ubs/pages/post_details/widget/userinfo_bar.dart';
 import 'package:ubs/pages/accounts/profile_page.dart/user_profile.dart';
 import 'package:ubs/pages/chats/chat_individual/charts_individual.dart';
 import 'package:ubs/pages/chats/controller/chats_controller.dart';
@@ -56,7 +56,7 @@ class _PostDetailsState extends State<PostDetails> {
         pFavorite: widget.adsPostData.pFavorite ?? 0,
         pView: 1);
     await RemoteServices.addPostReaction(postReaction);
-    await postDetController.getAdsPostDetails(widget.adsPostData);
+    await postDetController.getAdsPostDetails(widget.userData.userId, widget.adsPostData.pId!);
 
     var res = await RemoteServices.getUserData(widget.adsPostData.pUid);
     if (res != null) {

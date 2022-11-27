@@ -8,7 +8,6 @@ import 'package:ubs/pages/chats/controller/chats_controller.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
 
-
 class ChatsDashboard extends StatefulWidget {
   final UserLogin userLogin;
   const ChatsDashboard({super.key, required this.userLogin});
@@ -20,15 +19,12 @@ class ChatsDashboard extends StatefulWidget {
 class _ChatsDashboardState extends State<ChatsDashboard>
     with SingleTickerProviderStateMixin {
   final ChatsController chatsController = Get.find<ChatsController>();
-  
+
   @override
   void initState() {
     super.initState();
-    if (chatsController.chatsRooms.value.isEmpty) {
-      chatsController.getChatsRoomsList(widget.userLogin.userId);
-    }
+    chatsController.getLoadData(widget.userLogin.userId);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +34,7 @@ class _ChatsDashboardState extends State<ChatsDashboard>
     return SafeArea(
       child: DefaultTabController(
         length: 3,
-        child: Scaffold(          
+        child: Scaffold(
           body: NestedScrollView(
             floatHeaderSlivers: true,
             headerSliverBuilder: (context, _) {

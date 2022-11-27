@@ -57,16 +57,15 @@ class ChatsListTitle extends StatelessWidget {
                   padding: const EdgeInsets.all(0),
                   borderRadius: BorderRadius.circular(100),
                   badgeContent: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 5.sp, color: primaryColor),
-                      borderRadius: BorderRadius.circular(50)
-                    ),
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 5.sp, color: primaryColor),
+                          borderRadius: BorderRadius.circular(50)),
                       height: 90.sp,
                       width: 90.sp,
-                      child:
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child: ShowUPhoto(imageUrl: getLink(chatRoom.userPhoto)))),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: ShowUPhoto(
+                              imageUrl: getLink(chatRoom.userPhoto)))),
                   position: BadgePosition.bottomEnd(),
                   child: SizedBox(
                       width: 150.sp,
@@ -117,28 +116,26 @@ class ChatsListTitle extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Icon(
-                                // widget.chatRoom.messageStatus == "read"
-                                "read" == "read"
-                                    ? Icons.done_all_outlined
-                                    : Icons.done,
-                                color: Colors.blueGrey.shade200,
-                                size: 35.sp,
-                              ),
-                              const SizedBox(width: 5),
-                              chatRoom.lastMag == null
+                              chatRoom.magStatus == ""
                                   ? const SizedBox()
-                                  : SizedBox(
-                                      width: 260.sp,
-                                      child: Text(
-                                        chatRoom.lastMag!,
-                                        maxLines: 1,
-                                        softWrap: false,
-                                        overflow: TextOverflow.ellipsis,
-                                        style:
-                                            subTitle2.copyWith(fontSize: 24.sp),
-                                      ),
-                                    )
+                                  : Icon(
+                                      Icons.done_all_outlined,
+                                      color: chatRoom.magStatus == "read"
+                                          ? Colors.blueGrey.shade200
+                                          : Colors.blueAccent,
+                                      size: 35.sp,
+                                    ),
+                              const SizedBox(width: 5),
+                              SizedBox(
+                                width: 260.sp,
+                                child: Text(
+                                  chatRoom.lastMag!,
+                                  maxLines: 1,
+                                  softWrap: false,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: subTitle2.copyWith(fontSize: 24.sp),
+                                ),
+                              )
                             ],
                           ),
                         ],

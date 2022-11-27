@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/user_login.dart';
-import 'package:ubs/pages/Post_details/widget/image_slider.dart';
+import 'package:ubs/pages/post_details/widget/image_slider.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';

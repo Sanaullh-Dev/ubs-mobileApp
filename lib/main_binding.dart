@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:ubs/pages/Categories/controller/categories_controller.dart';
-import 'package:ubs/pages/Post_details/controller/post_details_controller.dart';
+import 'package:ubs/pages/post_details/controller/post_details_controller.dart';
 import 'package:ubs/pages/accounts/controller/account_controller.dart';
 import 'package:ubs/pages/chats/controller/chats_controller.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';

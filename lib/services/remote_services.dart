@@ -64,7 +64,7 @@ class RemoteServices {
 
   // ---------- Get one Ads post with PostId from API ------------------
   static Future<AdsPost?> getAdsPostDetails(
-      String userId, String postId) async {
+      String userId, int postId) async {
     var client = http.Client();
 
     var uri = Uri.parse("$API_URL/adspost/getPostDetails");

@@ -28,13 +28,13 @@ class PostDetailsController extends GetxController {
     Rx<int> postFavorite = 0.obs;
   
 
-  getAdsPostDetails(AdsPost adsData) async {
+  getAdsPostDetails(String uid, int pid) async {
     var res = await RemoteServices.getAdsPostDetails(
-        adsData.pUid, adsData.pId!.toString());
+        uid, pid);
     if (res != null) {
       postFavorite.value = res.pFavorite ?? 0;
-      adsPost.value = adsData;
-      fetchUserInfo(adsData.pUid);
+      adsPost.value = res;
+      fetchUserInfo(res.pUid);
     }
   }
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/user_login.dart';
-import 'package:ubs/pages/Post_details/controller/post_details_controller.dart';
+import 'package:ubs/pages/post_details/controller/post_details_controller.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/utils/constants.dart';
 import 'package:ubs/sharing_widget/widget_fun.dart';
@@ -41,13 +41,13 @@ class RelatedAds extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: homeController.relatedCatAdsList.value.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return homeController.relatedCatAdsList.value[index].pId ==
-                          showingPostId
+                  var adsData = homeController.relatedCatAdsList.value[index];
+                  return adsData.pId == showingPostId
                       ? const SizedBox()
                       : GestureDetector(
                           onTap: () async {
                             await postDetController.getAdsPostDetails(
-                                homeController.relatedCatAdsList.value[index]);
+                                usersData.userId, adsData.pId!);
 
                             scrolledCont.animateTo(
                               scrolledCont.position.minScrollExtent,
@@ -58,7 +58,8 @@ class RelatedAds extends StatelessWidget {
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              border: Border.all(width: 1, color: mainBorderColor),
+                              border:
+                                  Border.all(width: 1, color: mainBorderColor),
                               borderRadius: BorderRadius.circular(10.r),
                             ),
                             padding: EdgeInsets.all(15.w),
@@ -71,8 +72,7 @@ class RelatedAds extends StatelessWidget {
                               children: [
                                 Image.network(
                                   // postList[index].image1,
-                                  getLink(homeController
-                                      .relatedCatAdsList.value[index].pImg1),
+                                  getLink(adsData.pImg1),
                                   height: 250.sp,
                                   width: 390.sp,
                                   fit: BoxFit.cover,
@@ -86,23 +86,20 @@ class RelatedAds extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        '\$ ${homeController.relatedCatAdsList.value[index].pPrice}',
-                                        style: heading3,
-                                      ),
+                                      Text('\$ ${adsData.pPrice}',
+                                          style: heading3),
                                       // Icon(Icons.favorite_border)
                                       IconButton(
                                         padding: EdgeInsets.zero,
                                         constraints: const BoxConstraints(),
-                                        // color: Colors.black,
-                                        // color: postList[index].favorite == "no"
-                                        //     ? Colors.black
-                                        //     : Colors.red,
+                                        color: adsData.pFavorite == 1
+                                            ? Colors.red
+                                            : Colors.black,
                                         onPressed: () {},
                                         icon: Icon(
-                                          // postList[index].favorite == "no" ?
-                                          //  Icons.favorite_border :
-                                          Icons.favorite_border,
+                                          adsData.pFavorite == 1
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
                                           size: 50.sp,
                                         ),
                                       )

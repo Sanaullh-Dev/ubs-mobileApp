@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ubs/model/user_login.dart';
@@ -7,6 +9,7 @@ import 'package:ubs/pages/login/login_home.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/services/remote_services.dart';
 import 'package:ubs/services/secure_storage.dart';
+import 'package:ubs/utils/constants.dart';
 import 'package:ubs/utils/text_style.dart';
 
 class MainPage extends StatefulWidget {
@@ -20,11 +23,35 @@ class _MainPageState extends State<MainPage> {
   Rx<String> uid = "".obs;
   Rx<String> loginStatus = "checking".obs;
   Rx<UserLogin> uData = UserLogin(userId: "", uPass: "").obs;
+  Rx<String> loadingLabel = "...".obs;
+  Timer? countdownTimer;
 
   @override
   void initState() {
     super.initState();
     getLoginData();
+    startTimer();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    countdownTimer!.cancel();
+  }
+
+  void startTimer() {
+    countdownTimer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (loadingLabel.value.length == 3) {
+        loadingLabel.value = "";
+      } else if (loadingLabel.value.length == 2) {
+        loadingLabel.value = "...";
+      } else if (loadingLabel.value.length == 1) {
+        loadingLabel.value = "..";
+      } else if (loadingLabel.value.isEmpty) {
+        loadingLabel.value = ".";
+      }
+    });
   }
 
   void getLoginData() async {
@@ -45,6 +72,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
+    final Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Obx(
         () {
@@ -64,7 +92,22 @@ class _MainPageState extends State<MainPage> {
                         width: 250.sp,
                         child: Image.asset("lib/assets/images/BiS.png")),
                     SizedBox(height: 50.sp),
-                    Text("Loading...", style: heading2)
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black,width: 2)
+                      ),
+                      width: size.width * 0.6,
+                      child: LinearProgressIndicator(
+                        color: primaryColor,
+                        backgroundColor: Colors.grey[300],
+                        minHeight: 40.sp,                        
+                      ),
+                    ),
+                    SizedBox(height: 50.sp),
+                    SizedBox(
+                        width: 205.sp,
+                        child: Text("Loading${loadingLabel.value}",
+                            style: heading2))
                   ],
                 ),
               ),

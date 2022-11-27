@@ -28,7 +28,7 @@ class _ChatsRoomAllState extends State<ChatsRoomAll> {
 
     return RefreshIndicator(
       onRefresh: () async {
-        chatsController.getChatsRoomsList(widget.userLogin.userId);
+        // chatsController.getLoadData(widget.userLogin.userId);
       },
       child: Obx(() => chatsController.isLoading.value == true
           ? const Center(child: CircularProgressIndicator())
@@ -44,8 +44,7 @@ class _ChatsRoomAllState extends State<ChatsRoomAll> {
                     itemBuilder: (BuildContext context, int index) {
                       var val = chatsController.chatsRooms[index];
                       return ChatsListTitle(
-                          chatRoom: val,
-                          userId: widget.userLogin.userId);
+                          chatRoom: val, userId: widget.userLogin.userId);
                     },
                   ),
                 )),

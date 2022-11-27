@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/ads_post.dart';
 import 'package:ubs/model/user_login.dart';
-import 'package:ubs/pages/Post_details/post_details.dart';
+import 'package:ubs/pages/post_details/post_details.dart';
 import 'package:ubs/pages/home/PostList/widget/ads_tile.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/pages/search_ads/controller/search_controller.dart';
