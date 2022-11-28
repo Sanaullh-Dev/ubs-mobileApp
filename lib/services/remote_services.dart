@@ -111,7 +111,7 @@ class RemoteServices {
 
   // ---------- Create Ads post into API ------------------
   static Future<dynamic> postAds(AdsPost adsPost) async {
-    var uri = Uri.parse("$API_URL/adspost");
+    var uri = Uri.parse("$API_URL/adspost/saveAds");
 
     http.MultipartRequest request = http.MultipartRequest("POST", uri);
 

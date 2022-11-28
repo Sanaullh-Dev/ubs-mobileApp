@@ -112,7 +112,7 @@ class _SaleFinalPageState extends State<SaleFinalPage> {
                       ),
                     ),
                     NextButton(
-                      enable: true,
+                      enable: false,
                         labelText: "Post Now",
                         onPress: () async {
                           if (_formKey.currentState!.validate()) {

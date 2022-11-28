@@ -156,7 +156,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
               ],
             ),
             NextButton(
-              enable: true,
+              enable: false,
               labelText: "Next",
               onPress: () {
                 if (selectedPath.isEmpty) {
