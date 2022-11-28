@@ -10,24 +10,27 @@ import 'package:ubs/services/remote_services.dart';
 
 class ChatsController extends GetxController {
   Stream<QuerySnapshot> chatsRoomStream = const Stream.empty();
+  StreamSubscription<QuerySnapshot>? eventStream;
+
   Stream<QuerySnapshot> chatsHistory = const Stream.empty();
   Rx<bool> isLoading = false.obs;
   RxList<ChatsRoomModel> chatsRooms = List<ChatsRoomModel>.empty().obs;
-  // RxList<ChatUserList> chatUserList = List<ChatUserList>.empty().obs;
   RxBool isTyping = false.obs;
   RxBool keyboardVisible = false.obs;
   RxInt tabIndex = 0.obs;
   RxDouble adsPrice = 0.0.obs;
 
-  // getLoadData(String userId) async {
-  //   if (chatsRooms.value.isEmpty) {
-  //     getChatsRoomsList(userId);
-  //     if (isLoading.value == true) {
-  //       // await getChatsDetails();
-  //       // await getUserMessage();
-  //     }
-  //   }
-  // }
+  @override
+  void onInit() {
+    super.onInit();
+    eventStream = chatsRoomStream.listen((snapshot) => eventStream);
+  }
+
+  chatsRoomStreamClose() {
+    if (eventStream != null) {
+      eventStream!.cancel();
+    }
+  }
 
   getChatsRoomsList(String userId) async {
     var ck = await chatsRoomStream.isEmpty;
@@ -38,21 +41,14 @@ class ChatsController extends GetxController {
     }
   }
 
-  Future<ChatsRoomModel?> getUserData(var doc, String userId) async {
-    var data = ChatUserList(
-      docId: doc.id,
-      pId: doc.get("adsPostId"),
-      userId: doc.get("users")[0] == userId
-          ? doc.get("users")[1]
-          : doc.get("users")[0],
-      postType: doc.get("sellingUser") == userId ? "sale" : "buy",
-    );
+  Future<ChatsRoomModel?> getUserData(
+      ChatUserList userList, String userId) async {
     // getChatsDetails(data);
     ChatsRoomModel? chatsRoomData =
-        await RemoteServices.getChatRoomDetails(data.userId, data.pId);
+        await RemoteServices.getChatRoomDetails(userList.userId, userList.pId);
     if (chatsRoomData != null) {
-      chatsRoomData.postType = data.postType;
-      chatsRoomData.docId = data.docId;
+      chatsRoomData.postType = userList.postType;
+      chatsRoomData.docId = userList.docId;
       chatsRoomData.lastMag = "Loading...";
       chatsRoomData.magStatus = "";
       return chatsRoomData;

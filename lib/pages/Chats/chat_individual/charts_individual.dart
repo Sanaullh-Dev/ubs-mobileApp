@@ -46,7 +46,7 @@ class _ChatsIndividualState extends State<ChatsIndividual>
   ];
   TextEditingController priceText = TextEditingController();
   final ChatsController chatsCont = Get.find<ChatsController>();
-
+  
   @override
   void initState() {
     super.initState();
@@ -130,9 +130,9 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                           child: Text(chatRoom.userName,
                               overflow: TextOverflow.ellipsis,
                               softWrap: false,
-                              maxLines: 2,                              
+                              maxLines: 2,
                               style: titleLabel.copyWith(
-                                fontSize: 28.sp,
+                                  fontSize: 28.sp,
                                   fontWeight: FontWeight.w800)),
                         ),
                         const Spacer(),
@@ -150,7 +150,7 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                   () => Stack(
                     children: [
                       SizedBox(
-                        height: size.height - 360.sp,
+                        height: size.height - 385.sp,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -224,9 +224,11 @@ class _ChatsIndividualState extends State<ChatsIndividual>
                                         },
                                       );
                                     }
+
                                     return const SizedBox();
                                   }),
                             ),
+                            // const SizedBox(height: 10)
                           ],
                         ),
                       ),

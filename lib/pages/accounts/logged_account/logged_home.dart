@@ -6,6 +6,7 @@ import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/accounts/controller/account_controller.dart';
 import 'package:ubs/pages/accounts/logged_account/account_details.dart';
 import 'package:ubs/pages/accounts/logged_account/widget/profile_image.dart';
+import 'package:ubs/pages/chats/controller/chats_controller.dart';
 import 'package:ubs/pages/login/controller/login_controller.dart';
 import 'package:ubs/pages/login/login_home.dart';
 import 'package:ubs/utils/text_style.dart';
@@ -22,6 +23,7 @@ class _LoggedHomeState extends State<LoggedHome> {
   var design = "";
   final AccountController accountController = Get.find<AccountController>();
   final LoginController loginController = Get.find<LoginController>();
+  final ChatsController chatsController = Get.find<ChatsController>();
 
   @override
   void initState() {
@@ -120,6 +122,7 @@ class _LoggedHomeState extends State<LoggedHome> {
                       onPressed: () {
                         loginController.logoutUser();
                         Get.offAll(const LoginHome());
+                        chatsController.chatsRoomStreamClose();
                       },
                     ),
                   )

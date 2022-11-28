@@ -50,9 +50,9 @@ class _UserProfileState extends State<UserProfile> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 10),
+            SizedBox(height: 10.sp),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
+              padding: EdgeInsets.symmetric(vertical: 25.sp),
               child: Row(
                 children: [
                   SizedBox(
@@ -98,12 +98,13 @@ class _UserProfileState extends State<UserProfile> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            Text(widget.profileUser.uName, style: heading5.copyWith(fontWeight: FontWeight.w700)),
-            const SizedBox(height: 5),
+            SizedBox(height: 8.sp),
+            Text(widget.profileUser.uName,
+                style: heading5.copyWith(fontWeight: FontWeight.w700)),
+            SizedBox(height: 8.sp),
             Text("Member since from Oct 2022", style: heading6),
-            const Divider(thickness: 3, color: Colors.black38, height: 60),
-            Text("Published ads", style: sectionTitle),
+            Divider(thickness: 3, color: Colors.black38, height: 70.sp),
+            Text("Published ads", style: titleLabel),
             const SizedBox(height: 20),
             Obx(
               () => Expanded(
@@ -116,8 +117,8 @@ class _UserProfileState extends State<UserProfile> {
                         itemBuilder: (BuildContext context, int index) {
                           var ads = adsPos.value[index];
                           return Container(
-                            margin: const EdgeInsets.only(bottom: 25),
-                            height: 150,
+                            margin: EdgeInsets.only(bottom: 25.sp),
+                            height: 240.sp,
                             child: Card(
                               elevation: 5,
                               shadowColor: Colors.black,
@@ -126,15 +127,15 @@ class _UserProfileState extends State<UserProfile> {
                               child: Row(
                                 children: [
                                   ClipRRect(
-                                    borderRadius: const BorderRadius.horizontal(
-                                        left: Radius.circular(10)),
+                                    borderRadius: BorderRadius.horizontal(
+                                        left: Radius.circular(15.r)),
                                     child: SizedBox(
-                                        width: 150,
-                                        height: 150,
+                                        width: 240.sp,
+                                        height: 240.sp,
                                         child: ShowImage(
                                             imageUrl: getLink(ads.pImg1))),
                                   ),
-                                  const SizedBox(width: 15),
+                                  SizedBox(width: 20.sp),
                                   Expanded(
                                     child: Column(
                                       mainAxisAlignment:
@@ -142,7 +143,7 @@ class _UserProfileState extends State<UserProfile> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const SizedBox(height: 15),
+                                        SizedBox(height: 20.sp),
                                         Row(
                                           children: [
                                             Text("₹ ${ads.pPrice}",
@@ -150,10 +151,12 @@ class _UserProfileState extends State<UserProfile> {
                                             const Spacer(),
                                             ads.pFavorite == 1
                                                 ? Icon(Icons.favorite,
-                                                    color: Colors.red, size: 50.sp)
+                                                    color: Colors.red,
+                                                    size: 50.sp)
                                                 : Icon(Icons.favorite_border,
-                                                    color: Colors.black, size: 50.sp),
-                                            SizedBox(width: 15.sp)
+                                                    color: Colors.black,
+                                                    size: 50.sp),
+                                            SizedBox(width: 30.sp)
                                           ],
                                         ),
                                         const SizedBox(height: 5),
@@ -161,15 +164,16 @@ class _UserProfileState extends State<UserProfile> {
                                         const Spacer(),
                                         Row(
                                           children: [
-                                            const Icon(Icons.location_on,
-                                                size: 25),
-                                            const SizedBox(width: 5),
-                                            Text(ads.pLocation),
+                                            Icon(Icons.location_on,
+                                                size: 40.sp),
+                                            SizedBox(width: 5.sp),
+                                            Text(ads.pLocation,
+                                                style: subTitle2),
                                             const Spacer(),
                                             Text(DateFormat("dd-MMM-yy")
                                                 .format(ads.pDate!)
                                                 .toString()),
-                                            const SizedBox(width: 20),
+                                            SizedBox(width: 35.sp),
                                           ],
                                         ),
                                         const SizedBox(height: 15),

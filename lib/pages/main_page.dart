@@ -71,7 +71,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChannels.textInput.invokeMethod('TextInput.hide');
+    // SystemChannels.textInput.invokeMethod('TextInput.hide');
     final Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Obx(

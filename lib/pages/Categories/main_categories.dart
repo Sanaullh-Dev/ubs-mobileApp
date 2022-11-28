@@ -61,7 +61,7 @@ class MainCategories extends StatelessWidget {
                       Get.to(SubCategories(
                           userData: userData,
                           catData: catData[index],
-                          gotoPage: "buy"));
+                          gotoPage: "Buy"));
                     },
                     leading: SizedBox(
                       height: 100.sp,

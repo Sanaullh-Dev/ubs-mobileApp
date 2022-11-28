@@ -1,11 +1,14 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/accounts/home_account.dart';
 import 'package:ubs/pages/accounts/logged_account/logged_home.dart';
 import 'package:ubs/pages/chats/chats_dashboard/chats_dashboard.dart';
+import 'package:ubs/pages/chats/controller/chats_controller.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
 import 'package:ubs/pages/home/home_page.dart';
 import 'package:ubs/pages/my_ads/my_ads.dart';
@@ -38,6 +41,9 @@ class _DashboardPageState extends State<DashboardPage> {
   //  final mainCont = Get.find<MainController>();
   @override
   Widget build(BuildContext context) {
+    final ChatsController chatsController = Get.find<ChatsController>();
+    StreamSubscription<QuerySnapshot>? eventStream;
+
     final pageOptions = [
       HomePage(userData: widget.userData, typeList: "all", mainCatId: 0),
       ChatsDashboard(userLogin: widget.userData),
@@ -56,7 +62,10 @@ class _DashboardPageState extends State<DashboardPage> {
               title: "Alert Message",
               message: "Do you want to exit from BIS",
               onCancel: () => Get.back(),
-              onOK: () => exit(0));
+              onOK: () {
+                chatsController.chatsRoomStreamClose();
+                exit(0);
+              });
         } else {
           homeController.typeList.value = "all";
           selectPage.value = 0;

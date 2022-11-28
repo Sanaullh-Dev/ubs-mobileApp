@@ -5,6 +5,7 @@ import 'package:ubs/model/categories.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/Categories/controller/categories_controller.dart';
 import 'package:ubs/pages/home/controller/home_controller.dart';
+import 'package:ubs/pages/home/home_page.dart';
 import 'package:ubs/pages/selling/sale_main_categories.dart';
 import 'package:ubs/utils/constants.dart';
 
@@ -85,17 +86,16 @@ class _SubCategoriesState extends State<SubCategories> {
                             }
                             homeController.typeList.value = "catList";
                             homeController.mainCat.value = widget.catData.catId;
-                            Get.back();
-                            // Get.to(HomePage(
-                            //     typeList: "catList",
-                            //     mainCatId: widget.catData.catId,
-                            //     userData: widget.userData));
+                            // Get.back();
+                            Get.to(HomePage(
+                                typeList: "catList",
+                                mainCatId: widget.catData.catId,
+                                userData: widget.userData));
                             // cateCont.hintText.value =
                             //     cateCont.subCatList[index].catName == "View All"
                             //         ? catData.catName
                             //         : cateCont.subCatList[index].catName;
-                            // Navigator.of(context).pushNamedAndRemoveUntil(
-                            //     '/', (Route<dynamic> route) => false);
+                            
                           }
                         },
                         child: Container(

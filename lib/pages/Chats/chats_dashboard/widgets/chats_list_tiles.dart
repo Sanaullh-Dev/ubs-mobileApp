@@ -16,12 +16,12 @@ import 'package:ubs/utils/text_style.dart';
 class ChatsListTitle extends StatefulWidget {
   // final ChatsRoomModel chatRoom;
   final String userId;
-  final DocumentSnapshot doc;
+  final ChatUserList userList;
   const ChatsListTitle(
       {super.key,
       // required this.chatRoom,
       required this.userId,
-      required this.doc});
+      required this.userList});
 
   @override
   State<ChatsListTitle> createState() => _ChatsListTitleState();
@@ -50,7 +50,7 @@ class _ChatsListTitleState extends State<ChatsListTitle> {
   getTileData() async {
     loading.value = true;
     chatRoom.value =
-        await chatsController.getUserData(widget.doc, widget.userId) ??
+        await chatsController.getUserData(widget.userList, widget.userId) ??
             chatRoom.value;
     loading.value = false;
     chatRoom.value = await chatsController.getUserMessage(chatRoom.value);

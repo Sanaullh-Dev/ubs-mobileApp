@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ubs/model/user_login.dart';
@@ -18,13 +19,12 @@ class ChatsDashboard extends StatefulWidget {
 
 class _ChatsDashboardState extends State<ChatsDashboard>
     with SingleTickerProviderStateMixin {
-  // final ChatsController chatsController = Get.find<ChatsController>();
+  final ChatsController chatsController = Get.find<ChatsController>();
 
   @override
   void initState() {
     super.initState();
-    // chatsController.getLoadData(widget.userLogin.userId);
-    
+    chatsController.getChatsRoomsList(widget.userLogin.userId);
   }
 
   @override
@@ -70,23 +70,42 @@ class _ChatsDashboardState extends State<ChatsDashboard>
                 )
               ];
             },
-            body: TabBarView(children: [
-              ChatsRoomAll(userLogin: widget.userLogin),
-              ChatsRoomBuy(userLogin: widget.userLogin),
-              ChatsRoomSale(userLogin: widget.userLogin),
-
-              // ChartList(
-              //     chatBoard: chatBoard
-              //         .where((ChatBoard cb) => cb.postType == "Buy")
-              //         .toList()),
-              // ChartList(
-              //     chatBoard: chatBoard
-              //         .where((ChatBoard cb) => cb.postType == "Sale")
-              //         .toList()),
-            ]),
+            body: StreamBuilder<QuerySnapshot>(
+                stream: chatsController.chatsRoomStream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return const Center(child: Text('Something went wrong'));
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.data != null) {
+                    return TabBarView(children: [
+                      ChatsRoomAll(
+                          userList: snapshot.data!.docs,
+                          userLogin: widget.userLogin),
+                      ChatsRoomBuy(
+                          userList: snapshot.data!.docs,
+                          userLogin: widget.userLogin),
+                      ChatsRoomSale(
+                          userList: snapshot.data!.docs,
+                          userLogin: widget.userLogin),
+                    ]);
+                  }
+                  return const SizedBox();
+                }),
           ),
         ),
       ),
     );
   }
 }
+
+// ChartList(
+//     chatBoard: chatBoard
+//         .where((ChatBoard cb) => cb.postType == "Buy")
+//         .toList()),
+// ChartList(
+//     chatBoard: chatBoard
+//         .where((ChatBoard cb) => cb.postType == "Sale")
+//         .toList()),

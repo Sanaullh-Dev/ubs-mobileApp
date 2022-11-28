@@ -150,7 +150,7 @@ class _SaleInfo1State extends State<SaleInfo1> {
                 ),
               ),
               NextButton(
-                  enable: true,
+                  enable: false,
                   labelText: "Next",
                   onPress: () {
                     if (_formKey.currentState!.validate()) {
@@ -159,14 +159,14 @@ class _SaleInfo1State extends State<SaleInfo1> {
                       sellingController.sellingPost.value.pTitle = _title.text;
                       sellingController.sellingPost.value.pDescribe =
                           _description.text;
-                      Get.to(
-                        PageTransition(
-                            type: PageTransitionType.rightToLeftJoined,
-                            duration: const Duration(milliseconds: 400),
-                            reverseDuration: const Duration(milliseconds: 400),
-                            childCurrent: widget,
-                            child: const ImagePickerPage()),
-                      );
+                      Get.to(const ImagePickerPage()
+                          // PageTransition(
+                          //     type: PageTransitionType.rightToLeftJoined,
+                          //     duration: const Duration(milliseconds: 400),
+                          //     reverseDuration: const Duration(milliseconds: 400),
+                          //     childCurrent: widget,
+                          //     child: ),
+                          );
                     }
                   })
             ],

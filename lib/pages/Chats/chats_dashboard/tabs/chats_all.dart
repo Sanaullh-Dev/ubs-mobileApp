@@ -1,87 +1,49 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:ubs/model/user_login.dart';
 import 'package:ubs/pages/chats/chats_dashboard/widgets/chats_list_tiles.dart';
 import 'package:ubs/pages/chats/chats_dashboard/widgets/empty_screen.dart';
 import 'package:ubs/pages/chats/controller/chats_controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ChatsRoomAll extends StatefulWidget {
+class ChatsRoomAll extends StatelessWidget {
   final UserLogin userLogin;
-  const ChatsRoomAll({super.key, required this.userLogin});
-
-  @override
-  State<ChatsRoomAll> createState() => _ChatsRoomAllState();
-}
-
-class _ChatsRoomAllState extends State<ChatsRoomAll> {
-  final ChatsController chatsController = Get.find<ChatsController>();
-
-  @override
-  void initState() {
-    super.initState();
-    chatsController.getChatsRoomsList(widget.userLogin.userId);
-  }
+  List<QueryDocumentSnapshot<Object?>> userList;
+  ChatsRoomAll({super.key, required this.userLogin, required this.userList});
 
   @override
   Widget build(BuildContext context) {
-    // final TextTheme textTheme = Theme.of(context).textTheme;
-
-    return StreamBuilder<QuerySnapshot>(
-        stream: chatsController.chatsRoomStream,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return const Center(child: Text('Something went wrong'));
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.data != null) {
-            if (snapshot.data!.docs.isNotEmpty) {
-              return Padding(
-                padding: EdgeInsets.only(top: 20.sp),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    DocumentSnapshot data = snapshot.data!.docs[index];
-                    return ChatsListTitle(
-                        doc: data, userId: widget.userLogin.userId);
-                  },
-                ),
-              );
-            }
-          }
-
-          return const EmptyScreen(
-              title_1: "You've got no message so far!",
-              btnTitle: "Start To Explore");
-        });
-
-    // return Obx(() => chatsController.isLoading.value == true
-    //     ? const Center(child: CircularProgressIndicator())
-    //     : chatsController.chatsRooms.isEmpty
-    //         ? const EmptyScreen(
-    //             title_1: "You've got no message so far!",
-    //             btnTitle: "Start To Explore")
-    //         : Padding(
-    //             padding: EdgeInsets.only(top: 20.sp),
-    //             child: ListView.builder(
-    //               shrinkWrap: true,
-    //               itemCount: chatsController.chatsRooms.length,
-    //               itemBuilder: (BuildContext context, int index) {
-    //                 var val = chatsController.chatsRooms[index];
-    //                 return ChatsListTitle(
-    //                     chatRoom: val, userId: widget.userLogin.userId);
-    //               },
-    //             ),
-    //           ));
+    var userData = userList;
+    return userList.isNotEmpty
+        ? Padding(
+            padding: EdgeInsets.only(top: 20.sp),
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: userData.length,
+              itemBuilder: (BuildContext context, int index) {
+                // DocumentSnapshot doc = data!.docs[index];
+                DocumentSnapshot doc = userData[index];
+                var data = ChatUserList(
+                  docId: doc.id,
+                  pId: doc.get("adsPostId"),
+                  userId: doc.get("users")[0] == userLogin.userId
+                      ? doc.get("users")[1]
+                      : doc.get("users")[0],
+                  postType: doc.get("sellingUser") == userLogin.userId
+                      ? "sale"
+                      : "buy",
+                );
+                return ChatsListTitle(userList: data, userId: userLogin.userId);
+              },
+            ),
+          )
+        : const EmptyScreen(
+            title_1: "You've got no message so far!",
+            btnTitle: "Start To Explore");
   }
 }
 
-
-  // StreamBuilder<QuerySnapshot>(
+// StreamBuilder<QuerySnapshot>(
   //   stream: chatsController.chatsRoom.value,
   //   builder: (context, snapshot) {
   //     if (snapshot.hasError) {
